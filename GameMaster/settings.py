@@ -33,12 +33,23 @@ DEBUG = env('DEBUG')
 # Application definition
 
 INSTALLED_APPS = [
+    'base',
+    'admin_interface',
+    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'rest_auth.registration',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -81,9 +92,9 @@ WSGI_APPLICATION = 'GameMaster.wsgi.application'
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'zlato',
-            'USER': 'zlato',
-            'PASSWORD': 'password',
+            'NAME': 'lottery',
+            'USER': 'postgres',
+            'PASSWORD': '1234567890',
             'HOST': 'localhost',
             'PORT': '',
         }
@@ -109,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
-
+SITE_ID = 1
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
