@@ -5,7 +5,7 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
-      { path: 'SelectionTable',name:'SelectionTable', component: () => import('pages/SelectionTable.vue') ,props: true },
+      { path: 'SelectionTable/:set',name:'SelectionTable', component: () => import('pages/SelectionTable.vue') ,props: true },
     ]
   },
 

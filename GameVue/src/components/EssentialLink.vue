@@ -9,7 +9,6 @@
     </q-item-section>
     <q-item-section class="text-primary" >{{ title }}</q-item-section>
   </q-item>
-
 </template>
 
 <script>
@@ -36,7 +35,8 @@ export default {
   methods:{
     open_set: function (link) {
       this.$router.push({
-        name: 'SelectionTable',
+        path: 'SelectionTable/'+link,
+        name:'SelectionTable',
         params: {
           set: link
         }

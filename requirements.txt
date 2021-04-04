@@ -10,3 +10,6 @@ redis==3.5.3
 requests==2.25.1
 django-rest-auth==0.9.5
 django-rest-framework==0.1.0
+djangorestframework==3.12.4
+django-allauth==0.43.0
+

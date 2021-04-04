@@ -16,10 +16,25 @@ Vue.use(Vuex)
 
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
-    modules: {
-      // example
+    modules: {},
+    state: {
+      selectionState:{
+        'A':[],
+        'B':[],
+        'C':[],
+        'D':[],
+        'E':[],
+        'F':[],
+        'G':[],
+        'H':[],
+        'I':[],
+        'J':[]
+      },
+      lotteryTimings:{},
+      results:{},
     },
-
+    mutations: {},
+    actions: {},
     // enable strict mode (adds overhead!)
     // for dev mode only
     strict: process.env.DEBUGGING
