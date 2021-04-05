@@ -19,22 +19,27 @@ export default function (/* { ssrContext } */) {
     modules: {},
     state: {
       selectionState:{
-        'A':[],
-        'B':[],
-        'C':[],
-        'D':[],
-        'E':[],
-        'F':[],
-        'G':[],
-        'H':[],
-        'I':[],
-        'J':[]
+          C8: {quantity: 2, price: 2}
       },
       lotteryTimings:{},
       results:{},
+      price:2
     },
-    mutations: {},
-    actions: {},
+    mutations: {
+      push_ticket(state, ticket) {
+        state.selectionState[ticket['ticket']] = ticket['quantity']
+      }
+    },
+    actions: {
+      push_ticket ({ commit }, ticket) {
+          commit('push_ticket', ticket)
+       },
+    },
+    getters:{
+      get_instruments: state => {
+      return state.selectionState
+      }
+    },
     // enable strict mode (adds overhead!)
     // for dev mode only
     strict: process.env.DEBUGGING

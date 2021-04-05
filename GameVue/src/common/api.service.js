@@ -1,4 +1,4 @@
-// import { CSRF_TOKEN } from './csrf_token.js'
+import { CSRF_TOKEN } from './csrf_token.js'
 import { LocalStorage } from 'quasar'
 
 function handleResponse (response) {

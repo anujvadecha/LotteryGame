@@ -2,11 +2,9 @@ import logging
 from raven.contrib.django.raven_compat.models import client
 from django.db import transaction
 from django.core.cache import cache
-
 from vendorbase.celery import app
 
 LOGGER = logging.getLogger(__name__)
-
 
 class BaseTask(app.Task):
     """Abstract base class for all tasks in app."""

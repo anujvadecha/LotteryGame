@@ -92,11 +92,32 @@ export default {
   name: 'MainLayout',
   components: {TicketDetailDrawer, TimeHeader, ResultHeader, FooterButtons, EssentialLink},
   // components: { EssentialLink },
+  computed: {
+    logged_in: function () {
+      const token = this.$q.localStorage.getItem('token')
+      if (token === '' || token === null || token === 'null') {
+        return false
+      } else {
+        return true
+      }
+    },
+    currentRouteName: function () {
+      return this.$route.name
+    }
+  },
   data () {
     return {
       essentialLinks: linksData,
       left: false,
       right: false
+    }
+  },
+  created() {
+    if(this.logged_in) {
+
+    }
+    else{
+      this.$router.push('Login')
     }
   }
 }

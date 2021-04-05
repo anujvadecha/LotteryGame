@@ -1,12 +1,19 @@
+import Login from "pages/Login";
 
 const routes = [
   {
     path: '/',
+    name: 'Home',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'SelectionTable/:set',name:'SelectionTable', component: () => import('pages/SelectionTable.vue') ,props: true },
     ]
+  },
+  {
+    path: '/Login',
+    name: 'Login',
+    component :Login
   },
 
   // Always leave this as last one,
