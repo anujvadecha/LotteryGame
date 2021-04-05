@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.admin.utils import quote
 from django.db import models
 from django.urls import reverse, NoReverseMatch
+from django.contrib.auth.models import AbstractUser
+
 
 
 # Create your models here.
