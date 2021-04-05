@@ -25,9 +25,10 @@ environ.Env.read_env()
 SECRET_KEY = env('SECRET_KEY')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'GameMaster.settings')
 # SECURITY WARNING: don't run with debug turned on in production!
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 DEBUG = env('DEBUG')
 
 # Application definition
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_auth.registration',
     'corsheaders',
+    'GameMasterApp'
 ]
 
 MIDDLEWARE = [
@@ -61,7 +63,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 ROOT_URLCONF = 'GameMaster.urls'
 
@@ -90,16 +100,29 @@ WSGI_APPLICATION = 'GameMaster.wsgi.application'
 # DATABASES = {
 #         'default': env.db(var="DATABASE_URL")
 # }
-DATABASES = {
+
+if DEBUG:
+    # Sqlite Database Configuration
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+
+else:
+    # Postgres Database Configuration
+    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'lottery',
-            'USER': 'postgres',
-            'PASSWORD': '1234567890',
+            'NAME': 'GAMEMASTER',
+            'USER': 'game_master',
+            'PASSWORD': 'gamemaster@dinesh',
             'HOST': 'localhost',
             'PORT': '',
         }
     }
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -124,8 +147,6 @@ AUTH_PASSWORD_VALIDATORS = [
 SITE_ID = 1
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
 
 USE_L10N = True
@@ -138,4 +159,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 USE_TZ = True
 TIME_ZONE = 'Asia/Kolkata'
-
+AUTH_USER_MODEL = "GameMasterApp.User"
+ 
