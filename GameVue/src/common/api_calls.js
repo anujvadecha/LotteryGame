@@ -7,9 +7,14 @@ function place_order (order) {
   return apiService(endpoint, 'POST', order)
 }
 
+function get_tickets_for_user () {
+  const endpoint = base_url + '/gamemaster/tickets'
+  return apiService(endpoint, 'GET',null)
+}
+
 export {
   base_url,
   place_order,
   base_websocket_url,
-
+  get_tickets_for_user
 }
