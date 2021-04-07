@@ -19,17 +19,6 @@ function apiService (endpoint, method, data) {
   // D.R.Y. code to make HTTP requests to the REST API backend using fetch
   // const store = this.$store.state.token
   // console.log('inside api service token is' + store)
-  // const config = {
-  //   method: method || 'GET',
-  //   body: data !== undefined ? JSON.stringify(data) : null,
-  //   headers: {
-  //     'content-type': 'application/json',
-  //     'X-CSRFTOKEN': CSRF_TOKEN
-  //   }
-  // }
-  // return fetch(endpoint, config)
-  //   .then(handleResponse)
-  //   .catch(error => console.log(error))
   console.log('requesting with token' + LocalStorage.getItem('token'))
   var axios = require('axios')
   var config = {
@@ -37,7 +26,8 @@ function apiService (endpoint, method, data) {
     url: endpoint,
     headers: {
       Authorization: 'Token ' + LocalStorage.getItem('token'),
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+       // 'X-CSRFTOKEN': CSRF_TOKEN
     },
     data: data
   }

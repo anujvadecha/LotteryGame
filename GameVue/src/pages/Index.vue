@@ -7,10 +7,10 @@ export default {
   name: 'PageIndex',
   created() {
     this.$router.push({
-        path: 'SelectionTable/'+'A',
+        path: '/SelectionTable',
         name:'SelectionTable',
         params: {
-          set: A
+          set: 'A'
         }
       })
   }

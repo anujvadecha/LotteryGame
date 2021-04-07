@@ -4,7 +4,6 @@ import Vuex from 'vuex'
 // import example from './module-example'
 
 Vue.use(Vuex)
-
 /*
  * If not building with SSR mode, you can
  * directly export the Store instantiation;
@@ -19,11 +18,10 @@ export default function (/* { ssrContext } */) {
     modules: {},
     state: {
       selectionState:{
-          C8: {quantity: 2, price: 2}
       },
       lotteryTimings:{},
       results:{},
-      price:2
+      price:10
     },
     mutations: {
       push_ticket(state, ticket) {
@@ -36,7 +34,7 @@ export default function (/* { ssrContext } */) {
        },
     },
     getters:{
-      get_instruments: state => {
+      get_selected: state => {
       return state.selectionState
       }
     },

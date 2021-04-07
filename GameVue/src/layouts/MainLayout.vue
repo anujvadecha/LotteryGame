@@ -16,21 +16,14 @@
         <q-btn color="orange">Results</q-btn>
         <q-btn dense flat round icon="menu" @click="right = !right" />
       </q-toolbar>
-<!--      <q-tabs align="left">-->
-<!--        <q-route-tab to="/page1" label="Page One" />-->
-<!--        <q-route-tab to="/page2" label="Page Two" />-->
-<!--        <q-route-tab to="/page3" label="Page Three" />-->
-<!--      </q-tabs>-->
     </q-header>
     <q-drawer show-if-above v-model="left" side="left" bordered>
       <q-scroll-area class="fit">
         <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link"/>
         </q-scroll-area>
     </q-drawer>
-   <q-drawer show-if-above v-model="right" side="right" bordered>
-     <TicketDetailDrawer></TicketDetailDrawer>
+    <q-drawer show-if-above v-model="right" side="right" bordered>
    </q-drawer>
-
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -86,11 +79,54 @@ const linksData = [
     alias: 'D',
     link:'D',
     mobile: true
-  }]
+  },
+  {
+    title: 'Set E -4',
+    icon: 'mdi-account',
+    alias: 'E',
+    link:'E',
+    mobile: true
+  },
+  {
+    title: 'Set F -4',
+    icon: 'mdi-account',
+    alias: 'F',
+    link:'F',
+    mobile: true
+  },
+  {
+    title: 'Set G -4',
+    icon: 'mdi-account',
+    alias: 'G',
+    link:'G',
+    mobile: true
+  },
+  {
+    title: 'Set H -4',
+    icon: 'mdi-account',
+    alias: 'H',
+    link:'H',
+    mobile: true
+  },
+  {
+    title: 'Set I -4',
+    icon: 'mdi-account',
+    alias: 'I',
+    link:'I',
+    mobile: true
+  },
+  {
+    title: 'Set J -4',
+    icon: 'mdi-account',
+    alias: 'J',
+    link:'J',
+    mobile: true
+  }
+  ]
 
 export default {
   name: 'MainLayout',
-  components: {TicketDetailDrawer, TimeHeader, ResultHeader, FooterButtons, EssentialLink},
+  components: {TimeHeader, ResultHeader, FooterButtons, EssentialLink},
   // components: { EssentialLink },
   computed: {
     logged_in: function () {

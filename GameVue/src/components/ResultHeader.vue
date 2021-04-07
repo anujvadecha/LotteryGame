@@ -1,9 +1,9 @@
 <template>
 <div class="row">
   <div style=""><span style="font-size: xx-large">{{resultTime[0]}}</span></div>
-  <q-btn v-for="result in lastResult"
+  <q-btn unelevated v-for="result in lastResult"
          class="q-ml-sm"
-         color="pink"
+         color="orange"
        :key="result">{{result}}</q-btn>
   <q-btn @click="logout()">Logout</q-btn>
 </div>
