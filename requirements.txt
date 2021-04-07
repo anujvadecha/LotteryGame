@@ -12,7 +12,6 @@ click-repl==0.1.6
 cryptography==3.4.7
 defusedxml==0.7.1
 Django==3.1.7
-django-admin-interface==0.16.0
 django-allauth==0.43.0
 django-celery-beat==2.1.0
 django-celery-results==2.0.0

@@ -1,8 +1,30 @@
 from django.contrib import admin
-
-# Register your models here.
 from GameMasterApp.models import *
 
-admin.site.register(User)
-admin.site.register(Ticket)
-admin.site.register(TicketID)
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Ticket)
+class TicketAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(TicketID)
+class TicketAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Agent)
+class AgentAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Region)
+class RegionAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(RegionalManager)
+class RegionalManagerAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Admin)
+class AdminAdmin(admin.ModelAdmin):
+    pass
