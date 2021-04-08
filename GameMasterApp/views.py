@@ -44,11 +44,6 @@ BuyTickets = BuyTicketsAPI.as_view()
 
 
 class LotteryTimingsAPI(APIView):
-<<<<<<< HEAD
-
-=======
-
->>>>>>> bb18a0f33b4c99b3ce765b4f4cfede338e1f361b
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
