@@ -18,10 +18,11 @@ export default function (/* { ssrContext } */) {
     modules: {},
     state: {
       selectionState:{
+
       },
-      lotteryTimings:{},
-      results:{},
-      price:10
+      lotteryTimings:[ new Date(1617878700000) ,new Date(1617879600000) ],
+      results: {},
+      price : 10
     },
     mutations: {
       push_ticket(state, ticket) {
@@ -35,9 +36,23 @@ export default function (/* { ssrContext } */) {
     },
     getters:{
       get_selected: state => {
-      return state.selectionState
+        return state.selectionState
+      },
+      get_next_lottery: state => {
+        console.log("date is"+new Date());
+        for (var i = 0; i < state.lotteryTimings; i++) {
+           console.log(state.lotteryTimings[i])
+            if( new Date() > state.lotteryTimings[i]) {
+              console.log("passed lottery")
+            }
+            else{
+              console.log("later lottery")
+            }
+        }
+        return 1
       }
     },
+
     // enable strict mode (adds overhead!)
     // for dev mode only
     strict: process.env.DEBUGGING

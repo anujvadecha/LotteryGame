@@ -51,6 +51,7 @@ import FooterButtons from "components/FooterButtons";
 import ResultHeader from "components/ResultHeader";
 import TimeHeader from "components/TimeHeader";
 import TicketDetailDrawer from "components/TicketDetailDrawer";
+import {get_lottery_timings} from "src/common/api_calls";
 const linksData = [
   {
     title: 'Set A -1',
@@ -149,6 +150,11 @@ export default {
     }
   },
   created() {
+    get_lottery_timings().then(lottery_timings => {
+      this.$store.state.lotteryTimings=lottery_timings;
+    })
+    console.log(this.$store.getters.get_next_lottery)
+    console.log("Lottery timings are "+this.$store.state.lotteryTimings)
     if(this.logged_in) {
 
     }

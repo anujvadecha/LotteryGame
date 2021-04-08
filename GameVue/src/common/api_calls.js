@@ -13,7 +13,7 @@ function get_tickets_for_user () {
 }
 
 function get_lottery_timings(){
-  const endpoint = base_url + '/gamemaster/lottery'
+  const endpoint = base_url + '/gamemaster/lottery_timings'
   return apiService(endpoint, 'GET',null)
 }
 
@@ -23,5 +23,6 @@ export {
   base_url,
   place_order,
   base_websocket_url,
-  get_tickets_for_user
+  get_tickets_for_user,
+  get_lottery_timings
 }
