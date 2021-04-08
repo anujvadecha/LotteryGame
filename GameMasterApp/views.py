@@ -7,7 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, HttpResponse,HttpResponseRedirect
 from rest_framework.response import Response
 from GameMasterApp.models import *
-from datetime import datetime
+from datetime import datetime,date,time
+from pytz import timezone
 
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
@@ -49,11 +50,15 @@ class LotteryTimingsAPI(APIView):
         response = {}
         response['status_code'] = 500
         try:
+            IST = timezone('Asia/Kolkata')
             print("Lottery timings")
             current_time = datetime.now()
             closest_time = Lottery.objects.filter(time__gte=current_time)[0].time
             response['closest_time'] = closest_time
-            timings_of_lottery = Lottery.objects.filter(time__day=current_time.day())
+            print(datetime.today())
+            today_min = datetime.combine(date.today(), time.min)
+            today_max = datetime.combine(date.today(), time.max)
+            timings_of_lottery = Lottery.objects.filter(time__range=(today_min, today_max)).values_list('time',flat=True)
             response['timings_of_lottery'] = timings_of_lottery
             response['status_code'] = 200
         except Exception as e:
