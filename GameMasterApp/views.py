@@ -43,8 +43,8 @@ BuyTickets = BuyTicketsAPI.as_view()
 
 
 class LotteryTimingsAPI(APIView):
-    
-    # permission_classes = [IsAuthenticated]
+
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         response = {}
@@ -53,8 +53,12 @@ class LotteryTimingsAPI(APIView):
             IST = timezone('Asia/Kolkata')
             print("Lottery timings")
             current_time = datetime.now()
-            closest_time = Lottery.objects.filter(time__gte=current_time)[0].time
-            response['closest_time'] = closest_time
+            closest_time = Lottery.objects.filter(time__gte=current_time)
+            if closest_time:
+                closest_time=closest_time[0].time
+                response['closest_time'] = closest_time
+            else:
+                response['closest_time'] = None
             print(datetime.today())
             today_min = datetime.combine(date.today(), time.min)
             today_max = datetime.combine(date.today(), time.max)
