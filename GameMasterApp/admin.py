@@ -10,7 +10,7 @@ class TicketAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(TicketID)
-class TicketAdmin(admin.ModelAdmin):
+class TicketIDAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Agent)
@@ -28,3 +28,8 @@ class RegionalManagerAdmin(admin.ModelAdmin):
 @admin.register(Admin)
 class AdminAdmin(admin.ModelAdmin):
     pass
+
+class LotteryAdmin(admin.ModelAdmin):
+	list_display = ('time', 'winners','active')
+
+admin.site.register(Lottery,LotteryAdmin)

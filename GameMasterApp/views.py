@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, HttpResponse,HttpResponseRedirect
 from rest_framework.response import Response
 from GameMasterApp.models import *
+from datetime import datetime
 
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
@@ -24,10 +25,8 @@ class BuyTicketsAPI(APIView):
         response['status_code'] = 500
         try:
             data = request.data
-            print(data)
             ticket_id = TicketID.objects.create(user=request.user)
             for key,value in data.items():
-                print(key)
                 ticket = Ticket.objects.create(user=request.user,set_ticket=key,quantity=value["quantity"],price=value["price"])
                 ticket_id.ticket_set.add(ticket)
             ticket_id.save()
@@ -40,3 +39,27 @@ class BuyTicketsAPI(APIView):
         return Response(data=response)
 
 BuyTickets = BuyTicketsAPI.as_view()
+
+
+class LotteryTimingsAPI(APIView):
+    
+    # permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        response = {}
+        response['status_code'] = 500
+        try:
+            print("Lottery timings")
+            current_time = datetime.now()
+            closest_time = Lottery.objects.filter(time__gte=current_time)[0].time
+            response['closest_time'] = closest_time
+            timings_of_lottery = Lottery.objects.filter(time__day=current_time.day())
+            response['timings_of_lottery'] = timings_of_lottery
+            response['status_code'] = 200
+        except Exception as e:
+            print(e)
+            response = json.dumps(response)
+        return Response(data=response)
+
+LotteryTimings = LotteryTimingsAPI.as_view()
+

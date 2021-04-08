@@ -10,7 +10,7 @@ from base.models import *
 
 
 class User(AbstractUser):
-    phone_number=models.CharField(default="",blank=True,null=True)
+    phone_number=models.CharField(default="",max_length=256,blank=True,null=True)
     address = models.TextField(default="", blank=True, null=True)
 
     def name(self):
@@ -69,7 +69,7 @@ class TicketID(BaseModel):
     total_price = models.IntegerField(default=0, blank=False, null=False)
     total_quantity = models.IntegerField(default=0, blank=False, null=False)
     is_completed = models.BooleanField(default=False)
-    lottery = models.ForeignKey(Lottery,on_delete=models.SET_NULL)
+    lottery = models.ForeignKey(Lottery,on_delete=models.SET_NULL,null=True,blank=True)
     returns = models.IntegerField()
 
     def save(self, *args, **kwargs):
