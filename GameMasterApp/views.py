@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from GameMasterApp.models import *
 from datetime import datetime,date,time
 from pytz import timezone
+from django.core import serializers
 
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
@@ -44,18 +45,16 @@ BuyTickets = BuyTicketsAPI.as_view()
 
 class LotteryTimingsAPI(APIView):
     
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         response = {}
         response['status_code'] = 500
         try:
             IST = timezone('Asia/Kolkata')
-            print("Lottery timings")
             current_time = datetime.now()
             closest_time = Lottery.objects.filter(time__gte=current_time)[0].time
             response['closest_time'] = closest_time
-            print(datetime.today())
             today_min = datetime.combine(date.today(), time.min)
             today_max = datetime.combine(date.today(), time.max)
             timings_of_lottery = Lottery.objects.filter(time__range=(today_min, today_max)).values_list('time',flat=True)
@@ -67,4 +66,32 @@ class LotteryTimingsAPI(APIView):
         return Response(data=response)
 
 LotteryTimings = LotteryTimingsAPI.as_view()
+
+
+
+class LotteryWinnersAPI(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        response = {}
+        response['status_code'] = 500
+        try:
+            data = request.POST
+            lottery_time = data["lottery_time"]
+            date_object = datetime.fromtimestamp(int(lottery_time)/1000)
+            lottery_obj = Lottery.objects.filter(time=date_object)
+            if lottery_obj:
+                lottery_winners_ticket = json.loads(lottery_obj[0].winners)
+            else:
+                lottery_winners_ticket = []
+            response['lottery_winners_ticket'] = lottery_winners_ticket
+            response['status_code'] = 200
+        except Exception as e:
+            print(e)
+            response = json.dumps(response)
+        return Response(data=response)
+
+LotteryWinners = LotteryWinnersAPI.as_view()
+
+
 

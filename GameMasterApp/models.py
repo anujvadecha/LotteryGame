@@ -57,6 +57,7 @@ class Lottery(BaseModel):
     time = models.DateTimeField(null=True, blank=True)
     winners = models.CharField(default="[]", blank=True, max_length=5000)
     active = models.BooleanField(default=True)
+    completed = models.BooleanField(default=False)
     # total_credit = models.IntegerField()
     # total_debit = models.IntegerField()
     # def win_percent(self):
