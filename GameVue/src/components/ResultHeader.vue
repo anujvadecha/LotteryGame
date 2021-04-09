@@ -1,11 +1,15 @@
 <template>
 <div class="row">
-  <div style=""><span style="font-size: xx-large">{{resultTime[0]}}</span></div>
-  <q-btn unelevated v-for="result in lastResult"
-         class="q-ml-sm"
-         color="orange"
-       :key="result">{{result}}</q-btn>
-  <q-btn @click="logout()">Logout</q-btn>
+  <div class="" style=""><span style="font-size: xx-large">{{resultTime[0]}}</span></div>
+
+  <div  v-for="result in lastResult"
+         class="text-black bg-white"
+          style="height: 100%; "
+       :key="result">
+    <div class="q-ma-sm q-pa-sm" style="background-color: lightpink; ;font-size: x-large" >{{result}}</div>
+    <div class="q-ma-sm q-pa-sm" style="background-color: lightpink; ;font-size: x-large" >
+      {{result }}</div>
+  </div>
 </div>
 </template>
 <script>

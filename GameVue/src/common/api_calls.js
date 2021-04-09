@@ -19,8 +19,8 @@ function get_lottery_timings(){
 
 function get_winners(data){
   //TO SEND UNIX TIME TO {'lottery_time':1213213213}
-  const endpoint = base_url + '/gamemaster/lottery_winners/'
-  return apiService(endpoint, 'POST',data)
+  const endpoint = base_url + '/gamemaster/lottery_winners?'+'lottery_time='+data
+  return apiService(endpoint, 'POST',null)
 }
 
 
