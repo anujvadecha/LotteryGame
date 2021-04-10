@@ -66,12 +66,11 @@ class TicketID(BaseModel):
     total_quantity = models.IntegerField(default=0, blank=False, null=False)
     is_completed = models.BooleanField(default=False)
     lottery = models.ForeignKey(Lottery,on_delete=models.SET_NULL,null=True,blank=True)
-    returns = models.IntegerField()
+    returns = models.IntegerField(default=0,null=True,blank=True)
 
     def save(self, *args, **kwargs):
         try:
             all_tickets = self.ticket_set.all()
-            print(all_tickets)
             price = 0
             quantity = 0
             for items in all_tickets:
@@ -102,5 +101,3 @@ class Admin(BaseModel):
     agents = models.ManyToManyField(Agent, blank=True)
     players = models.ManyToManyField(Players, blank=True)
 
-class CompanyName(BaseModel):
-    name = models.CharField(default="Shree Dinesh",max_length=500,null=False,blank=False)

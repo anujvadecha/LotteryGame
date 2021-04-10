@@ -20,7 +20,7 @@ export default function (/* { ssrContext } */) {
       selectionState:{},
       lotteryTimings:[ new Date(1617878700000) ,new Date(1617879600000) ],
       nextLottery:null,
-      results: {},
+      results: {'A':'', 'B':'','C': '','D': '','E' :'','F': '','G': '','H': '','I': '','J': ''},
       price : 10,
       inputs: {
         A: {
@@ -1053,14 +1053,15 @@ export default function (/* { ssrContext } */) {
         },
       },
       selectedSets:{A:false,B:false,C:false,D:false,E:false,F:false,G:false,H:false,I:false,J:false},
-      setPoints:{A:2,B:2,C:2,D:2,E:2,F:2,G:2,H:2,I:2,J:2}
+      setPoints:{A:2,B:2,C:2,D:2,E:2,F:2,G:2,H:2,I:2,J:2},
+      previousLottery:null
     },
     mutations: {
       push_ticket(state, ticket) {
         state.selectionState[ticket['ticket']] = ticket['quantity']
       },
       set_lottery_timings(state,timings) {
-        state.lotteryTimings=timings
+        state.lotteryTimings = timings
       },
       set_next_lottery(state) {
         for (var i = 0; i < state.lotteryTimings.length; i++) {
@@ -1071,6 +1072,18 @@ export default function (/* { ssrContext } */) {
               console.log("lottery after")
               console.log("setting next lottery as"+state.lotteryTimings[i])
               state.nextLottery = state.lotteryTimings[i];
+              break;
+            }
+        }
+      },
+      set_previous_lottery(state) {
+        for (var i = 0; i < state.lotteryTimings.length; i++) {
+            if(compareDate(new Date() , state.lotteryTimings[i]) > 0) {
+
+            }
+            else{
+              console.log("setting previous lottery")
+              state.previousLottery = state.lotteryTimings[i-1];
               break;
             }
         }
@@ -1099,6 +1112,10 @@ export default function (/* { ssrContext } */) {
       set_next_lottery({commit}) {
         console.log("setting next lottery")
         commit('set_next_lottery')
+      },
+      set_previous_lottery({commit}) {
+        console.log("setting previous lottery")
+        commit('set_previous_lottery')
       },
       change_selected_sets({commit},selected) {
         commit('change_selected_sets',selected)

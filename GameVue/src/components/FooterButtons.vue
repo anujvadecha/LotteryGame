@@ -1,9 +1,6 @@
 <template>
 <div>
-  <q-btn class="bg-purple q-ml-md" @click="place_ticket_order()">Buy</q-btn>
-  <q-btn class="bg-purple q-ml-md">Reset</q-btn>
-  <q-btn class="bg-purple q-ml-md">Transaction Detail</q-btn>
-  <q-btn class="bg-purple q-ml-md">Refresh</q-btn>
+
 </div>
 </template>
 

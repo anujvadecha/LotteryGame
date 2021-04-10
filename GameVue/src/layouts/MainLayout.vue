@@ -25,15 +25,7 @@
       <router-view/>
     </q-page-container>
     <q-footer bordered class=" text-white">
-      <q-toolbar>
-        <q-toolbar-title>
-          <q-avatar>
-            <!--            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">-->
-          </q-avatar>
-          Lottery game
-        </q-toolbar-title>
-        <FooterButtons></FooterButtons>
-      </q-toolbar>
+      <Footer></Footer>
     </q-footer>
 
   </q-layout>
@@ -43,7 +35,6 @@
 // import EssentialLink from 'components/EssentialLink.vue'
 
 // import EssentialLink from "components/EssentialLink";
-import FooterButtons from "components/FooterButtons";
 import ResultHeader from "components/ResultHeader";
 import TimeHeader from "components/TimeHeader";
 import TicketDetailDrawer from "components/TicketDetailDrawer";
@@ -124,9 +115,10 @@ const linksData = [
 import MarqueeText from 'vue-marquee-text-component'
 import OptionsHeader from "components/OptionsHeader";
 import SelectionHeader from "components/SelectionHeader";
+import Footer from "components/Footer";
 export default {
   name: 'MainLayout',
-  components: {SelectionHeader, OptionsHeader, TimeHeader, ResultHeader, FooterButtons,MarqueeText},
+  components: {Footer, SelectionHeader, OptionsHeader, TimeHeader, ResultHeader,MarqueeText},
   // components: { EssentialLink },
   methods:{
     changeMainSelectedStates:function () {
@@ -165,17 +157,23 @@ export default {
       )
       this.$store.dispatch('set_lottery_timings', timings)
       this.$store.dispatch('set_next_lottery', timings)
-      const nextLottery=this.$store.getters.get_next_lottery;
-      console.log("next lottery is "+nextLottery)
+      this.$store.dispatch('set_previous_lottery', timings)
+      const nextLottery = this.$store.getters.get_next_lottery;
+      console.log("next lottery is " + nextLottery)
+      console.log({"lottery_time":nextLottery.getTime()});
+      get_winners({"lottery_time":nextLottery.getTime()}).then(
+        res=>{
+        console.log(res)
+          this.$store.state.results = res.lottery_winners_ticket
+        }
+      )
+      //TODO
       // setInterval(function (){
-      // get_winners(nextLottery.getTime())
-    // },1000)
-      console.log(timings)
-    }).then(
-
-    )
-    // const store=this.$store;
-
+      //
+      // console.log(timings)
+      // })
+      // const store=this.$store;
+    });
     if (this.logged_in) {
 
     } else {
