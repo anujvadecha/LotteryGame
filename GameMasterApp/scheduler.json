@@ -1,0 +1,3 @@
+{
+	"command": "cd ~/GameMaster/ && . ../venv/bin/activate && python manage.py shell < GameMasterApp/scheduler.py"
+}

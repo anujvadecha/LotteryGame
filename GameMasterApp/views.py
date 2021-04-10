@@ -66,6 +66,7 @@ class LotteryTimingsAPI(APIView):
             today_max = datetime.combine(date.today(), time.max)
             timings_of_lottery = Lottery.objects.filter(time__range=(today_min, today_max)).values_list('time',flat=True)
             response['timings_of_lottery'] = timings_of_lottery
+            response['company_name'] = CompanyName.objects.all()[0].name
             response['status_code'] = 200
         except Exception as e:
             print(e)
