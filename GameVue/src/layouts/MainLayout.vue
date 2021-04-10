@@ -51,7 +51,7 @@ import FooterButtons from "components/FooterButtons";
 import ResultHeader from "components/ResultHeader";
 import TimeHeader from "components/TimeHeader";
 import TicketDetailDrawer from "components/TicketDetailDrawer";
-import {get_lottery_timings} from "src/common/api_calls";
+import {get_lottery_timings, get_winners} from "src/common/api_calls";
 
 const linksData = [
   {
@@ -151,7 +151,6 @@ export default {
     }
   },
   created() {
-
     get_lottery_timings().then(lottery_timings => {
       console.log(lottery_timings)
       var timings = lottery_timings.timings_of_lottery.map(time => {
@@ -159,10 +158,18 @@ export default {
         }
       )
       this.$store.dispatch('set_lottery_timings', timings)
+      this.$store.dispatch('set_next_lottery', timings)
+      const nextLottery=this.$store.getters.get_next_lottery;
+      console.log("next lottery is "+nextLottery)
+      // setInterval(function (){
+      // get_winners(nextLottery.getTime())
+    // },1000)
       console.log(timings)
     }).then(
-      console.log(this.$store.getters.get_next_lottery)
+
     )
+    // const store=this.$store;
+
     if (this.logged_in) {
 
     } else {
