@@ -5,10 +5,6 @@ from django.contrib.auth.models import AbstractUser
 from base.models import *
 
 
-# credit  1000 0 1000 txnid null
-#
-
-
 class User(AbstractUser):
     phone_number=models.CharField(default="",max_length=256,blank=True,null=True)
     address = models.TextField(default="", blank=True, null=True)

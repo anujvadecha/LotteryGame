@@ -101,5 +101,29 @@ class LotteryWinnersAPI(APIView):
 
 LotteryWinners = LotteryWinnersAPI.as_view()
 
+class LotteryWinnersPreviousAPI(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        response = {}
+        response['status_code'] = 500
+        try:
+            data = request.POST
+            lottery_time = data["lottery_time"]
+            date_object = datetime.fromtimestamp(int(lottery_time)/1000)
+            lottery_obj = Lottery.objects.filter(time__lte=date_object)
+            if lottery_obj:
+                lottery_winners_ticket = json.loads(lottery_obj[0].winners)
+            else:
+                lottery_winners_ticket = []
+            response['lottery_winners_ticket'] = lottery_winners_ticket
+            response['status_code'] = 200
+        except Exception as e:
+            print(e)
+            response = json.dumps(response)
+        return Response(data=response)
+
+LotteryWinnersPrevious = LotteryWinnersPreviousAPI.as_view()
+
 
 
