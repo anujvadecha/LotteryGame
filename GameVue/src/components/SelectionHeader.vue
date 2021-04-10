@@ -1,5 +1,5 @@
 <template>
-<div class="row" style="background-color:#ffff00;color: black ">
+<div class="row" style="background-color:#ffff00;color: black">
   <div class="col-5">
     <div class="row">
     <q-btn class="col" color="" unelevated outline>2D Coupon</q-btn>
@@ -17,9 +17,9 @@
       <div class="col"></div>
     </div>
   </div>
-  <div class="col" style="background-color: lightgrey" >
+  <div class="col" style="background-color: #eef8ff" >
     <div class="row"></div>
-    <div class="row" style="background-color: lightgrey">
+    <div class="row" style="background-color: #eef8ff">
     <div class="col-8">
       <q-option-group
       v-model="group"

@@ -124,8 +124,6 @@ export default function (/* { ssrContext } */) {
           "97":null,
           "98":null,
           "99": null,
-          "100":null
-
         },
         B: {
           "0": null,
@@ -228,7 +226,6 @@ export default function (/* { ssrContext } */) {
           "97":null,
           "98":null,
           "99": null,
-          "100":null
 
         },
         C: {
@@ -1055,7 +1052,8 @@ export default function (/* { ssrContext } */) {
           "100":null
         },
       },
-      selectedSets:{A:false,B:false,C:false,D:false,E:false,F:false,G:false,H:false,I:false,J:false}
+      selectedSets:{A:false,B:false,C:false,D:false,E:false,F:false,G:false,H:false,I:false,J:false},
+      setPoints:{A:2,B:2,C:2,D:2,E:2,F:2,G:2,H:2,I:2,J:2}
     },
     mutations: {
       push_ticket(state, ticket) {

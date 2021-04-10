@@ -34,13 +34,7 @@ export default {
   },
   methods:{
     open_set: function (link) {
-      this.$router.push({
-        path: 'SelectionTable/'+link,
-        name:'SelectionTable',
-        params: {
-          set: link
-        }
-      })
+
     }
   }
 }

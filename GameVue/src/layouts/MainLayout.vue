@@ -18,25 +18,12 @@
 <!--        <q-btn dense flat round icon="menu" @click="right = !right"/>-->
 <!--      </q-toolbar>-->
     </q-header>
-    <q-drawer  persistent  v-model="left" side="left" bordered>
-      <div v-for="link in essentialLinks" :key="link.title" >
-          <div class="col" style="background-color: white">
-            <div class="q-ma-sm q-pa-sm" style="background-color: #ba56d4; color: white;">
-            <q-checkbox dense @input="changeMainSelectedStates()" v-model="selectedSets[link.alias]" :value="true"></q-checkbox> {{link.title}}
-            </div>
-          </div>
-      </div>
-<!--      <q-scroll-area class="fit">-->
-<!--        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link"/>-->
-<!--      </q-scroll-area>-->
 
-    </q-drawer>
 <!--    <q-drawer show-if-above v-model="right" side="right" bordered>-->
 <!--    </q-drawer>-->
     <q-page-container>
       <router-view/>
     </q-page-container>
-
     <q-footer bordered class=" text-white">
       <q-toolbar>
         <q-toolbar-title>
@@ -155,9 +142,6 @@ export default {
       } else {
         return true
       }
-    },
-    selectedSetsComputed:function(){
-      return this.$store.state.selectedSets
     },
     currentRouteName: function () {
       return this.$route.name
