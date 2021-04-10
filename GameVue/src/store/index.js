@@ -32,12 +32,9 @@ export default function (/* { ssrContext } */) {
       },
       set_next_lottery(state) {
         for (var i = 0; i < state.lotteryTimings.length; i++) {
-            if(compareDate(new Date() , state.lotteryTimings[i]) > 0) {
-
+            if(compareDate(new Date() , state.lotteryTimings[i]) <1 ) {
             }
             else{
-              console.log("lottery after")
-              console.log("setting next lottery as"+state.lotteryTimings[i])
               state.nextLottery = state.lotteryTimings[i];
               break;
             }
@@ -49,11 +46,9 @@ export default function (/* { ssrContext } */) {
           commit('push_ticket', ticket)
        },
       set_lottery_timings({commit},timings) {
-        console.log("setting lottery timings")
         commit('set_lottery_timings',timings)
       },
       set_next_lottery({commit}) {
-        console.log("setting next lottery")
         commit('set_next_lottery')
 
       }
@@ -64,10 +59,19 @@ export default function (/* { ssrContext } */) {
         return state.selectionState
       },
       get_next_lottery: state => {
-        return state.nextLottery
-      },
-      get_last_lottery_time:state => {
-
+        console.log("date is"+new Date());
+        console.log(state.lotteryTimings)
+        for (var i = 0; i < state.lotteryTimings.length; i++) {
+            if(compareDate(new Date() , state.lotteryTimings[i]) <1 ) {
+              console.log("passed lottery")
+            }
+            else{
+              console.log("later lottery")
+              state.nextLottery = state.lotteryTimings[i];
+              break;
+            }
+        }
+        return 1
       }
     },
 

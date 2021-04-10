@@ -29,10 +29,7 @@ class RegionalManagerAdmin(admin.ModelAdmin):
 class AdminAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Lottery)
 class LotteryAdmin(admin.ModelAdmin):
 	list_display = ('time', 'winners','active')
 
-@admin.register(Players)
-class Players(admin.ModelAdmin):
-   pass
+admin.site.register(Lottery,LotteryAdmin)

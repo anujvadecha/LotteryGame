@@ -52,8 +52,6 @@ class Ticket(BaseModel):
             print(e)
             return 0
 
-    def __str__(self):
-        return self.set_ticket+" : "+str(self.quantity)
 
 class Lottery(BaseModel):
     time = models.DateTimeField(null=True, blank=True)
