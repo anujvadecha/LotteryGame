@@ -33,3 +33,4 @@ class LotteryAdmin(admin.ModelAdmin):
 	list_display = ('time', 'winners','active')
 
 admin.site.register(Lottery,LotteryAdmin)
+

@@ -1,5 +1,5 @@
 <template>
-  <div class="row" style="min-height: parent">
+  <div class="row" style="">
       <div class="col-3" style="background-color: lightpink">
       <div class="row" style="background-color: white;height: 9.09%">
         <div class="q-ma-sm" style='background-color: #ba56d4; color: white;width: 400px' >

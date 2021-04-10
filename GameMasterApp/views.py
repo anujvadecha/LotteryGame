@@ -28,6 +28,7 @@ class BuyTicketsAPI(APIView):
         try:
             data = request.data
             ticket_id = TicketID.objects.create(user=request.user)
+            print(f"Ticket created is {ticket_id}")
             for key,value in data.items():
                 ticket = Ticket.objects.create(user=request.user,set_ticket=key,quantity=value["quantity"],price=value["price"])
                 ticket_id.ticket_set.add(ticket)
@@ -66,7 +67,6 @@ class LotteryTimingsAPI(APIView):
             today_max = datetime.combine(date.today(), time.max)
             timings_of_lottery = Lottery.objects.filter(time__range=(today_min, today_max)).values_list('time',flat=True)
             response['timings_of_lottery'] = timings_of_lottery
-            response['company_name'] = CompanyName.objects.all()[0].name
             response['status_code'] = 200
         except Exception as e:
             print(e)
@@ -84,7 +84,8 @@ class LotteryWinnersAPI(APIView):
         response = {}
         response['status_code'] = 500
         try:
-            data = request.POST
+            data = request.data
+            print(data)
             lottery_time = data["lottery_time"]
             date_object = datetime.fromtimestamp(int(lottery_time)/1000)
             lottery_obj = Lottery.objects.filter(time=date_object)
