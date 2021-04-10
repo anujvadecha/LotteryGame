@@ -1,29 +1,38 @@
 <template>
   <q-layout view="hHh lpR fFf">
     <q-header bordered class="bg-primary text-white" height-hint="98">
-      <q-toolbar style="background-color: red">
+<!--      <q-toolbar style="background-color: red">-->
         <ResultHeader></ResultHeader>
-      </q-toolbar>
-      <TimeHeader>
-      </TimeHeader>
-      <q-toolbar style="background-color: black">
-        <q-btn dense flat round icon="menu" @click="left = !left"/>
-        <q-toolbar-title>
-          <q-avatar>
-          </q-avatar>
-          Lottery game
-        </q-toolbar-title>
-        <q-btn color="orange">Results</q-btn>
-        <q-btn dense flat round icon="menu" @click="right = !right"/>
-      </q-toolbar>
+<!--      </q-toolbar>-->
+      <TimeHeader></TimeHeader>
+      <div style="background-color: black; color: red">
+      <MarqueeText style="background-color: black; ">
+        {{marquee}}
+      </MarqueeText>
+      </div>
+      <OptionsHeader></OptionsHeader>
+      <SelectionHeader></SelectionHeader>
+<!--      <q-toolbar style="background-color: black">-->
+<!--        <q-btn dense flat round icon="menu" @click="left = !left"/>-->
+<!--        <q-btn color="orange">Results</q-btn>-->
+<!--        <q-btn dense flat round icon="menu" @click="right = !right"/>-->
+<!--      </q-toolbar>-->
     </q-header>
-    <q-drawer show-if-above v-model="left" side="left" bordered>
-      <q-scroll-area class="fit">
-        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link"/>
-      </q-scroll-area>
+    <q-drawer  persistent  v-model="left" side="left" bordered>
+      <div v-for="link in essentialLinks" :key="link.title" >
+          <div class="col" style="background-color: white">
+            <div class="q-ma-sm q-pa-sm" style="background-color: #ba56d4; color: white;">
+            <q-checkbox dense @input="changeMainSelectedStates()" v-model="selectedSets[link.alias]" :value="true"></q-checkbox> {{link.title}}
+            </div>
+          </div>
+      </div>
+<!--      <q-scroll-area class="fit">-->
+<!--        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link"/>-->
+<!--      </q-scroll-area>-->
+
     </q-drawer>
-    <q-drawer show-if-above v-model="right" side="right" bordered>
-    </q-drawer>
+<!--    <q-drawer show-if-above v-model="right" side="right" bordered>-->
+<!--    </q-drawer>-->
     <q-page-container>
       <router-view/>
     </q-page-container>
@@ -46,7 +55,7 @@
 <script>
 // import EssentialLink from 'components/EssentialLink.vue'
 
-import EssentialLink from "components/EssentialLink";
+// import EssentialLink from "components/EssentialLink";
 import FooterButtons from "components/FooterButtons";
 import ResultHeader from "components/ResultHeader";
 import TimeHeader from "components/TimeHeader";
@@ -125,11 +134,19 @@ const linksData = [
     mobile: true
   }
 ]
-
+import MarqueeText from 'vue-marquee-text-component'
+import OptionsHeader from "components/OptionsHeader";
+import SelectionHeader from "components/SelectionHeader";
 export default {
   name: 'MainLayout',
-  components: {TimeHeader, ResultHeader, FooterButtons, EssentialLink},
+  components: {SelectionHeader, OptionsHeader, TimeHeader, ResultHeader, FooterButtons,MarqueeText},
   // components: { EssentialLink },
+  methods:{
+    changeMainSelectedStates:function () {
+      console.log("changing state")
+      this.$store.dispatch('change_selected_sets',this.selectedSets)
+    }
+  },
   computed: {
     logged_in: function () {
       const token = this.$q.localStorage.getItem('token')
@@ -139,6 +156,9 @@ export default {
         return true
       }
     },
+    selectedSetsComputed:function(){
+      return this.$store.state.selectedSets
+    },
     currentRouteName: function () {
       return this.$route.name
     }
@@ -146,9 +166,11 @@ export default {
   data() {
     return {
       essentialLinks: linksData,
-      left: false,
-      right: false
-    }
+      left: true,
+      right: false,
+      marquee:"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.",
+      selectedSets:{A:false,B:false,C:false,D:false,E:false,F:false,G:false,H:false,I:false,J:false}
+   }
   },
   created() {
     get_lottery_timings().then(lottery_timings => {
