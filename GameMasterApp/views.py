@@ -75,8 +75,6 @@ class LotteryTimingsAPI(APIView):
 
 LotteryTimings = LotteryTimingsAPI.as_view()
 
-
-
 class LotteryWinnersAPI(APIView):
     permission_classes = [IsAuthenticated]
 
