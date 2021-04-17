@@ -2,6 +2,26 @@ import Login from "pages/Login";
 
 const routes = [
   {
+    path: '/Results',
+    name: 'Results',
+    component: () => import('pages/Results.vue'),
+  },
+  {
+    path: '/TxnDetails',
+    name: 'TxnDetails',
+    component: () => import('pages/TxnDetails.vue'),
+  },
+  {
+    path: '/MoreDraws',
+    name: 'MoreDraws',
+    component: () => import('pages/MoreDraws.vue'),
+  },
+  {
+    path: '/MyAccounts',
+    name: 'MyAccounts',
+    component: () => import('pages/MyAccounts.vue'),
+  },
+  {
     path: '/',
     name: 'Home',
     component: () => import('layouts/MainLayout.vue'),
@@ -15,7 +35,6 @@ const routes = [
     name: 'Login',
     component :Login
   },
-
   // Always leave this as last one,
   // but you can also remove it
   {

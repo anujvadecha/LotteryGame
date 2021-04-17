@@ -5,7 +5,7 @@
   <div class="" style="background-color: #ffa400 ;font-weight: bold;color: black;font-size: large">Current Time{{get_current_time}}</div>
   </div>
   <div class="col text-center" style="background-color: #ee82ef">
-     <div style="color: black" class="text-center font-bold q-ma-md"> Nayan jains lottery</div>
+     <div style="color: black" class="text-center font-bold q-ma-md"> DHINESH BHAIS lottery</div>
   </div>
   <div class="col">
     <div class="row " style="background-color: #a4ff01 ;font-weight: bold;color: black;font-size: large">

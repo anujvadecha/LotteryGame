@@ -13,8 +13,13 @@ function get_tickets_for_user () {
 }
 
 function get_lottery_timings(){
-  const endpoint = base_url + '/gamemaster/lottery_timings'
+  const endpoint = base_url + '/gamemaster/lottery_timings/'
   return apiService(endpoint, 'GET',null)
+}
+
+function get_lottery_previous(data){
+  const endpoint = base_url + '/gamemaster/lottery_winners_previous/'
+  return apiService(endpoint, 'POST',data)
 }
 
 function get_winners(data){
@@ -31,5 +36,6 @@ export {
   base_websocket_url,
   get_tickets_for_user,
   get_lottery_timings,
-  get_winners
+  get_winners,
+  get_lottery_previous
 }

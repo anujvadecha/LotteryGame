@@ -19,8 +19,8 @@ export default function (/* { ssrContext } */) {
     state: {
       selectionState:{},
       lotteryTimings:[ new Date(1617878700000) ,new Date(1617879600000) ],
-      nextLottery:null,
-      results: {'A':'', 'B':'','C': '','D': '','E' :'','F': '','G': '','H': '','I': '','J': ''},
+      nextLottery:new Date(),
+      results: {A:'12', B:'45',C: '22',D: '67',E :'33',F: '88',G: '34',H: '58',I: '76',J: '90'},
       price : 10,
       inputs: {
         A: {
@@ -1054,7 +1054,8 @@ export default function (/* { ssrContext } */) {
       },
       selectedSets:{A:false,B:false,C:false,D:false,E:false,F:false,G:false,H:false,I:false,J:false},
       setPoints:{A:2,B:2,C:2,D:2,E:2,F:2,G:2,H:2,I:2,J:2},
-      previousLottery:null
+      previousLottery : new Date(),
+      selection_group : 'All'
     },
     mutations: {
       push_ticket(state, ticket) {
@@ -1099,12 +1100,22 @@ export default function (/* { ssrContext } */) {
         state.selectedSets.H=selectionState.H;
         state.selectedSets.I=selectionState.I;
         state.selectedSets.J=selectionState.J;
+      },
+      change_selection_option(state,group) {
+        state.selection_group=group;
+      },
+      change_ticket_state(state,ticketState) {
+        state.inputs[ticketState.set][ticketState.number] = ticketState.quantity
       }
     },
     actions: {
       push_ticket ({ commit }, ticket) {
           commit('push_ticket', ticket)
        },
+      change_ticket_state({commit},ticketState)
+      {
+        commit('change_ticket_state',ticketState)
+      },
       set_lottery_timings({commit},timings) {
         console.log("setting lottery timings")
         commit('set_lottery_timings',timings)
@@ -1119,6 +1130,10 @@ export default function (/* { ssrContext } */) {
       },
       change_selected_sets({commit},selected) {
         commit('change_selected_sets',selected)
+      },
+      change_selection_option({commit},group)
+      {
+        commit('change_selection_option',group)
       }
     },
 

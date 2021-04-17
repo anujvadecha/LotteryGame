@@ -9,7 +9,7 @@
   <div class="col"></div>
   <div class="col"></div>
   <div class="col">
-    <q-btn flat style="color: #033aca">My accounts</q-btn>
+    <q-btn flat style="color: #033aca" @click="$router.push({path:'/MyAccounts'})">My accounts</q-btn>
   </div>
   <div class="col">
     <q-btn flat  style="color: #033aca">Password</q-btn>

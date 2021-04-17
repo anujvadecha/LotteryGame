@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'GameMaster.wsgi.application'
 #         'default': env.db(var="DATABASE_URL")
 # }
 
-if DEBUG:
+if not DEBUG:
     # Sqlite Database Configuration
     DATABASES = {
         'default': {
@@ -114,9 +114,9 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'GAMEMASTER',
-            'USER': 'game_master',
-            'PASSWORD': 'gamemaster@dinesh',
+            'NAME': 'lottery',
+            'USER': 'postgres',
+            'PASSWORD': '1234567890',
             'HOST': 'localhost',
             'PORT': '',
         }
