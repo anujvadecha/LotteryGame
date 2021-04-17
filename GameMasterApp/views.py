@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, HttpResponse,HttpResponseRedirect
 from rest_framework.response import Response
 from GameMasterApp.models import *
-from datetime import datetime,date,time
+from datetime import datetime, date, time, timedelta
 from pytz import timezone
 from django.core import serializers
 
@@ -64,7 +64,7 @@ class LotteryTimingsAPI(APIView):
             closest_time = Lottery.objects.filter(time__gte=current_time)[0].time
             response['closest_time'] = closest_time
             today_min = datetime.combine(date.today(), time.min)
-            today_max = datetime.combine(date.today(), time.max)
+            today_max = datetime.combine(date.today()+timedelta(days=1), time.max)
             timings_of_lottery = Lottery.objects.filter(time__range=(today_min, today_max)).values_list('time',flat=True)
             response['timings_of_lottery'] = timings_of_lottery
             response['status_code'] = 200
@@ -88,8 +88,10 @@ class LotteryWinnersAPI(APIView):
             print(data)
             lottery_time = data["lottery_time"]
             date_object = datetime.fromtimestamp(int(lottery_time)/1000)
+            print(f"date_object{date_object}")
             lottery_obj = Lottery.objects.filter(time=date_object)
             if lottery_obj:
+                print(f"current api time is{lottery_obj[0].time}")
                 lottery_winners_ticket = json.loads(lottery_obj[0].winners)
             else:
                 lottery_winners_ticket = []
@@ -109,12 +111,16 @@ class LotteryWinnersPreviousAPI(APIView):
         response = {}
         response['status_code'] = 500
         try:
-            data = request.POST
+            data = request.data
             lottery_time = data["lottery_time"]
             date_object = datetime.fromtimestamp(int(lottery_time)/1000)
+            print(date_object)
             lottery_obj = Lottery.objects.filter(time__lte=date_object)
+            print(f"lottery previous is {lottery_obj}")
             if lottery_obj:
-                lottery_winners_ticket = json.loads(lottery_obj[0].winners)
+                print(lottery_obj.last().time)
+                lottery_winners_ticket = json.loads(lottery_obj.last().winners)
+                print(lottery_winners_ticket)
             else:
                 lottery_winners_ticket = []
             response['lottery_winners_ticket'] = lottery_winners_ticket

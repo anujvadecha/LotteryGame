@@ -1,5 +1,6 @@
 <template>
-  <div class="row" style="">
+<!--  <q-page padding>-->
+  <q-page class="row" style="">
       <div class="col-3" style="background-color: lightpink">
       <div class="row" style="background-color: white;height: 9.09%">
         <div class="q-ma-sm" style='background-color: #ba56d4; color: white;width: 400px' >
@@ -7,46 +8,68 @@
         </div>
       </div>
       <div class="row"  style="background-color: white;height: 9.09% " v-for="link in essentialLinks" :key="link.title" >
-          <div class="q-ma-sm" v-bind:style="getStyleForButton(link)" @click="pushToPage(link)">
+          <div class="q-ma-sm"  v-bind:style="getStyleForButton(link)" @click="pushToPage(link)">
           <q-checkbox dense @input="changeMainSelectedStates()" v-model="selectedSets[link.alias]" :value="true"></q-checkbox> {{link.title}}
           </div>
       </div>
       </div>
       <div class="col-1 bg-light-green " style="" >
       <div class="row" style="background-color: white;height: 9.09%">
-          <div class="col text-center font-bold" style="border: 1px solid black;"> Points</div>
-          <div class="col text-center font-bold" style="border: 1px solid black;"> SR</div>
+          <div class="col text-center font-bold" style="border: 1px solid black;;font-size: large;font-weight: bold"> Points</div>
+          <div class="col text-center font-bold" style="border: 1px solid black;;font-size: large;font-weight: bold"> SR</div>
       </div>
       <div class="row"  style="background-color: white;height: 9.09% " v-for="link in essentialLinks" :key="link.title" >
-          <div class="col text-center" style="border: 1px solid black;"> {{parseInt($store.state.setPoints[link.alias])*10}}</div>
-          <div class="col text-center" style="border: 1px solid black;">{{link.alias}}</div>
+          <div class="col text-center" style="border: 1px solid black;;font-size: large;font-weight: bold"> {{parseInt($store.state.setPoints[link.alias])*10}}</div>
+          <div class="col text-center" style="border: 1px solid black;;font-size: large;font-weight: bold">{{link.alias}}</div>
       </div>
       </div>
       <div class="col" style="background-color: #eef8ff">
-        <div class="row " v-for="i in 10" :key="i" >
-          <div></div>
-          <input style="height: 20px;width: 40px" @input="add_input(i*10+n-10-1)"/>
-          <div class="" v-for="n in 10" :key="n">
-          <q-card class="q-ml-sm q-mr-sm text-center" style="background-color: #eef8ff" flat>
-            <div style=""> {{ i*10+n-10-1}} </div>
-            <input class="text-center" v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1])" v-model="inputs[set][i*10+n-10-1]" @input="add_input(i*10+n-10-1)"/>
+          <div class="row" style="height: 9.09%">
+<!--                      ALL POINTS CARD   -->
+            <div class="" style="width: 9.09%;" >
+          <q-card  class=" text-center q-pl-sm q-pr-sm" style="background-color: #eef8ff;" flat>
+            <div style="" > SET </div>
+            <div style="" > {{this.set}} </div>
+          </q-card>
+         </div>
+            <!--     COLUMN CARDS   -->
+            <div v-for="i in 10" :key="i" class="" style="width: 9.09%;" >
+          <q-card  class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
+            <div style="font-size: small"> &nbsp;</div>
+            <input :id="'col'+set+i" class="text-center text-red" v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')" @input="add_input_col(i)"/>
+          </q-card>
+         </div>
+        </div>
+        <div class="row " v-for="i in 10" style="height: 9.09%" :key="i" >
+          <!--     ROW CARDS-->
+         <div class="" style="width: 9.09%;" >
+          <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
+            <div  style="font-size: small"> &nbsp; </div>
+            <input :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs" v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')" @input="add_input_row(i)"/>
+          </q-card>
+         </div>
+<!--          NUMBER CARDS     -->
+          <div class="" v-for="n in 10" style="width: 9.09%;" :key="n">
+          <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
+            <div style="font-size: small"> {{ i*10+n-10-1}} </div>
+            <input :id="set+(i*10+n-10-1)" class="text-center text-red " v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:100%')" v-model="inputs[set][i*10+n-10-1]" @input="add_input(i*10+n-10-1)"/>
           </q-card>
           </div>
         </div>
       </div>
       <div class="col-2 bg-light-green " style="" >
-        <div class="row" style="background-color: white;height: 9.09%">
+      <div class="row" style="background-color: white;height: 9.09%">
           <div class="col text-center font-bold" style="border: 1px solid black;"> Qty</div>
           <div class="col text-center font-bold" style="border: 1px solid black;"> Pts</div>
       </div>
       <div class="row"  style="background-color: white;height: 9.09% " v-for="link in essentialLinks" :key="link.title" >
-          <div class="col text-center" style="border: 1px solid black; background-color: #7ffffe"> {{quantitySet[link.alias]}}</div>
-          <div class="col text-center" style="border: 1px solid black; background-color: #fec0ff">{{priceSet[link.alias]}}</div>
+          <div class="col text-center q-pa-sm" style="border: 1px solid black; background-color: #7ffffe;font-size: large;font-weight: bold"> {{quantitySet[link.alias]}}</div>
+          <div class="col text-center q-pa-sm" style="border: 1px solid black; background-color: #fec0ff;font-size: large;font-weight: bold">{{priceSet[link.alias]}}</div>
+      </div>
       </div>
 
-      </div>
-
-  </div>
+  </q-page>
+<!--    </q-page>-->
 </template>
 <script>
 
@@ -157,15 +180,50 @@ export default {
     return {
       selectedSets:{A:false,B:false,C:false,D:false,E:false,F:false,G:false,H:false,I:false,J:false},
       essentialLinks: linksData,
-
     }
   },
   methods: {
     add_input:function (n){
-      console.log(this.$store.state.selectionState)
-      console.log(this.set+n +' '+ this.inputs[this.set][n])
+      // console.log(this.$store.state.selectionState)
+      // console.log(this.set+n +' '+ this.inputs[this.set][n])
+      // document.getElementById(this.set+(n)).value = parseInt(this.inputs[set][n])
+      // this.$store.state.inputs[this.set][n] =1
+      // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById(this.set+(n)).value})
       this.$store.dispatch('push_ticket',{ticket:this.set+(n),quantity:{quantity:parseInt(this.inputs[this.set][n]) , price:this.$store.state.price}})
       console.log(this.$store.state.selectionState);
+    },
+    add_input_col:function (n) {
+      for(var i=0;i<10;i++) {
+          console.log('col'+this.set+(n));
+          console.log('value of col is '+document.getElementById('col'+this.set+(n)).value)
+          // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById('col'+this.set+n).value})
+          if(this.$store.state.selection_group==='Even' && (i * 10 + (n - 1))%2 !==0 ) {
+            continue
+          }
+          else if(this.$store.state.selection_group==='Odd' && (i * 10 + (n - 1))%2 ===0) {
+            continue
+          }
+          this.inputs[this.set][i * 10 + (n - 1)] = document.getElementById('col' + this.set + (n)).value;
+          this.add_input(i * 10 + (n-1));
+      }
+    },
+    add_input_row:function (n) {
+        for(var i=0;i<10;i++) {
+          console.log('row'+this.set+(n));
+          console.log('value of row is '+document.getElementById('row'+this.set+(n)).value)
+          // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById('col'+this.set+n).value})
+          if(this.$store.state.selection_group==='Even' && (i +(n-1)*10)%2 !==0 ) {
+            continue
+          }
+          else if(this.$store.state.selection_group==='Odd' && (i +(n-1)*10)%2 ===0) {
+            continue
+          }
+          this.inputs[this.set][i +(n-1)*10] = document.getElementById('row' + this.set + (n)).value;
+          this.add_input(i +(n-1)*10);
+        }
+    },
+    add_input_all:function (n) {
+
     },
     changeMainSelectedStates:function () {
       console.log("changing state")
@@ -173,18 +231,17 @@ export default {
     },
     getStyleForButton:function (link){
       if(link.alias===this.set)
-        return 'background-color: red; color: white;width: 400px'
+        return 'background-color: red; color: white;width: 400px;font-size:medium'
       else
-      return 'background-color: #ba56d4; color: white;width: 400px'
-
+      return 'background-color: #ba56d4; color: white;width: 400px;font-size:medium'
     },
     getStyleForInput(input)
     {
       // background-color:#882ce2;
       if(input && input!=0 && input!=null)
-      return "height: 20px; width: 40px;  color:#c50a46; font-weight:bold "
+      return "color:#c50a46; font-weight:bold "
       else
-      return "height: 20px;width: 40px;"
+      return ""
     },
     pushToPage:function (link) {
       this.$router.push({
@@ -196,8 +253,19 @@ export default {
       })
     }
   },
-
+  mounted() {
+  },
+  created() {
+  },
+  updated() {
+  },
+  watch : {
+    'set': function (val) {
+      console.log("I watched" + val)
+    }
+  }
 }
+
 </script>
 
 <style scoped>

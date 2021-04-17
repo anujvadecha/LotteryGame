@@ -1,15 +1,15 @@
 <template>
 <div class="row" style="background-color: red">
-
   <div class="col-2" style="">
-    <div class=" text-center" style="font-size:x-large;border: solid 2px black;">2-D</div>
-    <div class="text-center" style="font-size: large;border: solid 2px black;">{{nextLotteryFormatted}}</div>
+    <div class=" text-center text-white" style="font-size:x-large;border: solid 2px black;">2-D</div>
+    <div class="text-center text-white" style="font-size: large;border: solid 2px black;">
+      {{ nextLotteryFormatted }} 22:15
+    </div>
   </div>
   <div v-for="(key,value) in results" :key="key" class="col bg-white">
       <div class="text-black text-bold q-ma-xs text-center" style="background-color:#ffb6c1;font-size: large ">{{value}}</div>
       <div class="text-black text-bold  q-ma-xs text-center" style="background-color:#ffb6c1; font-size: large ">{{key}}</div>
   </div>
-
 </div>
 </template>
 <script>

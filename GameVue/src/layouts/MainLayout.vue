@@ -38,7 +38,7 @@
 import ResultHeader from "components/ResultHeader";
 import TimeHeader from "components/TimeHeader";
 import TicketDetailDrawer from "components/TicketDetailDrawer";
-import {get_lottery_timings, get_winners} from "src/common/api_calls";
+import {get_lottery_previous, get_lottery_timings, get_winners} from "src/common/api_calls";
 
 const linksData = [
   {
@@ -116,6 +116,7 @@ import MarqueeText from 'vue-marquee-text-component'
 import OptionsHeader from "components/OptionsHeader";
 import SelectionHeader from "components/SelectionHeader";
 import Footer from "components/Footer";
+import {getTimeZoneDate} from "src/common/utils";
 export default {
   name: 'MainLayout',
   components: {Footer, SelectionHeader, OptionsHeader, TimeHeader, ResultHeader,MarqueeText},
@@ -155,18 +156,26 @@ export default {
           return new Date(time)
         }
       )
-      this.$store.dispatch('set_lottery_timings', timings)
-      this.$store.dispatch('set_next_lottery', timings)
-      this.$store.dispatch('set_previous_lottery', timings)
+      // this.$store.dispatch('set_lottery_timings', timings)
+      // this.$store.dispatch('set_next_lottery', timings)
+      // this.$store.dispatch('set_previous_lottery', timings)
       const nextLottery = this.$store.getters.get_next_lottery;
       console.log("next lottery is " + nextLottery)
       console.log({"lottery_time":nextLottery.getTime()});
-      get_winners({"lottery_time":nextLottery.getTime()}).then(
-        res=>{
-        console.log(res)
-          this.$store.state.results = res.lottery_winners_ticket
-        }
-      )
+
+      // get_winners({"lottery_time":nextLottery.getTime()}).then(
+      //   res=>{
+      //   console.log(res)
+      //     this.$store.state.results = res.lottery_winners_ticket
+      //   }
+      // )
+      //
+      // get_lottery_previous({"lottery_time":getTimeZoneDate(nextLottery.getTime())}).then(
+      //   res=>{
+      //     console.log(res)
+      //     this.$store.state.results = res.lottery_winners_ticket
+      //   }
+      // )
       //TODO
       // setInterval(function (){
       //

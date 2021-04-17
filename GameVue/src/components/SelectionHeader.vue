@@ -22,6 +22,7 @@
     <div class="row" style="background-color: #eef8ff">
     <div class="col-8">
       <q-option-group
+        @input="change_selection_option()"
       v-model="group"
       :options="options"
       color="primary"
@@ -34,8 +35,8 @@
   </div>
   <div class="col text-left">
     <div class="row">
-    <q-btn class=" col" color="" unelevated outline>Results</q-btn>
-    <q-btn class=" col" color="" unelevated outline >More Draws</q-btn>
+    <q-btn class=" col" color="" unelevated outline @click="$router.push({path:'/Results'})">Results</q-btn>
+    <q-btn class=" col" color="" unelevated outline @click="$router.push({path:'/MoreDraws'})">More Draws</q-btn>
       </div>
   </div>
 </div>
@@ -44,9 +45,15 @@
 <script>
 export default {
 name: "SelectionHeader",
+  methods:{
+    change_selection_option:function () {
+      console.log(this.group)
+      this.$store.dispatch('change_selection_option',this.group)
+    }
+  },
   data(){
   return {
-    group: 'op1',
+      group: 'All',
       options: [
         {
           label: 'All',
