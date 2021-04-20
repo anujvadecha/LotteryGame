@@ -15,18 +15,18 @@
       </div>
       <div class="col-1 bg-light-green " style="" >
       <div class="row" style="background-color: white;height: 9.09%">
-          <div class="col text-center font-bold" style="border: 1px solid black;;font-size: large;font-weight: bold"> Points</div>
-          <div class="col text-center font-bold" style="border: 1px solid black;;font-size: large;font-weight: bold"> SR</div>
+          <div class="col text-center font-bold q-pa-sm" style="border: 1px solid black;;font-size: large;font-weight: bold"> Points</div>
+          <div class="col text-center font-bold q-pa-sm" style="border: 1px solid black;;font-size: large;font-weight: bold"> SR</div>
       </div>
       <div class="row"  style="background-color: white;height: 9.09% " v-for="link in essentialLinks" :key="link.title" >
-          <div class="col text-center" style="border: 1px solid black;;font-size: large;font-weight: bold"> {{parseInt($store.state.setPoints[link.alias])*10}}</div>
-          <div class="col text-center" style="border: 1px solid black;;font-size: large;font-weight: bold">{{link.alias}}</div>
+          <div class="col text-center q-pa-sm" style="border: 1px solid black;;font-size: large;font-weight: bold"> {{parseInt($store.state.setPoints[link.alias])*10}}</div>
+          <div class="col text-center q-pa-sm" style="border: 1px solid black;;font-size: large;font-weight: bold">{{link.alias}}</div>
       </div>
       </div>
       <div class="col" style="background-color: #eef8ff">
           <div class="row" style="height: 9.09%">
 <!--                      ALL POINTS CARD   -->
-            <div class="" style="width: 9.09%;" >
+          <div class="" style="width: 9.09%;" >
           <q-card  class=" text-center q-pl-sm q-pr-sm" style="background-color: #eef8ff;" flat>
             <div style="" > SET </div>
             <div style="" > {{this.set}} </div>
