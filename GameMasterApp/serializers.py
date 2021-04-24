@@ -9,7 +9,6 @@ from GameMasterApp.models import Lottery
 class LotterySerializer(serializers.ModelSerializer):
     time = serializers.SerializerMethodField()
     winners = serializers.SerializerMethodField()
-
     def get_time(self,obj):
         return obj.time+timedelta(hours=5,minutes=30)
     def get_winners(self,obj):

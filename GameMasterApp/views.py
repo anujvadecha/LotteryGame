@@ -71,27 +71,25 @@ LotteryTimings = LotteryTimingsAPI.as_view()
 
 class LotteryWinnersAPI(APIView):
     permission_classes = [IsAuthenticated]
-
     def post(self, request, *args, **kwargs):
         response = {}
         response['status_code'] = 500
-        try:
-            data = request.data
-            print(data)
-            lottery_time = data["lottery_time"]
-            date_object = datetime.fromtimestamp(int(lottery_time)/1000)
-            print(f"date_object{date_object}")
-            lottery_obj = Lottery.objects.filter(time=date_object)
-            if lottery_obj:
-                print(f"current api time is{lottery_obj[0].time}")
-                lottery_winners_ticket = json.loads(lottery_obj[0].winners)
-            else:
-                lottery_winners_ticket = []
-            response['lottery_winners_ticket'] = lottery_winners_ticket
-            response['status_code'] = 200
-        except Exception as e:
-            print(e)
-            response = json.dumps(response)
+        # try:
+        data = request.data
+        lottery_time = data["lottery_time"]
+        date_object = datetime.fromtimestamp(int(lottery_time)/1000)
+        print(f"date_object{date_object}")
+        lottery_obj = Lottery.objects.filter(time=date_object).first()
+        if lottery_obj:
+            print(f"current api time is{lottery_obj.time}")
+            lottery_winners_ticket = LotterySerializer(lottery_obj).data["winners"]
+        else:
+            lottery_winners_ticket = []
+        response['lottery_winners_ticket'] = lottery_winners_ticket
+        response['status_code'] = 200
+        # except Exception as e:
+        #     print(e)
+        #     response = json.dumps(response)
         return Response(data=response)
 
 LotteryWinners = LotteryWinnersAPI.as_view()

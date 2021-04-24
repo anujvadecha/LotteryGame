@@ -196,12 +196,15 @@ export default {
       const nextLottery = this.$store.getters.get_next_lottery;
       console.log("next lottery is " + nextLottery)
       console.log(nextLottery);
-      // get_winners({"lottery_time":nextLottery.getTime()}).then(
-      //   res=>{
-      //   console.log(res)
-      //     this.$store.state.results = res.lottery_winners_ticket
-      //   }
-      // )
+      get_winners({"lottery_time":nextLottery.time.getTime()}).then(
+        res=>{
+          if(res.status_code===200) {
+            console.log("get winners success")
+            console.log(res)
+            this.$store.state.results = res.lottery_winners_ticket.winners
+          }
+        }
+      )
       //
       // get_lottery_previous({"lottery_time":getTimeZoneDate(nextLottery.getTime())}).then(
       //   res=>{

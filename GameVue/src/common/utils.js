@@ -39,7 +39,24 @@ function getTimeZoneDate(date) {
       var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
       return ISTTime
 }
+function getFormattedDateHHMMSS(date) {
+      var ISTTime = date;
+      var hoursIST = ISTTime.getHours()
+      var minutesIST = ISTTime.getMinutes()
+      var secondsIST = ISTTime.getSeconds()
+      return "" + hoursIST + ":" + minutesIST + " " + secondsIST
+}
+
+function getFormattedDateHHMM(date) {
+      var ISTTime = date;
+      var hoursIST = ISTTime.getHours()
+      var minutesIST = ISTTime.getMinutes()
+      var secondsIST = ISTTime.getSeconds()
+      return "" + hoursIST + ":" + minutesIST + " " + secondsIST
+}
 export {
   compareDate,
-  getTimeZoneDate
+  getTimeZoneDate,
+  getFormattedDateHHMMSS,
+  getFormattedDateHHMM
 }
