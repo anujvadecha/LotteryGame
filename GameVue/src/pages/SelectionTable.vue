@@ -1,5 +1,4 @@
 <template>
-<!--  <q-page padding>-->
   <q-page class="row" style="">
       <div class="col-3" style="background-color: lightpink">
       <div class="row" style="background-color: white;height: 9.09%">
@@ -9,7 +8,7 @@
       </div>
       <div class="row"  style="background-color: white;height: 9.09% " v-for="link in essentialLinks" :key="link.title" >
           <div class="q-ma-sm"  v-bind:style="getStyleForButton(link)" @click="pushToPage(link)">
-          <q-checkbox dense @input="changeMainSelectedStates()" v-model="selectedSets[link.alias]" :value="true"></q-checkbox> {{link.title}}
+            <q-checkbox dense @input="changeMainSelectedStates()" v-model="selectedSets[link.alias]" :value="true"></q-checkbox> {{link.title}}
           </div>
       </div>
       </div>
@@ -25,7 +24,7 @@
       </div>
       <div class="col" style="background-color: #eef8ff">
           <div class="row" style="height: 9.09%">
-<!--                      ALL POINTS CARD   -->
+          <!--     ALL POINTS CARD   -->
           <div class="" style="width: 9.09%;" >
           <q-card  class=" text-center q-pl-sm q-pr-sm" style="background-color: #eef8ff;" flat>
             <div style="" > SET </div>
@@ -67,7 +66,6 @@
           <div class="col text-center q-pa-sm" style="border: 1px solid black; background-color: #fec0ff;font-size: large;font-weight: bold">{{priceSet[link.alias]}}</div>
       </div>
       </div>
-
   </q-page>
 <!--    </q-page>-->
 </template>

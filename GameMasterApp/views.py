@@ -54,13 +54,8 @@ class LotteryTimingsAPI(APIView):
         response['status_code'] = 500
         try:
             current_time = datetime.now()
-
-            closest_time = Lottery.objects.filter(time__gte=current_time)
-            if closest_time:
-                closest_time = closest_time[0].time + timedelta(hours=5,minutes=30)
-            else:
-                closest_time = None
-            response['closest_time'] = closest_time
+            closest_time = Lottery.objects.filter(time__gte=current_time).first()
+            response['closest_lottery'] = LotterySerializer(closest_time).data
             today_min = datetime.combine(date.today(), time.min)
             today_max = datetime.combine(date.today()+timedelta(days=1), time.max)
             timings_of_lottery = Lottery.objects.filter(time__range=(today_min, today_max))
@@ -111,7 +106,6 @@ class LotteryWinnersPreviousAPI(APIView):
             data = request.data
             lottery_time = data["lottery_time"]
             date_object = datetime.fromtimestamp(int(lottery_time)/1000)
-            print(date_object)
             lottery_obj = Lottery.objects.filter(time__lte=date_object)
             print(f"lottery previous is {lottery_obj}")
             if lottery_obj:

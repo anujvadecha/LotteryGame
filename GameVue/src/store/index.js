@@ -21,7 +21,7 @@ export default function (/* { ssrContext } */) {
       lotteryTimings:[ new Date(1617878700000) ,new Date(1617879600000) ],
       nextLottery:new Date(),
       results: {A:'12', B:'45',C: '22',D: '67',E :'33',F: '88',G: '34',H: '58',I: '76',J: '90'},
-      price : 10,
+      price : 2,
       inputs: {
         A: {
           "0": null,
@@ -1053,9 +1053,10 @@ export default function (/* { ssrContext } */) {
         },
       },
       selectedSets:{A:false,B:false,C:false,D:false,E:false,F:false,G:false,H:false,I:false,J:false},
-      setPoints:{A:2,B:2,C:2,D:2,E:2,F:2,G:2,H:2,I:2,J:2},
+      setPoints : {A:2,B:2,C:2,D:2,E:2,F:2,G:2,H:2,I:2,J:2},
       previousLottery : new Date(),
-      selection_group : 'All'
+      selection_group : 'All' ,
+      selected_lotteries : [] ,
     },
     mutations: {
       push_ticket(state, ticket) {
