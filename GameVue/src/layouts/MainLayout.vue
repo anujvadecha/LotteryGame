@@ -57,7 +57,7 @@ document.addEventListener('keypress', function (e){
           code="";
           reading=false;
       }, 200);}
-      }) 
+      })
 
 
 
@@ -182,10 +182,13 @@ export default {
   created() {
     get_lottery_timings().then(lottery_timings => {
       console.log(lottery_timings)
-      var timings = lottery_timings.timings_of_lottery.map(time => {
-          return new Date(time)
+      var timings = lottery_timings.lottery_objects.map(object => {
+           object.time=new Date(object.time)
+            return object
         }
       )
+      lottery_timings.closest_lottery.time=new Date(lottery_timings.closest_lottery.time)
+      this.$store.state.selected_lotteries.push(lottery_timings.closest_lottery)
       // this.$store.dispatch('set_lottery_timings', timings)
       // this.$store.dispatch('set_next_lottery', timings)
       // this.$store.dispatch('set_previous_lottery', timings)
