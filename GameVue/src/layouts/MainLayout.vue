@@ -33,31 +33,6 @@
 
 <script>
 
-let code = "";
-let reading = false;
-let final_barcode =""
-document.addEventListener('keypress', function (e){
-
-   if (e.keyCode===13){
-          if(code.length == 13){
-            final_barcode = code
-            console.log(final_barcode)
-            document.getElementById("final_barcode").value = final_barcode
-          }
-          if(code.length>10){
-            code="";
-         }
-    }else{
-         code+=e.key;
-    }
-
-    if(!reading){
-         reading=true;
-         setTimeout(function(e){
-          code="";
-          reading=false;
-      }, 200);}
-      }) 
 
 
 
@@ -180,39 +155,7 @@ export default {
    }
   },
   created() {
-    get_lottery_timings().then(lottery_timings => {
-      console.log(lottery_timings)
-      var timings = lottery_timings.timings_of_lottery.map(time => {
-          return new Date(time)
-        }
-      )
-      // this.$store.dispatch('set_lottery_timings', timings)
-      // this.$store.dispatch('set_next_lottery', timings)
-      // this.$store.dispatch('set_previous_lottery', timings)
-      const nextLottery = this.$store.getters.get_next_lottery;
-      console.log("next lottery is " + nextLottery)
-      console.log({"lottery_time":nextLottery.getTime()});
 
-      // get_winners({"lottery_time":nextLottery.getTime()}).then(
-      //   res=>{
-      //   console.log(res)
-      //     this.$store.state.results = res.lottery_winners_ticket
-      //   }
-      // )
-      //
-      // get_lottery_previous({"lottery_time":getTimeZoneDate(nextLottery.getTime())}).then(
-      //   res=>{
-      //     console.log(res)
-      //     this.$store.state.results = res.lottery_winners_ticket
-      //   }
-      // )
-      //TODO
-      // setInterval(function (){
-      //
-      // console.log(timings)
-      // })
-      // const store=this.$store;
-    });
     if (this.logged_in) {
 
     } else {

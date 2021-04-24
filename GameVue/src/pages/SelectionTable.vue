@@ -1,5 +1,4 @@
 <template>
-<!--  <q-page padding>-->
   <q-page class="row" style="">
       <div class="col-3" style="background-color: lightpink">
       <div class="row" style="background-color: white;height: 9.09%">
@@ -9,7 +8,7 @@
       </div>
       <div class="row"  style="background-color: white;height: 9.09% " v-for="link in essentialLinks" :key="link.title" >
           <div class="q-ma-sm"  v-bind:style="getStyleForButton(link)" @click="pushToPage(link)">
-          <q-checkbox dense @input="changeMainSelectedStates()" v-model="selectedSets[link.alias]" :value="true"></q-checkbox> {{link.title}}
+            <q-checkbox dense @input="changeMainSelectedStates()" v-model="selectedSets[link.alias]" :value="true"></q-checkbox> {{link.title}}
           </div>
       </div>
       </div>
@@ -25,7 +24,7 @@
       </div>
       <div class="col" style="background-color: #eef8ff">
           <div class="row" style="height: 9.09%">
-<!--                      ALL POINTS CARD   -->
+          <!--     ALL POINTS CARD   -->
           <div class="" style="width: 9.09%;" >
           <q-card  class=" text-center q-pl-sm q-pr-sm" style="background-color: #eef8ff;" flat>
             <div style="" > SET </div>
@@ -67,7 +66,6 @@
           <div class="col text-center q-pa-sm" style="border: 1px solid black; background-color: #fec0ff;font-size: large;font-weight: bold">{{priceSet[link.alias]}}</div>
       </div>
       </div>
-
   </q-page>
 <!--    </q-page>-->
 </template>
@@ -158,7 +156,9 @@ export default {
       for (var key in setDict){
         for(var number in setDict[key]) {
           if(setDict[key][number] !== null && setDict[key][number])
-            quantity[key] =parseInt(quantity[key]) + parseInt(setDict[key][number])
+            for(var i=0;i<this.$store.state.selected_lotteries.length;i++) {
+              quantity[key] = parseInt(quantity[key]) + parseInt(setDict[key][number])
+            }
         }
       }
       return quantity;
@@ -169,7 +169,9 @@ export default {
       for (var key in setDict){
         for(var number in setDict[key]) {
           if(setDict[key][number] !== null && setDict[key][number])
-            price[key] = (parseInt(price[key]) + parseInt(setDict[key][number]))
+            for(var i=0;i<this.$store.state.selected_lotteries.length;i++) {
+              price[key] = (parseInt(price[key]) + parseInt(setDict[key][number]))
+            }
         }
         price[key]=price[key]*this.$store.state.setPoints[key]
       }
@@ -189,13 +191,14 @@ export default {
       // document.getElementById(this.set+(n)).value = parseInt(this.inputs[set][n])
       // this.$store.state.inputs[this.set][n] =1
       // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById(this.set+(n)).value})
+      if(this.$store.state.fp===true) {
+
+      }
       this.$store.dispatch('push_ticket',{ticket:this.set+(n),quantity:{quantity:parseInt(this.inputs[this.set][n]) , price:this.$store.state.price}})
       console.log(this.$store.state.selectionState);
     },
     add_input_col:function (n) {
       for(var i=0;i<10;i++) {
-          console.log('col'+this.set+(n));
-          console.log('value of col is '+document.getElementById('col'+this.set+(n)).value)
           // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById('col'+this.set+n).value})
           if(this.$store.state.selection_group==='Even' && (i * 10 + (n - 1))%2 !==0 ) {
             continue
@@ -235,8 +238,7 @@ export default {
       else
       return 'background-color: #ba56d4; color: white;width: 400px;font-size:medium'
     },
-    getStyleForInput(input)
-    {
+    getStyleForInput(input) {
       // background-color:#882ce2;
       if(input && input!=0 && input!=null)
       return "color:#c50a46; font-weight:bold "

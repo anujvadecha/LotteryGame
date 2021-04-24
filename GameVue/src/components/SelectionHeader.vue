@@ -48,8 +48,12 @@ name: "SelectionHeader",
   methods:{
     change_selection_option:function () {
       this.$store.dispatch('change_selection_option',this.group)
+
+    },
+    change_fp_selection:function (){
+      this.$store.dispatch('fp_selection',this.fP)
     }
-  },
+},
   data(){
   return {
       group: 'All',
