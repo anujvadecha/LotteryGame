@@ -187,15 +187,15 @@ export default {
             return object
         }
       )
+      console.log(timings)
       lottery_timings.closest_lottery.time=new Date(lottery_timings.closest_lottery.time)
+      console.log(lottery_timings.closest_lottery)
       this.$store.state.selected_lotteries.push(lottery_timings.closest_lottery)
-      // this.$store.dispatch('set_lottery_timings', timings)
-      // this.$store.dispatch('set_next_lottery', timings)
-      // this.$store.dispatch('set_previous_lottery', timings)
+      this.$store.dispatch('set_lottery_timings', timings)
+      this.$store.dispatch('set_next_lottery', timings)
       const nextLottery = this.$store.getters.get_next_lottery;
       console.log("next lottery is " + nextLottery)
-      console.log({"lottery_time":nextLottery.getTime()});
-
+      console.log(nextLottery);
       // get_winners({"lottery_time":nextLottery.getTime()}).then(
       //   res=>{
       //   console.log(res)

@@ -18,8 +18,8 @@ export default function (/* { ssrContext } */) {
     modules: {},
     state: {
       selectionState:{},
-      lotteryTimings:[ new Date(1617878700000) ,new Date(1617879600000) ],
-      nextLottery:new Date(),
+      lotteries:[ ],
+      nextLottery:null,
       results: {A:'12', B:'45',C: '22',D: '67',E :'33',F: '88',G: '34',H: '58',I: '76',J: '90'},
       price : 2,
       inputs: {
@@ -1063,29 +1063,18 @@ export default function (/* { ssrContext } */) {
         state.selectionState[ticket['ticket']] = ticket['quantity']
       },
       set_lottery_timings(state,timings) {
-        state.lotteryTimings = timings
+        state.lotteries = timings
       },
       set_next_lottery(state) {
-        for (var i = 0; i < state.lotteryTimings.length; i++) {
-            if(compareDate(new Date() , state.lotteryTimings[i]) > 0) {
+        for (var i = 0; i < state.lotteries.length; i++) {
+            if(compareDate(new Date() , state.lotteries[i].time) > 0) {
 
             }
             else{
               console.log("lottery after")
-              console.log("setting next lottery as"+state.lotteryTimings[i])
-              state.nextLottery = state.lotteryTimings[i];
-              break;
-            }
-        }
-      },
-      set_previous_lottery(state) {
-        for (var i = 0; i < state.lotteryTimings.length; i++) {
-            if(compareDate(new Date() , state.lotteryTimings[i]) > 0) {
-
-            }
-            else{
-              console.log("setting previous lottery")
-              state.previousLottery = state.lotteryTimings[i-1];
+              console.log("setting next lottery as"+state.lotteries[i])
+              state.nextLottery = state.lotteries[i];
+              state.previousLottery = state.lotteries[i-1];
               break;
             }
         }
@@ -2157,12 +2146,7 @@ export default function (/* { ssrContext } */) {
         commit('set_lottery_timings',timings)
       },
       set_next_lottery({commit}) {
-        console.log("setting next lottery")
         commit('set_next_lottery')
-      },
-      set_previous_lottery({commit}) {
-        console.log("setting previous lottery")
-        commit('set_previous_lottery')
       },
       change_selected_sets({commit},selected) {
         commit('change_selected_sets',selected)

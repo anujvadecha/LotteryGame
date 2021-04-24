@@ -16,4 +16,4 @@ class LotterySerializer(serializers.ModelSerializer):
         return json.loads(obj.winners)
     class Meta:
         model=Lottery
-        fields=["id","winners","active","completed","time_ist"]
+        fields=["id","winners","active","completed","time"]
