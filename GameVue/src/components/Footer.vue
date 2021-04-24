@@ -64,6 +64,7 @@ name: "Footer",
 
   methods:{
   place_ticket_order:function (){
+
    place_order(this.$store.state.selectionState).then(res=>{
      console.log(res)
    }).catch(err=>{

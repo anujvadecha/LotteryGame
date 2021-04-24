@@ -191,6 +191,9 @@ export default {
       // document.getElementById(this.set+(n)).value = parseInt(this.inputs[set][n])
       // this.$store.state.inputs[this.set][n] =1
       // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById(this.set+(n)).value})
+      if(this.$store.state.fp===true) {
+
+      }
       this.$store.dispatch('push_ticket',{ticket:this.set+(n),quantity:{quantity:parseInt(this.inputs[this.set][n]) , price:this.$store.state.price}})
       console.log(this.$store.state.selectionState);
     },

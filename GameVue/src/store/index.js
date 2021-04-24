@@ -1069,6 +1069,7 @@ export default function (/* { ssrContext } */) {
       previousLottery: new Date(),
       selection_group: 'All',
       selected_lotteries: [],
+      fp:false
     },
     mutations: {
       push_ticket(state, ticket) {
@@ -2144,6 +2145,10 @@ export default function (/* { ssrContext } */) {
       },
       set_results(state, results) {
         state.results = results;
+      },
+      fp_selection(state,fp)
+      {
+        state.fp=fp;
       }
     },
     actions: {
@@ -2174,6 +2179,10 @@ export default function (/* { ssrContext } */) {
       set_results({commit}, results) {
         commit('set_results', results)
 
+      },
+      fp_selection({commit},fp)
+      {
+        commit('fp_selection', fp)
       }
     },
 

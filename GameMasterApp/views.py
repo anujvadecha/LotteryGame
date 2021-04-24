@@ -20,27 +20,26 @@ class CsrfExemptSessionAuthentication(SessionAuthentication):
         return
 
 
+
+
 class BuyTicketsAPI(APIView):
 
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         response = {}
-        response['status_code'] = 500
-        try:
-            data = request.data
-            ticket_id = TicketID.objects.create(user=request.user)
-            print(f"Ticket created is {ticket_id}")
-            for key,value in data.items():
+        data = request.data
+        ticket_id = TicketID.objects.create(user=request.user)
+        print(f"Ticket created is {ticket_id}")
+        print(data.items())
+        for key,value in data.items():
+            if(value['quantity']!=None):
                 ticket = Ticket.objects.create(user=request.user,set_ticket=key,quantity=value["quantity"],price=value["price"])
                 ticket_id.ticket_set.add(ticket)
-            ticket_id.save()
-            response['status_code'] = 200
-            response['total_price'] =  ticket_id.total_price
-            response['total_quantity'] =  ticket_id.total_quantity
-        except Exception as e:
-            print(e)
-            response = json.dumps(response)
+        ticket_id.save()
+        response['status_code'] = 200
+        response['total_price'] =  ticket_id.total_price
+        response['total_quantity'] =  ticket_id.total_quantity
         return Response(data=response)
 
 BuyTickets = BuyTicketsAPI.as_view()

@@ -43,7 +43,7 @@ class Ticket(BaseModel):
     set_ticket = models.CharField(default="", blank=False, null=False, max_length=256)
     quantity = models.IntegerField(default=0, blank=False, null=False)
     price = models.IntegerField(default=0, blank=False, null=False)
-    
+
 
     def total_price(self):
         try:
@@ -51,6 +51,8 @@ class Ticket(BaseModel):
         except Exception as e:
             print(e)
             return 0
+    def __str__(self):
+        return self.set_ticket
 
 
 class Lottery(BaseModel):
