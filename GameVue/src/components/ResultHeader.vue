@@ -6,7 +6,7 @@
       {{ previousLotteryFormatted }}
     </div>
   </div>
-  <div v-for="(key,value) in results" :key="key" class="col bg-white">
+  <div v-for="(key,value) in results" :key="value" class="col bg-white">
       <div class="text-black text-bold q-ma-xs text-center" style="background-color:#ffb6c1;font-size: large ">{{value}}</div>
       <div class="text-black text-bold  q-ma-xs text-center" style="background-color:#ffb6c1; font-size: large ">{{key}}</div>
   </div>
@@ -19,6 +19,9 @@ export default {
 name: "ResultHeader",
   computed:{
     results:function(){
+      if(this.$store.state.results===undefined)
+        return {A:'-1', B:'-1',C: '-1',D: '-1',E :'-1',F: '-1',G: '-1',H: '-1',I: '-1',J: '-1'}
+      console.log("calculating results")
       return this.$store.state.results
     },
     previousLotteryFormatted:function () {

@@ -52,7 +52,7 @@ function getFormattedDateHHMM(date) {
       var hoursIST = ISTTime.getHours()
       var minutesIST = ISTTime.getMinutes()
       var secondsIST = ISTTime.getSeconds()
-      return "" + hoursIST + ":" + minutesIST + " " + secondsIST
+      return "" + hoursIST + ":" + minutesIST
 }
 export {
   compareDate,

@@ -156,7 +156,9 @@ export default {
       for (var key in setDict){
         for(var number in setDict[key]) {
           if(setDict[key][number] !== null && setDict[key][number])
-            quantity[key] =parseInt(quantity[key]) + parseInt(setDict[key][number])
+            for(var i=0;i<this.$store.state.selected_lotteries.length;i++) {
+              quantity[key] = parseInt(quantity[key]) + parseInt(setDict[key][number])
+            }
         }
       }
       return quantity;
@@ -167,7 +169,9 @@ export default {
       for (var key in setDict){
         for(var number in setDict[key]) {
           if(setDict[key][number] !== null && setDict[key][number])
-            price[key] = (parseInt(price[key]) + parseInt(setDict[key][number]))
+            for(var i=0;i<this.$store.state.selected_lotteries.length;i++) {
+              price[key] = (parseInt(price[key]) + parseInt(setDict[key][number]))
+            }
         }
         price[key]=price[key]*this.$store.state.setPoints[key]
       }
@@ -192,8 +196,6 @@ export default {
     },
     add_input_col:function (n) {
       for(var i=0;i<10;i++) {
-          console.log('col'+this.set+(n));
-          console.log('value of col is '+document.getElementById('col'+this.set+(n)).value)
           // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById('col'+this.set+n).value})
           if(this.$store.state.selection_group==='Even' && (i * 10 + (n - 1))%2 !==0 ) {
             continue
@@ -233,8 +235,7 @@ export default {
       else
       return 'background-color: #ba56d4; color: white;width: 400px;font-size:medium'
     },
-    getStyleForInput(input)
-    {
+    getStyleForInput(input) {
       // background-color:#882ce2;
       if(input && input!=0 && input!=null)
       return "color:#c50a46; font-weight:bold "
