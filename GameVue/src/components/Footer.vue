@@ -6,7 +6,7 @@
     </div>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()">Update Results</q-btn>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="$router.push({path:'/TxnDetails'})">Txn Details</q-btn>
-   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()">Reset all</q-btn>
+   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="reset_all()">Reset all</q-btn>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()">Buy</q-btn>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="logout()">Logout</q-btn>
     <div class="col text-center q-pa-sm text-black" style="font-weight: bold;font-size: large">Grand Total</div>
@@ -43,9 +43,11 @@ name: "Footer",
       //   position: 'top-right'
       // })
       return this.$router.push({path:'/Login'})
-    }
-    ,
-  data(){
+    },
+    reset_all(){
+    this.$store.dispatch('reset_all')
+    },
+    data(){
     return {
       barCodeNumber: ""
     }
