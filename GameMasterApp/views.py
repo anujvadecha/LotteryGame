@@ -51,22 +51,21 @@ class LotteryTimingsAPI(APIView):
         response = {}
         response['status_code'] = 500
         try:
-            IST = timezone('Asia/Kolkata')
             current_time = datetime.now()
 
             closest_time = Lottery.objects.filter(time__gte=current_time)
             if closest_time:
-                closest_time=closest_time[0].time
-                response['closest_time'] = closest_time
+                closest_time = closest_time[0].time + timedelta(hours=5,minutes=30)
             else:
-                response['closest_time'] = None
-            print(datetime.today())
-            closest_time = Lottery.objects.filter(time__gte=current_time)[0].time
+                closest_time = None
             response['closest_time'] = closest_time
             today_min = datetime.combine(date.today(), time.min)
             today_max = datetime.combine(date.today()+timedelta(days=1), time.max)
             timings_of_lottery = Lottery.objects.filter(time__range=(today_min, today_max)).values_list('time',flat=True)
-            response['timings_of_lottery'] = timings_of_lottery
+            timing_of_lottery_list = []
+            for items in timings_of_lottery:
+                timing_of_lottery_list.append(items+timedelta(hours=5,minutes=30))
+            response['timings_of_lottery'] = timing_of_lottery_list
             response['status_code'] = 200
         except Exception as e:
             print(e)

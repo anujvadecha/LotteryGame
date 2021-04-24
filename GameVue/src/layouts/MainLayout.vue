@@ -32,6 +32,36 @@
 </template>
 
 <script>
+
+let code = "";
+let reading = false;
+let final_barcode =""
+document.addEventListener('keypress', function (e){
+
+   if (e.keyCode===13){
+          if(code.length == 13){
+            final_barcode = code
+            console.log(final_barcode)
+            document.getElementById("final_barcode").value = final_barcode
+          }
+          if(code.length>10){
+            code="";
+         }
+    }else{
+         code+=e.key;
+    }
+
+    if(!reading){
+         reading=true;
+         setTimeout(function(e){
+          code="";
+          reading=false;
+      }, 200);}
+      }) 
+
+
+
+
 // import EssentialLink from 'components/EssentialLink.vue'
 
 // import EssentialLink from "components/EssentialLink";

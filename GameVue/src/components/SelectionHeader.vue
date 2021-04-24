@@ -47,7 +47,6 @@ export default {
 name: "SelectionHeader",
   methods:{
     change_selection_option:function () {
-      console.log(this.group)
       this.$store.dispatch('change_selection_option',this.group)
     }
   },

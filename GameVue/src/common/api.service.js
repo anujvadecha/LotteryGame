@@ -19,7 +19,6 @@ function apiService (endpoint, method, data) {
   // D.R.Y. code to make HTTP requests to the REST API backend using fetch
   // const store = this.$store.state.token
   // console.log('inside api service token is' + store)
-  console.log('requesting with token' + LocalStorage.getItem('token'))
   var axios = require('axios')
   var config = {
     method: method || 'GET',

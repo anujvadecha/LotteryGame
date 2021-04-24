@@ -40,6 +40,7 @@ class Ticket(BaseModel):
     set_ticket = models.CharField(default="", blank=False, null=False, max_length=256)
     quantity = models.IntegerField(default=0, blank=False, null=False)
     price = models.IntegerField(default=0, blank=False, null=False)
+    
 
     def total_price(self):
         try:

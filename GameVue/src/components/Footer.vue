@@ -1,7 +1,7 @@
 <template>
 <div class="row" style="background-color: white">
     <div style="border: 1px solid black" class="col-3">
-      <input v-model="this.barCodeNumber" class="q-ml-md">
+      <input v-model="this.barCodeNumber" class="q-ml-md" id="final_barcode">
       <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col q-ml-lg ">Claim</q-btn>
     </div>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()">Update Results</q-btn>
