@@ -64,8 +64,12 @@ name: "Footer",
 
   methods:{
   place_ticket_order:function (){
-
-   place_order(this.$store.state.selectionState).then(res=>{
+    var order={
+      selected_lotteries: this.$store.state.selected_lotteries.map(lottery=>{ return lottery.id}),
+      selection:this.$store.state.selectionState
+    }
+    console.log(order)
+   place_order(order).then(res=>{
      console.log(res)
    }).catch(err=>{
      console.log(err);
