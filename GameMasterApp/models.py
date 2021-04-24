@@ -9,7 +9,7 @@ from base.utils import random_string_generator, unique_transaction_id_generator
 class User(AbstractUser):
     phone_number = models.CharField(default="", max_length=256, blank=True, null=True)
     address = models.TextField(default="", blank=True, null=True)
-    balance_points = models.IntegerField(default=0, null=False)
+    balance_points = models.IntegerField(default=0, null=True,blank=True)
 
     def name(self):
         return self.first_name + ' ' + self.last_name
