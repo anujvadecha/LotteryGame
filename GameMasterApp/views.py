@@ -128,6 +128,3 @@ class LotteryWinnersPreviousAPI(APIView):
         return Response(data=response)
 
 LotteryWinnersPrevious = LotteryWinnersPreviousAPI.as_view()
-
-
-
