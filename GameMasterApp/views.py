@@ -8,9 +8,6 @@ from django.shortcuts import render, HttpResponse,HttpResponseRedirect
 from rest_framework.response import Response
 from GameMasterApp.models import *
 from datetime import datetime, date, time, timedelta
-from pytz import timezone
-from django.core import serializers
-
 from GameMasterApp.serializers import LotterySerializer
 
 
@@ -19,27 +16,29 @@ class CsrfExemptSessionAuthentication(SessionAuthentication):
     def enforce_csrf(self, request):
         return
 
-
-
-
 class BuyTicketsAPI(APIView):
 
     permission_classes = [IsAuthenticated]
 
+    """
+        {'selected_lotteries': [1369, 1370, 1371], 'selection': {'A4': {'quantity': 2, 'price': 2}}}
+    """
     def post(self, request, *args, **kwargs):
         response = {}
         data = request.data
-        ticket_id = TicketID.objects.create(user=request.user)
-        print(f"Ticket created is {ticket_id}")
-        print(data.items())
-        for key,value in data.items():
-            if(value['quantity']!=None):
-                ticket = Ticket.objects.create(user=request.user,set_ticket=key,quantity=value["quantity"],price=value["price"])
-                ticket_id.ticket_set.add(ticket)
-        ticket_id.save()
+        print(data)
+        lotteries = Lottery.objects.filter(id__in = data["selected_lotteries"])
+        data = data["selection"]
+        for lottery in lotteries:
+            ticket_id = TicketID.objects.create(user=request.user,lottery=lottery)
+            for key,value in data.items():
+                if(value['quantity']!=None):
+                    ticket = Ticket.objects.create(user=request.user,set_ticket=key,quantity=value["quantity"],price=value["price"])
+                    ticket_id.ticket_set.add(ticket)
+            ticket_id.save()
         response['status_code'] = 200
-        response['total_price'] =  ticket_id.total_price
-        response['total_quantity'] =  ticket_id.total_quantity
+        # response['total_price'] =  ticket_id.total_price
+        # response['total_quantity'] =  ticket_id.total_quantity
         return Response(data=response)
 
 BuyTickets = BuyTicketsAPI.as_view()
