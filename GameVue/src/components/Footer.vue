@@ -8,6 +8,7 @@
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="$router.push({path:'/TxnDetails'})">Txn Details</q-btn>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()">Reset all</q-btn>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()">Buy</q-btn>
+   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="logout()">Logout</q-btn>
     <div class="col text-center q-pa-sm text-black" style="font-weight: bold;font-size: large">Grand Total</div>
     <div class="col-2">
       <div class="row"  style="background-color: white;height: 100%" >
@@ -35,6 +36,15 @@ name: "Footer",
      console.log(err);
    });
   },
+    logout(){
+    this.$q.localStorage.set('token', '')
+      // Notify.create({
+      //   message: 'You have been logged out',
+      //   position: 'top-right'
+      // })
+      return this.$router.push({path:'/Login'})
+    }
+    ,
   data(){
     return {
       barCodeNumber: ""

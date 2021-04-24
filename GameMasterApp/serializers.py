@@ -11,4 +11,4 @@ class LotterySerializer(serializers.ModelSerializer):
         return obj.time+timedelta(hours=5,minutes=30)
     class Meta:
         model=Lottery
-        fields=["winners","active","completed","time_ist"]
+        fields=["id","winners","active","completed","time_ist"]

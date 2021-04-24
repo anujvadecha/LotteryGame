@@ -68,9 +68,11 @@ class LotteryTimingsAPI(APIView):
             today_min = datetime.combine(date.today(), time.min)
             today_max = datetime.combine(date.today()+timedelta(days=1), time.max)
             timings_of_lottery = Lottery.objects.filter(time__range=(today_min, today_max))
-            response["lottery_objects"] = LotterySerializer(data=timings_of_lottery,many=True)
-            response['timings_of_lottery'] = timings_of_lottery
+            timings_of_lottery = LotterySerializer(timings_of_lottery,many=True).data
+            response["lottery_objects"] =timings_of_lottery
+            # response['timings_of_lottery'] = timings_of_lottery
             response['status_code'] = 200
+            response = response
         except Exception as e:
             print(e)
             response = json.dumps(response)
