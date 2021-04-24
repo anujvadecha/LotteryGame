@@ -11,6 +11,8 @@ from datetime import datetime, date, time, timedelta
 from pytz import timezone
 from django.core import serializers
 
+from GameMasterApp.serializers import LotterySerializer
+
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
 
@@ -61,11 +63,9 @@ class LotteryTimingsAPI(APIView):
             response['closest_time'] = closest_time
             today_min = datetime.combine(date.today(), time.min)
             today_max = datetime.combine(date.today()+timedelta(days=1), time.max)
-            timings_of_lottery = Lottery.objects.filter(time__range=(today_min, today_max)).values_list('time',flat=True)
-            timing_of_lottery_list = []
-            for items in timings_of_lottery:
-                timing_of_lottery_list.append(items+timedelta(hours=5,minutes=30))
-            response['timings_of_lottery'] = timing_of_lottery_list
+            timings_of_lottery = Lottery.objects.filter(time__range=(today_min, today_max))
+            timings_of_lottery = LotterySerializer(timings_of_lottery,many=True).data
+            response["lottery_objects"] =timings_of_lottery
             response['status_code'] = 200
         except Exception as e:
             print(e)
