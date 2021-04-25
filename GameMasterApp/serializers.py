@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from rest_framework import serializers
 
-from GameMasterApp.models import Lottery
+from GameMasterApp.models import Lottery, TicketID
 
 
 class LotterySerializer(serializers.ModelSerializer):
@@ -16,3 +16,8 @@ class LotterySerializer(serializers.ModelSerializer):
     class Meta:
         model=Lottery
         fields=["id","winners","active","completed","time"]
+
+class TicketIDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=TicketID
+        fields="__all__"
