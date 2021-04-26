@@ -194,7 +194,7 @@ export default {
       if(this.$store.state.fp===true) {
 
       }
-      this.$store.dispatch('push_ticket',{ticket:this.set+(n),quantity:{quantity:parseInt(this.inputs[this.set][n]) , price:this.$store.state.price}})
+      this.$store.dispatch('push_ticket',{ticket:this.set+(n),quantity:{quantity:parseInt(this.inputs[this.set][n]) , price:this.$store.state.setPoints[this.set]}})
       console.log(this.$store.state.selectionState);
     },
     add_input_col:function (n) {

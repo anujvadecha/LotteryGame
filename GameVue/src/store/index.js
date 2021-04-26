@@ -2141,7 +2141,8 @@ export default function (/* { ssrContext } */) {
             "99": null,
             "100": null
           },
-        }
+        },
+        state.selectionState={}
       },
       set_results(state, results) {
         state.results = results;

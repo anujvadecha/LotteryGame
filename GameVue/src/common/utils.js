@@ -54,6 +54,9 @@ function getFormattedDateHHMM(date) {
       var secondsIST = ISTTime.getSeconds()
       return "" + hoursIST + ":" + minutesIST
 }
+
+
+
 export {
   compareDate,
   getTimeZoneDate,

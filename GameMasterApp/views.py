@@ -8,7 +8,7 @@ from django.shortcuts import render, HttpResponse,HttpResponseRedirect
 from rest_framework.response import Response
 from GameMasterApp.models import *
 from datetime import datetime, date, time, timedelta
-from GameMasterApp.serializers import LotterySerializer
+from GameMasterApp.serializers import LotterySerializer, TicketIDSerializer
 
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
@@ -19,17 +19,14 @@ class CsrfExemptSessionAuthentication(SessionAuthentication):
 class BuyTicketsAPI(APIView):
 
     permission_classes = [IsAuthenticated]
-
-    """
-        {'selected_lotteries': [1369, 1370, 1371], 'selection': {'A4': {'quantity': 2, 'price': 2}}}
-    """
     def post(self, request, *args, **kwargs):
         response = {}
-        try:
-            data = request.data
-            print(data)
-            lotteries = Lottery.objects.filter(id__in = data["selected_lotteries"])
-            data = data["selection"]
+        data = request.data
+        print(data)
+        lotteries = Lottery.objects.filter(id__in = data["selected_lotteries"])
+        data = data["selection"]
+        tickets_created=[]
+        if (len(data) > 0):
             for lottery in lotteries:
                 ticket_id = TicketID.objects.create(user=request.user,lottery=lottery)
                 for key,value in data.items():
@@ -37,13 +34,11 @@ class BuyTicketsAPI(APIView):
                         ticket = Ticket.objects.create(user=request.user,set_ticket=key,quantity=value["quantity"],price=value["price"])
                         ticket_id.ticket_set.add(ticket)
                         UserLedgerHistory.objects.create(user=request.user,credit=value["quantity"] * value["price"],debit=0,ticket_individual=ticket)
+
                 ticket_id.save()
-            response['status_code'] = 200
-            # response['total_price'] =  ticket_id.total_price
-            # response['total_quantity'] =  ticket_id.total_quantity
-        except Exception as e:
-            print(e)
-            response['status_code'] = 500
+                tickets_created.append(TicketIDSerializer(ticket_id).data)
+        response['status_code'] = 200
+        response['tickets'] = tickets_created
         return Response(data=response)
 
 BuyTickets = BuyTicketsAPI.as_view()
@@ -90,9 +85,6 @@ class LotteryWinnersAPI(APIView):
             lottery_winners_ticket = []
         response['lottery_winners_ticket'] = lottery_winners_ticket
         response['status_code'] = 200
-        # except Exception as e:
-        #     print(e)
-        #     response = json.dumps(response)
         return Response(data=response)
 
 LotteryWinners = LotteryWinnersAPI.as_view()

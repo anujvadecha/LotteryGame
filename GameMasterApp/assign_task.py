@@ -21,7 +21,11 @@ def assign_lottery_timings():
 			total_debit = 0
 			for key,value in winner_dict.items():
 					for items in Ticket.objects.filter(lottery=lottery_obj,set_ticket=str(key)+str(value)):
-						UserLedgerHistory.objects.create(user=items.user,credit=0,debit=items.total_price(),ticket_individual=items)
+						total_winning = items.total_price()*9
+						UserLedgerHistory.objects.create(user=items.user,credit=0,debit=total_winning,ticket_individual=items)
+						ticket_id = TicketID.objects.filter(ticket_set__in=[items])[0]
+						ticket_id.returns = ticket_id.returns+total_winning
+						ticket_id.save()
 			lottery_obj.save()
 	except Exception as e:
 		print(e)

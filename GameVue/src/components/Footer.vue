@@ -25,6 +25,7 @@
 <script>
 
 import {place_order} from "src/common/api_calls";
+import {Notify} from "quasar";
 export default {
 name: "Footer",
   components: {},
@@ -71,8 +72,31 @@ name: "Footer",
     console.log(order)
    place_order(order).then(res=>{
      console.log(res)
+      var tickets_booked = res.tickets.map(ticket=>{
+      Notify.create({
+          type: 'positive',
+          progress: true,
+          message: 'Ticket booked '+ticket.ticket_id+ ' Points '+ticket.total_price+ ' Qty '+ticket.total_quantity,
+          position: 'top-right',
+          timeout: 5000,
+          actions: [
+            { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
+          ]
+      })
+      return ticket.ticket_id})
+     this.$store.dispatch('reset_all')
    }).catch(err=>{
      console.log(err);
+     Notify.create({
+          type: 'negative',
+          progress: true,
+          message: 'Ticket could not be booked due to error ',
+          position: 'top-right',
+          timeout: 5000,
+          actions: [
+            { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
+          ]
+      })
    });
   },
     logout(){
