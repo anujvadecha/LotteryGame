@@ -25,20 +25,25 @@ class BuyTicketsAPI(APIView):
     """
     def post(self, request, *args, **kwargs):
         response = {}
-        data = request.data
-        print(data)
-        lotteries = Lottery.objects.filter(id__in = data["selected_lotteries"])
-        data = data["selection"]
-        for lottery in lotteries:
-            ticket_id = TicketID.objects.create(user=request.user,lottery=lottery)
-            for key,value in data.items():
-                if(value['quantity']!=None):
-                    ticket = Ticket.objects.create(user=request.user,set_ticket=key,quantity=value["quantity"],price=value["price"])
-                    ticket_id.ticket_set.add(ticket)
-            ticket_id.save()
-        response['status_code'] = 200
-        # response['total_price'] =  ticket_id.total_price
-        # response['total_quantity'] =  ticket_id.total_quantity
+        try:
+            data = request.data
+            print(data)
+            lotteries = Lottery.objects.filter(id__in = data["selected_lotteries"])
+            data = data["selection"]
+            for lottery in lotteries:
+                ticket_id = TicketID.objects.create(user=request.user,lottery=lottery)
+                for key,value in data.items():
+                    if(value['quantity']!=None):
+                        ticket = Ticket.objects.create(user=request.user,set_ticket=key,quantity=value["quantity"],price=value["price"])
+                        ticket_id.ticket_set.add(ticket)
+                        UserLedgerHistory.objects.create(user=request.user,credit=value["quantity"] * value["price"],debit=0,ticket_individual=ticket)
+                ticket_id.save()
+            response['status_code'] = 200
+            # response['total_price'] =  ticket_id.total_price
+            # response['total_quantity'] =  ticket_id.total_quantity
+        except Exception as e:
+            print(e)
+            response['status_code'] = 500
         return Response(data=response)
 
 BuyTickets = BuyTicketsAPI.as_view()

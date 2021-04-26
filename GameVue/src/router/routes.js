@@ -26,9 +26,8 @@ const routes = [
     name: 'Home',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Results.vue') },
+      { path: '', component: () => import('pages/Index.vue') },
       { path: 'SelectionTable/:set',name:'SelectionTable', component: () => import('pages/SelectionTable.vue') ,props: true },
-      // { path: 'TransactionDetails/',name:'TransactionDetails', component: () => import('pages/TransactionDetails.vue') ,props: true }
     ]
   },
   {

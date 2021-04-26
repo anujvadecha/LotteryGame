@@ -34,3 +34,5 @@ class LotteryAdmin(admin.ModelAdmin):
 
 admin.site.register(Lottery,LotteryAdmin)
 
+admin.site.register(UserLedgerHistory)
+

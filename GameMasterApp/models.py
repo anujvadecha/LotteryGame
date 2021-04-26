@@ -38,11 +38,18 @@ class RegionalManager(BaseModel):
     agents = models.ManyToManyField(Agent, blank=True)
 
 
+class Lottery(BaseModel):
+    time = models.DateTimeField(null=True, blank=True)
+    winners = models.CharField(default="{}", blank=True, max_length=5000)
+    active = models.BooleanField(default=True)
+    completed = models.BooleanField(default=False)
+
 class Ticket(BaseModel):
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
     set_ticket = models.CharField(default="", blank=False, null=False, max_length=256)
     quantity = models.IntegerField(default=0, blank=False, null=False)
     price = models.IntegerField(default=0, blank=False, null=False)
+    lottery = models.ForeignKey(Lottery, on_delete=models.SET_NULL, null=True, blank=True)
 
 
     def total_price(self):
@@ -53,13 +60,6 @@ class Ticket(BaseModel):
             return 0
     def __str__(self):
         return self.set_ticket
-
-
-class Lottery(BaseModel):
-    time = models.DateTimeField(null=True, blank=True)
-    winners = models.CharField(default="{}", blank=True, max_length=5000)
-    active = models.BooleanField(default=True)
-    completed = models.BooleanField(default=False)
 
 
 class TicketID(BaseModel):
@@ -86,7 +86,7 @@ class TicketID(BaseModel):
         except Exception as e:
             print(e)
             self.total_price = 0
-            self.total_quantity = 0
+            self.total_creditquantity = 0
             super(TicketID, self).save(*args, **kwargs)
 
 
@@ -94,9 +94,7 @@ class UserLedgerHistory(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     credit = models.IntegerField(default=0)
     debit = models.IntegerField(default=0)
-    current_balance = models.IntegerField(default=0)
-    ticket_id = models.ForeignKey(TicketID, null=True, blank=True, on_delete=models.SET_NULL)
-
+    ticket_individual = models.ForeignKey(Ticket, null=True, blank=True, on_delete=models.SET_NULL)
 
 class Admin(BaseModel):
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
