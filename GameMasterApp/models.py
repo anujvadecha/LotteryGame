@@ -89,15 +89,34 @@ class TicketID(BaseModel):
             self.total_creditquantity = 0
             super(TicketID, self).save(*args, **kwargs)
 
+class TotalDebitCredit(BaseModel):
+    credit = models.IntegerField(default=0)
+    debit = models.IntegerField(default=0)
 
 class UserLedgerHistory(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     credit = models.IntegerField(default=0)
     debit = models.IntegerField(default=0)
     ticket_individual = models.ForeignKey(Ticket, null=True, blank=True, on_delete=models.SET_NULL)
+    def save(self, *args, **kwargs):
+        try:
+            super(UserLedgerHistory, self).save(*args, **kwargs)
+            print(self.created_at.date())
+            totaldebitcreditobj = TotalDebitCredit.objects.filter(created_at__date=self.created_at.date())
+            if totaldebitcreditobj:
+                totaldebitcreditobj[0].credit = totaldebitcreditobj[0].credit + self.credit
+                totaldebitcreditobj[0].debit = totaldebitcreditobj[0].debit + self.debit
+                totaldebitcreditobj[0].save()
+            else:
+                TotalDebitCredit.objects.create(credit=self.credit,debit=self.debit)
+        except Exception as e:
+            print(e)
+            super(UserLedgerHistory, self).save(*args, **kwargs)
 
 class Admin(BaseModel):
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
     regional_managers = models.ManyToManyField(RegionalManager, blank=True)
     agents = models.ManyToManyField(Agent, blank=True)
     players = models.ManyToManyField(Players, blank=True)
+
+

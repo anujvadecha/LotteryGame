@@ -18,11 +18,11 @@ def assign_lottery_timings():
 		if lottery_obj:
 			lottery_obj = lottery_obj[0]
 			closest_time = lottery_obj.time
-			# print(f"closest_time {closest_time} ")
+			print(f"closest_time {closest_time} ")
 			difference_for_next_lottery = (closest_time - current_time).total_seconds()
 			winner_dict = {"A":"","B":"","C":"","D":"","E":"","F":"","G":"","H":"","I":"","J":""}
 			print(difference_for_next_lottery)
-			if difference_for_next_lottery <= 9000 and difference_for_next_lottery>0 :
+			if difference_for_next_lottery <= 90000 and difference_for_next_lottery>0 :
 					# and lottery_obj.winners == "{}":
 				print("running lottery")
 				for key,value in winner_dict.items():
@@ -32,6 +32,8 @@ def assign_lottery_timings():
 			lottery_obj.save()
 			total_debit = 0
 			for key,value in winner_dict.items():
+					print(lottery_obj.pk)
+					print(Ticket.objects.filter(lottery=lottery_obj,set_ticket=str(key)+str(value)))
 					for items in Ticket.objects.filter(lottery=lottery_obj,set_ticket=str(key)+str(value)):
 						total_winning = items.total_price()*9
 						UserLedgerHistory.objects.create(user=items.user,credit=0,debit=total_winning,ticket_individual=items)

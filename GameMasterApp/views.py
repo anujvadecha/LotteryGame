@@ -24,6 +24,7 @@ class BuyTicketsAPI(APIView):
         response = {}
         data = request.data
         print(data)
+
         lotteries = Lottery.objects.filter(id__in = data["selected_lotteries"])
         data = data["selection"]
         tickets_created=[]

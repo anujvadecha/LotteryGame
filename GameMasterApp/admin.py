@@ -38,5 +38,8 @@ admin.site.register(Lottery,LotteryAdmin)
 class UserLedgerHistoryAdmin(admin.ModelAdmin):
     list_display = ('user','credit','debit','ticket_individual')
 
+@admin.register(TotalDebitCredit)
+class TotalDebitCreditAdmin(admin.ModelAdmin):
+	pass
 
 
