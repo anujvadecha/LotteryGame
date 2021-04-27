@@ -1084,7 +1084,7 @@ export default function (/* { ssrContext } */) {
       set_next_lottery(state) {
         for (var i = 0; i < state.lotteries.length; i++) {
           if (compareDate(new Date(), state.lotteries[i].time) > 0) {
-
+              console.log(new Date()+" "+state.lotteries[i].time)
           } else {
             state.nextLottery = state.lotteries[i];
             state.previousLottery = state.lotteries[i - 1];

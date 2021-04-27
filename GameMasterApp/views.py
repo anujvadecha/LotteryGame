@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.utils.timezone import get_current_timezone
 from rest_framework.permissions import IsAuthenticated
 import json
 from rest_framework.views import APIView
@@ -31,7 +32,7 @@ class BuyTicketsAPI(APIView):
                 ticket_id = TicketID.objects.create(user=request.user,lottery=lottery)
                 for key,value in data.items():
                     if(value['quantity']!=None):
-                        ticket = Ticket.objects.create(user=request.user,set_ticket=key,quantity=value["quantity"],price=value["price"])
+                        ticket = Ticket.objects.create(user=request.user,set_ticket=key,quantity=value["quantity"],price=value["price"],lottery=lottery)
                         ticket_id.ticket_set.add(ticket)
                         UserLedgerHistory.objects.create(user=request.user,credit=value["quantity"] * value["price"],debit=0,ticket_individual=ticket)
 
@@ -51,7 +52,7 @@ class LotteryTimingsAPI(APIView):
         response = {}
         response['status_code'] = 500
         try:
-            current_time = datetime.now()
+            current_time = get_current_timezone().localize(datetime.now())
             closest_time = Lottery.objects.filter(time__gte=current_time).first()
             response['closest_lottery'] = LotterySerializer(closest_time).data
             today_min = datetime.combine(date.today(), time.min)

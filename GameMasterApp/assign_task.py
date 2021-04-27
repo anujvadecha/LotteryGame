@@ -1,23 +1,35 @@
+from GameMasterApp.models import UserLedgerHistory, TicketID
+
+
 def assign_lottery_timings():
 	from pytz import timezone
 	from datetime import datetime,timedelta
 	from GameMasterApp.models import Lottery,Ticket
 	import random
 	import json
+	import sys
 	try:
 		IST = timezone('Asia/Kolkata')
-		current_time = datetime.now()
+		current_time = IST.localize(datetime.now())
+		print(f"current time {current_time}")
 		print(current_time)
-		lottery_obj = Lottery.objects.filter(time__gte=current_time)
+		lottery_obj = Lottery.objects.filter(time__gte=current_time).order_by('time')
+		print(f" Lottery time {lottery_obj[0].time}")
 		if lottery_obj:
 			lottery_obj = lottery_obj[0]
-			closest_time = lottery_obj.time + timedelta(hours=5,minutes=30)
-			difference_for_next_lottery = (closest_time.replace(tzinfo=None) - current_time).total_seconds()
+			closest_time = lottery_obj.time
+			# print(f"closest_time {closest_time} ")
+			difference_for_next_lottery = (closest_time - current_time).total_seconds()
 			winner_dict = {"A":"","B":"","C":"","D":"","E":"","F":"","G":"","H":"","I":"","J":""}
-			if difference_for_next_lottery <= 3000 and lottery_obj.winners == "{}":
-				for iterator in range(0,10):
-					winner_dict[list(winner_dict.keys())[iterator]] = random.randint(0,99)
+			print(difference_for_next_lottery)
+			if difference_for_next_lottery <= 9000 and difference_for_next_lottery>0 :
+					# and lottery_obj.winners == "{}":
+				print("running lottery")
+				for key,value in winner_dict.items():
+					print("assigning winner")
+					winner_dict[key] = random.randint(0,99)
 			lottery_obj.winners = json.dumps(winner_dict)
+			lottery_obj.save()
 			total_debit = 0
 			for key,value in winner_dict.items():
 					for items in Ticket.objects.filter(lottery=lottery_obj,set_ticket=str(key)+str(value)):
@@ -28,7 +40,9 @@ def assign_lottery_timings():
 						ticket_id.save()
 			lottery_obj.save()
 	except Exception as e:
-		print(e)
+		print(str(e))
+		exc_type, exc_obj, exc_tb = sys.exc_info()
+		print("line %s", str(exc_tb.tb_lineno))
 
 
 assign_lottery_timings()

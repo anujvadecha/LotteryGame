@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'GameMaster.wsgi.application'
 #         'default': env.db(var="DATABASE_URL")
 # }
 
-if DEBUG:
+if not DEBUG:
     # Sqlite Database Configuration
     DATABASES = {
         'default': {
@@ -144,8 +144,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 SITE_ID = 1
 LANGUAGE_CODE = 'en-us'
-USE_I18N = True
-USE_L10N = True
+# USE_I18N = True
+# USE_L10N = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = '/static/'

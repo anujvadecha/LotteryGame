@@ -34,5 +34,9 @@ class LotteryAdmin(admin.ModelAdmin):
 
 admin.site.register(Lottery,LotteryAdmin)
 
-admin.site.register(UserLedgerHistory)
+@admin.register(UserLedgerHistory)
+class UserLedgerHistoryAdmin(admin.ModelAdmin):
+    list_display = ('user','credit','debit','ticket_individual')
+
+
 
