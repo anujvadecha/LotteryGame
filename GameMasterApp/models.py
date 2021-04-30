@@ -103,13 +103,13 @@ class UserLedgerHistory(BaseModel):
         try:
             super(UserLedgerHistory, self).save(*args, **kwargs)
             print(self.created_at.date())
-            totaldebitcreditobj = TotalDebitCredit.objects.filter(created_at__date=self.created_at.date())
+            totaldebitcreditobj = TotalDebitCredit.objects.filter(created_at__date=self.created_at.date() , user=self.user)
             if totaldebitcreditobj:
                 totaldebitcreditobj[0].credit = totaldebitcreditobj[0].credit + self.credit
                 totaldebitcreditobj[0].debit = totaldebitcreditobj[0].debit + self.debit
                 totaldebitcreditobj[0].save()
             else:
-                TotalDebitCredit.objects.create(credit=self.credit,debit=self.debit)
+                TotalDebitCredit.objects.create(credit=self.credit,debit=self.debit,user=self.user)
         except Exception as e:
             print(e)
             super(UserLedgerHistory, self).save(*args, **kwargs)
