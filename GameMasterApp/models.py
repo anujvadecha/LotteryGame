@@ -92,6 +92,7 @@ class TicketID(BaseModel):
 class TotalDebitCredit(BaseModel):
     credit = models.IntegerField(default=0)
     debit = models.IntegerField(default=0)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
 
 class UserLedgerHistory(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
