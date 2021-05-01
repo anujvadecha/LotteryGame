@@ -45,8 +45,8 @@ export default {
         if (currentTime == null)
           return ''
         var ISTTime = new Date(getTimeZoneDate(currentTime).getTime() - getTimeZoneDate(new Date()).getTime());
-        console.log(getTimeZoneDate(currentTime))
-        console.log(getTimeZoneDate(new Date()))
+        // console.log(getTimeZoneDate(currentTime))
+        // console.log(getTimeZoneDate(new Date()))
         var hoursIST = ISTTime.getHours()
         var minutesIST = ISTTime.getMinutes()
         var secondsIST = ISTTime.getSeconds()
@@ -66,15 +66,13 @@ export default {
       return "" + hoursIST + ":" + minutesIST + " " + ""
     },
     get_current_date:function (){
-      var currentTime = new Date();
-      var currentOffset = currentTime.getTimezoneOffset();
-      var ISTOffset = 330;   // IST offset UTC +5:30
-      var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
-      var Year=ISTTime.getFullYear()
-      var Day=ISTTime.getDay()
+      var ISTTime = getTimeZoneDate(new Date())
+      console.log(ISTTime)
+      var Year = ISTTime.getFullYear()
+      var Day = ISTTime.getDay()
       var month = ISTTime.getMonth()
       var minutesIST = ISTTime.getMinutes()
-      return "" + Year + "/" + month + " /" + Day
+      return ISTTime.toLocaleDateString("en-US")
     }
   }
 }
