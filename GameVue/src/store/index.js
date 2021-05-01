@@ -1074,8 +1074,10 @@ export default function (/* { ssrContext } */) {
       user:null
     },
     mutations: {
-      update_balance_points(state,points)
-      {
+      add_input(state,input) {
+        state.inputs[input.set][input.number]=input.quantity
+      },
+      update_balance_points(state,points) {
         state.balance_points=points;
       },
       push_ticket(state, ticket) {
@@ -2165,6 +2167,9 @@ export default function (/* { ssrContext } */) {
       update_balance_points({commit},points) {
         commit('update_balance_points',points)
       },
+      add_input({commit},input) {
+        commit('add_input',input)
+      },
       update_user_details({commit},user) {
         commit('update_user_details',user)
       },
@@ -2196,8 +2201,7 @@ export default function (/* { ssrContext } */) {
         commit('set_results', results)
 
       },
-      fp_selection({commit},fp)
-      {
+      fp_selection({commit},fp) {
         commit('fp_selection', fp)
       }
     },

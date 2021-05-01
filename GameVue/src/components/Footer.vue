@@ -37,14 +37,13 @@ name: "Footer",
           if(setDict[key][number] !== null && setDict[key][number])
             for(var i=0;i<this.$store.state.selected_lotteries.length;i++) {
               quantity= parseInt(quantity) + parseInt(setDict[key][number])
-            }
+          }
         }
       }
       return quantity;
     },
     priceSet:function(){
-      var price={A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0,I:0,J:0}
-      var totalPrice=0;
+      var price = {A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0,I:0,J:0}
       var setDict=this.$store.state.inputs;
       for (var key in setDict){
         for(var number in setDict[key]) {
@@ -53,12 +52,15 @@ name: "Footer",
               price[key] = (parseInt(price[key]) + parseInt(setDict[key][number]))
             }
         }
-        price[key] = price[key]*this.$store.state.setPoints[key]
+        price[key]=price[key]*this.$store.state.setPoints[key]
       }
-      for (let [key, value] of Object.entries(price)) {
-           console.log(totalPrice+=value);
-      }
-      return totalPrice;
+      var totalPrice = 0;
+      // for (const [key, value] of Object.entries(totalPrice)) {
+        // console.log(key)
+        // console.log(value)
+        totalPrice += key
+      // }
+      return price.A+price.B+price.C+price.D+price.E+price.F+price.G+price.H+price.I+price.J;
     }
   },
 
@@ -80,7 +82,7 @@ name: "Footer",
           type: 'positive',
           progress: true,
           message: 'Ticket booked '+ticket.ticket_id+ ' Points '+ticket.total_price+ ' Qty '+ticket.total_quantity,
-          position: 'center',
+          position: 'top-right',
           timeout: 5000,
           actions: [
             { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
@@ -94,7 +96,7 @@ name: "Footer",
           type: 'negative',
           progress: true,
           message: 'Ticket could not be booked due to error '+res.message,
-          position: 'center',
+          position: 'top-right',
           timeout: 5000,
           actions: [
             { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }

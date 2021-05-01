@@ -51,7 +51,10 @@
           <div class="" v-for="n in 10" style="width: 9.09%;" :key="n">
           <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
             <div style="font-size: small"> {{ i*10+n-10-1}} </div>
-            <input :id="set+(i*10+n-10-1)" class="text-center text-red " v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:100%')" v-model="inputs[set][i*10+n-10-1]" @input="add_input(i*10+n-10-1)"/>
+            <input :id="set+(i*10+n-10-1)" class="text-center text-red "
+                   v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:100%')"
+                   :value="inputs[set][i*10+n-10-1]"
+                   @input="add_input(i*10+n-10-1)"/>
           </q-card>
           </div>
         </div>
@@ -147,8 +150,14 @@ export default {
   name: "SelectionTable",
   props: ['set'],
   computed:{
-    inputs:function(){
-      return this.$store.state.inputs
+    inputs:{
+      get () {
+        return this.$store.state.inputs
+      },
+      set (value) {
+        console.log(value)
+        this.$store.commit('update_inputs',{set:this.set,value:value})
+      }
     },
     quantitySet:function () {
       var quantity={A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0,I:0,J:0}
@@ -185,6 +194,9 @@ export default {
     }
   },
   methods: {
+    add_input_fp:function (n) {
+
+    },
     add_input:function (n){
       // console.log(this.$store.state.selectionState)
       // console.log(this.set+n +' '+ this.inputs[this.set][n])
@@ -192,10 +204,17 @@ export default {
       // this.$store.state.inputs[this.set][n] =1
       // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById(this.set+(n)).value})
       if(this.$store.state.fp===true) {
-
+        this.add_input_fp(n)
       }
-      this.$store.dispatch('push_ticket',{ticket:this.set+(n),quantity:{quantity:parseInt(this.inputs[this.set][n]) , price:this.$store.state.setPoints[this.set]}})
-      console.log(this.$store.state.selectionState);
+      this.$store.dispatch('add_input', {
+        set: this.set,
+        number: n,
+        quantity: document.getElementById(this.set + n).value
+      })
+      this.$store.dispatch('push_ticket', {
+        ticket: this.set + (n),
+        quantity: {quantity: parseInt(this.inputs[this.set][n]), price: this.$store.state.setPoints[this.set]}
+      })
     },
     add_input_col:function (n) {
       for(var i=0;i<10;i++) {
@@ -212,8 +231,8 @@ export default {
     },
     add_input_row:function (n) {
         for(var i=0;i<10;i++) {
-          console.log('row'+this.set+(n));
-          console.log('value of row is '+document.getElementById('row'+this.set+(n)).value)
+          // console.log('row'+this.set+(n));
+          // console.log('value of row is '+document.getElementById('row'+this.set+(n)).value)
           // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById('col'+this.set+n).value})
           if(this.$store.state.selection_group==='Even' && (i +(n-1)*10)%2 !==0 ) {
             continue
@@ -221,7 +240,8 @@ export default {
           else if(this.$store.state.selection_group==='Odd' && (i +(n-1)*10)%2 ===0) {
             continue
           }
-          this.inputs[this.set][i +(n-1)*10] = document.getElementById('row' + this.set + (n)).value;
+          document.getElementById(this.set+(i +(n-1)*10)).value=document.getElementById('row'+this.set+(n)).value
+          // this.inputs[this.set][i +(n-1)*10] = document.getElementById('row' + this.set + (n)).value;
           this.add_input(i +(n-1)*10);
         }
     },

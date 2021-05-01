@@ -1,7 +1,7 @@
 <template>
 <div class="row" style="background-color: #13fba5;color: black">
   <div class="col q-ma-sm">
-    SHREE DINESH BHAIS LOTTERY
+    {{$store.state.user.first_name}}
   </div>
   <div class="col q-ma-sm">
     Available points :{{$store.state.balance_points}}
