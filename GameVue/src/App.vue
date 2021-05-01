@@ -51,18 +51,18 @@ document.addEventListener('keypress', function (e){
       const nextLottery = this.$store.getters.get_next_lottery;
       this.$store.dispatch('set_selected_lotteries',[nextLottery])
       console.log("next lottery is " + nextLottery)
-      setInterval(function (){
+      // setInterval(function (){
 
-        var current_next_lottery =  store.state.nextLottery;
-        get_winners({"lottery_time":nextLottery.time.getTime()}).then(
-        res=>{
-          if(res.status_code===200) {
-            console.log(res)
-            store.dispatch('set_results',res.lottery_winners_ticket)
-            }
-          }
-        )
-      },6000)
+      //   var current_next_lottery =  store.state.nextLottery;
+      //   get_winners({"lottery_time":nextLottery.time.getTime()}).then(
+      //   res=>{
+      //     if(res.status_code===200) {
+      //       console.log(res)
+      //       store.dispatch('set_results',res.lottery_winners_ticket)
+      //       }
+      //     }
+      //   )
+      // },6000)
 
       const store=this.$store;
       get_user_details().then(
