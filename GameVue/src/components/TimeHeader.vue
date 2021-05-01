@@ -44,7 +44,9 @@ export default {
         var currentTime = this.$store.state.nextLottery.time;
         if (currentTime == null)
           return ''
-        var ISTTime = new Date(getTimeZoneDate(currentTime).getTime() - new Date().getTime());
+        var ISTTime = new Date(getTimeZoneDate(currentTime).getTime() - getTimeZoneDate(new Date()).getTime());
+        console.log(getTimeZoneDate(currentTime))
+        console.log(getTimeZoneDate(new Date()))
         var hoursIST = ISTTime.getHours()
         var minutesIST = ISTTime.getMinutes()
         var secondsIST = ISTTime.getSeconds()

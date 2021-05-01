@@ -33,7 +33,8 @@ class BuyTicketsAPI(APIView):
             # Validation for balance points
             points=0
             for key, value in data.items():
-                points += value["quantity"]*value["price"]
+                if (value['quantity'] != None):
+                    points += value["quantity"]*value["price"]
 
             if(points > user.balance_points):
                 response['status_code'] = 500
@@ -61,8 +62,10 @@ class BuyTicketsAPI(APIView):
             response['status_code'] = 200
             response['tickets'] = tickets_created
             response['balance_points'] = user.balance_points
+            print(response)
             return Response(data=response)
         except:
+
             return Response(data = response ,status = status.HTTP_200_OK)
 BuyTickets = BuyTicketsAPI.as_view()
 
@@ -75,7 +78,6 @@ class LotteryTimingsAPI(APIView):
         response['status_code'] = 500
         try:
             current_time = get_current_timezone().localize(datetime.now())
-            print(current_time)
             closest_time = Lottery.objects.filter(time__gte=current_time).first()
             response['closest_lottery'] = LotterySerializer(closest_time).data
             today_min = datetime.combine(date.today(), time.min)
@@ -84,7 +86,6 @@ class LotteryTimingsAPI(APIView):
             timings_of_lottery = LotterySerializer(timings_of_lottery, many=True).data
             response["lottery_objects"] = timings_of_lottery
             response['status_code'] = 200
-            print(response)
         except Exception as e:
             print(e)
             response = json.dumps(response)
@@ -161,9 +162,8 @@ class TotalDebitCreditView(APIView):
             response_objects = response_objects.filter(created_at__date=datetime.now().date())
         response["debit"] = response_objects.aggregate(Sum('debit'))["debit__sum"]
         response["credit"] = response_objects.aggregate(Sum('credit'))["credit__sum"]
-        # response["response_objects"] = response_objects
-        print(response)
-        return Response( data=json.dumps(response) )
+        response["balance_points"]=request.user.balance_points
+        return Response(data=response)
 
 
 TotalPointsView = TotalDebitCreditView.as_view()

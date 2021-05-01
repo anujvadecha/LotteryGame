@@ -71,14 +71,14 @@ name: "Footer",
       selection:this.$store.state.selectionState
     }
     console.log(order)
-   const  store=this.$store;
+    const  store=this.$store;
     place_order(order).then(res=>{
       if(res.status_code===200)
       {
-      console.log(res)
-      store.dispatch('update_balance_points',res.balance_points)
-      var tickets_booked = res.tickets.map(ticket=>{
-      Notify.create({
+        console.log(res)
+        store.dispatch('update_balance_points',res.balance_points)
+        var tickets_booked = res.tickets.map(ticket=>{
+        Notify.create({
           type: 'positive',
           progress: true,
           message: 'Ticket booked '+ticket.ticket_id+ ' Points '+ticket.total_price+ ' Qty '+ticket.total_quantity,
@@ -87,9 +87,9 @@ name: "Footer",
           actions: [
             { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
           ]
-      })
-      return ticket.ticket_id})
-     this.$store.dispatch('reset_all')
+        })
+        return ticket.ticket_id})
+        this.$store.dispatch('reset_all')
         }
       else{
         Notify.create({

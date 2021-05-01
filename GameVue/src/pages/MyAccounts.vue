@@ -57,17 +57,16 @@
 
               <tr>
                 <td>Play Points: </td>
-                <td>3000 </td>
+                <td>{{total_debit}} </td>
               </tr>
 
               <tr>
                 <td>Win Points</td>
-                <td>5000</td>
+                <td>{{total_credit}}</td>
               </tr>
-
               <tr>
                 <td>End Points</td>
-                <td>4800</td>
+                <td>{{total_pending}}</td>
               </tr>
 
             </table>
@@ -85,18 +84,31 @@
 
 <script>
 import ResultHeader from "components/ResultHeader";
+import {get_total_points} from "src/common/api_calls";
 export default {
   name: "MyAccounts",
   components: {ResultHeader},
   data () {
   return {
-      date: '2019-02-01 12:44'
+      date: '2019-02-01 12:44',
+      total_debit:"",
+      total_credit:"",
+      total_pending:""
     }
   },
   methods:{
     fetch_transaction_according_to_date(){
       console.log("here")
     }
+  },
+  created() {
+    console.log("created my accounts")
+    get_total_points(null).then(res=>{
+      console.log(res)
+      this.total_credit= res["credit"];
+      this.total_debit= res["debit"];
+      this.total_pending=res.balance_points
+    })
   }
 }
 </script>

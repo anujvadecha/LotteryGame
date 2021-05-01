@@ -18,5 +18,4 @@ from GameMasterApp.models import UserLedgerHistory, TotalDebitCredit, TicketID
 
 @receiver(post_save,sender=TicketID)
 def postSaveTicket(sender, instance, created, **kwargs):
-
     pass

@@ -35,7 +35,7 @@ document.addEventListener('keypress', function (e){
           reading=false;
       }, 200);}
       })
-    get_total_points().then(res=>{
+    get_total_points(null).then(res=>{
       console.log(res);
     })
     get_lottery_timings().then(lottery_timings => {

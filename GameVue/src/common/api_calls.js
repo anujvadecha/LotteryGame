@@ -31,13 +31,14 @@ function get_winners(data){
 function get_total_points(data){
   //TO SEND UNIX TIME TO {'lottery_time':1213213213}
   const endpoint = base_url + '/gamemaster/total_points/'
-  return apiService(endpoint, 'GET',null)
+  return apiService(endpoint, 'GET',data)
 }
 
 function get_user_details () {
   const endpoint = base_url + '/api/rest-auth/user/'
   return apiService(endpoint, 'GET', null)
 }
+
 
 export {
   base_url,
