@@ -4,11 +4,11 @@
     <div class="row">
       <div class="col-3"></div>
 <div class="q-pa-md col-3" style="max-width: 300px">
- <q-input filled v-model="date">
+ <q-input filled v-model="start_date">
    <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="date" mask="YYYY-MM-DD HH:mm">
+            <q-date v-model="start_date" mask="YYYY-MM-DD">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="Close" color="primary" flat />
               </div>
@@ -19,11 +19,11 @@
  </q-input>
 </div>
   <div class="q-pa-md col-3" style="max-width: 300px">
- <q-input filled v-model="date">
+ <q-input filled v-model="end_date">
    <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="date" mask="YYYY-MM-DD HH:mm">
+            <q-date v-model="end_date" mask="YYYY-MM-DD">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="Close" color="primary" flat />
               </div>
@@ -90,15 +90,17 @@ export default {
   components: {ResultHeader},
   data () {
   return {
-      date: '2019-02-01 12:44',
+      start_date: '2019-02-01',
+      end_date: '2019-02-01',
       total_debit:"",
       total_credit:"",
-      total_pending:""
+      total_pending:"",
     }
   },
   methods:{
     fetch_transaction_according_to_date(){
-      console.log("here")
+      console.log(this.start_date)
+      console.log(this.end_date)
     }
   },
   created() {
