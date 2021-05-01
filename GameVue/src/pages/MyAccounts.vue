@@ -85,13 +85,15 @@
 <script>
 import ResultHeader from "components/ResultHeader";
 import {get_total_points} from "src/common/api_calls";
+import {get_current_date} from "src/common/utils";
+
 export default {
   name: "MyAccounts",
   components: {ResultHeader},
   data () {
   return {
-      start_date: '2019-02-01',
-      end_date: '2019-02-01',
+      start_date: get_current_date(),
+      end_date: get_current_date(),
       total_debit:"",
       total_credit:"",
       total_pending:"",
@@ -101,6 +103,13 @@ export default {
     fetch_transaction_according_to_date(){
       console.log(this.start_date)
       console.log(this.end_date)
+      var date_dict = {"start_date":this.start_date,"end_date":this.end_date}
+      get_total_points(date_dict).then(res=>{
+        console.log(res)
+        this.total_credit= res["credit"];
+        this.total_debit= res["debit"];
+        this.total_pending=res.balance_points
+      })
     }
   },
   created() {

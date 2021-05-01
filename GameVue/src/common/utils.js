@@ -55,11 +55,20 @@ function getFormattedDateHHMM(date) {
       return "" + hoursIST + ":" + minutesIST
 }
 
-
+function get_current_date(){
+      var ISTTime = getTimeZoneDate(new Date())
+      console.log(ISTTime)
+      var Year = ISTTime.getFullYear()
+      var Day = ISTTime.getDay()
+      var month = ISTTime.getMonth()
+      var minutesIST = ISTTime.getMinutes()
+      return ISTTime.toLocaleDateString("zh-Hans-CN").replaceAll("/","-")
+    }
 
 export {
   compareDate,
   getTimeZoneDate,
   getFormattedDateHHMMSS,
-  getFormattedDateHHMM
+  getFormattedDateHHMM,
+  get_current_date
 }

@@ -30,8 +30,9 @@ function get_winners(data){
 
 function get_total_points(data){
   //TO SEND UNIX TIME TO {'lottery_time':1213213213}
+  console.log(data)
   const endpoint = base_url + '/gamemaster/total_points/'
-  return apiService(endpoint, 'GET',data)
+  return apiService(endpoint, 'POST',data)
 }
 
 function get_user_details () {

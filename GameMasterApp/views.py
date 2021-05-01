@@ -151,17 +151,24 @@ LotteryWinnersPrevious = LotteryWinnersPreviousAPI.as_view()
 
 class TotalDebitCreditView(APIView):
 
-    def get(self, request):
+    def post(self, request):
         data = request.data
         response = {}
         response_objects = TotalDebitCredit.objects.filter(user=request.user)
+        print(request.data)
         if (data.get("start_date", None) and data.get("end_date", None)):
             response_objects = response_objects.filter(created_at__date__gte=data.get("start_date"),
                                                        created_at__date__lte=data.get("end_date"))
         else:
             response_objects = response_objects.filter(created_at__date=datetime.now().date())
-        response["debit"] = response_objects.aggregate(Sum('debit'))["debit__sum"]
-        response["credit"] = response_objects.aggregate(Sum('credit'))["credit__sum"]
+        response_debit = response_objects.aggregate(Sum('debit'))["debit__sum"]
+        response_credit = response_objects.aggregate(Sum('credit'))["credit__sum"]
+        if response_debit == None:
+            response_debit = 0
+        if response_credit == None:
+            response_credit = 0
+        response["debit"] = response_debit
+        response["credit"] = response_credit
         response["balance_points"]=request.user.balance_points
         return Response(data=response)
 
