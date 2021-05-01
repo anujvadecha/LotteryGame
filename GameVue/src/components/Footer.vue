@@ -8,7 +8,6 @@
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="$router.push({path:'/TxnDetails'})">Txn Details</q-btn>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="reset_all()">Reset all</q-btn>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()">Buy</q-btn>
-   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="logout()">Logout</q-btn>
     <div class="col text-center q-pa-sm text-black" style="font-weight: bold;font-size: large">Grand Total</div>
     <div class="col-2">
       <div class="row"  style="background-color: white;height: 100%" >
@@ -70,14 +69,18 @@ name: "Footer",
       selection:this.$store.state.selectionState
     }
     console.log(order)
-   place_order(order).then(res=>{
-     console.log(res)
+   const  store=this.$store;
+    place_order(order).then(res=>{
+      if(res.status_code===200)
+      {
+      console.log(res)
+      store.dispatch('update_balance_points',res.balance_points)
       var tickets_booked = res.tickets.map(ticket=>{
       Notify.create({
           type: 'positive',
           progress: true,
           message: 'Ticket booked '+ticket.ticket_id+ ' Points '+ticket.total_price+ ' Qty '+ticket.total_quantity,
-          position: 'top-right',
+          position: 'center',
           timeout: 5000,
           actions: [
             { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
@@ -85,19 +88,20 @@ name: "Footer",
       })
       return ticket.ticket_id})
      this.$store.dispatch('reset_all')
-   }).catch(err=>{
-     console.log(err);
-     Notify.create({
+        }
+      else{
+        Notify.create({
           type: 'negative',
           progress: true,
-          message: 'Ticket could not be booked due to error ',
-          position: 'top-right',
+          message: 'Ticket could not be booked due to error '+res.message,
+          position: 'center',
           timeout: 5000,
           actions: [
             { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
           ]
       })
-   });
+      }
+   })
   },
     logout(){
     this.$q.localStorage.set('token', '')

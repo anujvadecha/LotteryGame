@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'GameMaster.wsgi.application'
 #         'default': env.db(var="DATABASE_URL")
 # }
 
-if DEBUG:
+if not DEBUG:
     # Sqlite Database Configuration
     DATABASES = {
         'default': {
@@ -152,3 +152,7 @@ STATIC_URL = '/static/'
 USE_TZ = True
 TIME_ZONE = 'Asia/Kolkata'
 AUTH_USER_MODEL = "GameMasterApp.User"
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'GameMasterApp.serializers.UserSerializer',
+}

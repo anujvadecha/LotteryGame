@@ -44,6 +44,9 @@ class Lottery(BaseModel):
     active = models.BooleanField(default=True)
     completed = models.BooleanField(default=False)
 
+    def __str__(self):
+        return str(self.time)
+
 class Ticket(BaseModel):
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
     set_ticket = models.CharField(default="", blank=False, null=False, max_length=256)
@@ -99,6 +102,7 @@ class UserLedgerHistory(BaseModel):
     credit = models.IntegerField(default=0)
     debit = models.IntegerField(default=0)
     ticket_individual = models.ForeignKey(Ticket, null=True, blank=True, on_delete=models.SET_NULL)
+
     def save(self, *args, **kwargs):
         try:
             super(UserLedgerHistory, self).save(*args, **kwargs)

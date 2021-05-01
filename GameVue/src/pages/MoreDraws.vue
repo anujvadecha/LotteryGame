@@ -4,7 +4,7 @@
   More Draws
   <div class="row">
     <div class="" v-for="option in options" :key="option.value.id">
-      <q-checkbox @input="add_selected()" dense v-model="option.selected" val="teal" :label="option.label" color="teal" />
+      <q-checkbox :disable="option.disabled"  @input="add_selected()" dense v-model="option.selected" val="teal" :label="option.label" color="teal" />
     </div>
   </div>
   <q-btn color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
@@ -36,8 +36,8 @@ name: "MoreDraws",
         var selected=false;
         selected_ids.map(id=> {
             if(lottery.id===id) {
-            this.selected_lotteries.push(lottery)
-            selected=true;
+              this.selected_lotteries.push(lottery)
+              selected = true;
             }
           }
         )

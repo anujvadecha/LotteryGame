@@ -18,6 +18,7 @@ export default function (/* { ssrContext } */) {
     modules: {},
     state: {
       selectionState: {},
+      balance_points:0,
       lotteries: [],
       nextLottery: null,
       results: {A: '12', B: '45', C: '22', D: '67', E: '33', F: '88', G: '34', H: '58', I: '76', J: '90'},
@@ -1069,9 +1070,14 @@ export default function (/* { ssrContext } */) {
       previousLottery: new Date(),
       selection_group: 'All',
       selected_lotteries: [],
-      fp:false
+      fp:false,
+      user:null
     },
     mutations: {
+      update_balance_points(state,points)
+      {
+        state.balance_points=points;
+      },
       push_ticket(state, ticket) {
         state.selectionState[ticket['ticket']] = ticket['quantity']
       },
@@ -1084,7 +1090,6 @@ export default function (/* { ssrContext } */) {
       set_next_lottery(state) {
         for (var i = 0; i < state.lotteries.length; i++) {
           if (compareDate(new Date(), state.lotteries[i].time) > 0) {
-              console.log(new Date()+" "+state.lotteries[i].time)
           } else {
             state.nextLottery = state.lotteries[i];
             state.previousLottery = state.lotteries[i - 1];
@@ -2150,9 +2155,19 @@ export default function (/* { ssrContext } */) {
       fp_selection(state,fp)
       {
         state.fp=fp;
+      },
+      update_user_details(state,user) {
+        state.balance_points=user.balance_points
+        state.user=user
       }
     },
     actions: {
+      update_balance_points({commit},points) {
+        commit('update_balance_points',points)
+      },
+      update_user_details({commit},user) {
+        commit('update_user_details',user)
+      },
       reset_all({commit}) {
         commit('reset_all')
       },

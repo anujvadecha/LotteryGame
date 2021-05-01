@@ -5,7 +5,7 @@
 </template>
 <script>
 
-import {get_lottery_timings, get_winners} from "src/common/api_calls";
+import {get_lottery_timings, get_total_points, get_user_details, get_winners} from "src/common/api_calls";
 
 export default {
   name: 'App',
@@ -35,12 +35,14 @@ document.addEventListener('keypress', function (e){
           reading=false;
       }, 200);}
       })
-
-  get_lottery_timings().then(lottery_timings => {
+    get_total_points().then(res=>{
+      console.log(res);
+    })
+    get_lottery_timings().then(lottery_timings => {
       console.log(lottery_timings)
       var timings = lottery_timings.lottery_objects.map(object => {
-            object.time=new Date(object.time)
-            return object
+              object.time=new Date(object.time)
+              return object
         }
     )
     lottery_timings.closest_lottery.time=new Date(lottery_timings.closest_lottery.time)
@@ -54,7 +56,6 @@ document.addEventListener('keypress', function (e){
         get_winners({"lottery_time":nextLottery.time.getTime()}).then(
         res=>{
           if(res.status_code===200) {
-            console.log("getting winners success")
             console.log(res)
             store.dispatch('set_results',res.lottery_winners_ticket)
             }
@@ -62,6 +63,12 @@ document.addEventListener('keypress', function (e){
         )
       },60000)
 
+      const store=this.$store;
+      get_user_details().then(
+        res=>{
+          store.dispatch('update_user_details',res)
+        }
+      )
           //
       // get_lottery_previous({"lottery_time":getTimeZoneDate(nextLottery.getTime())}).then(
       //   res=>{

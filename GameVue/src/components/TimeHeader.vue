@@ -40,15 +40,19 @@ export default {
       }
     },
     leftTime:function () {
+      try {
         var currentTime = this.$store.state.nextLottery.time;
         if (currentTime == null)
           return ''
-        var ISTTime = new Date(getTimeZoneDate(currentTime).getTime()-new Date().getTime());
+        var ISTTime = new Date(getTimeZoneDate(currentTime).getTime() - new Date().getTime());
         var hoursIST = ISTTime.getHours()
         var minutesIST = ISTTime.getMinutes()
         var secondsIST = ISTTime.getSeconds()
         return "" + hoursIST + ":" + minutesIST + " " + secondsIST
-
+      }
+      catch (err) {
+        return ""
+      }
     },
     get_current_time:function (){
       var currentTime = new Date();
