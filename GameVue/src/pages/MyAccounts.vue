@@ -79,7 +79,6 @@
     </div>
     </div>
 
-  Transaction details
   <q-btn color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
 </div>
 </template>

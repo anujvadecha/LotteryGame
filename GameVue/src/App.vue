@@ -52,6 +52,7 @@ document.addEventListener('keypress', function (e){
       this.$store.dispatch('set_selected_lotteries',[nextLottery])
       console.log("next lottery is " + nextLottery)
       setInterval(function (){
+
         var current_next_lottery =  store.state.nextLottery;
         get_winners({"lottery_time":nextLottery.time.getTime()}).then(
         res=>{
@@ -61,7 +62,7 @@ document.addEventListener('keypress', function (e){
             }
           }
         )
-      },60000)
+      },6000)
 
       const store=this.$store;
       get_user_details().then(

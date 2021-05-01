@@ -19,9 +19,10 @@ export default {
 name: "ResultHeader",
   computed:{
     results:function(){
-      if(this.$store.state.results===undefined)
+      if(this.$store.state.results===undefined||this.$store.state.results==={}||!this.$store.state.results.A)
         return {A:'-1', B:'-1',C: '-1',D: '-1',E :'-1',F: '-1',G: '-1',H: '-1',I: '-1',J: '-1'}
       console.log("calculating results")
+      console.log(this.$store.state.results)
       return this.$store.state.results
     },
     previousLotteryFormatted:function () {
