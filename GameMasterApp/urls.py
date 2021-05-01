@@ -7,5 +7,5 @@ urlpatterns = [
     path('lottery_timings/',views.LotteryTimings,name="LotteryTimings"),
     path('lottery_winners/',views.LotteryWinners,name="LotteryWinners"),
     path('total_points/',views.TotalPointsView,name="TotalPoints"),
-    # path('lottery_winners_previous/',views.LotteryWinnersPrevious,name="LotteryWinnersPrevious")
+    path('ticket_id/',views.TicketIDAsView,name="TicketId"),
 ]

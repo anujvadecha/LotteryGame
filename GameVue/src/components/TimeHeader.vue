@@ -68,10 +68,6 @@ export default {
     get_current_date:function (){
       var ISTTime = getTimeZoneDate(new Date())
       console.log(ISTTime)
-      var Year = ISTTime.getFullYear()
-      var Day = ISTTime.getDay()
-      var month = ISTTime.getMonth()
-      var minutesIST = ISTTime.getMinutes()
       return ISTTime.toLocaleDateString("en-US")
     }
   }

@@ -39,6 +39,10 @@ function get_user_details () {
   return apiService(endpoint, 'GET', null)
 }
 
+function get_tickets(data) {
+    const endpoint = base_url + '/gamemaster/ticket_id/'
+    return apiService(endpoint, 'GET', data)
+}
 
 export {
   base_url,
@@ -49,5 +53,6 @@ export {
   get_winners,
   get_lottery_previous,
   get_total_points,
-  get_user_details
+  get_user_details,
+  get_tickets
 }
