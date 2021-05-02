@@ -54,7 +54,7 @@
             <input :id="set+(i*10+n-10-1)" class="text-center text-red "
                    v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:100%')"
                    :value="inputs[set][i*10+n-10-1]"
-                   @input="add_input(i*10+n-10-1)"/>
+                   @input="add_input(i*10+n-10-1,true)"/>
           </q-card>
           </div>
         </div>
@@ -194,9 +194,20 @@ export default {
     }
   },
   methods: {
-
-
+    reverse_number(n) {
+      if(n>=1&&n<=9) {
+        n = '0'+n
+      }
+      const num = n;
+      const reverse = (num) => parseInt(String(num)
+      .split("")
+      .reverse()
+      .join(""), 10);
+      return reverse(num);
+    },
     add_input_fp:function (n) {
+      console.log("adding fp input")
+      this.reverse_number(n)
       //INITIALIZING
       var a= 0;
       var b= 0;
@@ -214,17 +225,34 @@ export default {
           c = n-50
           d = b-50
       }
-      // this.add_input(a)
-      // this.add_input(b)
-      // this.add_input(c)
-      // this.add_input(d)
+      var revA = this.reverse_number(a)
+      var revB = this.reverse_number(b)
+      var revC = this.reverse_number(c)
+      var revD = this.reverse_number(d)
+
+      console.log("Adding input")
+      document.getElementById(this.set+c).value = document.getElementById(this.set+a).value
+      document.getElementById(this.set+b).value = document.getElementById(this.set+a).value
+      document.getElementById(this.set+d).value = document.getElementById(this.set+a).value
+      this.add_input(a,false)
+      this.add_input(b,false)
+      this.add_input(c,false)
+      this.add_input(d,false)
+      document.getElementById(this.set+revA).value = document.getElementById(this.set+a).value
+      document.getElementById(this.set+revB).value = document.getElementById(this.set+a).value
+      document.getElementById(this.set+revC).value = document.getElementById(this.set+a).value
+      document.getElementById(this.set+revD).value = document.getElementById(this.set+a).value
+      this.add_input(revA,false)
+      this.add_input(revB,false)
+      this.add_input(revC,false)
+      this.add_input(revD,false)
       console.log("A"+a +" B:"+b+" C: "+c+" D: "+d)
       // document.getElementById(this.set+a).value = document.getElementById(this.set+a).value
-      document.getElementById(this.set+b).value = 4
-        // document.getElementById(this.set+a).value
-      document.getElementById(this.set+c).value = document.getElementById(this.set+a).value
-      document.getElementById(this.set+d).value = document.getElementById(this.set+a).value
-      document.getElementById("A0").value=3;
+      // document.getElementById(this.set+b).value = 4
+      // document.getElementById(this.set+a).value
+      // this.inputs[this.set][c] = n
+      // console.log(document.getElementById(this.set+(n+1)).value)
+      // document.getElementById("A0").innerHTML = "Johny";
       // console.log(document.getElementById(this.set+n).value)
       // console.log(document.getElementById(this.set+b).value)
       // var a= new Array(10);
@@ -236,17 +264,16 @@ export default {
       //   }
       // }
       // if(n)
-
     },
-    add_input:function (n){
+    add_input:function (n,fp){
 
       // console.log(this.$store.state.selectionState)
       // console.log(this.set+n +' '+ this.inputs[this.set][n])
       // document.getElementById(this.set+(n)).value = parseInt(this.inputs[set][n])
       // this.$store.state.inputs[this.set][n] =1
       // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById(this.set+(n)).value})
-      console.log(this.$store.state.fp)
-      if(this.$store.state.fp===true) {
+      console.log( this.$store.state.fp && fp )
+      if(this.$store.state.fp === true && fp===true ) {
         this.add_input_fp(n)
       }
       this.$store.dispatch('add_input', {
@@ -268,8 +295,9 @@ export default {
           else if(this.$store.state.selection_group==='Odd' && (i * 10 + (n - 1))%2 ===0) {
             continue
           }
-          this.inputs[this.set][i * 10 + (n - 1)] = document.getElementById('col' + this.set + (n)).value;
-          this.add_input(i * 10 + (n-1));
+          // this.inputs[this.set][i * 10 + (n - 1)] = document.getElementById('col' + this.set + (n)).value;
+          document.getElementById(this.set+ (i * 10 + (n - 1))).value = document.getElementById('col'+this.set+(n)).value
+          this.add_input(i * 10 + (n-1),true);
       }
     },
     add_input_row:function (n) {
@@ -283,9 +311,9 @@ export default {
           else if(this.$store.state.selection_group==='Odd' && (i +(n-1)*10)%2 ===0) {
             continue
           }
-          document.getElementById(this.set+(i +(n-1)*10)).value=document.getElementById('row'+this.set+(n)).value
+          document.getElementById(this.set+(i +(n-1)*10)).value = document.getElementById('row'+this.set+(n)).value
           // this.inputs[this.set][i +(n-1)*10] = document.getElementById('row' + this.set + (n)).value;
-          this.add_input(i +(n-1)*10);
+          this.add_input(i +(n-1)*10,true);
         }
     },
     add_input_all:function (n) {
