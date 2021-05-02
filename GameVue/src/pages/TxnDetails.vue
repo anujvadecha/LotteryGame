@@ -2,16 +2,22 @@
   <div>
      <ResultHeader></ResultHeader>
   <div>
-   
     <q-table
       title="Transaction Details"
       :data="tickets"
       :columns="columns"
-      row-key="name"
+      row-key="ticket_id"
       class = "q-ma-md"
+      selection="single"
+      :selected.sync="selected"
     />
-<q-btn color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
+      <q-card class="row" flat bordered>
+         <q-btn class="col q-ma-md" color="blue"  unelevated @click="$router.push({path:'/'})">Back</q-btn>
+         <q-btn class="col q-ma-md" color="orange"  unelevated @click="print_ticket()">Print</q-btn>
+         <q-btn class="col q-ma-md" color="red"  unelevated @click="bet_details()">Bet Details</q-btn>
+      </q-card>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -47,8 +53,8 @@ components: {ResultHeader},
         align: 'left',
         field: row => row.total_price,
       },
-      ]
-
+      ],
+      selected:[]
     }
   },
   created() {
@@ -58,7 +64,22 @@ components: {ResultHeader},
         this.tickets=res
       }
     )
-  }
+  },
+  methods:{
+    print_ticket() {
+      console.log(this.selected)
+    },
+    bet_details() {
+      this.$router.push({
+          name:"TicketDetails",
+          path:"/TicketDetails/${this.selected[0].ticket_id}",
+          params: {
+            ticket: this.selected[0],
+          }
+        }
+      )
+    }
+  },
 }
 
 </script>

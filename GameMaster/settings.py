@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'GameMaster.wsgi.application'
 #         'default': env.db(var="DATABASE_URL")
 # }
 
-if DEBUG:
+if not DEBUG:
     # Sqlite Database Configuration
     DATABASES = {
         'default': {

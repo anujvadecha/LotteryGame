@@ -74,6 +74,7 @@ class TicketID(BaseModel):
     is_completed = models.BooleanField(default=False)
     lottery = models.ForeignKey(Lottery, on_delete=models.SET_NULL, null=True, blank=True)
     returns = models.IntegerField(default=0, null=True, blank=True)
+    cancelled = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         try:

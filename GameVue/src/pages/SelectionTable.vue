@@ -14,7 +14,7 @@
       </div>
       <div class="col-1 bg-light-green " style="" >
       <div class="row" style="background-color: white;height: 9.09%">
-          <div class="col text-center font-bold q-pa-sm" style="border: 1px solid black;;font-size: large;font-weight: bold"> Points</div>
+          <div class="col text-center font-bold q-pa-sm" style="border: 1px solid black;;font-size: large;font-weight: bold">Pts</div>
           <div class="col text-center font-bold q-pa-sm" style="border: 1px solid black;;font-size: large;font-weight: bold"> SR</div>
       </div>
       <div class="row"  style="background-color: white;height: 9.09% " v-for="link in essentialLinks" :key="link.title" >
@@ -194,15 +194,58 @@ export default {
     }
   },
   methods: {
+
+
     add_input_fp:function (n) {
+      //INITIALIZING
+      var a= 0;
+      var b= 0;
+      var c= 0;
+      var d= 0;
+      if(n%10<=4) {
+          a = n
+          b = n+5
+          c = n+50
+          d = b+50
+      }
+      if(n%10>4) {
+          a = n
+          b = n-5
+          c = n-50
+          d = b-50
+      }
+      // this.add_input(a)
+      // this.add_input(b)
+      // this.add_input(c)
+      // this.add_input(d)
+      console.log("A"+a +" B:"+b+" C: "+c+" D: "+d)
+      // document.getElementById(this.set+a).value = document.getElementById(this.set+a).value
+      document.getElementById(this.set+b).value = 4
+        // document.getElementById(this.set+a).value
+      document.getElementById(this.set+c).value = document.getElementById(this.set+a).value
+      document.getElementById(this.set+d).value = document.getElementById(this.set+a).value
+      document.getElementById("A0").value=3;
+      // console.log(document.getElementById(this.set+n).value)
+      // console.log(document.getElementById(this.set+b).value)
+      // var a= new Array(10);
+      // for(var i=0;i<10;i++){a[i]=[];}
+      // FOR LOOP
+      // for(var i=0;i<10;i++) {
+      //   for(var j=0;j<10;j++) {
+      //
+      //   }
+      // }
+      // if(n)
 
     },
     add_input:function (n){
+
       // console.log(this.$store.state.selectionState)
       // console.log(this.set+n +' '+ this.inputs[this.set][n])
       // document.getElementById(this.set+(n)).value = parseInt(this.inputs[set][n])
       // this.$store.state.inputs[this.set][n] =1
       // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById(this.set+(n)).value})
+      console.log(this.$store.state.fp)
       if(this.$store.state.fp===true) {
         this.add_input_fp(n)
       }
@@ -283,7 +326,6 @@ export default {
   },
   watch : {
     'set': function (val) {
-      console.log("I watched" + val)
     }
   }
 }

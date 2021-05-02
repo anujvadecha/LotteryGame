@@ -21,7 +21,7 @@ export default function (/* { ssrContext } */) {
       balance_points:0,
       lotteries: [],
       nextLottery: null,
-      results: {A: '12', B: '45', C: '22', D: '67', E: '33', F: '88', G: '34', H: '58', I: '76', J: '90'},
+      results: {A: '-1', B: '-1', C: '-1', D: '-1', E: '-1', F: '-1', G: '-1', H: '-1', I: '-1', J: '-1'},
       price: 2,
       inputs: {
         A: {

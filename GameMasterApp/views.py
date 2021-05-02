@@ -177,6 +177,7 @@ TotalPointsView = TotalDebitCreditView.as_view()
 
 
 class TicketIdView(APIView):
+
     def get(self,request):
         response_objects=TicketID.objects.filter(user=request.user)
         return Response(data=TicketIDSerializer(response_objects,many=True).data)

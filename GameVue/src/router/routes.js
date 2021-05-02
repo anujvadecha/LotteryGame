@@ -1,4 +1,5 @@
 import Login from "pages/Login";
+import TicketDetails from "components/TicketDetails";
 
 const routes = [
   {
@@ -10,7 +11,13 @@ const routes = [
     path: '/TxnDetails',
     name: 'TxnDetails',
     component: () => import('pages/TxnDetails.vue'),
+    children: [
+    ]
   },
+ { path: 'TicketDetails/:ticket',
+   name:'TicketDetails',
+   component:TicketDetails
+ ,props: true },
   {
     path: '/MoreDraws',
     name: 'MoreDraws',
