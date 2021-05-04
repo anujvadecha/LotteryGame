@@ -15,7 +15,6 @@ def assign_lottery_timings():
         print(f"current time {current_time}")
         print(current_time)
         lottery_obj = Lottery.objects.filter(time__gte=current_time, completed=False).order_by('time').first()
-        print(f" Lottery time {lottery_obj[0].time}")
         if lottery_obj:
             # validate_lottery_conditions(lottery=lottery_obj)
             closest_time = lottery_obj.time
@@ -29,18 +28,18 @@ def assign_lottery_timings():
                 for key, value in winner_dict.items():
                     print("assigning winner")
                     winner_dict[key] = random.randint(0, 99)
-            lottery_obj.winners = json.dumps(winner_dict)
-            lottery_obj.completed = True
-            lottery_obj.save()
-            for key, value in winner_dict.items():
-                for items in Ticket.objects.filter(lottery=lottery_obj, set_ticket=str(key) + str(value)):
-                    total_winning = items.total_price() * 9
-                    UserLedgerHistory.objects.create(user=items.user, credit=0, debit=total_winning,
-                                                     ticket_individual=items)
-                    ticket_id = TicketID.objects.filter(ticket_set__in=[items])[0]
-                    ticket_id.returns = ticket_id.returns + total_winning
-                    ticket_id.save()
-            lottery_obj.save()
+                lottery_obj.winners = json.dumps(winner_dict)
+                lottery_obj.completed = True
+                lottery_obj.save()
+                for key, value in winner_dict.items():
+                    for items in Ticket.objects.filter(lottery=lottery_obj, set_ticket=str(key) + str(value)):
+                        total_winning = items.total_price() * 9
+                        UserLedgerHistory.objects.create(user=items.user, credit=0, debit=total_winning,
+                                                         ticket_individual=items)
+                        ticket_id = TicketID.objects.filter(ticket_set__in=[items])[0]
+                        ticket_id.returns = ticket_id.returns + total_winning
+                        ticket_id.save()
+                lottery_obj.save()
     except Exception as e:
         print(str(e))
         exc_type, exc_obj, exc_tb = sys.exc_info()
