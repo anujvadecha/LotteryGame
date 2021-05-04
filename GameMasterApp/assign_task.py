@@ -6,7 +6,6 @@ import random
 import json
 import sys
 
-
 def assign_lottery_timings():
     time_difference = 300
     try:
@@ -15,7 +14,8 @@ def assign_lottery_timings():
         print(f"current time {current_time}")
         print(current_time)
         lottery_obj = Lottery.objects.filter(time__gte=current_time, completed=False).order_by('time').first()
-        print(f" Lottery time {lottery_obj[0].time}")
+        print(lottery_obj)
+        print(f" Lottery time {lottery_obj.time}")
         if lottery_obj:
             # validate_lottery_conditions(lottery=lottery_obj)
             closest_time = lottery_obj.time
