@@ -195,7 +195,7 @@ export default {
   },
   methods: {
     reverse_number(n) {
-      if(n>=1&&n<=9) {
+      if( n>=1&&n<=9 ) {
         n = '0'+n
       }
       const num = n;
@@ -203,28 +203,43 @@ export default {
       .split("")
       .reverse()
       .join(""), 10);
-      return reverse(num);
+       return reverse(num);
     },
     add_input_fp:function (n) {
-      console.log("adding fp input")
-      this.reverse_number(n)
-      //INITIALIZING
       var a= 0;
       var b= 0;
       var c= 0;
       var d= 0;
-      if(n%10<=4) {
+      if(n<50) {
+        if (n % 10 <= 4) {
           a = n
-          b = n+5
-          c = n+50
-          d = b+50
-      }
-      if(n%10>4) {
+          b = n + 5
+          c = n + 50
+          d = b + 50
+        }
+        if (n % 10 > 4) {
           a = n
-          b = n-5
-          c = n-50
-          d = b-50
+          b = n - 5
+          c = n - 50
+          d = b - 50
+        }
       }
+      else if(n>=50) {
+        if (n % 10 <= 4) {
+          a = n
+          b = n + 5
+          c = n - 50
+          d = b - 50
+        }
+        if (n % 10 > 4) {
+          a = n
+          b = n - 5
+          c = n - 50
+          d = b - 50
+        }
+      }
+      console.log("A"+a +" B:"+b+" C: "+c+" D: "+d)
+
       var revA = this.reverse_number(a)
       var revB = this.reverse_number(b)
       var revC = this.reverse_number(c)
@@ -246,7 +261,6 @@ export default {
       this.add_input(revB,false)
       this.add_input(revC,false)
       this.add_input(revD,false)
-      console.log("A"+a +" B:"+b+" C: "+c+" D: "+d)
       // document.getElementById(this.set+a).value = document.getElementById(this.set+a).value
       // document.getElementById(this.set+b).value = 4
       // document.getElementById(this.set+a).value
@@ -272,7 +286,6 @@ export default {
       // document.getElementById(this.set+(n)).value = parseInt(this.inputs[set][n])
       // this.$store.state.inputs[this.set][n] =1
       // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById(this.set+(n)).value})
-      console.log( this.$store.state.fp && fp )
       if(this.$store.state.fp === true && fp===true ) {
         this.add_input_fp(n)
       }

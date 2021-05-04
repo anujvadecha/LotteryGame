@@ -40,7 +40,10 @@ class BuyTicketsAPI(APIView):
                 response['status_code'] = 500
                 response['message'] = "Not enough points"
                 raise Exception("Not enough points")
-
+            if(points<=0):
+                response['status_code'] = 500
+                response['message'] = "Please select tickets before buying"
+                raise Exception("Please select tickets before buying")
             if (len(data) > 0):
                 for lottery in lotteries:
                     ticket_id = TicketID.objects.create(user=user, lottery=lottery)
