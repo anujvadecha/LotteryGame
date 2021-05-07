@@ -81,6 +81,18 @@ class TicketID(BaseModel):
     outflow = models.IntegerField(default=0)
     inflow = models.IntegerField(default=0, null=True, blank=True)
 
+    def increase_inflow(self,amount):
+        self.inflow += amount
+        user_obj=self.user
+        user_obj.total_inflow += self.inflow
+        user_obj.save()
+
+    def increase_outflow(self,amount):
+        self.outflow += amount
+        user_obj = self.user
+        user_obj.total_outflow += self.outflow
+        user_obj.save()
+
     def save(self, *args, **kwargs):
         try:
             all_tickets = self.ticket_set.all()
@@ -103,7 +115,7 @@ class TotalDebitCredit(BaseModel):
     inflow = models.IntegerField(default=0)
     outflow = models.IntegerField(default=0)
 
-
+#
 # class UserLedgerHistory(BaseModel):
 #     user = models.ForeignKey(User, on_delete=models.CASCADE)
 #     inflow = models.IntegerField(default=0)
@@ -125,6 +137,7 @@ class TotalDebitCredit(BaseModel):
 #             print(e)
 #             super(UserLedgerHistory, self).save(*args, **kwargs)
 #
+
 class Admin(BaseModel):
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
     regional_managers = models.ManyToManyField(RegionalManager, blank=True)
