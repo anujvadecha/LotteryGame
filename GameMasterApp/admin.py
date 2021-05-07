@@ -34,9 +34,9 @@ class LotteryAdmin(admin.ModelAdmin):
 
 admin.site.register(Lottery,LotteryAdmin)
 
-@admin.register(UserLedgerHistory)
-class UserLedgerHistoryAdmin(admin.ModelAdmin):
-    list_display = ('user','credit','debit','ticket_individual')
+# @admin.register(UserLedgerHistory)
+# class UserLedgerHistoryAdmin(admin.ModelAdmin):
+#     list_display = ('user','outflow','inflow','ticket_individual')
 
 @admin.register(TotalDebitCredit)
 class TotalDebitCreditAdmin(admin.ModelAdmin):

@@ -106,8 +106,8 @@ export default {
       var date_dict = {"start_date":this.start_date,"end_date":this.end_date}
       get_total_points(date_dict).then(res=>{
         console.log(res)
-        this.total_credit= res["credit"];
-        this.total_debit= res["debit"];
+        this.total_credit= res["outflow"];
+        this.total_debit= res["inflow"];
         this.total_pending=res.balance_points
       })
     }

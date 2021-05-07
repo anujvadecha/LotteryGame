@@ -1,4 +1,4 @@
-from GameMasterApp.models import UserLedgerHistory, TicketID
+from GameMasterApp.models import  TicketID
 from pytz import timezone
 from datetime import datetime, timedelta
 from GameMasterApp.models import Lottery, Ticket
@@ -24,7 +24,7 @@ def assign_lottery_timings():
             print(difference_for_next_lottery)
             if difference_for_next_lottery <= time_difference and difference_for_next_lottery > 0:
                 # and lottery_obj.winners == "{}":
-                print("running lottery")
+                print(" running lottery ")
                 for key, value in winner_dict.items():
                     print("assigning winner")
                     winner_dict[key] = random.randint(0, 99)
@@ -32,12 +32,12 @@ def assign_lottery_timings():
                 lottery_obj.completed = True
                 lottery_obj.save()
                 for key, value in winner_dict.items():
-                    for items in Ticket.objects.filter(lottery=lottery_obj, set_ticket=str(key) + str(value)):
+                    for items in Ticket.objects.filter(lottery = lottery_obj, set_ticket=str(key) + str(value)):
                         total_winning = items.total_price() * 9
-                        UserLedgerHistory.objects.create(user=items.user, credit=0, debit=total_winning,
-                                                         ticket_individual=items)
-                        ticket_id = TicketID.objects.filter(ticket_set__in=[items])[0]
-                        ticket_id.returns = ticket_id.returns + total_winning
+                        # UserLedgerHistory.objects.create(user = items.user, outflow=0, inflow=total_winning,
+                        #                                  ticket_individual = items)
+                        ticket_id = TicketID.objects.filter(ticket_set__in = [items])[0]
+                        ticket_id.inflow = ticket_id.inflow + total_winning
                         ticket_id.save()
                 lottery_obj.save()
     except Exception as e:
