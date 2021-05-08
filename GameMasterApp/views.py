@@ -121,10 +121,8 @@ class LotteryWinnersAPI(APIView):
         response['status_code'] = 500
         # try:
         data = request.data
-        lottery_time = data["lottery_time"]
-        date_object = datetime.fromtimestamp(int(lottery_time) / 1000)
-        print(f"date_object{date_object}")
-        lottery_obj = Lottery.objects.filter(time=date_object).first()
+        lottery_id = data["lottery_id"]
+        lottery_obj = Lottery.objects.get(pk=lottery_id)
         if lottery_obj:
             print(f"current api time is{lottery_obj.time}")
             lottery_winners_ticket = LotterySerializer(lottery_obj).data["winners"]

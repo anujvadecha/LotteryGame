@@ -67,12 +67,12 @@
               </div>
               <div v-if="this.user_type==='AGENT'"  class= "row">
                 <div class="col"> Profit </div>
-                <div class="col">{{total_inflow*(commission/100)}}</div>
+                <div class="col">{{Math.round(total_inflow*(commission/100))}}</div>
               </div>
 
               <div v-if="this.user_type==='AGENT'" class= "row">
                 <div class="col"> Net To Pay Points </div>
-                <div class="col">{{ (total_inflow-total_outflow)-total_inflow*(commission/100)}}</div>
+                <div class="col">{{ Math.round(total_inflow-total_outflow)-total_inflow*(commission/100)}}</div>
               </div>
 
 
@@ -113,16 +113,11 @@ export default {
       var date_dict = {"start_date":this.start_date,"end_date":this.end_date}
       get_total_points(date_dict).then(res=>{
         console.log(res)
-<<<<<<< HEAD
-        this.total_credit= res["outflow"];
-        this.total_debit= res["inflow"];
-        this.total_pending=res["balance_points"]
-=======
+
         this.user_type = res.user.user_type
         this.total_inflow = res.outflow;
         this.total_outflow = res.inflow;
         this.total_pending = res.balance_points
->>>>>>> e19b5644424594be8e0d8da2de39f5f9476b2632
       })
       console.log(this.total_inflow)
     }
@@ -130,18 +125,11 @@ export default {
   created() {
     console.log("created my accounts")
     get_total_points(null).then(res=>{
-<<<<<<< HEAD
-      console.log(res)
-      this.total_credit= res["outflow"];
-      this.total_debit= res["inflow"];
-      this.total_pending=res["balance_points"]
-=======
       this.user_type = res.user.user_type
       this.total_inflow = res.outflow;
       this.total_outflow = res.inflow;
       this.total_pending = res.balance_points
       this.commission=res.commission
->>>>>>> e19b5644424594be8e0d8da2de39f5f9476b2632
     })
   }
 }

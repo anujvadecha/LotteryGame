@@ -1091,14 +1091,22 @@ export default function (/* { ssrContext } */) {
         state.selected_lotteries = timings
       },
       set_next_lottery(state) {
+        console.log("one two three")
         for (var i = 0; i < state.lotteries.length; i++) {
           if (compareDate(new Date(), state.lotteries[i].time) > 0) {
 
           } else {
+            var winner_results;
             if(state.nextLottery!=null && state.nextLottery.id!==state.lotteries[i]) {
-              get_winners({"lottery_time": state.nextLottery.time.getTime()}).then(
-                res=> console.log(res)
+               get_winners({"lottery_id":state.nextLottery.id}).then(
+               res=> {
+                    winner_results = res.lottery_winners_ticket
+                    console.log(res)
+                    console.log(winner_results)
+                } 
               )
+               state.results = winner_results
+              
             }
             state.nextLottery = state.lotteries[i];
             state.previousLottery = state.lotteries[i - 1];
