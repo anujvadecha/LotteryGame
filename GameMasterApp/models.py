@@ -2,6 +2,8 @@ from django.db import models
 
 # Create your models here.
 from django.contrib.auth.models import AbstractUser
+
+from base.constants import USER_TYPE_CHOICES
 from base.models import *
 from base.utils import random_string_generator, unique_transaction_id_generator
 
@@ -13,7 +15,7 @@ class User(AbstractUser):
     balance_points = models.IntegerField(default=0, null=True,blank=True)
     total_inflow = models.IntegerField(default=0)
     total_outflow = models.IntegerField(default=0)
-    user_type = models.CharField(default="AGENT",max_length=255)
+    user_type = models.CharField(choices=USER_TYPE_CHOICES,default = "PLAYER",max_length=255)
 
     def recalculate_inflow_outflow(self):
         all_tickets = TicketID.objects.filter(user=self)
@@ -22,6 +24,16 @@ class User(AbstractUser):
 
     def name(self):
         return self.first_name + ' ' + self.last_name
+
+    def save(self, *args, **kwargs):
+        try:
+            if(self.user_type == "AGENT" and Agent.objects.filter(user=self).count()==0):
+                Agent(user=self, commission_percent=6, company_name=self.first_name,
+                      agent_created_by=self).save()
+        except Exception as e:
+            print(e)
+        super(User, self).save(*args, **kwargs)
+
 
 
 class Players(BaseModel):

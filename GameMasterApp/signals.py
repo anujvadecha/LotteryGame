@@ -1,7 +1,6 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
-from GameMasterApp.models import  TotalDebitCredit, TicketID
+from GameMasterApp.models import TotalDebitCredit, TicketID, User, Agent
 
 
 # @receiver(post_save,sender=UserLedgerHistory)
@@ -13,7 +12,7 @@ from GameMasterApp.models import  TotalDebitCredit, TicketID
 #         totaldebitcreditobj[0].save()
 #     else:
 #         TotalDebitCredit.objects.create(credit=self.credit, debit=self.debit, user=self.user)
-#
-@receiver(post_save,sender=TicketID)
-def postSaveTicket(sender, instance, created, **kwargs):
-    pass
+
+@receiver(post_save,sender=User)
+def postSaveUser(sender, instance, created, **kwargs):
+    print("Post save user called")

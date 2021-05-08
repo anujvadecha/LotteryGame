@@ -6,9 +6,9 @@
           <q-checkbox dense :value="true"></q-checkbox> Name
         </div>
       </div>
-      <div class="row"  style="background-color: white;height: 9.09% " v-for="link in essentialLinks" :key="link.title" >
+      <div class="row"   style="background-color: white;height: 9.09%;cursor: default; " v-for="link in essentialLinks" :key="link.title" >
           <div class="q-ma-sm"  v-bind:style="getStyleForButton(link)" @click="pushToPage(link)">
-            <q-checkbox dense @input="changeMainSelectedStates()" v-model="selectedSets[link.alias]" :value="true"></q-checkbox> {{link.title}}
+            <q-checkbox dense @click="pushToPage(link)" @input="changeMainSelectedStates(link)" v-model="selectedSets[link.alias]" :value="true"></q-checkbox> {{link.title}}
           </div>
       </div>
       </div>
@@ -332,9 +332,16 @@ export default {
     add_input_all:function (n) {
 
     },
-    changeMainSelectedStates:function () {
+    changeMainSelectedStates:function (link) {
       console.log("changing state")
       this.$store.dispatch('change_selected_sets',this.selectedSets)
+       this.$router.push({
+        path: 'SelectionTable/'+link.alias,
+        name:'SelectionTable',
+        params: {
+          set: link.alias
+        }
+      })
     },
     getStyleForButton:function (link){
       if(link.alias===this.set)

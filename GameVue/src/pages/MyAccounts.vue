@@ -41,7 +41,7 @@
     <div class="row">
       <div class="col-3">
       </div>
-      <div class="col-3">
+      <div class="col-6">
       From
         <br>
         <div class="row">
@@ -49,27 +49,32 @@
           <div class="col-11" >
             <p>SHREE ONLINE VIDEO GAME</p>
             <p>2/03/2021 21:32:48</p>
-            <table>
-              <tr>
-                <td>From: 2/03/2021</td>
-                <td>To: 2/03/2021 </td>
-              </tr>
+              <div class= "row">
+                <div class="col">From: 2/03/2021</div>
+                <div class="col">To: 2/03/2021 </div>
+              </div>
+              <div class= "row">
+                <div class="col">Play Points: </div>
+                <div class="col">{{ total_inflow }}</div>
+              </div>
+              <div class= "row">
+                <div class="col">Win Points</div>
+                <div class="col">{{ total_outflow }}</div>
+              </div>
+              <div v-if="this.user_type==='AGENT'" class= "row">
+                <div class="col">End Points</div>
+                <div class="col">{{total_inflow-total_outflow}}</div>
+              </div>
+              <div v-if="this.user_type==='AGENT'"  class= "row">
+                <div class="col"> Profit </div>
+                <div class="col">{{total_inflow*(commission/100)}}</div>
+              </div>
 
-              <tr>
-                <td>Play Points: </td>
-                <td>{{total_debit}} </td>
-              </tr>
+              <div v-if="this.user_type==='AGENT'" class= "row">
+                <div class="col"> Net To Pay Points </div>
+                <div class="col">{{ (total_inflow-total_outflow)-total_inflow*(commission/100)}}</div>
+              </div>
 
-              <tr>
-                <td>Win Points</td>
-                <td>{{total_credit}}</td>
-              </tr>
-              <tr>
-                <td>End Points</td>
-                <td>{{total_pending}}</td>
-              </tr>
-
-            </table>
 
           </div>
         </div>
@@ -94,9 +99,11 @@ export default {
   return {
       start_date: get_current_date(),
       end_date: get_current_date(),
-      total_debit:"",
-      total_credit:"",
+      total_outflow:"",
+      total_inflow:"",
       total_pending:"",
+      commission:0,
+      user_type:"PLAYER"
     }
   },
   methods:{
@@ -106,19 +113,22 @@ export default {
       var date_dict = {"start_date":this.start_date,"end_date":this.end_date}
       get_total_points(date_dict).then(res=>{
         console.log(res)
-        this.total_credit= res["outflow"];
-        this.total_debit= res["inflow"];
-        this.total_pending=res.balance_points
+        this.user_type = res.user.user_type
+        this.total_inflow = res.outflow;
+        this.total_outflow = res.inflow;
+        this.total_pending = res.balance_points
       })
+      console.log(this.total_inflow)
     }
   },
   created() {
     console.log("created my accounts")
     get_total_points(null).then(res=>{
-      console.log(res)
-      this.total_credit= res["credit"];
-      this.total_debit= res["debit"];
-      this.total_pending=res.balance_points
+      this.user_type = res.user.user_type
+      this.total_inflow = res.outflow;
+      this.total_outflow = res.inflow;
+      this.total_pending = res.balance_points
+      this.commission=res.commission
     })
   }
 }
