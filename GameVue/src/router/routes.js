@@ -1,5 +1,6 @@
 import Login from "pages/Login";
 import TicketDetails from "components/TicketDetails";
+import Register from "pages/Register";
 
 const routes = [
   {
@@ -19,11 +20,6 @@ const routes = [
    component:TicketDetails
  ,props: true },
   {
-    path: '/MoreDraws',
-    name: 'MoreDraws',
-    component: () => import('pages/MoreDraws.vue'),
-  },
-  {
     path: '/MyAccounts',
     name: 'MyAccounts',
     component: () => import('pages/MyAccounts.vue'),
@@ -35,12 +31,22 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'SelectionTable/:set',name:'SelectionTable', component: () => import('pages/SelectionTable.vue') ,props: true },
+   {
+    path: '/MoreDraws',
+    name: 'MoreDraws',
+    component: () => import('pages/MoreDraws.vue'),
+  },
     ]
   },
   {
     path: '/Login',
     name: 'Login',
     component :Login
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
   },
 
   // Always leave this as last one,

@@ -65,10 +65,21 @@ function get_current_date(){
       return ISTTime.toLocaleDateString("zh-Hans-CN").replaceAll("/","-")
     }
 
+function isToday(someDate) {
+
+  const today = new Date()
+  return someDate.getDate() == today.getDate() &&
+    someDate.getMonth() == today.getMonth() &&
+    someDate.getFullYear() == today.getFullYear()
+}
+
+
+
 export {
   compareDate,
   getTimeZoneDate,
   getFormattedDateHHMMSS,
   getFormattedDateHHMM,
-  get_current_date
+  get_current_date,
+  isToday
 }

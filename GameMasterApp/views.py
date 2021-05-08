@@ -13,7 +13,7 @@ from rest_framework.response import Response
 from GameMasterApp.handlers.UserHandlerProxy import UserHandlerProxy
 from GameMasterApp.models import *
 from datetime import datetime, date, time, timedelta
-from GameMasterApp.serializers import LotterySerializer, TicketIDSerializer
+from GameMasterApp.serializers import LotterySerializer, TicketIDSerializer, UserSerializer
 
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
@@ -188,6 +188,9 @@ class TotalDebitCreditView(APIView):
         response["inflow"] = response_debit
         response["outflow"] = response_credit
         response["balance_points"]=request.user.balance_points
+        if(Agent.objects.filter(user=request.user).count()!=0):
+            response["commission"] = Agent.objects.filter(user=request.user).first().commission_percent
+        response["user"]=UserSerializer(request.user).data
         return Response(data=response)
 
 

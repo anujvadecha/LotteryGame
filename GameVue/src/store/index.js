@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {compareDate} from "src/common/utils";
+import {get_winners} from "src/common/api_calls";
 
 // import example from './module-example'
 
@@ -1092,7 +1093,13 @@ export default function (/* { ssrContext } */) {
       set_next_lottery(state) {
         for (var i = 0; i < state.lotteries.length; i++) {
           if (compareDate(new Date(), state.lotteries[i].time) > 0) {
+
           } else {
+            if(state.nextLottery!=null && state.nextLottery.id!==state.lotteries[i]) {
+              get_winners({"lottery_time": state.nextLottery.time.getTime()}).then(
+                res=> console.log(res)
+              )
+            }
             state.nextLottery = state.lotteries[i];
             state.previousLottery = state.lotteries[i - 1];
             break;

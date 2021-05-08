@@ -1,9 +1,7 @@
 <template>
   <q-layout view="hHh lpR fFf">
     <q-header bordered class="bg-primary text-white" height-hint="98">
-<!--      <q-toolbar style="background-color: red">-->
         <ResultHeader></ResultHeader>
-<!--      </q-toolbar>-->
       <TimeHeader></TimeHeader>
       <div style="background-color: black; color: red">
       <MarqueeText style="background-color: black; ">
