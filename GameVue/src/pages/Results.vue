@@ -3,7 +3,44 @@
   <ResultHeader></ResultHeader>
     Results
 
+    <div class="row">
+      <div class="col-3"></div>
+    <div class="q-pa-md col-3" style="max-width: 300px">
+    <q-input filled v-model="start_date">
+    <template v-slot:prepend>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy transition-show="scale" transition-hide="scale">
+            <q-date v-model="start_date" mask="YYYY-MM-DD">
+              <div class="row items-center justify-end">
+                <q-btn v-close-popup label="Close" color="primary" flat />
+              </div>
+            </q-date>
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
+    </div>
+    <div class="q-pa-md col-3" style="max-width: 300px">
+    <q-input filled v-model="end_date">
+    <template v-slot:prepend>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy transition-show="scale" transition-hide="scale">
+            <q-date v-model="end_date" mask="YYYY-MM-DD">
+              <div class="row items-center justify-end">
+                <q-btn v-close-popup label="Close" color="primary" flat />
+              </div>
+            </q-date>
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
+    </div>
 
+    <div class="col-1">
+           <q-btn dense unelevated style="margin-top:25%;border: 1px solid black" class="bg-purple col " @click="fetch_winners_according_to_date()">Go -></q-btn>
+      </div>
+
+  </div>
 
 
      <q-table
@@ -12,9 +49,9 @@
       :columns="columns"
       row-key="result_time"
       class = "q-ma-md"
-      selection="single"
-      :selected.sync="selected"
     />
+
+
 
 
 
@@ -36,12 +73,16 @@
 import ResultHeader from "components/ResultHeader";
 import {get_lottery_timings} from "src/common/api_calls";
 import {getTimeZoneDate} from "src/common/utils";
+import {get_current_date} from "src/common/utils";
+
 
 export default {
   name: "Results",
   components: {ResultHeader},
   data() {
     return{
+      start_date: get_current_date(),
+      end_date: get_current_date(),
       results_data:[],
       columns : [
       {
@@ -113,6 +154,17 @@ export default {
         align: 'left',
         field: row => row.winners.J
       }]
+    }
+  },
+  methods:{
+    fetch_winners_according_to_date(){
+      console.log(this.start_date)
+      console.log(this.end_date)
+      var date_dict = {"start_date":this.start_date,"end_date":this.end_date}
+      get_lottery_timings(date_dict).then(res=>{
+        console.log(res.lottery_objects)
+        this.results_data = res.lottery_objects
+      })
     }
   },
   created() {

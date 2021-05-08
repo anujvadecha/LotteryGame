@@ -20,7 +20,23 @@ function apiService (endpoint, method, data) {
   // const store = this.$store.state.token
   // console.log('inside api service token is' + store)
   var axios = require('axios')
-  var config = {
+  if(method == "GET"){
+    console.log("here")
+    console.log(data)
+    var config = {
+    method: method,
+    url: endpoint,
+    headers: {
+      Authorization: 'Token ' + LocalStorage.getItem('token'),
+      'Content-Type': 'application/json',
+       // 'X-CSRFTOKEN': CSRF_TOKEN
+    },
+    params: data
+   }
+   
+  }
+  else{
+    var config = {
     method: method || 'GET',
     url: endpoint,
     headers: {
@@ -30,8 +46,11 @@ function apiService (endpoint, method, data) {
     },
     data: data
   }
+  
+  }
   return axios(config)
     .then(response => handleResponse(response))
+  
 }
 
 export { apiService }

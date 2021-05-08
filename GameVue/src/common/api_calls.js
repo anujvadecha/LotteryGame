@@ -12,9 +12,9 @@ function get_tickets_for_user () {
   return apiService(endpoint, 'GET',null)
 }
 
-function get_lottery_timings(){
+function get_lottery_timings(data){
   const endpoint = base_url + '/gamemaster/lottery_timings/'
-  return apiService(endpoint, 'GET',null)
+  return apiService(endpoint, 'GET',data)
 }
 
 function get_lottery_previous(data){

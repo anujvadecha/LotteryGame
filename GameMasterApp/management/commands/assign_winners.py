@@ -9,7 +9,7 @@ class Command(BaseCommand):
     def create_winners(self):
         while True:
             assign_lottery_timings()
-            time.sleep(300)
+            time.sleep(10)
 
     def handle(self, *args, **options):
         self.create_winners()

@@ -40,7 +40,10 @@ class BuyTicketsAPI(APIView):
                 response['status_code'] = 500
                 response['message'] = "Not enough points"
                 raise Exception("Not enough points")
-
+            if(points<=0):
+                response['status_code'] = 500
+                response['message'] = "Please select tickets before buying"
+                raise Exception("Please select tickets before buying")
             if (len(data) > 0):
                 for lottery in lotteries:
                     ticket_id = TicketID.objects.create(user=user, lottery=lottery)
@@ -77,11 +80,23 @@ class LotteryTimingsAPI(APIView):
         response = {}
         response['status_code'] = 500
         try:
+            print(request.query_params)
+            try:
+                print(request.query_params)
+            except:
+                print(str(e))
+            if "start_date" in request.query_params and "end_date" in request.query_params:
+                today_min = datetime.strptime(request.query_params["start_date"] + " 00:00:00", '%Y-%m-%d %H:%M:%S')
+                today_max = datetime.strptime(request.query_params["end_date"] + " 23:59:00", '%Y-%m-%d %H:%M:%S')
+                print(today_max)
+                print(today_min)
+            else:
+                today_min = datetime.combine(date.today(), time.min)
+                today_max = datetime.combine(date.today() + timedelta(days=1), time.max)
             current_time = get_current_timezone().localize(datetime.now())
             closest_time = Lottery.objects.filter(time__gte=current_time).first()
             response['closest_lottery'] = LotterySerializer(closest_time).data
-            today_min = datetime.combine(date.today(), time.min)
-            today_max = datetime.combine(date.today() + timedelta(days=1), time.max)
+            
             timings_of_lottery = Lottery.objects.filter(time__range=(today_min, today_max))
             timings_of_lottery = LotterySerializer(timings_of_lottery, many=True).data
             response["lottery_objects"] = timings_of_lottery
