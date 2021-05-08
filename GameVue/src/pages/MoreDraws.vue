@@ -7,7 +7,9 @@
     <q-checkbox :disable="option.disabled"  @input="add_selected()" dense v-model="option.selected" val="teal" :label="option.label" color="teal" />
   </q-card>
   </div>
-  <q-btn color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
+  <q-card bordered flat class="row">
+  <q-btn class="col-2 q-ma-md" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
+    </q-card>
 </div>
 </template>
 <script>
