@@ -6,7 +6,7 @@
           <q-checkbox dense :value="true"></q-checkbox> Name
         </div>
       </div>
-      <div class="row"   style="background-color: white;height: 9.09%;cursor: default; " v-for="link in essentialLinks" :key="link.title" >
+      <div class="row"   style="background-color: white;height: 9.09%;cursor: default;font-size: large " v-for="link in essentialLinks" :key="link.title" >
           <div class="q-ma-sm"  v-bind:style="getStyleForButton(link)" @click="pushToPage(link)">
             <q-checkbox dense @click="pushToPage(link)" @input="changeMainSelectedStates(link)" v-model="selectedSets[link.alias]" :value="true"></q-checkbox> {{link.title}}
           </div>
@@ -26,7 +26,7 @@
           <div class="row" style="height: 9.09%">
           <!--     ALL POINTS CARD   -->
           <div class="" style="width: 9.09%;" >
-          <q-card  class=" text-center q-pl-sm q-pr-sm" style="background-color: #eef8ff;" flat>
+          <q-card  class=" text-center q-pl-sm q-pr-sm" style="background-color: #eef8ff; " flat>
             <div style="" > SET </div>
             <div style="" > {{this.set}} </div>
           </q-card>

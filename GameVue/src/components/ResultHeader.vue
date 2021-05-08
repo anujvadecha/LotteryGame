@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="col-10 text-center flex flex-center" style="color: black;font-size: large" v-else>
-    Loading
+    Loading ...
   </div>
 </div>
 </template>
