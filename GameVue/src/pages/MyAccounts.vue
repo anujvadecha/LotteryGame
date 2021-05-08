@@ -108,7 +108,7 @@ export default {
         console.log(res)
         this.total_credit= res["outflow"];
         this.total_debit= res["inflow"];
-        this.total_pending=res.balance_points
+        this.total_pending=res["balance_points"]
       })
     }
   },
@@ -116,9 +116,9 @@ export default {
     console.log("created my accounts")
     get_total_points(null).then(res=>{
       console.log(res)
-      this.total_credit= res["credit"];
-      this.total_debit= res["debit"];
-      this.total_pending=res.balance_points
+      this.total_credit= res["outflow"];
+      this.total_debit= res["inflow"];
+      this.total_pending=res["balance_points"]
     })
   }
 }
