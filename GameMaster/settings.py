@@ -103,24 +103,23 @@ WSGI_APPLICATION = 'GameMaster.wsgi.application'
 if DEBUG:
     # Sqlite Database Configuration
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+        'default': env.db('DEBUG_DB')
     }
-
 else:
     # Postgres Database Configuration
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'lottery',
-            'USER': 'postgres',
-            'PASSWORD': '1234567890',
-            'HOST': 'localhost',
-            'PORT': '',
-        }
+    DATABASES={
+        'default':env.db("DATABASE_URL")
     }
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'NAME': 'lottery',
+    #         'USER': 'postgres',
+    #         'PASSWORD': '1234567890',
+    #         'HOST': 'localhost',
+    #         'PORT': '',
+    #     }
+    # }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

@@ -14,8 +14,6 @@ from GameMasterApp.models import  TotalDebitCredit, TicketID
 #     else:
 #         TotalDebitCredit.objects.create(credit=self.credit, debit=self.debit, user=self.user)
 #
-
-
 @receiver(post_save,sender=TicketID)
 def postSaveTicket(sender, instance, created, **kwargs):
     pass

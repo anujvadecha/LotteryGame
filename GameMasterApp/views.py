@@ -55,7 +55,7 @@ class BuyTicketsAPI(APIView):
                                                            price=value["price"], lottery=lottery)
                             ticket_id.ticket_set.add(ticket)
                             ticket_id.increase_outflow(value["price"])
-                            
+
                     user.balance_points -= points
                     user.save()
                     ticket_id.save()
@@ -99,7 +99,7 @@ class LotteryTimingsAPI(APIView):
             current_time = get_current_timezone().localize(datetime.now())
             closest_time = Lottery.objects.filter(time__gte=current_time).first()
             response['closest_lottery'] = LotterySerializer(closest_time).data
-            
+
             timings_of_lottery = Lottery.objects.filter(time__range=(today_min, today_max))
             timings_of_lottery = LotterySerializer(timings_of_lottery, many=True).data
             response["lottery_objects"] = timings_of_lottery
@@ -172,15 +172,15 @@ class TotalDebitCreditView(APIView):
     def post(self, request):
         data = request.data
         response = {}
-        response_objects = TotalDebitCredit.objects.filter(user=request.user)
+        response_objects = TicketID.objects.filter(user=request.user)
         print(request.data)
         if (data.get("start_date", None) and data.get("end_date", None)):
             response_objects = response_objects.filter(created_at__date__gte=data.get("start_date"),
                                                        created_at__date__lte=data.get("end_date"))
         else:
             response_objects = response_objects.filter(created_at__date=datetime.now().date())
-        response_debit = response_objects.aggregate(Sum('inflow'))["debit__sum"]
-        response_credit = response_objects.aggregate(Sum('outflow'))["credit__sum"]
+        response_debit = response_objects.aggregate(Sum('inflow'))["inflow__sum"]
+        response_credit = response_objects.aggregate(Sum('outflow'))["outflow__sum"]
         if response_debit == None:
             response_debit = 0
         if response_credit == None:

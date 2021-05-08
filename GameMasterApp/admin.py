@@ -15,7 +15,7 @@ class TicketAdmin(admin.ModelAdmin):
 @admin.register(TicketID)
 class TicketIDAdmin(admin.ModelAdmin):
 	list_display = ('lottery','ticket_id','outflow','inflow',)
-    
+
 @admin.register(Agent)
 class AgentAdmin(admin.ModelAdmin):
     pass
@@ -47,6 +47,6 @@ admin.site.register(Lottery, LotteryAdmin)
 # class UserLedgerHistoryAdmin(admin.ModelAdmin):
 #     list_display = ('user','outflow','inflow','ticket_individual')
 
-@admin.register(TotalDebitCredit)
-class TotalDebitCreditAdmin(admin.ModelAdmin):
-    pass
+# @admin.register(TotalDebitCredit)
+# class TotalDebitCreditAdmin(admin.ModelAdmin):
+#     pass
