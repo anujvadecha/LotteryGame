@@ -39,5 +39,5 @@ class TicketIDSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model=User
+        model = User
         exclude=['password']

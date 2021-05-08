@@ -9,6 +9,8 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from rest_framework.response import Response
+
+from GameMasterApp.handlers.UserHandlerProxy import UserHandlerProxy
 from GameMasterApp.models import *
 from datetime import datetime, date, time, timedelta
 from GameMasterApp.serializers import LotterySerializer, TicketIDSerializer
@@ -52,8 +54,8 @@ class BuyTicketsAPI(APIView):
                             ticket = Ticket.objects.create(user=user, set_ticket=key, quantity=value["quantity"],
                                                            price=value["price"], lottery=lottery)
                             ticket_id.ticket_set.add(ticket)
-                            UserLedgerHistory.objects.create(user=user, credit=value["quantity"] * value["price"],
-                                                             debit=0, ticket_individual=ticket)
+                            ticket_id.increase_outflow(value["price"])
+                            
                     user.balance_points -= points
                     user.save()
                     ticket_id.save()
@@ -65,6 +67,7 @@ class BuyTicketsAPI(APIView):
             response['status_code'] = 200
             response['tickets'] = tickets_created
             response['balance_points'] = user.balance_points
+
             print(response)
             return Response(data=response)
         except:
@@ -176,14 +179,14 @@ class TotalDebitCreditView(APIView):
                                                        created_at__date__lte=data.get("end_date"))
         else:
             response_objects = response_objects.filter(created_at__date=datetime.now().date())
-        response_debit = response_objects.aggregate(Sum('debit'))["debit__sum"]
-        response_credit = response_objects.aggregate(Sum('credit'))["credit__sum"]
+        response_debit = response_objects.aggregate(Sum('inflow'))["debit__sum"]
+        response_credit = response_objects.aggregate(Sum('outflow'))["credit__sum"]
         if response_debit == None:
             response_debit = 0
         if response_credit == None:
             response_credit = 0
-        response["debit"] = response_debit
-        response["credit"] = response_credit
+        response["inflow"] = response_debit
+        response["outflow"] = response_credit
         response["balance_points"]=request.user.balance_points
         return Response(data=response)
 

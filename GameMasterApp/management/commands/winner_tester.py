@@ -8,7 +8,6 @@ class Command(BaseCommand):
     help = 'Proce'
 
     def winner_tester(self):
-        UserLedgerHistory.objects.all().delete()
         TicketID.objects.all().delete()
         Ticket.objects.all().delete()
         TotalDebitCredit.objects.all().delete()

@@ -6,10 +6,14 @@ from base.models import *
 from base.utils import random_string_generator, unique_transaction_id_generator
 
 
+
 class User(AbstractUser):
     phone_number = models.CharField(default="", max_length=256, blank=True, null=True)
     address = models.TextField(default="", blank=True, null=True)
     balance_points = models.IntegerField(default=0, null=True,blank=True)
+    total_inflow = models.IntegerField(default=0)
+    total_outflow = models.IntegerField(default=0)
+    user_type = models.CharField(default="AGENT",max_length=255)
 
     def name(self):
         return self.first_name + ' ' + self.last_name
@@ -48,12 +52,11 @@ class Lottery(BaseModel):
         return str(self.time)
 
 class Ticket(BaseModel):
-    user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null = False, blank = False, on_delete = models.CASCADE)
     set_ticket = models.CharField(default="", blank=False, null=False, max_length=256)
     quantity = models.IntegerField(default=0, blank=False, null=False)
     price = models.IntegerField(default=0, blank=False, null=False)
     lottery = models.ForeignKey(Lottery, on_delete=models.SET_NULL, null=True, blank=True)
-
 
     def total_price(self):
         try:
@@ -66,6 +69,7 @@ class Ticket(BaseModel):
 
 
 class TicketID(BaseModel):
+
     ticket_id = models.CharField(primary_key=True, default=unique_transaction_id_generator, max_length=50)
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
     ticket_set = models.ManyToManyField(Ticket, blank=True)
@@ -73,8 +77,22 @@ class TicketID(BaseModel):
     total_quantity = models.IntegerField(default=0, blank=False, null=False)
     is_completed = models.BooleanField(default=False)
     lottery = models.ForeignKey(Lottery, on_delete=models.SET_NULL, null=True, blank=True)
-    returns = models.IntegerField(default=0, null=True, blank=True)
     cancelled = models.BooleanField(default=False)
+    outflow = models.IntegerField(default=0)
+    inflow = models.IntegerField(default=0, null=True, blank=True)
+    is_vendor_transaction = models.BooleanField(default=False)
+
+    def increase_inflow(self,amount):
+        self.inflow += amount
+        user_obj=self.user
+        user_obj.total_inflow += self.inflow
+        user_obj.save()
+
+    def increase_outflow(self,amount):
+        self.outflow += amount
+        user_obj = self.user
+        user_obj.total_outflow += self.outflow
+        user_obj.save()
 
     def save(self, *args, **kwargs):
         try:
@@ -94,30 +112,32 @@ class TicketID(BaseModel):
             super(TicketID, self).save(*args, **kwargs)
 
 class TotalDebitCredit(BaseModel):
-    credit = models.IntegerField(default=0)
-    debit = models.IntegerField(default=0)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-
-class UserLedgerHistory(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    credit = models.IntegerField(default=0)
-    debit = models.IntegerField(default=0)
-    ticket_individual = models.ForeignKey(Ticket, null=True, blank=True, on_delete=models.SET_NULL)
+    inflow = models.IntegerField(default=0)
+    outflow = models.IntegerField(default=0)
 
-    def save(self, *args, **kwargs):
-        try:
-            super(UserLedgerHistory, self).save(*args, **kwargs)
-            print(self.created_at.date())
-            totaldebitcreditobj = TotalDebitCredit.objects.filter(created_at__date=self.created_at.date() , user=self.user)
-            if totaldebitcreditobj:
-                totaldebitcreditobj[0].credit = totaldebitcreditobj[0].credit + self.credit
-                totaldebitcreditobj[0].debit = totaldebitcreditobj[0].debit + self.debit
-                totaldebitcreditobj[0].save()
-            else:
-                TotalDebitCredit.objects.create(credit=self.credit,debit=self.debit,user=self.user)
-        except Exception as e:
-            print(e)
-            super(UserLedgerHistory, self).save(*args, **kwargs)
+#
+# class UserLedgerHistory(BaseModel):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     inflow = models.IntegerField(default=0)
+#     outflow = models.IntegerField(default=0)
+#     ticket_individual = models.ForeignKey(Ticket, null=True, blank=True, on_delete=models.SET_NULL)
+#
+#     def save(self, *args, **kwargs):
+#         try:
+#             super(UserLedgerHistory, self).save(*args, **kwargs)
+#             print(self.created_at.date())
+#             totaldebitcreditobj = TotalDebitCredit.objects.filter(created_at__date=self.created_at.date() , user=self.user)
+#             if totaldebitcreditobj:
+#                 totaldebitcreditobj[0].outflow = totaldebitcreditobj[0].outflow + self.outflow
+#                 totaldebitcreditobj[0].inflow = totaldebitcreditobj[0].inflow + self.inflow
+#                 totaldebitcreditobj[0].save()
+#             else:
+#                 TotalDebitCredit.objects.create(outflow=self.outflow, inflow=self.inflow, user=self.user)
+#         except Exception as e:
+#             print(e)
+#             super(UserLedgerHistory, self).save(*args, **kwargs)
+#
 
 class Admin(BaseModel):
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)

@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from GameMasterApp.models import UserLedgerHistory, TotalDebitCredit, TicketID
+from GameMasterApp.models import  TotalDebitCredit, TicketID
 
 
 # @receiver(post_save,sender=UserLedgerHistory)
