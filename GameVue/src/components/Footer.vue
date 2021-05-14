@@ -21,6 +21,8 @@
 </div>
 </template>
 
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
+
 <script>
 
 import {place_order} from "src/common/api_calls";
@@ -72,10 +74,12 @@ name: "Footer",
     }
     console.log(order)
     const  store=this.$store;
+    const this_pointer = this
     place_order(order).then(res=>{
       if(res.status_code===200)
       {
         console.log(res)
+        this_pointer.print_div(res) 
         store.dispatch('update_balance_points',res.balance_points)
         var tickets_booked = res.tickets.map(ticket=>{
         Notify.create({
@@ -116,6 +120,27 @@ name: "Footer",
     reset_all(){
     this.$store.dispatch('reset_all')
     },
+    print_div(res) 
+    {  
+       console.log(res)
+       
+
+       document.getElementById("printdivcontent").innerHTML += `<svg id="barcode"></svg>`
+       JsBarcode("#barcode", res['tickets'][0]['ticket_id']);
+
+
+
+
+       var divContents = document.getElementById("printdivcontent").innerHTML;  
+       var printWindow = window.open('', '', 'height=200,width=400');  
+       printWindow.document.write();
+       printWindow.document.write('</head><body >');  
+       printWindow.document.write(divContents);  
+       printWindow.document.write('</body></html>');  
+       printWindow.document.close();
+       printWindow.print();  
+       printWindow.close();
+    }  
 
 
   },

@@ -69,6 +69,8 @@
           <div class="col text-center q-pa-sm" style="border: 1px solid black; background-color: #fec0ff;font-size: large;font-weight: bold">{{priceSet[link.alias]}}</div>
       </div>
       </div>
+      <div id="printdivcontent" style="border: 1px dotted black; text-align: center; padding: 5px; width: 200px;display: none;">  </div>
+
   </q-page>
 <!--    </q-page>-->
 </template>
