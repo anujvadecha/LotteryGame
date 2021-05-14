@@ -22,7 +22,7 @@ export default function (/* { ssrContext } */) {
       balance_points:0,
       lotteries: [],
       nextLottery: null,
-      results: {A: '-1', B: '-1', C: '-1', D: '-1', E: '-1', F: '-1', G: '-1', H: '-1', I: '-1', J: '-1'},
+      results: null,
       price: 2,
       inputs: {
         A: {
@@ -1091,23 +1091,30 @@ export default function (/* { ssrContext } */) {
         state.selected_lotteries = timings
       },
       set_next_lottery(state) {
-        console.log("one two three")
+        console.log("setting next lottery")
         for (var i = 0; i < state.lotteries.length; i++) {
           if (compareDate(new Date(), state.lotteries[i].time) > 0) {
 
           } else {
             var winner_results;
-            if(state.nextLottery!=null && state.nextLottery.id!==state.lotteries[i]) {
+            const store = this;
+            if(state.nextLottery!=null && state.nextLottery.id!==state.lotteries[i].id) {
                get_winners({"lottery_id":state.nextLottery.id}).then(
                res=> {
-                    winner_results = res.lottery_winners_ticket
-                    console.log(res)
-                    console.log(winner_results)
-                } 
+                  store.dispatch("set_results",res.lottery_winners_ticket)
+                }
               )
-               state.results = winner_results
-              
+              state.results = winner_results
             }
+            else if(state.nextLottery==null) {
+               state.nextLottery = state.lotteries[i];
+               get_winners({"lottery_id":state.nextLottery.id}).then(
+               res=> {
+                  store.dispatch("set_results",res.lottery_winners_ticket)
+                }
+               )
+            }
+            console.log("setting next lottery")
             state.nextLottery = state.lotteries[i];
             state.previousLottery = state.lotteries[i - 1];
             break;
@@ -2196,8 +2203,7 @@ export default function (/* { ssrContext } */) {
       set_results(state, results) {
         state.results = results;
       },
-      fp_selection(state,fp)
-      {
+      fp_selection(state,fp) {
         state.fp=fp;
       },
       update_user_details(state,user) {
@@ -2247,7 +2253,6 @@ export default function (/* { ssrContext } */) {
         commit('fp_selection', fp)
       }
     },
-
     getters: {
       get_selected: state => {
         return state.selectionState
@@ -2255,11 +2260,8 @@ export default function (/* { ssrContext } */) {
       get_next_lottery: state => {
         return state.nextLottery
       },
-      get_last_lottery_time: state => {
-
-      }
+      get_last_lottery_time: state => {}
     },
-
     // enable strict mode (adds overhead!)
     // for dev mode only
     strict: process.env.DEBUGGING

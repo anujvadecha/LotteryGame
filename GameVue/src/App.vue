@@ -52,7 +52,7 @@ let final_barcode =""
     setInterval(function (){
     //   var current_next_lottery =  store.state.nextLottery;
         store.dispatch('set_next_lottery')
-    },10000)
+    },500)
 
     const store=this.$store;
     get_user_details().then(
