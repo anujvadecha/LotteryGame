@@ -15,16 +15,15 @@
           <div class="col text-center text-black" style="border: 1px solid black; background-color: white;font-size: large;font-weight: bold"> {{priceSet}}</div>
       </div>
     </div>
+
 <!--  <q-btn class="bg-purple q-ml-md">Reset</q-btn>-->
 <!--  <q-btn class="bg-purple q-ml-md">Transaction Detail</q-btn>-->
 <!--  <q-btn class="bg-purple q-ml-md">Refresh</q-btn>-->
 </div>
 </template>
 
-<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
-
 <script>
-
+// import {JsBarcode} from 'https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js';
 import {place_order} from "src/common/api_calls";
 import {Notify} from "quasar";
 export default {
@@ -68,6 +67,7 @@ name: "Footer",
 
   methods:{
   place_ticket_order:function (){
+
     var order={
       selected_lotteries: this.$store.state.selected_lotteries.map(lottery=>{ return lottery.id}),
       selection:this.$store.state.selectionState
@@ -79,7 +79,7 @@ name: "Footer",
       if(res.status_code===200)
       {
         console.log(res)
-        this_pointer.print_div(res) 
+        this_pointer.print_div(res)
         store.dispatch('update_balance_points',res.balance_points)
         var tickets_booked = res.tickets.map(ticket=>{
         Notify.create({
@@ -120,27 +120,20 @@ name: "Footer",
     reset_all(){
     this.$store.dispatch('reset_all')
     },
-    print_div(res) 
-    {  
+    print_div(res) {
        console.log(res)
-       
-
        document.getElementById("printdivcontent").innerHTML += `<svg id="barcode"></svg>`
-       JsBarcode("#barcode", res['tickets'][0]['ticket_id']);
-
-
-
-
-       var divContents = document.getElementById("printdivcontent").innerHTML;  
-       var printWindow = window.open('', '', 'height=200,width=400');  
+      JsBarcode('#barcode','Hello world')
+      var divContents = document.getElementById("printdivcontent").innerHTML;
+       var printWindow = window.open('', '', 'height=200,width=400');
        printWindow.document.write();
-       printWindow.document.write('</head><body >');  
-       printWindow.document.write(divContents);  
-       printWindow.document.write('</body></html>');  
+       printWindow.document.write('</head><body >');
+       printWindow.document.write(divContents);
+       printWindow.document.write('</body></html>');
        printWindow.document.close();
-       printWindow.print();  
+       printWindow.print();
        printWindow.close();
-    }  
+    }
 
 
   },
