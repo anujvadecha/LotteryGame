@@ -1091,7 +1091,7 @@ export default function (/* { ssrContext } */) {
         state.selected_lotteries = timings
       },
       set_next_lottery(state) {
-        console.log("setting next lottery")
+        // console.log("setting next lottery")
         for (var i = 0; i < state.lotteries.length; i++) {
           if (compareDate(new Date(), state.lotteries[i].time) > 0) {
 
@@ -1114,7 +1114,7 @@ export default function (/* { ssrContext } */) {
                 }
                )
             }
-            console.log("setting next lottery")
+            // console.log("setting next lottery")
             state.nextLottery = state.lotteries[i];
             state.previousLottery = state.lotteries[i - 1];
             break;

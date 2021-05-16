@@ -26,6 +26,8 @@
 // import {JsBarcode} from 'https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js';
 import {place_order} from "src/common/api_calls";
 import {Notify} from "quasar";
+import {getTimeZoneDate} from "src/common/utils";
+
 export default {
 name: "Footer",
   components: {},
@@ -79,7 +81,7 @@ name: "Footer",
       if(res.status_code===200)
       {
         console.log(res)
-        this_pointer.print_div(res)
+        
         store.dispatch('update_balance_points',res.balance_points)
         var tickets_booked = res.tickets.map(ticket=>{
         Notify.create({
@@ -92,6 +94,7 @@ name: "Footer",
             { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
           ]
         })
+        this_pointer.print_div(res)
         return ticket.ticket_id})
         this.$store.dispatch('reset_all')
         }
@@ -122,8 +125,32 @@ name: "Footer",
     },
     print_div(res) {
        console.log(res)
-       document.getElementById("printdivcontent").innerHTML += `<svg id="barcode"></svg>`
-      JsBarcode('#barcode','Hello world')
+       document.getElementById("printdivcontent").innerHTML += "Shree Dinesh Bhai Lottery<br/>Skill Game<br/>"
+       //console.log(res["tickets"][0]["created_at"])
+       
+
+       document.getElementById("printdivcontent").innerHTML += `Created date: ${getTimeZoneDate(new Date(res["tickets"][0]["created_at"])).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getTimeZoneDate(new Date(res["tickets"][0]["created_at"])).getHours()+":"+getTimeZoneDate(new Date(res["tickets"][0]["created_at"])).getMinutes()} <br/>` 
+
+      document.getElementById("printdivcontent").innerHTML += `Draw date: ${getTimeZoneDate(new Date(res["tickets"][0]["lottery"]["time"])).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getTimeZoneDate(new Date(res["tickets"][0]["lottery"]["time"])).getHours()+":"+getTimeZoneDate(new Date(res["tickets"][0]["lottery"]["time"])).getMinutes()} <br/>`  
+
+      
+      document.getElementById("printdivcontent").innerHTML += `Ticket set: <br/>` 
+
+      res["tickets"][0]["ticket_set"].map(res => {
+        document.getElementById("printdivcontent").innerHTML += `${res["set_ticket"]} - ${res["price"]} - ${res["quantity"]}<br/>`
+      })
+
+      document.getElementById("printdivcontent").innerHTML += `Total quantity ${res["tickets"][0]["total_quantity"]}<br/>`
+
+      document.getElementById("printdivcontent").innerHTML += `Total price ${res["tickets"][0]["total_price"]}<br/>`
+
+      document.getElementById("printdivcontent").innerHTML += `<svg id="barcode"></svg>`
+
+       
+
+
+
+      JsBarcode('#barcode',res["tickets"][0]["ticket_id"])
       var divContents = document.getElementById("printdivcontent").innerHTML;
        var printWindow = window.open('', '', 'height=200,width=400');
        printWindow.document.write();
@@ -133,6 +160,7 @@ name: "Footer",
        printWindow.document.close();
        printWindow.print();
        printWindow.close();
+       document.getElementById("printdivcontent").innerHTML = ""
     }
 
 
