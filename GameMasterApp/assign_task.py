@@ -7,7 +7,7 @@ import json
 import sys
 
 def assign_lottery_timings():
-    time_difference = 300
+    time_difference = 5
     try:
         IST = timezone('Asia/Kolkata')
         current_time = IST.localize(datetime.now())
@@ -16,7 +16,6 @@ def assign_lottery_timings():
         lottery_obj = Lottery.objects.filter(time__gte=current_time, completed=False).order_by('time').first()
         print(lottery_obj)
         print(f" Lottery time {lottery_obj.time}")
-
         if lottery_obj:
             # validate_lottery_conditions(lottery=lottery_obj)
             closest_time = lottery_obj.time
