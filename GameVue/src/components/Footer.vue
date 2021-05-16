@@ -144,19 +144,20 @@ name: "Footer",
 
       document.getElementById("printdivcontent").innerHTML += `Total price ${res["tickets"][0]["total_price"]}<br/>`
 
-      document.getElementById("printdivcontent").innerHTML += `<svg id="barcode" width="310px" height="140px"></svg>`
+      document.getElementById("printdivcontent").innerHTML += `<svg id="barcode" style="width: 100%"></svg>`
 
-      JsBarcode('#barcode',res["tickets"][0]["ticket_id"])
+      JsBarcode('#barcode',res["tickets"][0]["ticket_id"],{width: 4,})
       var divContents = document.getElementById("printdivcontent").innerHTML;
        // var printWindow = window.open('', '', 'height=200,width=400');
       var printWindow = window.open();
        printWindow.document.write();
-       printWindow.document.write('</head><body style="font-size: 30px">');
+       printWindow.document.write('</head><body style="font-size: 30px">' +
+         '<div>');
        printWindow.document.write(divContents);
-       printWindow.document.write('</body></html>');
+       printWindow.document.write('</div></body></html>');
        printWindow.document.close();
        printWindow.print();
-       // printWindow.close();
+       printWindow.close();
        document.getElementById("printdivcontent").innerHTML = ""
     }
 
