@@ -83,7 +83,10 @@
     </div>
     </div>
 
-  <q-btn color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
+
+  <q-card bordered flat class="row">
+  <q-btn class="col-2 q-ma-md" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
+    </q-card>
 </div>
 </template>
 
