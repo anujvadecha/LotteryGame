@@ -35,7 +35,7 @@
             <p>Not a registered user ? Register <router-link to="/register">here</router-link></p>
           </q-card-section>
     </div>
-    </div>
+</div>
 </div>
 </template>
 
