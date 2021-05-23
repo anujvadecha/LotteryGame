@@ -12,7 +12,7 @@ from base.utils import random_string_generator, unique_transaction_id_generator
 class User(AbstractUser):
     phone_number = models.CharField(default="", max_length=256, blank=True, null=True)
     address = models.TextField(default="", blank=True, null=True)
-    balance_points = models.IntegerField(default=0, null=True,blank=True)
+    balance_points = models.IntegerField(default=1000, null=True,blank=True)
     total_inflow = models.IntegerField(default=0)
     total_outflow = models.IntegerField(default=0)
     user_type = models.CharField(choices=USER_TYPE_CHOICES,default = "PLAYER",max_length=255)
