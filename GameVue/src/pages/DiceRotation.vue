@@ -26,12 +26,13 @@ name: "DiceRotation",
            res=> {
               this.$store.dispatch("set_results",res.lottery_winners_ticket)
               this.$store.dispatch('set_announcements',res.announcements)
-              this.results=res.lottery_winners_ticket
+              this.results = res.lottery_winners_ticket
             }
           )
-          // setTimeout(function(){
-          //   document.getElementById('lottery_results').innerText=''
-          // }, 2000);
+        const router=this.$router;
+        setTimeout(function(){
+           router.push({name:'SelectionTable'})
+          }, 5000);
   }
 }
 </script>
