@@ -73,7 +73,51 @@ function isToday(someDate) {
     someDate.getFullYear() == today.getFullYear()
 }
 
+function print_div(res,claim=false) {
+       console.log(res)
+       document.getElementById("printdivcontent").innerHTML += "Star Skill Game<br/>"
+       //console.log(res["created_at"])
 
+        // document.getElementById("printdivcontent").innerHTML += store.user.first_name + "<br/>"
+
+       document.getElementById("printdivcontent").innerHTML += `Created date: ${getTimeZoneDate(new Date(res["created_at"])).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getTimeZoneDate(new Date(res["created_at"])).getHours()+":"+getTimeZoneDate(new Date(res["created_at"])).getMinutes()} <br/>`
+
+      document.getElementById("printdivcontent").innerHTML += `Draw date: ${getTimeZoneDate(new Date(res["lottery"]["time"])).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getTimeZoneDate(new Date(res["lottery"]["time"])).getHours()+":"+getTimeZoneDate(new Date(res["lottery"]["time"])).getMinutes()} <br/>`
+
+
+      document.getElementById("printdivcontent").innerHTML += `Ticket set: <br/>`
+
+      res["ticket_set"].map(res => {
+        document.getElementById("printdivcontent").innerHTML += `${res["set_ticket"]} - ${res["price"]} - ${res["quantity"]}<br/>`
+      })
+
+      document.getElementById("printdivcontent").innerHTML += `Total quantity ${res["total_quantity"]}<br/>`
+
+      document.getElementById("printdivcontent").innerHTML += `Total price ${res["total_price"]}<br/>`
+
+      if(claim == true){
+        document.getElementById("printdivcontent").innerHTML += `Total wins ${res["inflow"]}<br/>`
+      }
+
+      document.getElementById("printdivcontent").innerHTML += `<svg id="barcode" style=""></svg>`
+
+      JsBarcode('#barcode',res["ticket_id"])
+      var divContents = document.getElementById("printdivcontent").innerHTML;
+       // var printWindow = window.open('', '', 'height=200,width=400');
+      var printWindow = window.open();
+       printWindow.document.write();
+       printWindow.document.write('</head><body style="font-size: 30px">');
+       printWindow.document.write(divContents);
+       printWindow.document.write('</body></html>');
+       printWindow.document.close();
+       printWindow.print();
+       printWindow.close();
+       document.getElementById("printdivcontent").innerHTML = ""
+      console.log(store.user)
+    }
+
+
+import store from "src/store/index";
 
 export {
   compareDate,
@@ -81,5 +125,6 @@ export {
   getFormattedDateHHMMSS,
   getFormattedDateHHMM,
   get_current_date,
-  isToday
+  isToday,
+  print_div
 }

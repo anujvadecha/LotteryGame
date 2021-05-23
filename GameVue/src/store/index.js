@@ -1101,8 +1101,10 @@ export default function (/* { ssrContext } */) {
             var winner_results;
             const store = this;
             if(state.nextLottery!=null && state.nextLottery.id!==state.lotteries[i].id) {
-               get_winners({"lottery_id":state.nextLottery.id}).then(
+              this.$router.push({name:'DiceRotation'})
+              get_winners({"lottery_id":state.nextLottery.id}).then(
                res=> {
+
                   store.dispatch("set_results",res.lottery_winners_ticket)
                   store.dispatch('set_announcements',res.announcements)
                 }

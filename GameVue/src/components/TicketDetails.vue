@@ -33,7 +33,7 @@
 
 <script>
 import ResultHeader from "components/ResultHeader";
-import {getTimeZoneDate} from "src/common/utils";
+import {getTimeZoneDate, print_div} from "src/common/utils";
 import {delete_ticket_api} from "src/common/api_calls";
 import {Notify} from "quasar";
 
@@ -48,6 +48,10 @@ export default {
   methods:{
     myFunction(){
       console.log("window unloaded")
+    },
+    print_ticket(){
+      console.log(this.ticket)
+      print_div(this.ticket)
     },
     get_ticket_time:function (date_string) {
       var val=date_string

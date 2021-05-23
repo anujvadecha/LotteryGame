@@ -9,6 +9,7 @@ from GameMasterApp.models import Lottery, TicketID, User, Ticket
 class LotterySerializer(serializers.ModelSerializer):
     time = serializers.SerializerMethodField()
     winners = serializers.SerializerMethodField()
+
     def get_time(self,obj):
         return obj.time
 
@@ -34,7 +35,7 @@ class TicketIDSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=TicketID
-        fields= ["ticket_set","ticket_id","total_price","total_quantity","created_at","lottery"]
+        fields= ["ticket_set","ticket_id","total_price","total_quantity","created_at","lottery","inflow","outflow"]
 
 
 class UserSerializer(serializers.ModelSerializer):

@@ -11,7 +11,7 @@
       :columns="columns"
       row-key="ticket_id"
       class = "q-ma-md row"
-      selection="single"
+      selection="multiple"
       :selected.sync="selected"
       @row-click="click_row"
     />
@@ -29,7 +29,7 @@
 <script>
 import ResultHeader from "components/ResultHeader";
 import {get_tickets} from "src/common/api_calls";
-import {getTimeZoneDate} from "src/common/utils";
+import {getTimeZoneDate, print_div} from "src/common/utils";
 export default {
 name: "TxnDetails",
 components: {ResultHeader},
@@ -82,6 +82,13 @@ components: {ResultHeader},
     },
     print_ticket() {
       console.log(this.selected)
+      this.selected.map(ticket => {
+          try{
+            console.log(ticket)
+            print_div(ticket)
+          }catch (e){console.log(e)}
+
+        });
     },
     bet_details() {
       this.$router.push({

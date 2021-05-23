@@ -26,6 +26,7 @@
     </q-footer>
 
   </q-layout>
+
 </template>
 
 <script>

@@ -28,6 +28,7 @@ name: "DiceRotation",
               this.$store.dispatch('set_announcements',res.announcements)
               this.results = res.lottery_winners_ticket
             }
+
           )
         const router=this.$router;
         setTimeout(function(){

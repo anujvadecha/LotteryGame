@@ -1,5 +1,6 @@
 <template>
   <div id="q-app">
+    <div id="printdivcontent" style="border: 1px dotted black; text-align: center; padding: 5px;display: none;width:100%">  </div>
     <router-view />
   </div>
 </template>

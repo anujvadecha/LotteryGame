@@ -9,4 +9,5 @@ urlpatterns = [
     path('total_points/', views.TotalPointsView, name="TotalPoints"),
     path('ticket_id/', views.TicketIDAsView, name="TicketId"),
     path('cancel_ticket/', views.CancelTicketView, name="CancelTicket"),
+    path('claim_ticket/', views.ClaimTicketView, name="ClaimTicket"),
 ]
