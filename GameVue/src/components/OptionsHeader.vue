@@ -1,7 +1,7 @@
 <template>
 <div class="row" style="background-color: #13fba5;color: black">
   <div class="col q-ma-sm">
-    {{$store.state.user.first_name}}
+    {{first_name}}
   </div>
   <div class="col q-ma-sm">
     Available points :{{$store.state.balance_points}}
@@ -25,6 +25,16 @@ import {Notify} from "quasar";
 
 export default {
 name: "OptionsHeader",
+computed:{
+  first_name(){
+    if(this.$store.state.user!=null) {
+      return this.$store.state.user.first_name
+    }
+    else{
+      return ''
+    }
+  }
+},
 data(){
   return {
     points_available:12
