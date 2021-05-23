@@ -81,7 +81,6 @@ name: "Footer",
       if(res.status_code===200)
       {
         console.log(res)
-
         store.dispatch('update_balance_points',res.balance_points)
         var tickets_booked = res.tickets.map(ticket=>{
         Notify.create({
