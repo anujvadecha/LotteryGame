@@ -53,7 +53,10 @@ function delete_ticket_api(data){
     const endpoint = base_url + '/gamemaster/cancel_ticket/'
     return apiService(endpoint, 'POST', data)
 }
-
+function claim_ticket_api(data){
+    const endpoint = base_url + '/gamemaster/claim_ticket/'
+    return apiService(endpoint, 'POST', data)
+}
 export {
   base_url,
   place_order,
@@ -66,4 +69,5 @@ export {
   get_user_details,
   get_tickets,
   delete_ticket_api,
+  claim_ticket_api,
 }
