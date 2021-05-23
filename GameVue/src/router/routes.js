@@ -9,6 +9,11 @@ const routes = [
     component: () => import('pages/Results.vue'),
   },
   {
+    path: '/DiceRotation',
+    name: 'DiceRotation',
+    component: () => import('pages/DiceRotation.vue'),
+  },
+  {
     path: '/TxnDetails',
     name: 'TxnDetails',
     component: () => import('pages/TxnDetails.vue'),

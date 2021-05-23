@@ -9,7 +9,7 @@
             transition="scale-transition"
             width="50px"
             />
-             <strong class="text-h6 q-ml-md q-my-md">Lottery Game</strong>
+             <strong class="text-h6 q-ml-md q-my-md">Star skill game</strong>
             </div>
           </q-card-section>
           <q-separator color="orange" size="5px"></q-separator>
@@ -35,7 +35,7 @@
             <p>Not a registered user ? Register <router-link to="/register">here</router-link></p>
           </q-card-section>
     </div>
-    </div>
+</div>
 </div>
 </template>
 

@@ -1,0 +1,41 @@
+<template>
+  <div style="font-size: x-large" class="flex flex-center">
+  <img src="dicerotation.gif" height="800" width="800"/>
+    <div id="lottery_results">Getting Lottery results for {{$store.state.nextLottery.time}}</div>
+      <div v-if="results" class="row" style="width: 83%" >
+        <div v-for="(key,value) in results" :key="value" class="col bg-white">
+            <div class="text-black text-bold q-ma-xs text-center" style="background-color:#ffb6c1;font-size: large ">{{value}}</div>
+            <div class="text-black text-bold  q-ma-xs text-center" style="background-color:#ffb6c1; font-size: large ">{{key}}</div>
+        </div>
+      </div>
+  </div>
+</template>
+
+<script>
+import {get_winners} from "src/common/api_calls";
+
+export default {
+name: "DiceRotation",
+  data(){
+  return{
+    results:null
+  }
+  },
+  created() {
+        get_winners({"lottery_id":this.$store.state.nextLottery.id}).then(
+           res=> {
+              this.$store.dispatch("set_results",res.lottery_winners_ticket)
+              this.$store.dispatch('set_announcements',res.announcements)
+              this.results=res.lottery_winners_ticket
+            }
+          )
+          // setTimeout(function(){
+          //   document.getElementById('lottery_results').innerText=''
+          // }, 2000);
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

@@ -3,7 +3,7 @@
       <div class="col-2" style="background-color: lightpink">
       <div class="row" style="background-color: white;height: 9.09%">
         <div class="q-ma-sm" style='background-color: #ba56d4; color: white;width: 100%;' >
-          <q-checkbox dense :value="true"></q-checkbox> Name
+          <q-checkbox dense @input="all_set_call()" v-model="all_sets"></q-checkbox> Name
         </div>
       </div>
       <div class="row"   style="background-color: white;height: 9.09%;cursor: default;font-size: large" v-for="link in essentialLinks" :key="link.title" >
@@ -191,9 +191,15 @@ export default {
     return {
       selectedSets:{A:false,B:false,C:false,D:false,E:false,F:false,G:false,H:false,I:false,J:false},
       essentialLinks: linksData,
+      all_sets: false,
     }
   },
   methods: {
+    all_set_call() {
+      for (const [key, value] of Object.entries(this.selectedSets)) {
+        this.selectedSets[key] = this.all_sets
+      }
+    },
     reverse_number(n) {
       if( n>=1&&n<=9 ) {
         n = '0'+n
@@ -280,7 +286,6 @@ export default {
       // if(n)
     },
     add_input:function (n,fp){
-
       // console.log(this.$store.state.selectionState)
       // console.log(this.set+n +' '+ this.inputs[this.set][n])
       // document.getElementById(this.set+(n)).value = parseInt(this.inputs[set][n])
@@ -288,6 +293,19 @@ export default {
       // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById(this.set+(n)).value})
       if(this.$store.state.fp === true && fp===true ) {
         this.add_input_fp(n)
+      }
+      for (const [key, value] of Object.entries(this.selectedSets)) {
+          if(value===true) {
+              this.$store.dispatch('add_input', {
+                set: key,
+                number: n,
+                quantity: document.getElementById(this.set + n).value
+              })
+             this.$store.dispatch('push_ticket', {
+               ticket: key + (n),
+               quantity: {quantity: parseInt(document.getElementById(this.set + n).value), price: this.$store.state.setPoints[this.set]}
+              })
+          }
       }
       this.$store.dispatch('add_input', {
         set: this.set,
@@ -333,7 +351,6 @@ export default {
 
     },
     changeMainSelectedStates:function (link) {
-      console.log("changing state")
       this.$store.dispatch('change_selected_sets',this.selectedSets)
        this.$router.push({
         path: 'SelectionTable/'+link.alias,

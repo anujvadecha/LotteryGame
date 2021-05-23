@@ -1083,7 +1083,8 @@ export default function (/* { ssrContext } */) {
         state.balance_points=points;
       },
       push_ticket(state, ticket) {
-        state.selectionState[ticket['ticket']] = ticket['quantity']
+        state.selectionState[ticket.ticket] = ticket.quantity
+        console.log(state.selectionState)
       },
       set_lottery_timings(state, timings) {
         state.lotteries = timings

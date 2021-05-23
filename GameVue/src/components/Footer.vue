@@ -15,10 +15,6 @@
           <div class="col text-center text-black" style="border: 1px solid black; background-color: white;font-size: large;font-weight: bold"> {{priceSet}}</div>
       </div>
     </div>
-
-<!--  <q-btn class="bg-purple q-ml-md">Reset</q-btn>-->
-<!--  <q-btn class="bg-purple q-ml-md">Transaction Detail</q-btn>-->
-<!--  <q-btn class="bg-purple q-ml-md">Refresh</q-btn>-->
 </div>
 </template>
 
@@ -115,7 +111,6 @@ name: "Footer",
       if(res.status_code===200)
       {
         console.log(res)
-
         store.dispatch('update_balance_points',res.balance_points)
         var tickets_booked = res.tickets.map(ticket=>{
         Notify.create({
@@ -160,13 +155,13 @@ name: "Footer",
     this.$store.dispatch('reset_all')
     },
     update_results(){
+          this.$router.push({name:'DiceRotation'})
           get_winners({"lottery_id":this.$store.state.nextLottery.id}).then(
            res=> {
               this.$store.dispatch("set_results",res.lottery_winners_ticket)
               this.$store.dispatch('set_announcements',res.announcements)
             }
           )
-          this.$store.state.results = winner_results
     }
 
 
