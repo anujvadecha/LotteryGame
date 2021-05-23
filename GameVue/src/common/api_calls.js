@@ -1,9 +1,8 @@
 import { apiService } from './api.service'
-const base_url = 'http://127.0.0.1:8000'
-const base_websocket_url = 'localhost:8000'
+// a
 
-//const base_url = 'http://admin.starskillgame.com'
-//const base_websocket_url = 'admin.starskillgame.com'
+const base_url = 'http://admin.starskillgame.com'
+const base_websocket_url = 'admin.starskillgame.com'
 
 
 function place_order (order) {
