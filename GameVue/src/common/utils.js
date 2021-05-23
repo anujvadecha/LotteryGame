@@ -75,9 +75,10 @@ function isToday(someDate) {
 
 function print_div(res,claim=false) {
        console.log(res)
-       document.getElementById("printdivcontent").innerHTML += "Shree Dinesh Bhai Lottery<br/>Skill Game<br/>"
+       document.getElementById("printdivcontent").innerHTML += "Star Skill Game<br/>"
        //console.log(res["created_at"])
 
+        // document.getElementById("printdivcontent").innerHTML += store.user.first_name + "<br/>"
 
        document.getElementById("printdivcontent").innerHTML += `Created date: ${getTimeZoneDate(new Date(res["created_at"])).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getTimeZoneDate(new Date(res["created_at"])).getHours()+":"+getTimeZoneDate(new Date(res["created_at"])).getMinutes()} <br/>`
 
@@ -112,9 +113,11 @@ function print_div(res,claim=false) {
        printWindow.print();
        printWindow.close();
        document.getElementById("printdivcontent").innerHTML = ""
+      console.log(store.user)
     }
 
 
+import store from "src/store/index";
 
 export {
   compareDate,

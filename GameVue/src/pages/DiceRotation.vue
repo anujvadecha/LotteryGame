@@ -27,7 +27,9 @@ name: "DiceRotation",
               this.$store.dispatch("set_results",res.lottery_winners_ticket)
               this.$store.dispatch('set_announcements',res.announcements)
               this.results=res.lottery_winners_ticket
-            }
+                         console.log(res)
+
+            },
           )
           // setTimeout(function(){
           //   document.getElementById('lottery_results').innerText=''
