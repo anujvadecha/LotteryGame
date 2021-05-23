@@ -42,6 +42,10 @@ class LotteryAdmin(admin.ModelAdmin):
 
 admin.site.register(Lottery, LotteryAdmin)
 
+@admin.register(Announcement)
+class Announcements(admin.ModelAdmin):
+    list_display = ('message',)
+    pass
 
 # @admin.register(UserLedgerHistory)
 # class UserLedgerHistoryAdmin(admin.ModelAdmin):

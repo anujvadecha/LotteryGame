@@ -12,7 +12,7 @@
     <q-btn flat style="color: #033aca" @click="$router.push({path:'/MyAccounts'})">My accounts</q-btn>
   </div>
   <div class="col">
-    <q-btn flat  style="color: #033aca">Password</q-btn>
+    <q-btn flat  style="color: #033aca">Password </q-btn>
   </div>
   <div class="col">
     <q-btn @click="logout()" flat  style="color: #033aca">Logout</q-btn>

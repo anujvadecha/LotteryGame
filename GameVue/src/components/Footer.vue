@@ -4,7 +4,7 @@
       <input v-model="barCodeNumber" style="width: 50%" class="q-ml-md" id="final_barcode">
       <q-btn unelevated style="border: 1px solid black;" class="bg-purple col q-ml-lg ">Claim</q-btn>
     </div>
-   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()">Update Results</q-btn>
+   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="update_results()">Update Results</q-btn>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="$router.push({path:'/TxnDetails'})">Txn Details</q-btn>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="reset_all()">Reset all</q-btn>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()">Buy</q-btn>
@@ -24,7 +24,7 @@
 
 <script>
 // import {JsBarcode} from 'https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js';
-import {place_order} from "src/common/api_calls";
+import {get_winners, place_order} from "src/common/api_calls";
 import {Notify} from "quasar";
 import {getTimeZoneDate} from "src/common/utils";
 
@@ -123,6 +123,16 @@ name: "Footer",
     reset_all(){
     this.$store.dispatch('reset_all')
     },
+    update_results(){
+          get_winners({"lottery_id":this.$store.state.nextLottery.id}).then(
+           res=> {
+              this.$store.dispatch("set_results",res.lottery_winners_ticket)
+              this.$store.dispatch('set_announcements',res.announcements)
+            }
+          )
+          this.$store.state.results = winner_results
+    }
+    ,
     print_div(res) {
        console.log(res)
        document.getElementById("printdivcontent").innerHTML += "Shree Dinesh Bhai Lottery<br/>Skill Game<br/>"

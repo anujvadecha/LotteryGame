@@ -18,6 +18,7 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {},
     state: {
+      announcements:['Star skill game'],
       selectionState: {},
       balance_points:0,
       lotteries: [],
@@ -1102,6 +1103,7 @@ export default function (/* { ssrContext } */) {
                get_winners({"lottery_id":state.nextLottery.id}).then(
                res=> {
                   store.dispatch("set_results",res.lottery_winners_ticket)
+                  store.dispatch('set_announcements',res.announcements)
                 }
               )
               state.results = winner_results
@@ -1111,8 +1113,9 @@ export default function (/* { ssrContext } */) {
 
                get_winners({"lottery_id":state.lotteries[i-1].id}).then(
                res=> {
-                 console.log(res)
-                  store.dispatch("set_results",res.lottery_winners_ticket)
+                    console.log(res)
+                    store.dispatch("set_results",res.lottery_winners_ticket)
+                    store.dispatch('set_announcements',res.announcements)
                 }
                )
             }
@@ -2211,6 +2214,9 @@ export default function (/* { ssrContext } */) {
       update_user_details(state,user) {
         state.balance_points=user.balance_points
         state.user=user
+      },
+      set_announcements(state,announcements) {
+        state.announcements=announcements
       }
     },
     actions: {
@@ -2250,6 +2256,9 @@ export default function (/* { ssrContext } */) {
       set_results({commit}, results) {
         commit('set_results', results)
 
+      },
+     set_announcements({commit}, announcements) {
+        commit('set_announcements', announcements)
       },
       fp_selection({commit},fp) {
         commit('fp_selection', fp)

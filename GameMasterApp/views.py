@@ -89,7 +89,7 @@ class LotteryTimingsAPI(APIView):
             print(request.query_params)
             try:
                 print(request.query_params)
-            except:
+            except Exception as e:
                 print(str(e))
             if "start_date" in request.query_params and "end_date" in request.query_params:
                 today_min = datetime.strptime(request.query_params["start_date"] + " 00:00:00", '%Y-%m-%d %H:%M:%S')
@@ -130,6 +130,7 @@ class LotteryWinnersAPI(APIView):
             lottery_winners_ticket = LotterySerializer(lottery_obj).data["winners"]
         else:
             lottery_winners_ticket = []
+        response['announcements'] = Announcement.objects.all().values_list('message')
         response['lottery_winners_ticket'] = lottery_winners_ticket
         response['status_code'] = 200
         return Response(data=response)

@@ -5,7 +5,7 @@
 </template>
 <script>
 
-import {get_lottery_timings, get_total_points, get_user_details, get_winners} from "src/common/api_calls";
+import {get_lottery_timings, get_user_details} from "src/common/api_calls";
 
 export default {
   name: 'App',

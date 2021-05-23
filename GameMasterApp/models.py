@@ -155,6 +155,10 @@ class TotalDebitCredit(BaseModel):
 #             print(e)
 #             super(UserLedgerHistory, self).save(*args, **kwargs)
 #
+class Announcement(BaseModel):
+    message=models.CharField(max_length=1000,blank=False,null=False)
+    def __str__(self):
+        return self.message
 
 class Admin(BaseModel):
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)

@@ -4,9 +4,8 @@
         <ResultHeader></ResultHeader>
       <TimeHeader></TimeHeader>
       <div style="background-color: black; color: red">
-      <MarqueeText style="background-color: black; ">
-        {{marquee}}
-      </MarqueeText>
+      <marquee style="font-size: medium">{{marquee}}</marquee>
+<!--      <MarqueeText style="background-color: black;">{{marquee}}</MarqueeText>-->
       </div>
       <OptionsHeader></OptionsHeader>
       <SelectionHeader></SelectionHeader>
@@ -122,7 +121,7 @@ import Footer from "components/Footer";
 import {getTimeZoneDate} from "src/common/utils";
 export default {
   name: 'MainLayout',
-  components: {Footer, SelectionHeader, OptionsHeader, TimeHeader, ResultHeader,MarqueeText},
+  components: {Footer, SelectionHeader, OptionsHeader, TimeHeader, ResultHeader},
   // components: { EssentialLink },
   methods:{
     changeMainSelectedStates:function () {
@@ -141,6 +140,15 @@ export default {
     },
     currentRouteName: function () {
       return this.$route.name
+    },
+    marquee:function (){
+      var text= '';
+      this.$store.state.announcements.map(message=>{
+        text += message+', '
+      })
+      text = text.slice(0,-2)
+      console.log(text)
+      return text
     }
   },
   data() {
@@ -148,7 +156,6 @@ export default {
       essentialLinks: linksData,
       left: true,
       right: false,
-      marquee:"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.",
       selectedSets:{A:false,B:false,C:false,D:false,E:false,F:false,G:false,H:false,I:false,J:false}
    }
   },
