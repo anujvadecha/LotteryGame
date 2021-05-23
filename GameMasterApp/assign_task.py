@@ -35,9 +35,11 @@ def assign_lottery_timings():
                 for key, value in winner_dict.items():
                     for items in Ticket.objects.filter(lottery = lottery_obj, set_ticket=str(key) + str(value)):
                         total_winning = items.total_price() * 9
-                        ticket_id = TicketID.objects.filter(ticket_set__in = [items])[0]
-                        ticket_id.inflow = ticket_id.inflow + total_winning
-                        ticket_id.save()
+                        ticket_id = TicketID.objects.filter(ticket_set__in = [items],cancelled=False)
+                        if ticket_id:
+                            ticket_id = ticket_id.first()
+                            ticket_id.inflow = ticket_id.inflow + total_winning
+                            ticket_id.save()
                 lottery_obj.save()
     except Exception as e:
         print(str(e))

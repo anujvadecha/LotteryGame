@@ -5,7 +5,7 @@
   <div class=" q-pa-sm" style="background-color: #ffa400 ;font-weight: bold;color: black;font-size: large">Current Time : {{currentTime}}</div>
   </div>
   <div class="col text-center" style="background-color: #ee82ef">
-     <div style="color: black;font-size: large" class="text-center font-bold q-ma-md">STAR SKILL GAME</div>
+     <div style="color: black;font-size: xx-large" class="text-center font-bold q-ma-md">STAR SKILL GAME</div>
   </div>
   <div class="col">
     <div class="row q-pa-sm" style="background-color: #a4ff01 ;font-weight: bold;color: black;font-size: large">

@@ -1,9 +1,9 @@
 import { apiService } from './api.service'
-// const base_url = 'http://127.0.0.1:8000'
-// const base_websocket_url = 'localhost:8000'
+const base_url = 'http://127.0.0.1:8000'
+const base_websocket_url = 'localhost:8000'
 
-const base_url = 'http://admin.starskillgame.com'
-const base_websocket_url = 'admin.starskillgame.com'
+//const base_url = 'http://admin.starskillgame.com'
+//const base_websocket_url = 'admin.starskillgame.com'
 
 
 function place_order (order) {
@@ -49,6 +49,11 @@ function get_tickets(data) {
     return apiService(endpoint, 'GET', data)
 }
 
+function delete_ticket_api(data){
+    const endpoint = base_url + '/gamemaster/cancel_ticket/'
+    return apiService(endpoint, 'POST', data)
+}
+
 export {
   base_url,
   place_order,
@@ -59,5 +64,6 @@ export {
   get_lottery_previous,
   get_total_points,
   get_user_details,
-  get_tickets
+  get_tickets,
+  delete_ticket_api,
 }

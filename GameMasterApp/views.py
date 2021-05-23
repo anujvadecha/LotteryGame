@@ -24,25 +24,26 @@ class CsrfExemptSessionAuthentication(SessionAuthentication):
 
 class BuyTicketsAPI(APIView):
     permission_classes = [IsAuthenticated]
+
     def post(self, request, *args, **kwargs):
         response = {}
         try:
             data = request.data
-            lotteries = Lottery.objects.filter(id__in=data["selected_lotteries"] ,completed = False)
+            lotteries = Lottery.objects.filter(id__in=data["selected_lotteries"], completed=False)
             data = data["selection"]
             tickets_created = []
-            user=request.user
+            user = request.user
             # Validation for balance points
-            points=0
+            points = 0
             for key, value in data.items():
                 if (value['quantity'] != None):
-                    points += value["quantity"]*value["price"]
+                    points += value["quantity"] * value["price"]
 
-            if(points > user.balance_points):
+            if (points > user.balance_points):
                 response['status_code'] = 500
                 response['message'] = "Not enough points"
                 raise Exception("Not enough points")
-            if(points<=0):
+            if (points <= 0):
                 response['status_code'] = 500
                 response['message'] = "Please select tickets before buying"
                 raise Exception("Please select tickets before buying")
@@ -72,7 +73,9 @@ class BuyTicketsAPI(APIView):
             return Response(data=response)
         except:
 
-            return Response(data = response ,status = status.HTTP_200_OK)
+            return Response(data=response, status=status.HTTP_200_OK)
+
+
 BuyTickets = BuyTicketsAPI.as_view()
 
 
@@ -169,7 +172,7 @@ class TotalDebitCreditView(APIView):
     def post(self, request):
         data = request.data
         response = {}
-        response_objects = TicketID.objects.filter(user=request.user)
+        response_objects = TicketID.objects.filter(user=request.user,cancelled=False)
         print(request.data)
         if (data.get("start_date", None) and data.get("end_date", None)):
             response_objects = response_objects.filter(created_at__date__gte=data.get("start_date"),
@@ -184,10 +187,10 @@ class TotalDebitCreditView(APIView):
             response_credit = 0
         response["inflow"] = response_debit
         response["outflow"] = response_credit
-        response["balance_points"]=request.user.balance_points
-        if(Agent.objects.filter(user=request.user).count()!=0):
+        response["balance_points"] = request.user.balance_points
+        if (Agent.objects.filter(user=request.user).count() != 0):
             response["commission"] = Agent.objects.filter(user=request.user).first().commission_percent
-        response["user"]=UserSerializer(request.user).data
+        response["user"] = UserSerializer(request.user).data
         return Response(data=response)
 
 
@@ -196,8 +199,34 @@ TotalPointsView = TotalDebitCreditView.as_view()
 
 class TicketIdView(APIView):
 
-    def get(self,request):
-        response_objects=TicketID.objects.filter(user=request.user)
-        return Response(data=TicketIDSerializer(response_objects,many=True).data)
+    def get(self, request):
+        response_objects = TicketID.objects.filter(user=request.user,cancelled=False).order_by('-created_at')
+        return Response(data=TicketIDSerializer(response_objects, many=True).data)
 
-TicketIDAsView=TicketIdView.as_view()
+
+TicketIDAsView = TicketIdView.as_view()
+
+
+class CancelTicketAPI(APIView):
+    def post(self, request):
+        response = {}
+        try:
+            data = request.data
+            cancelled_ticket_id = data['cancelled_ticket_id']
+            ticket_obj = TicketID.objects.filter(pk=cancelled_ticket_id , lottery__completed=False)
+            if ticket_obj:
+                ticket_obj = ticket_obj.first()
+                ticket_obj.cancelled = True
+                ticket_obj.save()
+                user_obj = User.objects.filter(user=request.user).first()
+                user_obj.balance_points = user_obj.balance_points + ticket_obj.total_price
+                user_obj.save()
+                response['status_code'] = 200
+            else:
+                response['status_code'] = 300
+        except Exception as e:
+            print(e)
+            response['status_code'] = 500
+        return Response(data=response)
+
+CancelTicketView = CancelTicketAPI.as_view()

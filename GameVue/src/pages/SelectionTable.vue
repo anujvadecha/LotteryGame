@@ -1,12 +1,12 @@
 <template>
   <q-page class="row" style="">
-      <div class="col-3" style="background-color: lightpink">
+      <div class="col-2" style="background-color: lightpink">
       <div class="row" style="background-color: white;height: 9.09%">
-        <div class="q-ma-sm" style='background-color: #ba56d4; color: white;width: 400px' >
+        <div class="q-ma-sm" style='background-color: #ba56d4; color: white;width: 100%;' >
           <q-checkbox dense :value="true"></q-checkbox> Name
         </div>
       </div>
-      <div class="row"   style="background-color: white;height: 9.09%;cursor: default;font-size: large " v-for="link in essentialLinks" :key="link.title" >
+      <div class="row"   style="background-color: white;height: 9.09%;cursor: default;font-size: large" v-for="link in essentialLinks" :key="link.title" >
           <div class="q-ma-sm"  v-bind:style="getStyleForButton(link)" @click="pushToPage(link)">
             <q-checkbox dense @click="pushToPage(link)" @input="changeMainSelectedStates(link)" v-model="selectedSets[link.alias]" :value="true"></q-checkbox> {{link.title}}
           </div>
@@ -23,18 +23,17 @@
       </div>
       </div>
       <div class="col" style="background-color: #eef8ff">
-          <div class="row" style="height: 9.09%">
+          <div class="row" >
           <!--     ALL POINTS CARD   -->
           <div class="" style="width: 9.09%;" >
-          <q-card  class=" text-center q-pl-sm q-pr-sm" style="background-color: #eef8ff; " flat>
-            <div style="" > SET </div>
-            <div style="" > {{this.set}} </div>
+          <q-card  class=" text-center q-pl-sm q-pr-sm" style="background-color: #eef8ff;" flat>
+            <div style="font-size: medium" > SET {{this.set}}</div>
           </q-card>
          </div>
             <!--     COLUMN CARDS   -->
             <div v-for="i in 10" :key="i" class="" style="width: 9.09%;" >
-          <q-card  class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
-            <div style="font-size: small"> &nbsp;</div>
+
+          <q-card  class=" text-center q-pa-xs q-pr-xs" style="background-color: #eef8ff; " flat>
             <input :id="'col'+set+i" class="text-center text-red" v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')" @input="add_input_col(i)"/>
           </q-card>
          </div>
@@ -43,16 +42,16 @@
           <!--     ROW CARDS-->
          <div class="" style="width: 9.09%;" >
           <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
-            <div  style="font-size: small"> &nbsp; </div>
+            <div  style="font-size: medium"> &nbsp; </div>
             <input :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs" v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')" @input="add_input_row(i)"/>
           </q-card>
          </div>
 <!--          NUMBER CARDS     -->
           <div class="" v-for="n in 10" style="width: 9.09%;" :key="n">
           <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
-            <div style="font-size: small"> {{ i*10+n-10-1}} </div>
+            <div style="font-size: medium"> {{ i*10+n-10-1}} </div>
             <input :id="set+(i*10+n-10-1)" class="text-center text-red "
-                   v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:100%')"
+                   v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:90%')"
                    :value="inputs[set][i*10+n-10-1]"
                    @input="add_input(i*10+n-10-1,true)"/>
           </q-card>
@@ -347,16 +346,16 @@ export default {
     },
     getStyleForButton:function (link){
       if(link.alias===this.set)
-        return 'background-color: red; color: white;width: 400px;font-size:medium'
+        return 'background-color: red; color: white;width: 100%;font-size:medium'
       else
-      return 'background-color: #ba56d4; color: white;width: 400px;font-size:medium'
+      return 'background-color: #ba56d4; color: white;width: 100%;font-size:medium'
     },
     getStyleForInput(input) {
       // background-color:#882ce2;
       if(input && input!=0 && input!=null)
-      return "color:#c50a46; font-weight:bold "
+      return "color:#c50a46; font-weight:bold ;border:1px solid black"
       else
-      return ""
+      return "border:1px solid black"
     },
     pushToPage:function (link) {
       this.$router.push({
