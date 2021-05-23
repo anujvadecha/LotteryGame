@@ -28,11 +28,16 @@ name: "DiceRotation",
               this.$store.dispatch('set_announcements',res.announcements)
               this.results = res.lottery_winners_ticket
             }
-
-          )
+        )
         const router=this.$router;
         setTimeout(function(){
-           router.push({name:'SelectionTable'})
+         router.push({
+              path: '/SelectionTable',
+              name:'SelectionTable',
+              params: {
+                set: 'A'
+              }
+            })
           }, 5000);
   }
 }
