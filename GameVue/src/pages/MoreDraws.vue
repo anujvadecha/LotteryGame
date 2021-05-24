@@ -3,7 +3,7 @@
 <!--  <ResultHeader></ResultHeader>-->
   <div class="q-ma-lg font-bold"  style="font-size:large">More draws</div>
   <div class="row">
-  <q-card class="col-2 q-pa-lg q-ma-sm" v-for="option in options" :key="option.value.id">
+  <q-card @click="select_lottery(option)" class="col-2 q-pa-lg q-ma-sm" v-for="option in options" :key="option.value.id">
     <q-checkbox :disable="option.disabled"  @input="add_selected()" dense v-model="option.selected" val="teal" :label="option.label" color="teal" />
   </q-card>
   </div>
@@ -21,7 +21,16 @@ name: "MoreDraws",
   methods:{
     add_selected:function (){
       this.$store.dispatch('set_selected_lotteries',this.options.filter(option=>{return option.selected}).map(value=>value.value))
+    },
+    select_lottery:function (lottery){
+      for(var i=0;i<this.options.length;i++) {
+        if(this.options[i].label===lottery.label) {
+          this.options[i].selected=  !this.options[i].selected;
+        }
+      }
+      this.$store.dispatch('set_selected_lotteries',this.options.filter(option=>{return option.selected}).map(value=>value.value))
     }
+
   },
   data(){
     return{
