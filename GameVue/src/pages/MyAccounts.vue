@@ -1,10 +1,8 @@
 <template>
  <div>
   <ResultHeader></ResultHeader>
-    <div class="row">
-      <div class="col-3"></div>
-<div class="q-pa-md col-3" style="max-width: 300px">
- <q-input filled v-model="start_date">
+    <q-card bordered flat class="row justify-end">
+ <q-input dense class="q-pa-md " filled v-model="start_date">
    <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
@@ -17,9 +15,8 @@
         </q-icon>
       </template>
  </q-input>
-</div>
-  <div class="q-pa-md col-3" style="max-width: 300px">
- <q-input filled v-model="end_date">
+
+ <q-input dense class="q-pa-md " filled v-model="end_date">
    <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
@@ -31,60 +28,42 @@
           </q-popup-proxy>
         </q-icon>
       </template>
- </q-input>
-</div>
-      <div class="col-1">
-           <q-btn dense unelevated style="margin-top:20px;border: 1px solid black" class="bg-purple col " @click="fetch_transaction_according_to_date()">Go -></q-btn>
+    </q-input>
+    <q-btn color="primary"   unelevated style="" class="q-ma-md" @click="fetch_transaction_according_to_date()"> Go </q-btn>
+    </q-card>
+
+
+      <q-card-section class="row" style="font-size: x-large;">
+              SHREE ONLINE VIDEO GAME
+      </q-card-section>
+      <q-card-section style="font-size: large">
+      <div class= "row">
+        <div class="col">From: {{this.start_date}}</div>
+        <div class="col">To: {{this.end_date}} </div>
       </div>
+      <div class= "row">
+        <div class="col">Play Points: </div>
+        <div class="col">{{ total_inflow }}</div>
+      </div>
+      <div class= "row">
+        <div class="col">Win Points</div>
+        <div class="col">{{ total_outflow }}</div>
+      </div>
+      <div v-if="this.user_type==='AGENT'" class= "row">
+        <div class="col">End Points</div>
+        <div class="col">{{total_inflow-total_outflow}}</div>
+      </div>
+      <div v-if="this.user_type==='AGENT'"  class= "row">
+        <div class="col"> Profit </div>
+        <div class="col">{{Math.round(total_inflow*(commission/100))}}</div>
       </div>
 
-    <div class="row">
-      <div class="col-3">
+      <div v-if="this.user_type==='AGENT'" class= "row">
+        <div class="col"> Net To Pay Points </div>
+        <div class="col">{{ Math.round(total_inflow-total_outflow)-total_inflow*(commission/100)}}</div>
       </div>
-      <div class="col-6">
-      From
-        <br>
-        <div class="row">
-          <div class="col-1"></div>
-          <div class="col-11" >
-            <p>SHREE ONLINE VIDEO GAME</p>
-            <p>2/03/2021 21:32:48</p>
-              <div class= "row">
-                <div class="col">From: 2/03/2021</div>
-                <div class="col">To: 2/03/2021 </div>
-              </div>
-              <div class= "row">
-                <div class="col">Play Points: </div>
-                <div class="col">{{ total_inflow }}</div>
-              </div>
-              <div class= "row">
-                <div class="col">Win Points</div>
-                <div class="col">{{ total_outflow }}</div>
-              </div>
-              <div v-if="this.user_type==='AGENT'" class= "row">
-                <div class="col">End Points</div>
-                <div class="col">{{total_inflow-total_outflow}}</div>
-              </div>
-              <div v-if="this.user_type==='AGENT'"  class= "row">
-                <div class="col"> Profit </div>
-                <div class="col">{{Math.round(total_inflow*(commission/100))}}</div>
-              </div>
-
-              <div v-if="this.user_type==='AGENT'" class= "row">
-                <div class="col"> Net To Pay Points </div>
-                <div class="col">{{ Math.round(total_inflow-total_outflow)-total_inflow*(commission/100)}}</div>
-              </div>
-
-
-          </div>
-        </div>
-
-
-    </div>
-    </div>
-
-
-  <q-card bordered flat class="row">
+        </q-card-section>
+  <q-card bordered flat class="row absolute-bottom">
   <q-btn class="col-2 q-ma-md" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
     </q-card>
 </div>

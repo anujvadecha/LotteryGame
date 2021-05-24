@@ -16,7 +16,7 @@
       @row-click="click_row"
     />
     <router-view></router-view>
-      <q-card class="row" flat bordered>
+      <q-card class="row absolute-bottom" flat bordered>
          <q-btn class="col q-ma-md" color="blue"  unelevated @click="$router.push({path:'/'})">Back</q-btn>
          <q-btn class="col q-ma-md" color="orange"  unelevated @click="print_ticket()">Print</q-btn>
          <q-btn class="col q-ma-md" color="red"  unelevated @click="bet_details()">Bet Details</q-btn>

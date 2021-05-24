@@ -1102,7 +1102,6 @@ export default function (/* { ssrContext } */) {
             if(state.nextLottery!=null && state.nextLottery.id!==state.lotteries[i].id) {
               get_winners({"lottery_id":state.nextLottery.id}).then(
                res=> {
-
                   store.dispatch("set_results",res.lottery_winners_ticket)
                   store.dispatch('set_announcements',res.announcements)
                 }
