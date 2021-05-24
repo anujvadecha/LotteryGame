@@ -7,7 +7,7 @@ import json
 import sys
 
 def assign_lottery_timings():
-    time_difference = 100
+    time_difference = 60
     try:
         IST = timezone('Asia/Kolkata')
         current_time = IST.localize(datetime.now())
