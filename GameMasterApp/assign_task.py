@@ -38,7 +38,7 @@ def assign_lottery_timings():
                         ticket_id = TicketID.objects.filter(ticket_set__in = [items],cancelled=False)
                         if ticket_id:
                             ticket_id = ticket_id.first()
-                            ticket_id.inflow = ticket_id.inflow + total_winning
+                            ticket_id.increase_inflow(total_winning)
                             ticket_id.save()
                 lottery_obj.save()
     except Exception as e:

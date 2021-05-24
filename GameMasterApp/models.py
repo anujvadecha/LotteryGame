@@ -128,10 +128,6 @@ class TicketID(BaseModel):
             self.total_creditquantity = 0
             super(TicketID, self).save(*args, **kwargs)
 
-class TotalDebitCredit(BaseModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    inflow = models.IntegerField(default=0)
-    outflow = models.IntegerField(default=0)
 
 #
 # class UserLedgerHistory(BaseModel):
