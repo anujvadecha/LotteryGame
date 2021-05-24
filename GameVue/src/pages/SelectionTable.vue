@@ -48,13 +48,13 @@
          </div>
 <!--          NUMBER CARDS     -->
           <div class="" v-for="n in 10" style="width: 9.09%;" :key="n">
-          <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
-            <div style="font-size: medium"> {{ i*10+n-10-1}} </div>
-            <input :id="set+(i*10+n-10-1)" class="text-center text-red "
-                   v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:90%')"
-                   :value="inputs[set][i*10+n-10-1]"
-                   @input="add_input(i*10+n-10-1,true)"/>
-          </q-card>
+            <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
+              <div style="font-size: medium"> {{ ("0" + (i*10+n-10-1)).slice(-2) }} </div>
+              <input :id="set+(i*10+n-10-1)" class="text-center text-red "
+                     v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:90%')"
+                     :value="inputs[set][i*10+n-10-1]"
+                     @input="add_input(i*10+n-10-1,true)"/>
+            </q-card>
           </div>
         </div>
       </div>
