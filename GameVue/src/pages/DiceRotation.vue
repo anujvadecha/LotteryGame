@@ -1,11 +1,11 @@
 <template>
   <div style="font-size: x-large" class="flex flex-center">
-  <img src="dicerotation.gif" height="800" width="800"/>
-    <div id="lottery_results">Getting Lottery results for {{$store.state.nextLottery.time}}</div>
+  <img src="dicerotation.gif" height="30%" width="30%"/>
+    <div id="lottery_results">Lottery results for {{$store.state.nextLottery.time}}</div>
       <div v-if="results" class="row" style="width: 83%" >
         <div v-for="(key,value) in results" :key="value" class="col bg-white">
-            <div class="text-black text-bold q-ma-xs text-center" style="background-color:#ffb6c1;font-size: large ">{{value}}</div>
-            <div class="text-black text-bold  q-ma-xs text-center" style="background-color:#ffb6c1; font-size: large ">{{key}}</div>
+            <div class="text-black text-bold q-ma-xs text-center" style="background-color:#00ffff;font-size: large ">{{value}}</div>
+            <div class="text-black text-bold  q-ma-xs text-center" style="background-color:#3cffe0; font-size: large ">{{key}}</div>
         </div>
       </div>
   </div>
@@ -22,14 +22,18 @@ name: "DiceRotation",
   }
   },
   created() {
-        get_winners({"lottery_id":this.$store.state.nextLottery.id}).then(
-           res=> {
-              this.$store.dispatch("set_results",res.lottery_winners_ticket)
-              this.$store.dispatch('set_announcements',res.announcements)
-              this.results = res.lottery_winners_ticket
-            }
-        )
-        const router=this.$router;
+        // get_winners({"lottery_id":this.$store.state.nextLottery.id}).then(
+        //    res=> {
+        //       this.$store.dispatch("set_results",res.lottery_winners_ticket)
+        //       this.$store.dispatch('set_announcements',res.announcements)
+        //       this.results = res.lottery_winners_ticket
+        //     }
+        // )
+          const this_pointer = this;
+          setInterval(function (){
+          this_pointer.results = this_pointer.$store.state.results
+          },2000);
+        const router = this.$router;
         setTimeout(function(){
          router.push({
               path: '/SelectionTable',
@@ -38,7 +42,7 @@ name: "DiceRotation",
                 set: 'A'
               }
             })
-          }, 5000);
+          }, 8000);
   }
 }
 </script>

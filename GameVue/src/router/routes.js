@@ -8,11 +8,7 @@ const routes = [
     name: 'Results',
     component: () => import('pages/Results.vue'),
   },
-  {
-    path: '/DiceRotation',
-    name: 'DiceRotation',
-    component: () => import('pages/DiceRotation.vue'),
-  },
+
   {
     path: '/TxnDetails',
     name: 'TxnDetails',
@@ -40,6 +36,11 @@ const routes = [
     path: '/MoreDraws',
     name: 'MoreDraws',
     component: () => import('pages/MoreDraws.vue'),
+  },
+      {
+    path: '/DiceRotation',
+    name: 'DiceRotation',
+    component: () => import('pages/DiceRotation.vue'),
   },
     ]
   },
