@@ -104,42 +104,42 @@ const linksData = [
     mobile: true
   },
   {
-    title: 'Set E -4',
+    title: 'Set E -5',
     icon: 'mdi-account',
     alias: 'E',
     link: 'E',
     mobile: true
   },
   {
-    title: 'Set F -4',
+    title: 'Set F -6',
     icon: 'mdi-account',
     alias: 'F',
     link: 'F',
     mobile: true
   },
   {
-    title: 'Set G -4',
+    title: 'Set G -7',
     icon: 'mdi-account',
     alias: 'G',
     link: 'G',
     mobile: true
   },
   {
-    title: 'Set H -4',
+    title: 'Set H -8',
     icon: 'mdi-account',
     alias: 'H',
     link: 'H',
     mobile: true
   },
   {
-    title: 'Set I -4',
+    title: 'Set I -9',
     icon: 'mdi-account',
     alias: 'I',
     link: 'I',
     mobile: true
   },
   {
-    title: 'Set J -4',
+    title: 'Set J -10',
     icon: 'mdi-account',
     alias: 'J',
     link: 'J',
