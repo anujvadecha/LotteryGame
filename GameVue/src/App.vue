@@ -7,11 +7,22 @@
 <script>
 
 import {get_lottery_timings, get_user_details} from "src/common/api_calls";
+import {AppFullscreen} from "quasar";
 
 export default {
   name: 'App',
 
   created() {
+    this.$q.notify({
+        message: " Go fullscreen",
+        color: 'primary',
+        position:"center",
+        timeout: 200000,
+        html:true,
+        actions: [
+          { label: 'Go', color: 'white', handler: () => { this.$q.fullscreen.toggle() } },
+        ]
+      })
     let code = "";
 let reading = false;
 let final_barcode =""
