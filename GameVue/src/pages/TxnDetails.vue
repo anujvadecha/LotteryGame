@@ -61,6 +61,13 @@ components: {ResultHeader},
         align: 'left',
         field: row => row.total_price,
       },
+      {
+        name:'Total winnings',
+        required: true,
+        label: 'Total winnings',
+        align: 'left',
+        field: row => row.inflow,
+      },
       ],
       selected:[]
     }
