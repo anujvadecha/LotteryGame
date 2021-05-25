@@ -7,7 +7,7 @@
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="update_results()">Update Results</q-btn>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="$router.push({path:'/TxnDetails'})">Txn Details</q-btn>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="reset_all()">Reset all</q-btn>
-   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()">Buy</q-btn>
+   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()" id="buy_button">Buy</q-btn>
     <div class="col text-center q-pa-sm text-black" style="font-weight: bold;font-size: large">Grand Total</div>
     <div class="col-2">
       <div class="row"  style="background-color: white;height: 100%" >
@@ -173,6 +173,7 @@ name: "Footer",
     }
 }
 }
+
 </script>
 
 <style scoped>

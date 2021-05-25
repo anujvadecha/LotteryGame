@@ -23,30 +23,7 @@ export default {
           { label: 'Go', color: 'white', handler: () => { this.$q.fullscreen.toggle() } },
         ]
       })
-    let code = "";
-let reading = false;
-let final_barcode =""
-  document.addEventListener('keypress', function (e){
-   if (e.keyCode===13){
-          if(code.length == 13){
-            final_barcode = code
-            console.log(final_barcode)
-            document.getElementById("final_barcode").value = final_barcode
-          }
-          if(code.length>10){
-            code="";
-         }
-    }else{
-         code+=e.key;
-    }
 
-    if(!reading){
-         reading=true;
-         setTimeout(function(e){
-          code="";
-          reading=false;
-      }, 200);}
-      })
     const store=this.$store;
     get_lottery_timings().then(lottery_timings => {
       console.log(lottery_timings)
@@ -84,4 +61,86 @@ let final_barcode =""
     });
   }
 }
+</script>
+<script type="text/javascript">
+  let code = "";
+    let reading = false;
+    let final_barcode =""
+    var elements = []
+    var currentIndex = 0;
+    setTimeout(function(){
+      elements = document.getElementsByClassName("lottery_input");
+      currentIndex = 0
+      },1000)
+
+
+  document.addEventListener('keydown', function (e){
+    console.log("Identifying")
+    console.log(e.keyCode)
+   if (e.keyCode===13){
+    document.getElementById(document.activeElement.id).blur();
+    console.log(code.length)
+          if(code.length == 13){
+            final_barcode = code
+            console.log(final_barcode)
+
+            document.getElementById("final_barcode").value = final_barcode
+
+          }
+          if(code.length>10){
+            code="";
+         }
+
+    }else{
+         code+=e.key;
+    }
+
+    if(!reading){
+         reading=true;
+         setTimeout(function(e){
+          code="";
+          reading=false;
+      }, 200);}
+      
+
+  if(e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40 || e.keyCode == 117){    
+    try{
+    currentIndex = parseInt(document.activeElement.id.substring(1))
+      switch (e.keyCode) {
+        case 37:
+          currentIndex = (currentIndex == 0 || currentIndex%10 == 0) ? currentIndex + 9 : currentIndex-1;
+          elements[currentIndex].focus();
+          
+          break;
+        case 39:
+          currentIndex = (currentIndex == 9 || currentIndex%10 == 9) ? currentIndex - 9 : currentIndex+1;
+          elements[currentIndex].focus();
+          
+          break;
+        case 40: //down
+          currentIndex = (parseInt(currentIndex/10) >= 9) ? currentIndex - 90 : currentIndex+10;
+          elements[currentIndex].focus();
+          
+          break;
+        case 38:
+
+          currentIndex = (parseInt(currentIndex/10) == 0) ? currentIndex + 90 : currentIndex-10;
+          elements[currentIndex].focus();
+          
+          break;
+
+      }
+}catch(err){console.log(err)}
+      
+
+
+  try{
+    if (e.keyCode === 117) {
+      console.log("here")
+        document.getElementById("buy_button").click();
+    }
+  }catch(err){}
+}
+})
+
 </script>

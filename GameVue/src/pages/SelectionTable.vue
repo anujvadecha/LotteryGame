@@ -48,23 +48,14 @@
          </div>
 <!--          NUMBER CARDS     -->
           <div class="" v-for="n in 10" style="width: 9.09%;" :key="n">
-<<<<<<< HEAD
-          <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
-            <div style="font-size: medium"> {{ i*10+n-10-1}} </div>
-            <input :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
-                   v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:90%')"
-                   :value="inputs[set][i*10+n-10-1]"
-                   @input="add_input(i*10+n-10-1,true)"/>
-          </q-card>
-=======
+
             <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
               <div style="font-size: medium"> {{ ("0" + (i*10+n-10-1)).slice(-2) }} </div>
-              <input :id="set+(i*10+n-10-1)" class="text-center text-red "
+              <input :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
                      v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:90%')"
                      :value="inputs[set][i*10+n-10-1]"
-                     @input="add_input(i*10+n-10-1,true)"/>
+                     @input="add_input(i*10+n-10-1,true)" autocomplete="off" />
             </q-card>
->>>>>>> 9ac0bf2c5db7aa803870264180b096f2868a9d24
           </div>
         </div>
       </div>
@@ -406,23 +397,48 @@ export default {
   }
 }
 
-var elements = document.getElementsByClassName("lottery_input");
-  console.log(elements)
-    var currentIndex = 0;
+// var elements = []
+// var currentIndex = 0;
+// setTimeout(function(){
+//   elements = document.getElementsByClassName("lottery_input");
+//   currentIndex = 0
+//   },2000)
+// try{
+//  document.addEventListener('keypress', function (e){
+//       currentIndex = parseInt(document.activeElement.id.substring(1))
+//       switch (e.keyCode) {
+//         case 37:
+//           currentIndex = (currentIndex == 0 || currentIndex%10 == 0) ? currentIndex + 9 : currentIndex-1;
+//           console.log(currentIndex)
+//           elements[currentIndex].focus();
+          
+//           break;
+//         case 39:
+//           currentIndex = (currentIndex == 9 || currentIndex%10 == 9) ? currentIndex - 9 : currentIndex+1;
+//           console.log(currentIndex)
+//           elements[currentIndex].focus();
+          
+//           break;
+//         case 40: //down
+//           currentIndex = (parseInt(currentIndex/10) >= 9) ? currentIndex - 90 : currentIndex+10;
+//           console.log(currentIndex)
+//           elements[currentIndex].focus();
+          
+//           break;
+//         case 38:
 
-    document.onkeydown = function(e) {
-      console.log("comes here")
-      switch (e.keyCode) {
-        case 38:
-          currentIndex = (currentIndex == 0) ? elements.length - 1 : --currentIndex;
-          elements[currentIndex].focus();
-          break;
-        case 40:
-          currentIndex = ((currentIndex + 1) == elements.length) ? 0 : ++currentIndex;
-          elements[currentIndex].focus();
-          break;
-      }
-    };
+//           currentIndex = (parseInt(currentIndex/10) == 0) ? currentIndex + 90 : currentIndex-10;
+//           console.log(currentIndex)
+//           elements[currentIndex].focus();
+          
+//           break;
+
+//       }
+
+//     });
+// }catch(err){}
+
+
 
 
 </script>
