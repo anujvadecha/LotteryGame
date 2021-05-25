@@ -23,7 +23,7 @@
       </q-table>
     </div>
   </div>
-    <q-card class="row" flat bordered>
+    <q-card class="row " flat bordered>
          <q-btn class="col q-ma-md" color="blue"  unelevated @click="$router.push({path:'/TxnDetails'})">Back</q-btn>
          <q-btn class="col q-ma-md" color="orange"  unelevated @click="print_ticket()">Print</q-btn>
       <q-btn class="col q-ma-md" color="red"  unelevated @click="delete_ticket()">Cancel</q-btn>

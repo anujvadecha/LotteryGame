@@ -1098,22 +1098,18 @@ export default function (/* { ssrContext } */) {
           if (compareDate(new Date(), state.lotteries[i].time) > 0) {
 
           } else {
-            var winner_results;
             const store = this;
             if(state.nextLottery!=null && state.nextLottery.id!==state.lotteries[i].id) {
-              this.$router.push({name:'DiceRotation'})
               get_winners({"lottery_id":state.nextLottery.id}).then(
                res=> {
-
                   store.dispatch("set_results",res.lottery_winners_ticket)
                   store.dispatch('set_announcements',res.announcements)
                 }
               )
-              state.results = winner_results
+              this.$router.push({name:'DiceRotation'})
             }
             else if(state.nextLottery==null) {
                state.nextLottery = state.lotteries[i];
-
                get_winners({"lottery_id":state.lotteries[i-1].id}).then(
                res=> {
                     console.log(res)

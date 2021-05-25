@@ -41,8 +41,6 @@
 import ResultHeader from "components/ResultHeader";
 import TimeHeader from "components/TimeHeader";
 import TicketDetailDrawer from "components/TicketDetailDrawer";
-import {get_lottery_previous, get_lottery_timings, get_winners} from "src/common/api_calls";
-
 const linksData = [
   {
     title: 'Set A -1',

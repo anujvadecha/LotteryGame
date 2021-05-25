@@ -55,7 +55,7 @@ class BuyTicketsAPI(APIView):
                             ticket = Ticket.objects.create(user=user, set_ticket=key, quantity=value["quantity"],
                                                            price=value["price"], lottery=lottery)
                             ticket_id.ticket_set.add(ticket)
-                            ticket_id.increase_outflow(value["price"])
+                            ticket_id.increase_outflow(value["price"]*value['quantity'])
 
                     user.balance_points -= points
                     user.save()
@@ -219,7 +219,7 @@ class CancelTicketAPI(APIView):
                 ticket_obj = ticket_obj.first()
                 ticket_obj.cancelled = True
                 ticket_obj.save()
-                user_obj = User.objects.filter(user=request.user).first()
+                user_obj = request.user
                 user_obj.balance_points = user_obj.balance_points + ticket_obj.total_price
                 user_obj.save()
                 response['status_code'] = 200
