@@ -50,7 +50,7 @@
           <div class="" v-for="n in 10" style="width: 9.09%;" :key="n">
           <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
             <div style="font-size: medium"> {{ i*10+n-10-1}} </div>
-            <input :id="set+(i*10+n-10-1)" class="text-center text-red "
+            <input :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
                    v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:90%')"
                    :value="inputs[set][i*10+n-10-1]"
                    @input="add_input(i*10+n-10-1,true)"/>
@@ -72,6 +72,7 @@
   </q-page>
 <!--    </q-page>-->
 </template>
+
 <script>
 
 const linksData = [
@@ -394,6 +395,25 @@ export default {
     }
   }
 }
+
+var elements = document.getElementsByClassName("lottery_input");
+  console.log(elements)
+    var currentIndex = 0;
+
+    document.onkeydown = function(e) {
+      console.log("comes here")
+      switch (e.keyCode) {
+        case 38:
+          currentIndex = (currentIndex == 0) ? elements.length - 1 : --currentIndex;
+          elements[currentIndex].focus();
+          break;
+        case 40:
+          currentIndex = ((currentIndex + 1) == elements.length) ? 0 : ++currentIndex;
+          elements[currentIndex].focus();
+          break;
+      }
+    };
+
 
 </script>
 
