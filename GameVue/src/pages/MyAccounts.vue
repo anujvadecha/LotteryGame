@@ -32,9 +32,9 @@
     <q-btn color="primary"   unelevated style="" class="q-ma-md" @click="fetch_transaction_according_to_date()"> Go </q-btn>
     </q-card>
 
-
+    <div id="account_details" >
       <q-card-section class="row" style="font-size: x-large;">
-              SHREE ONLINE VIDEO GAME
+      SHREE ONLINE VIDEO GAME
       </q-card-section>
       <q-card-section style="font-size: large">
       <div class= "row">
@@ -62,11 +62,14 @@
         <div class="col"> Net To Pay Points </div>
         <div class="col">{{ Math.round(total_inflow-total_outflow)-total_inflow*(commission/100)}}</div>
       </div>
-        </q-card-section>
+      </q-card-section>
+  </div>
   <q-card bordered flat class="row absolute-bottom">
   <q-btn class="col-2 q-ma-md" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
+  <q-btn class="col-2 q-ma-md" color="orange" unelevated @click="print_account()">Print</q-btn>
     </q-card>
-</div>
+
+   </div>
 </template>
 
 <script>
@@ -89,6 +92,16 @@ export default {
     }
   },
   methods:{
+    print_account(){
+     var printContents = document.getElementById('account_details').innerHTML;
+     var originalContents = document.body.innerHTML;
+     document.body.innerHTML = printContents;
+     window.print();
+     document.body.innerHTML = originalContents;
+
+// Get all stylesheets HTML
+
+    },
     fetch_transaction_according_to_date(){
       console.log(this.start_date)
       console.log(this.end_date)

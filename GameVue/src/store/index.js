@@ -1144,6 +1144,18 @@ export default function (/* { ssrContext } */) {
         state.inputs[ticketState.set][ticketState.number] = ticketState.quantity
       },
       reset_all(state) {
+        state.selectedSets={
+        A: false,
+        B: false,
+        C: false,
+        D: false,
+        E: false,
+        F: false,
+        G: false,
+        H: false,
+        I: false,
+        J: false
+        }
         state.inputs = {
           A: {
             "0": null,

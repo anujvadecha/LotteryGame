@@ -1,6 +1,7 @@
 <template>
 <div class="">
-<!--  <ResultHeader></ResultHeader>-->
+  <ResultHeader></ResultHeader>
+  <TimeHeader></TimeHeader>
   <div class="q-ma-lg font-bold"  style="font-size:large">More draws</div>
   <div class="row">
   <q-card @click="select_lottery(option)" class="col-2 q-pa-lg q-ma-sm" v-for="option in options" :key="option.value.id">
@@ -15,9 +16,10 @@
 <script>
 import ResultHeader from "components/ResultHeader";
 import {compareDate, getFormattedDateHHMM, isToday} from "src/common/utils";
+import TimeHeader from "components/TimeHeader";
 export default {
 name: "MoreDraws",
-  // components: {ResultHeader},
+  components: {TimeHeader, ResultHeader},
   methods:{
     add_selected:function (){
       this.$store.dispatch('set_selected_lotteries',this.options.filter(option=>{return option.selected}).map(value=>value.value))
