@@ -1,21 +1,5 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header bordered class="bg-primary text-white" height-hint="98">
-        <ResultHeader></ResultHeader>
-      <TimeHeader></TimeHeader>
-      <div style="background-color: black; color: red">
-      <marquee style="font-size: medium">{{marquee}}</marquee>
-<!--      <MarqueeText style="background-color: black;">{{marquee}}</MarqueeText>-->
-      </div>
-      <OptionsHeader></OptionsHeader>
-      <SelectionHeader></SelectionHeader>
-<!--      <q-toolbar style="background-color: black">-->
-<!--        <q-btn dense flat round icon="menu" @click="left = !left"/>-->
-<!--        <q-btn color="orange">Results</q-btn>-->
-<!--        <q-btn dense flat round icon="menu" @click="right = !right"/>-->
-<!--      </q-toolbar>-->
-    </q-header>
-
 <!--    <q-drawer show-if-above v-model="right" side="right" bordered>-->
 <!--    </q-drawer>-->
     <q-page-container>
@@ -120,7 +104,7 @@ import Footer from "components/Footer";
 import {getTimeZoneDate} from "src/common/utils";
 export default {
   name: 'MainLayout',
-  components: {Footer, SelectionHeader, OptionsHeader, TimeHeader, ResultHeader},
+  components: {Footer},
   // components: { EssentialLink },
   methods:{
     changeMainSelectedStates:function () {

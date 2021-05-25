@@ -1,20 +1,19 @@
 <template>
 <div class="row" style="background-color: #13fba5;color: black">
   <div class="col q-ma-sm">
-    {{first_name}}
+    Terminal Id: {{$store.state.user.id}} &nbsp;&nbsp;{{first_name}}
   </div>
-  <div class="col q-ma-sm">
-    Available points :{{$store.state.balance_points}}
+  <div class="col q-ma-sm" style="">
+    Available points :<span style="font-weight: bold;font-size: medium;color: darkred">{{$store.state.balance_points}}</span>
   </div>
-  <div class="col"></div>
-  <div class="col"></div>
-  <div class="col">
+  <q-space></q-space>
+  <div class="">
     <q-btn flat style="color: #033aca" @click="$router.push({path:'/MyAccounts'})">My accounts</q-btn>
   </div>
-  <div class="col">
+  <div class="">
     <q-btn flat  style="color: #033aca">Password </q-btn>
   </div>
-  <div class="col">
+  <div class="">
     <q-btn @click="logout()" flat  style="color: #033aca">Logout</q-btn>
   </div>
 </div>
