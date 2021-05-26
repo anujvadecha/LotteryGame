@@ -11,7 +11,7 @@
     <div class="row q-pa-sm" style="background-color: #a4ff01 ;font-weight: bold;color: black;font-size: large">
       Next Draw time : {{nextLotteryFormatted}}
     </div>
-    <div style="background-color: #ffa400; font-weight: bold;color: black;font-size: large" class="row q-pa-sm">
+    <div style="background-color: #ffa400; font-weight: bold;color: black;font-size: large" class="row q-pa-sm" id="left-time">
       Left time : {{leftTime}}
     </div>
   </div>
@@ -61,6 +61,7 @@ export default {
   computed:{
     nextLotteryFormatted:function () {
       try {
+        console.log(this.$store.state.nextLottery.time)
         var currentTime = this.$store.state.nextLottery.time;
         if (currentTime == null)
           return ''
@@ -90,6 +91,7 @@ export default {
       ,1000)
   }
 }
+
 </script>
 
 <style scoped>

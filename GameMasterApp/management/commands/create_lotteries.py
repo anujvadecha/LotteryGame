@@ -16,7 +16,7 @@ class Command(BaseCommand):
         IST=get_current_timezone()
         for iterator in range(1, count):
             print(iterator)
-            start_date = IST.localize(datetime(datetime.now().year, int(datetime.now().strftime("%m")), iterator,8,30,00 ))
+            start_date = IST.localize(datetime(datetime.now().year, int(datetime.now().strftime("%m")), iterator,00,00,00 ))
             end_date = IST.localize(datetime(datetime.now().year, int(datetime.now().strftime("%m")), iterator,23,59,00 ))
             while start_date <= end_date:
               Lottery.objects.create(time=start_date)

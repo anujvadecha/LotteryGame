@@ -75,17 +75,15 @@ export default {
 
 
   document.addEventListener('keydown', function (e){
-    console.log("Identifying")
-    console.log(e.keyCode)
    if (e.keyCode===13){
-    document.getElementById(document.activeElement.id).blur();
-    console.log(code.length)
-          if(code.length == 13){
+    elements  = document.getElementsByClassName('lottery_input')
+    for(i=0;i<elements.length;i++){
+      elements[i].value = ""
+    }
+    if(code.length == 33){
             final_barcode = code
-            console.log(final_barcode)
-
             document.getElementById("final_barcode").value = final_barcode
-
+            code = ""
           }
           if(code.length>10){
             code="";

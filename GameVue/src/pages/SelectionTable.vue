@@ -6,7 +6,6 @@
       <TimeHeader></TimeHeader>
       <div style="background-color: black; color: red">
         <marquee style="font-size: medium">{{ marquee }}</marquee>
-        <!--      <MarqueeText style="background-color: black;">{{marquee}}</MarqueeText>-->
       </div>
       <OptionsHeader></OptionsHeader>
       <SelectionHeader></SelectionHeader>
@@ -201,6 +200,15 @@ export default {
   components: {SelectionHeader, OptionsHeader, TimeHeader, ResultHeader},
   props: ['set'],
   computed: {
+    marquee:function (){
+      var text= '';
+      this.$store.state.announcements.map(message=>{
+        text += message+', '
+      })
+      text = text.slice(0,-2)
+      console.log(text)
+      return text
+    },
     inputs: {
       get() {
         return this.$store.state.inputs
