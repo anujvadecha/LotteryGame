@@ -298,8 +298,6 @@ export default {
           d = b - 50
         }
       }
-      console.log("A" + a + " B:" + b + " C: " + c + " D: " + d)
-
       var revA = this.reverse_number(a)
       var revB = this.reverse_number(b)
       var revC = this.reverse_number(c)
@@ -317,27 +315,20 @@ export default {
       document.getElementById(this.set + revB).value = document.getElementById(this.set + a).value
       document.getElementById(this.set + revC).value = document.getElementById(this.set + a).value
       document.getElementById(this.set + revD).value = document.getElementById(this.set + a).value
+
+      document.getElementById(this.set + a).classList.add("fp_selected");
+      document.getElementById(this.set + b).classList.add("fp_selected");
+      document.getElementById(this.set + c).classList.add("fp_selected");
+      document.getElementById(this.set + d).classList.add("fp_selected");
+      document.getElementById(this.set + revA).classList.add("fp_selected");
+      document.getElementById(this.set + revB).classList.add("fp_selected");
+      document.getElementById(this.set + revC).classList.add("fp_selected");
+      document.getElementById(this.set + revD).classList.add("fp_selected");
       this.add_input(revA, false)
       this.add_input(revB, false)
       this.add_input(revC, false)
       this.add_input(revD, false)
-      // document.getElementById(this.set+a).value = document.getElementById(this.set+a).value
-      // document.getElementById(this.set+b).value = 4
-      // document.getElementById(this.set+a).value
-      // this.inputs[this.set][c] = n
-      // console.log(document.getElementById(this.set+(n+1)).value)
-      // document.getElementById("A0").innerHTML = "Johny";
-      // console.log(document.getElementById(this.set+n).value)
-      // console.log(document.getElementById(this.set+b).value)
-      // var a= new Array(10);
-      // for(var i=0;i<10;i++){a[i]=[];}
-      // FOR LOOP
-      // for(var i=0;i<10;i++) {
-      //   for(var j=0;j<10;j++) {
-      //
-      //   }
-      // }
-      // if(n)
+
     },
     add_input: function (n, fp) {
       // console.log(this.$store.state.selectionState)
@@ -426,7 +417,7 @@ export default {
       if (input && input != 0 && input != null)
         return "color:#c50a46; font-weight:bold ;border:1px solid black"
       else
-        return "border:1px solid black"
+        return "border:1px solid black; background-color:white;"
     },
     pushToPage: function (link) {
       this.$router.push({
@@ -453,5 +444,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .fp_selected{
+    background-color:rgb(19, 251, 165);
+  }
 </style>
