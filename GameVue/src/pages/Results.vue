@@ -1,8 +1,6 @@
 <template>
 <div>
   <ResultHeader></ResultHeader>
-    Results
-
     <div class="row">
       <div class="col-3"></div>
     <div class="q-pa-md col-3" style="max-width: 300px">

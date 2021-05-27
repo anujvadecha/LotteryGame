@@ -156,12 +156,12 @@ name: "Footer",
     },
     update_results(){
           this.$router.push({name:'DiceRotation'})
-          // get_winners({"lottery_id":this.$store.state.nextLottery.id}).then(
-          //  res=> {
-          //     this.$store.dispatch("set_results",res.lottery_winners_ticket)
-          //     this.$store.dispatch('set_announcements',res.announcements)
-          //   }
-          // )
+          get_winners({"lottery_id":this.$store.state.previousLottery.id}).then(
+           res=> {
+              this.$store.dispatch("set_results",res.lottery_winners_ticket)
+              this.$store.dispatch('set_announcements',res.announcements)
+            }
+          )
     }
 
 
