@@ -62,8 +62,8 @@
           <!--     COLUMN CARDS   -->
           <div v-for="i in 10" :key="i" class="" style="width: 9.09%;">
 
-            <q-card class=" text-center q-pa-xs q-pr-xs" style="background-color: #eef8ff; " flat>
-              <input :id="'col'+set+i" class="text-center text-red"
+            <q-card class=" text-center q-pa-xs q-pr-xs " style="background-color: #eef8ff; " flat>
+              <input :id="'col'+set+i" class="text-center text-red col_cards"
                      v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')"
                      @input="add_input_col(i)"/>
             </q-card>
@@ -72,9 +72,9 @@
         <div class="row " v-for="i in 10" style="height: 9.09%" :key="i">
           <!--     ROW CARDS-->
           <div class="" style="width: 9.09%;">
-            <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
+            <q-card class=" text-center q-pl-xs q-pr-xs " style="background-color: #eef8ff;" flat>
               <div style="font-size: medium"> &nbsp;</div>
-              <input :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs"
+              <input :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs row_cards"
                      v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')"
                      @input="add_input_row(i)"/>
             </q-card>
@@ -332,30 +332,8 @@ export default {
       this.add_input(revB, false)
       this.add_input(revC, false)
       this.add_input(revD, false)
-      // document.getElementById(this.set+a).value = document.getElementById(this.set+a).value
-      // document.getElementById(this.set+b).value = 4
-      // document.getElementById(this.set+a).value
-      // this.inputs[this.set][c] = n
-      // console.log(document.getElementById(this.set+(n+1)).value)
-      // document.getElementById("A0").innerHTML = "Johny";
-      // console.log(document.getElementById(this.set+n).value)
-      // console.log(document.getElementById(this.set+b).value)
-      // var a= new Array(10);
-      // for(var i=0;i<10;i++){a[i]=[];}
-      // FOR LOOP
-      // for(var i=0;i<10;i++) {
-      //   for(var j=0;j<10;j++) {
-      //
-      //   }
-      // }
-      // if(n)
     },
     add_input: function (n, fp) {
-      // console.log(this.$store.state.selectionState)
-      // console.log(this.set+n +' '+ this.inputs[this.set][n])
-      // document.getElementById(this.set+(n)).value = parseInt(this.inputs[set][n])
-      // this.$store.state.inputs[this.set][n] =1
-      // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById(this.set+(n)).value})
       if (this.$store.state.fp === true && fp === true) {
         this.add_input_fp(n)
       }
@@ -393,23 +371,18 @@ export default {
         } else if (this.$store.state.selection_group === 'Odd' && (i * 10 + (n - 1)) % 2 === 0) {
           continue
         }
-        // this.inputs[this.set][i * 10 + (n - 1)] = document.getElementById('col' + this.set + (n)).value;
         document.getElementById(this.set + (i * 10 + (n - 1))).value = document.getElementById('col' + this.set + (n)).value
         this.add_input(i * 10 + (n - 1), true);
       }
     },
     add_input_row: function (n) {
       for (var i = 0; i < 10; i++) {
-        // console.log('row'+this.set+(n));
-        // console.log('value of row is '+document.getElementById('row'+this.set+(n)).value)
-        // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById('col'+this.set+n).value})
         if (this.$store.state.selection_group === 'Even' && (i + (n - 1) * 10) % 2 !== 0) {
           continue
         } else if (this.$store.state.selection_group === 'Odd' && (i + (n - 1) * 10) % 2 === 0) {
           continue
         }
         document.getElementById(this.set + (i + (n - 1) * 10)).value = document.getElementById('row' + this.set + (n)).value
-        // this.inputs[this.set][i +(n-1)*10] = document.getElementById('row' + this.set + (n)).value;
         this.add_input(i + (n - 1) * 10, true);
       }
     },

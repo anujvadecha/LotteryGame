@@ -26,7 +26,8 @@ export default {
   data(){
     return {
       leftTime:null,
-      currentTime:null
+      currentTime:null,
+      next_lottery_time:""
     }
   },
   methods:{
@@ -37,7 +38,7 @@ export default {
       var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
       var hoursIST = ISTTime.getHours()
       var minutesIST = ISTTime.getMinutes()
-      this.currentTime= "" + hoursIST + ":" + minutesIST + " " + ""
+      this.currentTime = "" + hoursIST + ":" + minutesIST + " " + ""
     },
     calculateLefttime(){
       try {
@@ -51,17 +52,24 @@ export default {
         msec -= mm * 1000 * 60;
         var ss = Math.floor(msec / 1000);
         msec -= ss * 1000;
-        this.leftTime=hh + ":" + mm + ":" + ss
+        this.leftTime = hh + ":" + mm + ":" + ss
+        
+        // left time in red
+        if(parseInt(mm) == 0 && parseInt(ss)<=30){
+          document.getElementById("left-time").style.color = "red";
+        }else{
+          document.getElementById("left-time").style.color = "black";
+        }
+
       }
       catch (err) {
-        this.leftTime =""
+        this.leftTime = ""
       }
     }
   },
   computed:{
     nextLotteryFormatted:function () {
       try {
-        console.log(this.$store.state.nextLottery.time)
         var currentTime = this.$store.state.nextLottery.time;
         if (currentTime == null)
           return ''
@@ -77,7 +85,6 @@ export default {
     },
     get_current_date:function (){
       var ISTTime = getTimeZoneDate(new Date())
-      console.log(ISTTime)
       return ISTTime.toLocaleDateString("en-US")
     }
   },
@@ -91,6 +98,8 @@ export default {
       ,1000)
   }
 }
+
+
 
 </script>
 

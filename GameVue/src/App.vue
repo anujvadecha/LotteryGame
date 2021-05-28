@@ -49,21 +49,12 @@ export default {
         store.dispatch('update_user_details',res)
       }
     )
-          //
-      // get_lottery_previous({"lottery_time":getTimeZoneDate(nextLottery.getTime())}).then(
-      //   res=>{
-      //     console.log(res)
-      //     this.$store.state.results = res.lottery_winners_ticket
-      //   }
-      // )
-      //TODO
-      // const store=this.$store;
     });
   }
 }
-</script>
-<script type="text/javascript">
-  let code = "";
+
+
+let code = "";
     let reading = false;
     let final_barcode =""
     var elements = []
@@ -103,14 +94,56 @@ export default {
 
   if(e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40 || e.keyCode == 117){    
     try{
-    currentIndex = parseInt(document.activeElement.id.substring(1))
+      if(document.activeElement.id.includes("col") ){
+        elements = document.getElementsByClassName("col_cards")
+        currentIndex = parseInt(document.activeElement.id.substring(4)) - 1
+        switch (e.keyCode) {
+        case 37: //left
+          console.log(currentIndex)
+          currentIndex = (currentIndex == 0) ? currentIndex : currentIndex-1;
+          elements[currentIndex].focus();
+          
+          break;
+        case 39:  //right
+        console.log(currentIndex)
+          currentIndex = (currentIndex == 9) ? currentIndex : currentIndex+1;
+          elements[currentIndex].focus();
+          
+          break;
+        case 40: //down
+          var element_to_focus = document.activeElement.id.substring(3)
+          element_to_focus = element_to_focus[0] + (parseInt(document.activeElement.id.substring(4))-1)
+          document.getElementById(element_to_focus).focus()
+          break;
+        case 38: //up
+
+          var element_to_focus = document.activeElement.id.substring(3)
+          element_to_focus = element_to_focus[0] + (parseInt(document.activeElement.id.substring(4)) + 90)
+          document.getElementById(element_to_focus).focus()
+          
+          break;
+
+      }
+
+
+
+
+
+
+
+
+      }else{
+         elements = document.getElementsByClassName("lottery_input")
+        currentIndex = parseInt(document.activeElement.id.substring(1))
+      
       switch (e.keyCode) {
-        case 37:
+        case 37: //left
+
           currentIndex = (currentIndex == 0 || currentIndex%10 == 0) ? currentIndex + 9 : currentIndex-1;
           elements[currentIndex].focus();
           
           break;
-        case 39:
+        case 39:  //right
           currentIndex = (currentIndex == 9 || currentIndex%10 == 9) ? currentIndex - 9 : currentIndex+1;
           elements[currentIndex].focus();
           
@@ -120,7 +153,7 @@ export default {
           elements[currentIndex].focus();
           
           break;
-        case 38:
+        case 38: //up
 
           currentIndex = (parseInt(currentIndex/10) == 0) ? currentIndex + 90 : currentIndex-10;
           elements[currentIndex].focus();
@@ -128,6 +161,9 @@ export default {
           break;
 
       }
+    }
+
+
 }catch(err){console.log(err)}
       
 
@@ -140,5 +176,8 @@ export default {
   }catch(err){}
 }
 })
-
 </script>
+<!-- <script type="text/javascript">
+  
+
+</script> -->
