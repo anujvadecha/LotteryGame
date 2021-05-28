@@ -98,9 +98,6 @@ export default {
      document.body.innerHTML = printContents;
      window.print();
      document.body.innerHTML = originalContents;
-
-// Get all stylesheets HTML
-
     },
     fetch_transaction_according_to_date(){
       console.log(this.start_date)
