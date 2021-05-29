@@ -2,8 +2,7 @@
 <div>
   <ResultHeader></ResultHeader>
     <div class="row">
-      <div class="col-3"></div>
-    <div class="q-pa-md col-3" style="max-width: 300px">
+    <div class="q-pa-md" style="">
     <q-input filled v-model="start_date">
     <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
@@ -18,7 +17,7 @@
       </template>
     </q-input>
     </div>
-    <div class="q-pa-md col-3" style="max-width: 300px">
+    <div class="q-pa-md" style="">
     <q-input filled v-model="end_date">
     <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
@@ -34,9 +33,7 @@
     </q-input>
     </div>
 
-    <div class="col-1">
-           <q-btn dense unelevated style="margin-top:25%;border: 1px solid black" class="bg-purple col " @click="fetch_winners_according_to_date()">Go -></q-btn>
-      </div>
+    <q-btn  unelevated style="" color="primary" class="q-ma-md" @click="fetch_winners_according_to_date()">Go</q-btn>
 
   </div>
 

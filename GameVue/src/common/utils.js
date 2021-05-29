@@ -84,14 +84,16 @@ function print_div(res,claim=false) {
 
       document.getElementById("printdivcontent").innerHTML += `Draw date: ${getTimeZoneDate(new Date(res["lottery"]["time"])).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getTimeZoneDate(new Date(res["lottery"]["time"])).getHours()+":"+getTimeZoneDate(new Date(res["lottery"]["time"])).getMinutes()} <br/>`
 
+      if(claim===false) {
+        document.getElementById("printdivcontent").innerHTML += `Ticket set: <br/>`
 
-      document.getElementById("printdivcontent").innerHTML += `Ticket set: <br/>`
+        var ticket_details = ""
+        res["ticket_set"].map(res => {
+          ticket_details += `${res["set_ticket"]} - ${res["price"]} - ${res["quantity"]},`
+        })
 
-      var ticket_details = ""
-      res["ticket_set"].map(res => {
-         ticket_details+= `${res["set_ticket"]} - ${res["price"]} - ${res["quantity"]},`
-      })
-      document.getElementById("printdivcontent").innerHTML += ticket_details.slice(0,-1)
+        document.getElementById("printdivcontent").innerHTML += ticket_details.slice(0, -1)
+      }
       document.getElementById("printdivcontent").innerHTML += `<br>Total quantity ${res["total_quantity"]}<br/>`
 
       document.getElementById("printdivcontent").innerHTML += `Total price ${res["total_price"]}<br/>`

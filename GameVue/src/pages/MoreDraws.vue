@@ -2,14 +2,19 @@
 <div class="">
   <ResultHeader></ResultHeader>
   <TimeHeader></TimeHeader>
-  <div class="q-ma-lg font-bold"  style="font-size:large">More draws</div>
+  <q-card bordered flat class="row">
+      <div class="q-ma-lg font-bold"  style="font-size:large">More draws</div>
+    <q-space></q-space>
+    <q-checkbox class="col-2 q-ma-md" v-model="select_all_button" color="blue" unelevated @input="select_all()">Select all</q-checkbox>
+    <q-btn class="col-2 q-ma-md" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
+  </q-card>
   <div class="row">
   <q-card @click="select_lottery(option)" class="col-2 q-pa-lg q-ma-sm" v-for="option in options" :key="option.value.id">
     <q-checkbox :disable="option.disabled"  @input="add_selected()" dense v-model="option.selected" val="teal" :label="option.label" color="teal" />
   </q-card>
   </div>
   <q-card bordered flat class="row">
-  <q-btn class="col-2 q-ma-md" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
+
     </q-card>
 </div>
 </template>
@@ -31,13 +36,20 @@ name: "MoreDraws",
         }
       }
       this.$store.dispatch('set_selected_lotteries',this.options.filter(option=>{return option.selected}).map(value=>value.value))
+    },
+    select_all:function (){
+      for(var i=0;i<this.options.length;i++) {
+         this.options[i].selected=  this.select_all_button;
+      }
+      this.$store.dispatch('set_selected_lotteries',this.options.filter(option=>{return option.selected}).map(value=>value.value))
     }
 
   },
   data(){
     return{
       options:[],
-      selected_lotteries: []
+      selected_lotteries: [],
+      select_all_button:false
     }
   },
   created() {

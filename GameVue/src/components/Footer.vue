@@ -71,13 +71,13 @@ name: "Footer",
            res=> {
               console.log(res)
               if(res.status_code == 200){
-
                 Notify.create({
                     type: 'positive',
                     progress: true,
-                    message: 'Ticket can be claimed',
-                    position: 'top-right',
-                    timeout: 5000,
+                    message: '<h6>You have won '+res["ticket"]["inflow"]+' points for '+res['ticket']['ticket_id']+'</h6>',
+                    position: 'center',
+                    timeout: 8000,
+                    html:true,
                     actions: [
                       { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
                     ]
@@ -87,9 +87,10 @@ name: "Footer",
                 Notify.create({
                     type: 'negative',
                     progress: true,
-                    message: res["status_message"],
-                    position: 'top-right',
-                    timeout: 5000,
+                    message: "<h6>"+data['ticket_id']+":  "+ res["status_message"]+"</h6>",
+                    position: 'center',
+                    html:true,
+                    timeout: 8000,
                     actions: [
                       { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
                     ]

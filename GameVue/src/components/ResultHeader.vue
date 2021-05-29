@@ -9,7 +9,7 @@
   <div v-if="results" class="row" style="width: 83%" >
     <div v-for="(key,value) in results" :key="value" class="col bg-white">
         <div class="text-black text-bold q-ma-xs text-center" style="background-color:#ffb6c1;font-size: large ">{{value}}</div>
-        <div class="text-black text-bold  q-ma-xs text-center" style="background-color:#ffb6c1; font-size: large ">{{key}}</div>
+        <div class="text-black text-bold  q-ma-xs text-center" style="background-color:#ffb6c1; font-size: large ">{{ ("0"+key).slice(-2)}}</div>
     </div>
   </div>
   <div class="col-10 text-center flex flex-center" style="color: black;font-size: large" v-else>

@@ -18,7 +18,7 @@
     <q-page class="row" style="">
       <div class="col-2" style="background-color: lightpink">
         <div class="row" style="background-color: white;height: 9.09%">
-          <div class="q-ma-sm" style='background-color: #ba56d4; color: white;width: 100%;'>
+          <div @click=";all_sets=!all_sets;all_set_call()" class="q-ma-sm" style='background-color: #ba56d4; color: white;width: 100%;'>
             <q-checkbox dense @input="all_set_call()" v-model="all_sets"></q-checkbox>
             Name
           </div>
@@ -70,7 +70,7 @@
           </div>
         </div>
         <div class="row " v-for="i in 10" style="height: 9.09%" :key="i">
-          <!--     ROW CARDS-->
+          <!--     ROW CARDS -->
           <div class="" style="width: 9.09%;">
             <q-card class=" text-center q-pl-xs q-pr-xs " style="background-color: #eef8ff;" flat>
               <div style="font-size: medium"> &nbsp;</div>
