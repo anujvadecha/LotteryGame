@@ -1,7 +1,7 @@
 <template>
 <div class="row" style="background-color: #13fba5;color: black">
   <div class="col q-ma-sm">
-    Terminal Id: {{$store.state.user.id}} &nbsp;&nbsp;{{first_name}}
+    Terminal Id: {{user_id}} &nbsp;&nbsp;{{first_name}}
   </div>
   <div class="col q-ma-sm" style="">
     Available points :<span style="font-weight: bold;font-size: medium;color: darkred">{{$store.state.balance_points}}</span>
@@ -28,6 +28,14 @@ computed:{
   first_name(){
     if(this.$store.state.user!=null) {
       return this.$store.state.user.first_name
+    }
+    else{
+      return ''
+    }
+  },
+  user_id(){
+    if(this.$store.state.user!=null) {
+      return this.$store.state.user.id
     }
     else{
       return ''

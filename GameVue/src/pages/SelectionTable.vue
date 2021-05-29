@@ -6,7 +6,6 @@
       <TimeHeader></TimeHeader>
       <div style="background-color: black; color: red">
         <marquee style="font-size: medium">{{ marquee }}</marquee>
-        <!--      <MarqueeText style="background-color: black;">{{marquee}}</MarqueeText>-->
       </div>
       <OptionsHeader></OptionsHeader>
       <SelectionHeader></SelectionHeader>
@@ -63,8 +62,8 @@
           <!--     COLUMN CARDS   -->
           <div v-for="i in 10" :key="i" class="" style="width: 9.09%;">
 
-            <q-card class=" text-center q-pa-xs q-pr-xs" style="background-color: #eef8ff; " flat>
-              <input type="number" :id="'col'+set+i" class="text-center text-red"
+            <q-card class=" text-center q-pa-xs q-pr-xs " style="background-color: #eef8ff; " flat>
+              <input type="number" :id="'col'+set+i" class="text-center text-red col_cards"
                      v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')"
                      @input="add_input_col(i)"/>
             </q-card>
@@ -73,21 +72,22 @@
         <div class="row " v-for="i in 10" style="height: 9.09%" :key="i">
           <!--     ROW CARDS-->
           <div class="" style="width: 9.09%;">
-            <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
+            <q-card class=" text-center q-pl-xs q-pr-xs " style="background-color: #eef8ff;" flat>
               <div style="font-size: medium"> &nbsp;</div>
-              <input type="number" :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs"
+              <input type="number" :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs row_cards"
                      v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')"
                      @input="add_input_row(i)"/>
             </q-card>
           </div>
           <!--          NUMBER CARDS     -->
           <div class="" v-for="n in 10" style="width: 9.09%;" :key="n">
+
             <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
-              <div style="font-size: medium"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
-              <input type="number" :id="set+(i*10+n-10-1)" class="text-center text-red "
+              <div style="font-size: medium"> {{ ("0" + (i*10+n-10-1)).slice(-2) }} </div>
+              <input type="number" :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
                      v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:90%')"
                      :value="inputs[set][i*10+n-10-1]"
-                     @input="add_input(i*10+n-10-1,true)"/>
+                     @input="add_input(i*10+n-10-1,true)" autocomplete="off" />
             </q-card>
           </div>
         </div>
@@ -114,6 +114,7 @@
   </div>
   <!--    </q-page>-->
 </template>
+
 <script>
 
 import ResultHeader from "components/ResultHeader";
@@ -198,6 +199,15 @@ export default {
   components: {SelectionHeader, OptionsHeader, TimeHeader, ResultHeader},
   props: ['set'],
   computed: {
+    marquee:function (){
+      var text= '';
+      this.$store.state.announcements.map(message=>{
+        text += message+', '
+      })
+      text = text.slice(0,-2)
+      console.log(text)
+      return text
+    },
     inputs: {
       get() {
         return this.$store.state.inputs
@@ -331,13 +341,9 @@ export default {
       this.add_input(revC, false)
       this.add_input(revD, false)
 
+
     },
     add_input: function (n, fp) {
-      // console.log(this.$store.state.selectionState)
-      // console.log(this.set+n +' '+ this.inputs[this.set][n])
-      // document.getElementById(this.set+(n)).value = parseInt(this.inputs[set][n])
-      // this.$store.state.inputs[this.set][n] =1
-      // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById(this.set+(n)).value})
       if (this.$store.state.fp === true && fp === true) {
         this.add_input_fp(n)
       }
@@ -375,23 +381,18 @@ export default {
         } else if (this.$store.state.selection_group === 'Odd' && (i * 10 + (n - 1)) % 2 === 0) {
           continue
         }
-        // this.inputs[this.set][i * 10 + (n - 1)] = document.getElementById('col' + this.set + (n)).value;
         document.getElementById(this.set + (i * 10 + (n - 1))).value = document.getElementById('col' + this.set + (n)).value
         this.add_input(i * 10 + (n - 1), true);
       }
     },
     add_input_row: function (n) {
       for (var i = 0; i < 10; i++) {
-        // console.log('row'+this.set+(n));
-        // console.log('value of row is '+document.getElementById('row'+this.set+(n)).value)
-        // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById('col'+this.set+n).value})
         if (this.$store.state.selection_group === 'Even' && (i + (n - 1) * 10) % 2 !== 0) {
           continue
         } else if (this.$store.state.selection_group === 'Odd' && (i + (n - 1) * 10) % 2 === 0) {
           continue
         }
         document.getElementById(this.set + (i + (n - 1) * 10)).value = document.getElementById('row' + this.set + (n)).value
-        // this.inputs[this.set][i +(n-1)*10] = document.getElementById('row' + this.set + (n)).value;
         this.add_input(i + (n - 1) * 10, true);
       }
     },
@@ -442,6 +443,50 @@ export default {
     }
   }
 }
+
+// var elements = []
+// var currentIndex = 0;
+// setTimeout(function(){
+//   elements = document.getElementsByClassName("lottery_input");
+//   currentIndex = 0
+//   },2000)
+// try{
+//  document.addEventListener('keypress', function (e){
+//       currentIndex = parseInt(document.activeElement.id.substring(1))
+//       switch (e.keyCode) {
+//         case 37:
+//           currentIndex = (currentIndex == 0 || currentIndex%10 == 0) ? currentIndex + 9 : currentIndex-1;
+//           console.log(currentIndex)
+//           elements[currentIndex].focus();
+
+//           break;
+//         case 39:
+//           currentIndex = (currentIndex == 9 || currentIndex%10 == 9) ? currentIndex - 9 : currentIndex+1;
+//           console.log(currentIndex)
+//           elements[currentIndex].focus();
+
+//           break;
+//         case 40: //down
+//           currentIndex = (parseInt(currentIndex/10) >= 9) ? currentIndex - 90 : currentIndex+10;
+//           console.log(currentIndex)
+//           elements[currentIndex].focus();
+
+//           break;
+//         case 38:
+
+//           currentIndex = (parseInt(currentIndex/10) == 0) ? currentIndex + 90 : currentIndex-10;
+//           console.log(currentIndex)
+//           elements[currentIndex].focus();
+
+//           break;
+
+//       }
+
+//     });
+// }catch(err){}
+
+
+
 
 </script>
 

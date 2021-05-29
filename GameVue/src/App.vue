@@ -23,30 +23,7 @@ export default {
           { label: 'Go', color: 'white', handler: () => { this.$q.fullscreen.toggle() } },
         ]
       })
-    let code = "";
-let reading = false;
-let final_barcode =""
-  document.addEventListener('keypress', function (e){
-   if (e.keyCode===13){
-          if(code.length == 13){
-            final_barcode = code
-            console.log(final_barcode)
-            document.getElementById("final_barcode").value = final_barcode
-          }
-          if(code.length>10){
-            code="";
-         }
-    }else{
-         code+=e.key;
-    }
 
-    if(!reading){
-         reading=true;
-         setTimeout(function(e){
-          code="";
-          reading=false;
-      }, 200);}
-      })
     const store=this.$store;
     get_lottery_timings().then(lottery_timings => {
       console.log(lottery_timings)
@@ -72,16 +49,135 @@ let final_barcode =""
         store.dispatch('update_user_details',res)
       }
     )
-          //
-      // get_lottery_previous({"lottery_time":getTimeZoneDate(nextLottery.getTime())}).then(
-      //   res=>{
-      //     console.log(res)
-      //     this.$store.state.results = res.lottery_winners_ticket
-      //   }
-      // )
-      //TODO
-      // const store=this.$store;
     });
   }
 }
+
+
+let code = "";
+    let reading = false;
+    let final_barcode =""
+    var elements = []
+    var currentIndex = 0;
+    setTimeout(function(){
+      elements = document.getElementsByClassName("lottery_input");
+      currentIndex = 0
+      },1000)
+
+
+  document.addEventListener('keydown', function (e){
+   if (e.keyCode===13){
+    elements  = document.getElementsByClassName('lottery_input')
+    for(i=0;i<elements.length;i++){
+      elements[i].value = ""
+    }
+    if(code.length == 33){
+            final_barcode = code
+            document.getElementById("final_barcode").value = final_barcode
+            code = ""
+          }
+          if(code.length>10){
+            code="";
+         }
+
+    }else{
+         code+=e.key;
+    }
+
+    if(!reading){
+         reading=true;
+         setTimeout(function(e){
+          code="";
+          reading=false;
+      }, 200);}
+      
+
+  if(e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40 || e.keyCode == 117){    
+    try{
+      if(document.activeElement.id.includes("col") ){
+        elements = document.getElementsByClassName("col_cards")
+        currentIndex = parseInt(document.activeElement.id.substring(4)) - 1
+        switch (e.keyCode) {
+        case 37: //left
+          console.log(currentIndex)
+          currentIndex = (currentIndex == 0) ? currentIndex : currentIndex-1;
+          elements[currentIndex].focus();
+          
+          break;
+        case 39:  //right
+        console.log(currentIndex)
+          currentIndex = (currentIndex == 9) ? currentIndex : currentIndex+1;
+          elements[currentIndex].focus();
+          
+          break;
+        case 40: //down
+          var element_to_focus = document.activeElement.id.substring(3)
+          element_to_focus = element_to_focus[0] + (parseInt(document.activeElement.id.substring(4))-1)
+          document.getElementById(element_to_focus).focus()
+          break;
+        case 38: //up
+
+          var element_to_focus = document.activeElement.id.substring(3)
+          element_to_focus = element_to_focus[0] + (parseInt(document.activeElement.id.substring(4)) + 90)
+          document.getElementById(element_to_focus).focus()
+          
+          break;
+
+      }
+
+
+
+
+
+
+
+
+      }else{
+         elements = document.getElementsByClassName("lottery_input")
+        currentIndex = parseInt(document.activeElement.id.substring(1))
+      
+      switch (e.keyCode) {
+        case 37: //left
+
+          currentIndex = (currentIndex == 0 || currentIndex%10 == 0) ? currentIndex + 9 : currentIndex-1;
+          elements[currentIndex].focus();
+          
+          break;
+        case 39:  //right
+          currentIndex = (currentIndex == 9 || currentIndex%10 == 9) ? currentIndex - 9 : currentIndex+1;
+          elements[currentIndex].focus();
+          
+          break;
+        case 40: //down
+          currentIndex = (parseInt(currentIndex/10) >= 9) ? currentIndex - 90 : currentIndex+10;
+          elements[currentIndex].focus();
+          
+          break;
+        case 38: //up
+
+          currentIndex = (parseInt(currentIndex/10) == 0) ? currentIndex + 90 : currentIndex-10;
+          elements[currentIndex].focus();
+          
+          break;
+
+      }
+    }
+
+
+}catch(err){console.log(err)}
+      
+
+
+  try{
+    if (e.keyCode === 117) {
+      console.log("here")
+        document.getElementById("buy_button").click();
+    }
+  }catch(err){}
+}
+})
 </script>
+<!-- <script type="text/javascript">
+  
+
+</script> -->

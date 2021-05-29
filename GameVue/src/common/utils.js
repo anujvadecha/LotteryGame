@@ -87,11 +87,12 @@ function print_div(res,claim=false) {
 
       document.getElementById("printdivcontent").innerHTML += `Ticket set: <br/>`
 
+      var ticket_details = ""
       res["ticket_set"].map(res => {
-        document.getElementById("printdivcontent").innerHTML += `${res["set_ticket"]} - ${res["price"]} - ${res["quantity"]}<br/>`
+         ticket_details+= `${res["set_ticket"]} - ${res["price"]} - ${res["quantity"]},`
       })
-
-      document.getElementById("printdivcontent").innerHTML += `Total quantity ${res["total_quantity"]}<br/>`
+      document.getElementById("printdivcontent").innerHTML += ticket_details.slice(0,-1)
+      document.getElementById("printdivcontent").innerHTML += `<br>Total quantity ${res["total_quantity"]}<br/>`
 
       document.getElementById("printdivcontent").innerHTML += `Total price ${res["total_price"]}<br/>`
 

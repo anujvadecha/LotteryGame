@@ -123,15 +123,6 @@ export default {
     },
     currentRouteName: function () {
       return this.$route.name
-    },
-    marquee:function (){
-      var text= '';
-      this.$store.state.announcements.map(message=>{
-        text += message+', '
-      })
-      text = text.slice(0,-2)
-      console.log(text)
-      return text
     }
   },
   data() {
