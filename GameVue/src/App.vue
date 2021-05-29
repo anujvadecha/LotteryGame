@@ -6,7 +6,7 @@
 </template>
 <script>
 
-import {get_lottery_timings, get_user_details} from "src/common/api_calls";
+import {get_lottery_timings, get_user_details, get_winners} from "src/common/api_calls";
 import {AppFullscreen} from "quasar";
 
 export default {
@@ -43,6 +43,7 @@ export default {
     //   var current_next_lottery =  store.state.nextLottery;
         store.dispatch('set_next_lottery')
     },500)
+
 
     const store=this.$store;
     get_user_details().then(

@@ -340,8 +340,6 @@ export default {
       this.add_input(revB, false)
       this.add_input(revC, false)
       this.add_input(revD, false)
-
-
     },
     add_input: function (n, fp) {
       if (this.$store.state.fp === true && fp === true) {

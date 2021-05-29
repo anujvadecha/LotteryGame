@@ -1094,11 +1094,11 @@ export default function (/* { ssrContext } */) {
       },
       set_next_lottery(state) {
         // console.log("setting next lottery")
+        const store = this;
         for (var i = 0; i < state.lotteries.length; i++) {
           if (compareDate(new Date(), state.lotteries[i].time) > 0) {
 
           } else {
-            const store = this;
             if(state.nextLottery!=null && state.nextLottery.id!==state.lotteries[i].id) {
               get_winners({"lottery_id":state.nextLottery.id}).then(
                res=> {
@@ -1121,9 +1121,18 @@ export default function (/* { ssrContext } */) {
             // console.log("setting next lottery")
             state.nextLottery = state.lotteries[i];
             state.previousLottery = state.lotteries[i - 1];
+
             break;
           }
         }
+        if(state.results===null||state.results===undefined||state.results==={}||!state.results.A) {
+              get_winners({"lottery_id":state.previousLottery.id}).then(
+               res=> {
+                    store.dispatch("set_results",res.lottery_winners_ticket)
+                    store.dispatch('set_announcements',res.announcements)
+                }
+               )
+          }
       },
       change_selected_sets(state, selectionState) {
         state.selectedSets.A = selectionState.A;
