@@ -131,10 +131,11 @@ name: "Footer",
             { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
           ]
         })
+
+        return ticket.ticket_id})
         res.tickets.map(ticket => {
           print_div(ticket)
         });
-        return ticket.ticket_id})
         this.$store.dispatch('reset_all')
         }
       else{

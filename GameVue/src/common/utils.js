@@ -116,7 +116,6 @@ function print_div(res,claim=false) {
        printWindow.print();
        printWindow.close();
        document.getElementById("printdivcontent").innerHTML = ""
-      console.log(store.user)
     }
 
 
