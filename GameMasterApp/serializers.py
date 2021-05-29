@@ -1,8 +1,11 @@
 import json
 from datetime import timedelta
 
+from allauth import exceptions
+from django.contrib.auth import authenticate
 from rest_framework import serializers
 
+from GameMaster import settings
 from GameMasterApp.models import Lottery, TicketID, User, Ticket
 
 
@@ -42,3 +45,4 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude=['password']
+

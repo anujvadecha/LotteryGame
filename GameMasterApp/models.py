@@ -17,6 +17,7 @@ class User(AbstractUser):
     total_outflow = models.IntegerField(default=0)
     user_type = models.CharField(choices=USER_TYPE_CHOICES,default = "PLAYER",max_length=255)
 
+
     def recalculate_inflow_outflow(self):
         all_tickets = TicketID.objects.filter(user=self)
         self.total_inflow = all_tickets.Sum('inflow')["inflow__sum"]

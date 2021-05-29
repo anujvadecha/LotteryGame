@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 from django.db.models import Sum
 from django.shortcuts import render
 from django.utils.timezone import get_current_timezone
@@ -12,7 +13,7 @@ from rest_framework.response import Response
 
 from GameMasterApp.handlers.UserHandlerProxy import UserHandlerProxy
 from GameMasterApp.models import *
-from datetime import datetime, date, time, timedelta
+from datetime import datetime, date, time, timedelta, timezone
 from GameMasterApp.serializers import LotterySerializer, TicketIDSerializer, UserSerializer
 
 
@@ -50,13 +51,15 @@ class BuyTicketsAPI(APIView):
             if (len(data) > 0):
                 for lottery in lotteries:
                     ticket_id = TicketID.objects.create(user=user, lottery=lottery)
+                    tickets_to_create=[]
                     for key, value in data.items():
                         if (value['quantity'] != None):
-                            ticket = Ticket.objects.create(user=user, set_ticket=key, quantity=value["quantity"],
+                            ticket = Ticket(user=user, set_ticket=key, quantity=value["quantity"],
                                                            price=value["price"], lottery=lottery)
-                            ticket_id.ticket_set.add(ticket)
                             ticket_id.increase_outflow(value["price"]*value['quantity'])
-
+                            tickets_to_create.append(ticket)
+                    bulk_created = Ticket.objects.bulk_create(tickets_to_create)
+                    ticket_id.ticket_set.add(*bulk_created)
                     user.balance_points -= points
                     user.save()
                     ticket_id.save()
@@ -214,6 +217,10 @@ class CancelTicketAPI(APIView):
         try:
             data = request.data
             cancelled_ticket_id = data['cancelled_ticket_id']
+            todays_date= date.today()
+            cancelled_count = TicketID.objects.filter(user=request.user,modified_at__date = todays_date,cancelled=True).count()
+            if(cancelled_count >= 10):
+                raise Exception("Cancelled limit reached")
             ticket_obj = TicketID.objects.filter(pk=cancelled_ticket_id , lottery__completed=False)
             if ticket_obj:
                 ticket_obj = ticket_obj.first()
@@ -228,6 +235,7 @@ class CancelTicketAPI(APIView):
         except Exception as e:
             print(e)
             response['status_code'] = 500
+            response['message'] = str(e)
         return Response(data=response)
 
 CancelTicketView = CancelTicketAPI.as_view()
@@ -263,3 +271,15 @@ class ClaimTicketAPI(APIView):
         return Response(response)
 
 ClaimTicketView = ClaimTicketAPI.as_view()
+
+
+
+class UserAuthentication(APIView):
+
+    def post(self,request):
+        user = User.objects.filter(mobile=request.data['mobile']).first()
+        authentication = authenticate(username=user.username,password=request.data['password'])
+        if authentication is not None:
+            return Response(data={"token": ""},status=status.HTTP_200_OK)
+        else:
+            return Response(data="failed",status=status.HTTP_400_BAD_REQUEST)

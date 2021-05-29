@@ -154,6 +154,7 @@ AUTH_USER_MODEL = "GameMasterApp.User"
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'GameMasterApp.serializers.UserSerializer',
+    # 'LOGIN_SERIALIZER': 'GameMasterApp.serializers.LoginSerializer',
 }
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
