@@ -13,9 +13,6 @@
     <q-checkbox :disable="option.disabled"  @input="add_selected()" dense v-model="option.selected" val="teal" :label="option.label" color="teal" />
   </q-card>
   </div>
-  <q-card bordered flat class="row">
-
-    </q-card>
 </div>
 </template>
 <script>

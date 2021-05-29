@@ -67,6 +67,7 @@
   <q-card bordered flat class="row absolute-bottom">
   <q-btn class="col-2 q-ma-md" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
   <q-btn class="col-2 q-ma-md" color="orange" unelevated @click="print_account()">Print</q-btn>
+  <q-btn class="col-2 q-ma-md" color="black" unelevated @click="refresh()">Refresh</q-btn>
     </q-card>
 
    </div>
@@ -98,6 +99,18 @@ export default {
      document.body.innerHTML = printContents;
      window.print();
      document.body.innerHTML = originalContents;
+    },
+    refresh() {
+      console.log(this.start_date)
+      console.log(this.end_date)
+      var date_dict = {"start_date":this.start_date,"end_date":this.end_date}
+      get_total_points(date_dict).then(res=>{
+        console.log(res)
+        this.user_type = res.user.user_type
+        this.total_inflow = res.outflow;
+        this.total_outflow = res.inflow;
+        this.total_pending = res.balance_points
+      })
     },
     fetch_transaction_according_to_date(){
       console.log(this.start_date)

@@ -21,6 +21,7 @@ export default {
         html:true,
         actions: [
           { label: 'Go', color: 'white', handler: () => { this.$q.fullscreen.toggle() } },
+          { label: 'Dismiss', color: 'white', handler: () => {  } },
         ]
       })
 
@@ -90,9 +91,9 @@ let code = "";
           code="";
           reading=false;
       }, 200);}
-      
 
-  if(e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40 || e.keyCode == 117){    
+
+  if(e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40 || e.keyCode == 117){
     try{
       if(document.activeElement.id.includes("col") ){
         elements = document.getElementsByClassName("col_cards")
@@ -102,13 +103,13 @@ let code = "";
           console.log(currentIndex)
           currentIndex = (currentIndex == 0) ? currentIndex : currentIndex-1;
           elements[currentIndex].focus();
-          
+
           break;
         case 39:  //right
         console.log(currentIndex)
           currentIndex = (currentIndex == 9) ? currentIndex : currentIndex+1;
           elements[currentIndex].focus();
-          
+
           break;
         case 40: //down
           var element_to_focus = document.activeElement.id.substring(3)
@@ -120,7 +121,7 @@ let code = "";
           var element_to_focus = document.activeElement.id.substring(3)
           element_to_focus = element_to_focus[0] + (parseInt(document.activeElement.id.substring(4)) + 90)
           document.getElementById(element_to_focus).focus()
-          
+
           break;
 
       }
@@ -135,29 +136,29 @@ let code = "";
       }else{
          elements = document.getElementsByClassName("lottery_input")
         currentIndex = parseInt(document.activeElement.id.substring(1))
-      
+
       switch (e.keyCode) {
         case 37: //left
 
           currentIndex = (currentIndex == 0 || currentIndex%10 == 0) ? currentIndex + 9 : currentIndex-1;
           elements[currentIndex].focus();
-          
+
           break;
         case 39:  //right
           currentIndex = (currentIndex == 9 || currentIndex%10 == 9) ? currentIndex - 9 : currentIndex+1;
           elements[currentIndex].focus();
-          
+
           break;
         case 40: //down
           currentIndex = (parseInt(currentIndex/10) >= 9) ? currentIndex - 90 : currentIndex+10;
           elements[currentIndex].focus();
-          
+
           break;
         case 38: //up
 
           currentIndex = (parseInt(currentIndex/10) == 0) ? currentIndex + 90 : currentIndex-10;
           elements[currentIndex].focus();
-          
+
           break;
 
       }
@@ -165,7 +166,7 @@ let code = "";
 
 
 }catch(err){console.log(err)}
-      
+
 
 
   try{
@@ -178,6 +179,6 @@ let code = "";
 })
 </script>
 <!-- <script type="text/javascript">
-  
+
 
 </script> -->

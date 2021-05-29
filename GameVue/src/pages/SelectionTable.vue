@@ -347,6 +347,9 @@ export default {
       if (this.$store.state.fp === true && fp === true) {
         this.add_input_fp(n)
       }
+      if(this.$store.state.fp===false) {
+        document.getElementById(this.set + n).classList.remove('fp_selected')
+      }
       for (const [key, value] of Object.entries(this.selectedSets)) {
         if (value === true) {
           this.$store.dispatch('add_input', {

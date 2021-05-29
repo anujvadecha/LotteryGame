@@ -2,15 +2,15 @@
 <div class="row" style="background-color:#ffff00;color: black">
   <div class="col-5">
     <div class="row">
-    <q-btn class="col" color="" unelevated outline>2D Coupon</q-btn>
-    <q-btn class="col" color="" unelevated outline >JD</q-btn>
-    <q-btn class="col" color="" unelevated outline >3D Coupon</q-btn>
+    <q-btn class="col" @click="coming_soon()" color="" unelevated outline>2D Coupon</q-btn>
+    <q-btn class="col" @click="coming_soon()" color="" unelevated outline >JD</q-btn>
+    <q-btn class="col" @click="coming_soon()" color="" unelevated outline >3D Coupon</q-btn>
     </div>
     <div class="row">
       <div class="col">
         <div class="row">
-          <q-btn class="col" color="" unelevated outline>Point-2</q-btn>
-          <q-btn class="col" color="" unelevated outline >Pointwise</q-btn>
+          <q-btn class="col"  @click="coming_soon()" color="" unelevated outline>Point-2</q-btn>
+          <q-btn class="col" @click="coming_soon()" color="" unelevated outline >Pointwise</q-btn>
         </div>
       </div>
       <div class="col"></div>
@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import {Notify} from "quasar";
+
 export default {
 name: "SelectionHeader",
   methods:{
@@ -51,6 +53,19 @@ name: "SelectionHeader",
     },
     change_fp_selection:function (){
       this.$store.dispatch('fp_selection',this.fP)
+    },
+    coming_soon:function () {
+      Notify.create({
+                    type: 'info',
+                    progress: true,
+                    message: '<h6>This feature is coming soon</h6>',
+                    position: 'center',
+                    timeout: 3000,
+                    html:true,
+                    actions: [
+                      { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
+                    ]
+            })
     }
 },
   data(){
