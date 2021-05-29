@@ -6,7 +6,7 @@
         <div v-for="(key,value) in results" :key="value" class="col bg-white">
             <div class="text-black text-bold q-ma-xs text-center" style="background-color:#00ffff;font-size: large ">{{value}}</div>
             <div class="text-black text-bold  q-ma-xs text-center" style="background-color:#3cffe0; font-size: large ">{{key}}</div>
-        </div>
+         </div>
       </div>
   </div>
 </template>
@@ -35,7 +35,7 @@ name: "DiceRotation",
           },2000);
         const router = this.$router;
         setTimeout(function(){
-          window.location.reload()
+          window.location.href=window.location.host
           }, 5000);
   }
 }
