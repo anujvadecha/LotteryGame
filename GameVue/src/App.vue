@@ -13,7 +13,17 @@ export default {
   name: 'App',
 
   created() {
-
+this.$q.notify({
+        message: " Go fullscreen",
+        color: 'primary',
+        position:"center",
+        timeout: 200000,
+        html:true,
+        actions: [
+          { label: 'Go', color: 'white', handler: () => { this.$q.fullscreen.toggle() } },
+          { label: 'Dismiss', color: 'white', handler: () => {  } },
+        ]
+      })
   }
 }
 

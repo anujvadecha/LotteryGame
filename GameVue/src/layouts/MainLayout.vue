@@ -137,18 +137,6 @@ export default {
   created() {
 
     if (this.logged_in) {
-    this.$q.notify({
-        message: " Go fullscreen",
-        color: 'primary',
-        position:"center",
-        timeout: 200000,
-        html:true,
-        actions: [
-          { label: 'Go', color: 'white', handler: () => { this.$q.fullscreen.toggle() } },
-          { label: 'Dismiss', color: 'white', handler: () => {  } },
-        ]
-      })
-
     const store = this.$store;
     get_lottery_timings().then(lottery_timings => {
       console.log(lottery_timings)
