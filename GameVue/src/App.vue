@@ -13,44 +13,7 @@ export default {
   name: 'App',
 
   created() {
-    this.$q.notify({
-        message: " Go fullscreen",
-        color: 'primary',
-        position:"center",
-        timeout: 200000,
-        html:true,
-        actions: [
-          { label: 'Go', color: 'white', handler: () => { this.$q.fullscreen.toggle() } },
-          { label: 'Dismiss', color: 'white', handler: () => {  } },
-        ]
-      })
 
-    const store=this.$store;
-    get_lottery_timings().then(lottery_timings => {
-      console.log(lottery_timings)
-      var timings = lottery_timings.lottery_objects.map(object => {
-              object.time=new Date(object.time)
-              return object
-        }
-    )
-    lottery_timings.closest_lottery.time = new Date(lottery_timings.closest_lottery.time)
-    this.$store.dispatch('set_lottery_timings', timings)
-    this.$store.dispatch('set_next_lottery')
-    const nextLottery = this.$store.getters.get_next_lottery;
-    this.$store.dispatch('set_selected_lotteries',[nextLottery])
-    setInterval(function (){
-    //   var current_next_lottery =  store.state.nextLottery;
-        store.dispatch('set_next_lottery')
-    },500)
-
-
-    const store=this.$store;
-    get_user_details().then(
-      res=>{
-        store.dispatch('update_user_details',res)
-      }
-    )
-    });
   }
 }
 

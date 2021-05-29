@@ -1128,7 +1128,7 @@ export default function (/* { ssrContext } */) {
                     store.dispatch('set_announcements',res.announcements)
                 }
                )
-          }
+        }
       },
       change_selected_sets(state, selectionState) {
         state.selectedSets.A = selectionState.A;

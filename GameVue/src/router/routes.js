@@ -8,7 +8,6 @@ const routes = [
     name: 'Results',
     component: () => import('pages/Results.vue'),
   },
-
   {
     path: '/TxnDetails',
     name: 'TxnDetails',
@@ -16,10 +15,12 @@ const routes = [
     children: [
     ]
   },
- { path: 'TicketDetails/:ticket',
-   name:'TicketDetails',
-   component:TicketDetails
- ,props: true },
+ {
+   path: 'TicketDetails/:ticket',
+   name:'TicketDetails'
+    ,component:TicketDetails
+    ,props: true
+ },
   {
     path: '/MyAccounts',
     name: 'MyAccounts',
@@ -37,7 +38,7 @@ const routes = [
     name: 'MoreDraws',
     component: () => import('pages/MoreDraws.vue'),
   },
-      {
+  {
     path: '/DiceRotation',
     name: 'DiceRotation',
     component: () => import('pages/DiceRotation.vue'),

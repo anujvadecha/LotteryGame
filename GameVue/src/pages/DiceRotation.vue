@@ -30,7 +30,7 @@ name: "DiceRotation",
         //     }
         // )
           const this_pointer = this;
-          setInterval(function (){
+        setInterval(function (){
           this_pointer.results = this_pointer.$store.state.results
           },2000);
         const router = this.$router;
