@@ -30,7 +30,7 @@
     />
   </div>
     <div class="col-2"></div>
-      <div class="col-2"><q-checkbox v-model="fP" @input="change_fp_selection()">FP</q-checkbox></div>
+      <q-checkbox v-model="fP" @input="change_fp_selection()">FP</q-checkbox>
     </div>
   </div>
   <div class="col text-left">
