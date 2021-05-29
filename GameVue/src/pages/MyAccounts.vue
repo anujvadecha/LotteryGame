@@ -59,7 +59,7 @@
       </div>
 
       <div v-if="this.user_type==='AGENT'" class= "row">
-        <div class="col"> Net To Pay Points </div>
+        <div class="col"> Net To Payable Points </div>
         <div class="col">{{ Math.round(total_inflow-total_outflow)-total_inflow*(commission/100)}}</div>
       </div>
       </q-card-section>

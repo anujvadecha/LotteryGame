@@ -64,7 +64,7 @@
           <div v-for="i in 10" :key="i" class="" style="width: 9.09%;">
 
             <q-card class=" text-center q-pa-xs q-pr-xs" style="background-color: #eef8ff; " flat>
-              <input :id="'col'+set+i" class="text-center text-red"
+              <input type="number" :id="'col'+set+i" class="text-center text-red"
                      v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')"
                      @input="add_input_col(i)"/>
             </q-card>
@@ -75,7 +75,7 @@
           <div class="" style="width: 9.09%;">
             <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
               <div style="font-size: medium"> &nbsp;</div>
-              <input :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs"
+              <input type="number" :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs"
                      v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')"
                      @input="add_input_row(i)"/>
             </q-card>
@@ -84,7 +84,7 @@
           <div class="" v-for="n in 10" style="width: 9.09%;" :key="n">
             <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
               <div style="font-size: medium"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
-              <input :id="set+(i*10+n-10-1)" class="text-center text-red "
+              <input type="number" :id="set+(i*10+n-10-1)" class="text-center text-red "
                      v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:90%')"
                      :value="inputs[set][i*10+n-10-1]"
                      @input="add_input(i*10+n-10-1,true)"/>
