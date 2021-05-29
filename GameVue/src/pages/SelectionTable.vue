@@ -63,7 +63,7 @@
           <div v-for="i in 10" :key="i" class="" style="width: 9.09%;">
 
             <q-card class=" text-center q-pa-xs q-pr-xs " style="background-color: #eef8ff; " flat>
-              <input type="number" :id="'col'+set+i" class="text-center text-red col_cards"
+              <input  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  type="text" :id="'col'+set+i" class="text-center text-red col_cards"
                      v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')"
                      @input="add_input_col(i)"/>
             </q-card>
@@ -74,7 +74,7 @@
           <div class="" style="width: 9.09%;">
             <q-card class=" text-center q-pl-xs q-pr-xs " style="background-color: #eef8ff;" flat>
               <div style="font-size: medium"> &nbsp;</div>
-              <input type="number" :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs row_cards"
+              <input  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" type="text" :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs row_cards"
                      v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')"
                      @input="add_input_row(i)"/>
             </q-card>
@@ -84,7 +84,7 @@
 
             <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
               <div style="font-size: medium"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
-              <input type="number" :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
+              <input onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  type="text" :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
                      v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:90%')"
                      :value="inputs[set][i*10+n-10-1]"
                      @input="add_input(i*10+n-10-1,true)" autocomplete="off"/>
@@ -444,6 +444,14 @@ export default {
   }
 }
 
+$(function () {
+    var focusedElement;
+    $(document).on('focus', 'input', function () {
+        if (focusedElement == this) return; //already focused, return so user can now place cursor at specific point in input.
+        focusedElement = this;
+        setTimeout(function () { focusedElement.select(); }, 100); //select all text in any field on focus for easy re-entry. Delay sightly to allow focus to "stick" before selecting.
+    });
+});
 // var elements = []
 // var currentIndex = 0;
 // setTimeout(function(){
