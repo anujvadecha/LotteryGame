@@ -2220,6 +2220,7 @@ export default function (/* { ssrContext } */) {
       },
       set_results(state, results) {
         state.results = results;
+
       },
       fp_selection(state,fp) {
         state.fp=fp;

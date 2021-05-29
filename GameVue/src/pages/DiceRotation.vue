@@ -35,14 +35,8 @@ name: "DiceRotation",
           },2000);
         const router = this.$router;
         setTimeout(function(){
-         router.push({
-              path: '/SelectionTable',
-              name:'SelectionTable',
-              params: {
-                set: 'A'
-              }
-            })
-          }, 8000);
+          window.location.reload()
+          }, 5000);
   }
 }
 </script>
