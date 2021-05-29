@@ -109,7 +109,7 @@ function print_div(res,claim=false) {
        // var printWindow = window.open('', '', 'height=200,width=400');
       var printWindow = window.open();
        printWindow.document.write();
-       printWindow.document.write('</head><body style="font-size: 30px">');
+       printWindow.document.write('</head><body style="font-size: small">');
        printWindow.document.write(divContents);
        printWindow.document.write('</body></html>');
        printWindow.document.close();
