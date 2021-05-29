@@ -205,7 +205,6 @@ export default {
         text += message + ', '
       })
       text = text.slice(0, -2)
-      console.log(text)
       return text
     },
     inputs: {
@@ -213,7 +212,6 @@ export default {
         return this.$store.state.inputs
       },
       set(value) {
-        console.log(value)
         this.$store.commit('update_inputs', {set: this.set, value: value})
       }
     },
@@ -313,9 +311,6 @@ export default {
       var revC = this.reverse_number(c)
       var revD = this.reverse_number(d)
 
-      console.log("Adding input")
-      console.log(revA)
-      console.log(c)
       document.getElementById(this.set + c).value = document.getElementById(this.set + a).value
       document.getElementById(this.set + b).value = document.getElementById(this.set + a).value
       document.getElementById(this.set + d).value = document.getElementById(this.set + a).value
@@ -327,7 +322,6 @@ export default {
       document.getElementById(this.set + revB).value = document.getElementById(this.set + a).value
       document.getElementById(this.set + revC).value = document.getElementById(this.set + a).value
       document.getElementById(this.set + revD).value = document.getElementById(this.set + a).value
-      console.log(revA)
       document.getElementById(this.set + a).classList.add("fp_selected");
       document.getElementById(this.set + b).classList.add("fp_selected");
       document.getElementById(this.set + c).classList.add("fp_selected");

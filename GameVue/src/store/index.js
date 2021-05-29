@@ -1084,7 +1084,6 @@ export default function (/* { ssrContext } */) {
       },
       push_ticket(state, ticket) {
         state.selectionState[ticket.ticket] = ticket.quantity
-        console.log(state.selectionState)
       },
       set_lottery_timings(state, timings) {
         state.lotteries = timings
@@ -1093,7 +1092,6 @@ export default function (/* { ssrContext } */) {
         state.selected_lotteries = timings
       },
       set_next_lottery(state) {
-        // console.log("setting next lottery")
         const store = this;
         for (var i = 0; i < state.lotteries.length; i++) {
           if (compareDate(new Date(), state.lotteries[i].time) > 0) {
@@ -1112,13 +1110,11 @@ export default function (/* { ssrContext } */) {
                state.nextLottery = state.lotteries[i];
                get_winners({"lottery_id":state.lotteries[i-1].id}).then(
                res=> {
-                    console.log(res)
                     store.dispatch("set_results",res.lottery_winners_ticket)
                     store.dispatch('set_announcements',res.announcements)
                 }
                )
             }
-            // console.log("setting next lottery")
             state.nextLottery = state.lotteries[i];
             state.previousLottery = state.lotteries[i - 1];
 
@@ -2218,10 +2214,7 @@ export default function (/* { ssrContext } */) {
             try { document.getElementById('colH' + i).value = null  } catch(err) {}
             try { document.getElementById('colI' + i).value = null  } catch(err) {}
             try { document.getElementById('colJ' + i).value = null  } catch(err) {}
-          // }
-          // catch (err) {
-          //   console.log(err)
-          // }
+
         }
 
       },

@@ -8,7 +8,7 @@
         <q-btn unelevated style="" class="q-ma-sm bg-purple col" @click="claim_result()">Claim</q-btn>
       </div>
       </div>
-   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="update_results()">Update Results</q-btn>
+<!--   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="update_results()">Update Results</q-btn>-->
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="$router.push({path:'/TxnDetails'})">Txn Details</q-btn>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="reset_all()">Reset all</q-btn>
    <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()" id="buy_button">Buy</q-btn>

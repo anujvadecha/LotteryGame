@@ -95,8 +95,9 @@ export default {
              Notify.create({
               type: 'negative',
               progress: false,
-              message: 'There seems to be some problem, please report this error',
-              position: 'top-right',
+              message: '<h6>There seems to be some problem '+res['message']+'</h6>',
+              position: 'center',
+               html:true,
               timeout: 5000,
               actions: [
                 { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }

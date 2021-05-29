@@ -15,7 +15,7 @@
           <q-separator color="orange" size="5px"></q-separator>
           <q-card-section>
             <q-form class="q-gutter-y-md">
-              <q-input color="primary" outlined v-model="email" type="email" label="Username">
+              <q-input color="primary" outlined v-model="email" type="email" label="Mobile">
                 <template v-slot:prepend>
                   <q-icon name="mdi-account" />
                 </template>

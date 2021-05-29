@@ -2,7 +2,6 @@
 <div>
 <div class="window-height window-width row justify-center items-center" style="">
     <div class="column q-pa-lg">
-      <strong class="text-h6">{{message}}</strong>
       <q-card-section style="">
             <div class="row">
             <q-img
@@ -16,9 +15,9 @@
           <q-separator color="orange" size="5px"></q-separator>
           <q-card-section>
             <q-form class="q-px-sm q-pt-xl">
-              <q-input square clearable v-model="username" type="text" label="Username"
+              <q-input id="mobile_number"  square clearable v-model="username" type="number" label="Mobile"
                lazy-rules
-               :rules="[ val => !!val || 'Please provide a username']"
+               :rules="[ val => !!val || 'Please provide a mobile' ]"
               >
                 <template v-slot:prepend>
                   <q-icon name="email"/>
@@ -50,9 +49,9 @@
           <q-card-actions class="q-px-lg">
             <q-btn @click="registerUser()" unelevated size="lg" color="primary" class="full-width text-white" label="Sign Up" />
           </q-card-actions>
-          <q-card-section class="text-center q-pa-sm">
-            <p class="text-grey-6"> Forgot your password? </p>
-          </q-card-section>
+<!--          <q-card-section class="text-center q-pa-sm">-->
+<!--            <p class="text-grey-6"> Forgot your password? </p>-->
+<!--          </q-card-section>-->
       </div>
     </div>
 </div>
@@ -78,6 +77,7 @@ export default {
         Notify.create({
           message: 'The passwords entered do not match!'
         })
+
         return
       }
       const axios = require('axios')
@@ -115,6 +115,17 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#mobile_number {
+  -moz-appearance: textfield;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 </style>

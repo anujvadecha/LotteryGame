@@ -38,7 +38,6 @@ export default {
     this.$store.dispatch('set_next_lottery')
     const nextLottery = this.$store.getters.get_next_lottery;
     this.$store.dispatch('set_selected_lotteries',[nextLottery])
-    console.log("next lottery is " + nextLottery)
     setInterval(function (){
     //   var current_next_lottery =  store.state.nextLottery;
         store.dispatch('set_next_lottery')
