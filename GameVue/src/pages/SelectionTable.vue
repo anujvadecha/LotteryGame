@@ -83,11 +83,11 @@
           <div class="" v-for="n in 10" style="width: 9.09%;" :key="n">
 
             <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
-              <div style="font-size: medium"> {{ ("0" + (i*10+n-10-1)).slice(-2) }} </div>
+              <div style="font-size: medium"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
               <input type="number" :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
                      v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:90%')"
                      :value="inputs[set][i*10+n-10-1]"
-                     @input="add_input(i*10+n-10-1,true)" autocomplete="off" />
+                     @input="add_input(i*10+n-10-1,true)" autocomplete="off"/>
             </q-card>
           </div>
         </div>
@@ -199,12 +199,12 @@ export default {
   components: {SelectionHeader, OptionsHeader, TimeHeader, ResultHeader},
   props: ['set'],
   computed: {
-    marquee:function (){
-      var text= '';
-      this.$store.state.announcements.map(message=>{
-        text += message+', '
+    marquee: function () {
+      var text = '';
+      this.$store.state.announcements.map(message => {
+        text += message + ', '
       })
-      text = text.slice(0,-2)
+      text = text.slice(0, -2)
       console.log(text)
       return text
     },
@@ -244,7 +244,7 @@ export default {
       }
       return price;
     },
-    selectedSets:{
+    selectedSets: {
       get() {
         return this.$store.state.selectedSets
       },
@@ -410,7 +410,7 @@ export default {
       })
     },
     getStyleForButton: function (link) {
-      if (link.alias === this.set || this.selectedSets[link.alias]===true)
+      if (link.alias === this.set || this.selectedSets[link.alias] === true)
         return 'background-color: red; color: white;width: 100%;font-size:medium'
       else
         return 'background-color: #ba56d4; color: white;width: 100%;font-size:medium'
@@ -486,12 +486,21 @@ export default {
 // }catch(err){}
 
 
-
-
 </script>
 
 <style scoped>
-  .fp_selected{
-    background-color:rgb(19, 251, 165);
-  }
+.fp_selected {
+  background-color: rgb(19, 251, 165);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 </style>
