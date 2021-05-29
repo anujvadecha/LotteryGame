@@ -35,7 +35,7 @@ name: "DiceRotation",
           },2000);
         const router = this.$router;
         setTimeout(function(){
-          window.location.href=window.location.host
+          window.location.href='http://'+window.location.host
           }, 5000);
   }
 }
