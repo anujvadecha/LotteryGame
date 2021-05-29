@@ -71,6 +71,7 @@ name: "Footer",
   claim_result: function(){
       var ticket_id_input = this.barCodeNumber
       var data = {'ticket_id': ticket_id_input}
+      const store=this.$store;
       claim_ticket_api(data).then(
            res=> {
               console.log(res)
@@ -86,7 +87,7 @@ name: "Footer",
                       { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
                     ]
                   })
-                print_div(res["ticket"],true)
+                print_div(res["ticket"],true,store.state.user.first_name)
               }else{
                 Notify.create({
                     type: 'negative',
@@ -134,7 +135,7 @@ name: "Footer",
 
         return ticket.ticket_id})
         res.tickets.map(ticket => {
-          print_div(ticket)
+          print_div(ticket,false,store.state.user.first_name)
         });
         this.$store.dispatch('reset_all')
         }

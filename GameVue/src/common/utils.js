@@ -1,3 +1,5 @@
+import store from "src/store/index";
+
 function inRange(d,start,end) {
        return (
             isFinite(d=this.convert(d).valueOf()) &&
@@ -73,9 +75,9 @@ function isToday(someDate) {
     someDate.getFullYear() == today.getFullYear()
 }
 
-function print_div(res,claim=false) {
-       console.log(res)
+function print_div(res,claim=false,user=null) {
        document.getElementById("printdivcontent").innerHTML += "Star Skill Game<br/>"
+       document.getElementById("printdivcontent").innerHTML += user +"<br/>"
        //console.log(res["created_at"])
 
         // document.getElementById("printdivcontent").innerHTML += store.user.first_name + "<br/>"
@@ -119,7 +121,6 @@ function print_div(res,claim=false) {
     }
 
 
-import store from "src/store/index";
 
 export {
   compareDate,
