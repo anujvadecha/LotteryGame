@@ -1,5 +1,5 @@
 import { CSRF_TOKEN } from './csrf_token.js'
-import { LocalStorage } from 'quasar'
+import {LocalStorage, SessionStorage} from 'quasar'
 
 function handleResponse (response) {
   if (response.status === 204) {
@@ -27,30 +27,30 @@ function apiService (endpoint, method, data) {
     method: method,
     url: endpoint,
     headers: {
-      Authorization: 'Token ' + LocalStorage.getItem('token'),
+      Authorization: 'Token ' + SessionStorage.getItem('token'),
       'Content-Type': 'application/json',
        // 'X-CSRFTOKEN': CSRF_TOKEN
     },
     params: data
    }
-   
+
   }
   else{
     var config = {
     method: method || 'GET',
     url: endpoint,
     headers: {
-      Authorization: 'Token ' + LocalStorage.getItem('token'),
+      Authorization: 'Token ' + SessionStorage.getItem('token'),
       'Content-Type': 'application/json',
        // 'X-CSRFTOKEN': CSRF_TOKEN
     },
     data: data
   }
-  
+
   }
   return axios(config)
     .then(response => handleResponse(response))
-  
+
 }
 
 export { apiService }

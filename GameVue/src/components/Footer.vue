@@ -3,9 +3,8 @@
     <div style="border: 1px solid black" class="col-3">
       <div class="row">
       <div class="col">
-        <q-input dense outlined v-model="barCodeNumber" style="" class="q-ma-sm" id="final_barcode"></q-input></div>
-
-        <q-btn unelevated style="" class="q-ma-sm bg-purple col" @click="claim_result()">Claim</q-btn>
+        <q-input dense outlined v-model="barCodeNumber" style="" class="col-8 q-ma-sm" id="final_barcode"></q-input></div>
+        <q-btn unelevated style="" class="col-4 q-ma-sm bg-purple col" @click="claim_result()">Claim</q-btn>
       </div>
       </div>
 <!--   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="update_results()">Update Results</q-btn>-->
@@ -154,7 +153,7 @@ name: "Footer",
    })
   },
     logout(){
-    this.$q.localStorage.set('token', '')
+    this.$q.sessionStorage.set('token', '')
       // Notify.create({
       //   message: 'You have been logged out',
       //   position: 'top-right'

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import {compareDate} from "src/common/utils";
 import {get_winners} from "src/common/api_calls";
+import {parse} from "quasar-app-extension-qdatetimepicker/src/services/date";
 
 // import example from './module-example'
 
@@ -1078,6 +1079,10 @@ export default function (/* { ssrContext } */) {
     mutations: {
       add_input(state,input) {
         state.inputs[input.set][input.number]=input.quantity
+        state.selectionState[input.set+input.number] = {
+              quantity: parseInt(input.quantity),
+              price: state.setPoints[input.set]
+        }
       },
       update_balance_points(state,points) {
         state.balance_points=points;

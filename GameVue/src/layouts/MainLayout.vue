@@ -106,7 +106,6 @@ import {get_lottery_timings, get_user_details} from "src/common/api_calls";
 export default {
   name: 'MainLayout',
   components: {Footer},
-  // components: { EssentialLink },
   methods:{
     changeMainSelectedStates:function () {
       console.log("changing state")
@@ -115,7 +114,7 @@ export default {
   },
   computed: {
     logged_in: function () {
-      const token = this.$q.localStorage.getItem('token')
+      const token = this.$q.sessionStorage.getItem('token')
       if (token === '' || token === null || token === 'null') {
         return false
       } else {

@@ -349,23 +349,12 @@ export default {
             number: n,
             quantity: document.getElementById(this.set + n).value
           })
-          this.$store.dispatch('push_ticket', {
-            ticket: key + (n),
-            quantity: {
-              quantity: parseInt(document.getElementById(this.set + n).value),
-              price: this.$store.state.setPoints[this.set]
-            }
-          })
         }
       }
       this.$store.dispatch('add_input', {
         set: this.set,
         number: n,
         quantity: document.getElementById(this.set + n).value
-      })
-      this.$store.dispatch('push_ticket', {
-        ticket: this.set + (n),
-        quantity: {quantity: parseInt(this.inputs[this.set][n]), price: this.$store.state.setPoints[this.set]}
       })
     },
     add_input_col: function (n) {

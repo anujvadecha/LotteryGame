@@ -78,7 +78,7 @@ export default {
       const quasar_q = this.$q
       axios(config)
         .then(function (response) {
-          quasar_q.localStorage.set('token', response.data.key)
+          quasar_q.sessionStorage.set('token', response.data.key)
           router.push({path:'/'})
         }).catch(function (error) {
           console.log(error.response.data)
