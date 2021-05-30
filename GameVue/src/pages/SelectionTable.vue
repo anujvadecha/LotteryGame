@@ -359,7 +359,6 @@ export default {
     },
     add_input_col: function (n) {
       for (var i = 0; i < 10; i++) {
-        // this.$store.dispatch('change_ticket_state',{set:this.set,number:n,quantity:document.getElementById('col'+this.set+n).value})
         if (this.$store.state.selection_group === 'Even' && (i * 10 + (n - 1)) % 2 !== 0) {
           continue
         } else if (this.$store.state.selection_group === 'Odd' && (i * 10 + (n - 1)) % 2 === 0) {
