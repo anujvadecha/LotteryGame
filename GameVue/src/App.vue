@@ -76,7 +76,6 @@ let code = "";
           console.log(currentIndex)
           currentIndex = (currentIndex == 0) ? currentIndex : currentIndex-1;
           elements[currentIndex].focus();
-
           break;
         case 39:  //right
         console.log(currentIndex)
@@ -113,12 +112,12 @@ let code = "";
       switch (e.keyCode) {
         case 37: //left
 
-          currentIndex = (currentIndex == 0 || currentIndex%10 == 0) ? currentIndex + 9 : currentIndex-1;
+          currentIndex = (currentIndex == 0 || currentIndex%10 == 0) ? currentIndex -1 : currentIndex-1;
           elements[currentIndex].focus();
 
           break;
         case 39:  //right
-          currentIndex = (currentIndex == 9 || currentIndex%10 == 9) ? currentIndex - 9 : currentIndex+1;
+          currentIndex = (currentIndex == 9 || currentIndex%10 == 9) ? currentIndex + 1 : currentIndex+1;
           elements[currentIndex].focus();
 
           break;
