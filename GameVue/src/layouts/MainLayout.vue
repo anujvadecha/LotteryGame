@@ -160,7 +160,7 @@ export default {
     )
     });
     } else {
-      this.$router.push('Login')
+      this.$router.push({name:'Login'})
     }
   }
 }
