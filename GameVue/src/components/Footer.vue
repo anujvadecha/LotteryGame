@@ -124,8 +124,9 @@ name: "Footer",
         Notify.create({
           type: 'positive',
           progress: true,
-          message: 'Ticket booked '+ticket.ticket_id+ ' Points '+ticket.total_price+ ' Qty '+ticket.total_quantity,
-          position: 'top-right',
+          message: '<h6>Ticket booked '+ticket.ticket_id+ ' Points '+ticket.total_price+ ' Qty '+ticket.total_quantity+'</h6>',
+          html:true,
+          position: 'center',
           timeout: 5000,
           actions: [
             { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
@@ -142,8 +143,9 @@ name: "Footer",
         Notify.create({
           type: 'negative',
           progress: true,
-          message: 'Ticket could not be booked due to error '+res.message,
-          position: 'top-right',
+          message: '<h6>Ticket could not be booked due to error '+res.message+'</h6>',
+          position: 'center',
+          html:true,
           timeout: 5000,
           actions: [
             { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }

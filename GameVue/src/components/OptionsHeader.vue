@@ -51,8 +51,9 @@ data(){
   logout(){
     this.$q.localStorage.set('token', '')
       Notify.create({
-        message: 'You have been logged out',
-        position: 'top-right'
+        message: '<h6>You have been logged out</h6>',
+        html:true,
+        position: 'center'
       })
       return this.$router.push({path:'/Login'})
     }

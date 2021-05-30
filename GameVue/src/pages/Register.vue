@@ -99,10 +99,16 @@ export default {
           router.push('/')
         })
         .catch(function (err) {
+          var message='';
+          console.log(err.response)
+          for (const [key, value] of Object.entries(err.response.data)) {
+             message+=key +' : ' + value.join();
+           }
           console.log(err)
           Notify.create({
-            message: 'The password entered is too common',
-            position: 'top-right',
+            message: '<h6>'+message+'</h6>',
+            position: 'center',
+            html:true,
             timeout: 1000
           })
         })

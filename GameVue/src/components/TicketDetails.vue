@@ -69,8 +69,9 @@ export default {
             Notify.create({
               type: 'positive',
               progress: false,
-              message: 'Ticket: '+ this.ticket.ticket_id + " is cancelled",
-              position: 'top-right',
+              message: '<h6>Ticket: '+ this.ticket.ticket_id + " is cancelled</h6>",
+              position: 'center',
+              html:true,
               timeout: 5000,
               actions: [
                 { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
@@ -81,8 +82,9 @@ export default {
             Notify.create({
               type: 'info',
               progress: false,
-              message: "Completed lottery ticket cannot be cancelled.",
-              position: 'top-right',
+              message: "<h6>Completed lottery ticket cannot be cancelled.</h6>",
+              html:true,
+              position: 'center',
               timeout: 5000,
               actions: [
                 {
