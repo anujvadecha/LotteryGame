@@ -8,7 +8,7 @@ function inRange(d,start,end) {
             start <= d && d <= end :
             NaN
         );
-    }
+}
 function convert(d) {
         return (
             d.constructor === Date ? d :
@@ -18,7 +18,7 @@ function convert(d) {
             typeof d === "object" ? new Date(d.year,d.month,d.date) :
             NaN
         );
-  }
+}
 function compareDate(a,b) {
         // Compare two dates (could be of any type supported by the convert
         // function above) and returns:
@@ -96,7 +96,7 @@ function print_div(res,claim=false,user=null) {
         })
 
         document.getElementById("printdivcontent").innerHTML += ticket_details.slice(0, -1)
-      
+
       document.getElementById("printdivcontent").innerHTML += `<br>Total quantity ${res["total_quantity"]}<br/>`
 
       document.getElementById("printdivcontent").innerHTML += `Total price ${res["total_price"]}<br/>`

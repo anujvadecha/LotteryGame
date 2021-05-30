@@ -93,61 +93,61 @@ export default {
         required: true,
         label: 'A',
         align: 'left',
-        field: row => row.winners.A
+        field: row => row.winners.A? ("0"+row.winners.A).slice(-2):''
       },{
         name:'B_set',
         required: true,
         label: 'B',
         align: 'left',
-        field: row => row.winners.B
+        field: row =>row.winners.B? ("0"+row.winners.B).slice(-2):''
       },{
         name:'C_set',
         required: true,
         label: 'C',
         align: 'left',
-        field: row => row.winners.C
+        field: row => row.winners.C? ("0"+row.winners.C).slice(-2):''
       },{
         name:'D_set',
         required: true,
         label: 'D',
         align: 'left',
-        field: row => row.winners.D
+        field: row => row.winners.D? ("0"+row.winners.D).slice(-2):''
       },{
         name:'E_set',
         required: true,
         label: 'E',
         align: 'left',
-        field: row => row.winners.E
+        field: row => row.winners.E? ("0"+row.winners.E).slice(-2):''
       },{
         name:'F_set',
         required: true,
         label: 'F',
         align: 'left',
-        field: row => row.winners.F
+        field: row => row.winners.F? ("0"+row.winners.F).slice(-2):''
       },{
         name:'G_set',
         required: true,
         label: 'G',
         align: 'left',
-        field: row => row.winners.G
+        field: row => row.winners.G? ("0"+row.winners.G).slice(-2):''
       },{
         name:'H_set',
         required: true,
         label: 'H',
         align: 'left',
-        field: row => row.winners.H
+        field: row =>row.winners.H? ("0"+row.winners.H).slice(-2):''
       },{
         name:'I_set',
         required: true,
         label: 'I',
         align: 'left',
-        field: row => row.winners.I
+        field: row => row.winners.I? ("0"+row.winners.I).slice(-2):''
       },{
         name:'J_set',
         required: true,
         label: 'J',
         align: 'left',
-        field: row => row.winners.J
+        field: row => row.winners.J? ("0"+row.winners.J).slice(-2):''
       }]
     }
   },
