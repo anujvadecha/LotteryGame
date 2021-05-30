@@ -95,18 +95,21 @@ function print_div(res,claim=false,user=null) {
         })
 
         document.getElementById("printdivcontent").innerHTML += ticket_details.slice(0, -1)
-      }
+      
       document.getElementById("printdivcontent").innerHTML += `<br>Total quantity ${res["total_quantity"]}<br/>`
 
       document.getElementById("printdivcontent").innerHTML += `Total price ${res["total_price"]}<br/>`
+    }
 
       if(claim == true){
         document.getElementById("printdivcontent").innerHTML += `Total wins ${res["inflow"]}<br/>`
       }
+      if(claim==false)
+      {
+        document.getElementById("printdivcontent").innerHTML += `<svg id="barcode" style=""></svg>`
 
-      document.getElementById("printdivcontent").innerHTML += `<svg id="barcode" style=""></svg>`
-
-      JsBarcode('#barcode',res["ticket_id"])
+        JsBarcode('#barcode',res["ticket_id"])
+      }
       var divContents = document.getElementById("printdivcontent").innerHTML;
        // var printWindow = window.open('', '', 'height=200,width=400');
       var printWindow = window.open();
