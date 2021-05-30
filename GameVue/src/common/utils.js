@@ -77,13 +77,14 @@ function isToday(someDate) {
 
 function print_div(res,claim=false,user=null) {
        document.getElementById("printdivcontent").innerHTML += "Star Skill Game<br/>"
+       if(claim==false){
        document.getElementById("printdivcontent").innerHTML += user +"<br/>"
        //console.log(res["created_at"])
 
         // document.getElementById("printdivcontent").innerHTML += store.user.first_name + "<br/>"
 
        document.getElementById("printdivcontent").innerHTML += `Created date: ${getTimeZoneDate(new Date(res["created_at"])).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getTimeZoneDate(new Date(res["created_at"])).getHours()+":"+getTimeZoneDate(new Date(res["created_at"])).getMinutes()} <br/>`
-
+     }
       document.getElementById("printdivcontent").innerHTML += `Draw date: ${getTimeZoneDate(new Date(res["lottery"]["time"])).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getTimeZoneDate(new Date(res["lottery"]["time"])).getHours()+":"+getTimeZoneDate(new Date(res["lottery"]["time"])).getMinutes()} <br/>`
 
       if(claim===false) {
@@ -103,6 +104,7 @@ function print_div(res,claim=false,user=null) {
 
       if(claim == true){
         document.getElementById("printdivcontent").innerHTML += `Total wins ${res["inflow"]}<br/>`
+        document.getElementById("printdivcontent").innerHTML += `Ticket: ${res["ticket_id"]}<br/>`
       }
       if(claim==false)
       {
