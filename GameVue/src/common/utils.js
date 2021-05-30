@@ -111,7 +111,7 @@ function print_div(res,claim=false,user=null) {
        // var printWindow = window.open('', '', 'height=200,width=400');
       var printWindow = window.open();
        printWindow.document.write();
-       printWindow.document.write('</head><body style="font-size: small">');
+       printWindow.document.write('</head><body style="font-size: medium;font-weight:bold">');
        printWindow.document.write(divContents);
        printWindow.document.write('</body></html>');
        printWindow.document.close();
