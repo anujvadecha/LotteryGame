@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.contrib.auth.models import AbstractUser
+from django.db.models import Sum
 
 from base.constants import USER_TYPE_CHOICES
 from base.models import *
@@ -17,11 +18,6 @@ class User(AbstractUser):
     total_outflow = models.IntegerField(default=0)
     user_type = models.CharField(choices=USER_TYPE_CHOICES,default = "PLAYER",max_length=255)
 
-
-    def recalculate_inflow_outflow(self):
-        all_tickets = TicketID.objects.filter(user=self)
-        self.total_inflow = all_tickets.Sum('inflow')["inflow__sum"]
-        self.total_inflow = all_tickets.Sum('outflow')["outflow__sum"]
 
     def name(self):
         return self.first_name + ' ' + self.last_name
@@ -75,6 +71,8 @@ class Ticket(BaseModel):
     quantity = models.IntegerField(default=0, blank=False, null=False)
     price = models.IntegerField(default=0, blank=False, null=False)
     lottery = models.ForeignKey(Lottery, on_delete=models.SET_NULL, null=True, blank=True)
+    number = models.CharField(default="", blank=False, null=False, max_length=256)
+    total = models.IntegerField(default=0)
 
     def total_price(self):
         try:
@@ -82,6 +80,15 @@ class Ticket(BaseModel):
         except Exception as e:
             print(e)
             return 0
+
+    def save(self, *args, **kwargs):
+        try:
+            self.number = self.set_ticket[1:]
+            self.total= self.total_price()
+        except Exception as e:
+            pass
+        super(Ticket, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.set_ticket
 
@@ -111,6 +118,11 @@ class TicketID(BaseModel):
         user_obj = self.user
         user_obj.total_outflow += self.outflow
         user_obj.save()
+
+    def increase_on_win(self,value):
+        tickets_won = self.ticket_set.filter(number=value)
+        total_inflow_quantity = tickets_won.aggregate(Sum('total'))["total__sum"]
+        self.inflow = total_inflow_quantity * 9
 
     def save(self, *args, **kwargs):
         try:

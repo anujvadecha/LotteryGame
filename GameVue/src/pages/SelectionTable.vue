@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <div class="col" style="background-color: #eef8ff">
+      <div class="col" style="background-color: #eef8ff;height: 100vh">
         <div class="row">
           <!--     ALL POINTS CARD   -->
           <div class="" style="width: 9.09%;">
@@ -69,11 +69,11 @@
             </q-card>
           </div>
         </div>
-        <div class="row " v-for="i in 10" style="height: 9.09%" :key="i">
+        <div class="row " v-for="i in 10" style="" :key="i">
           <!--     ROW CARDS -->
           <div class="" style="width: 9.09%;">
             <q-card class=" text-center q-pl-xs q-pr-xs " style="background-color: #eef8ff;" flat>
-              <div style="font-size: medium"> &nbsp;</div>
+              <div style="font-size: large"> &nbsp;</div>
               <input  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" type="text" :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs row_cards"
                      v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')"
                      @input="add_input_row(i)"/>
@@ -83,9 +83,9 @@
           <div class="" v-for="n in 10" style="width: 9.09%;" :key="n">
 
             <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
-              <div style="font-size: medium"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
+              <div style="font-size: large"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
               <input onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  type="text" :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
-                     v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;height:90%')"
+                     v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;')"
                      :value="inputs[set][i*10+n-10-1]"
                      @input="add_input(i*10+n-10-1,true)" autocomplete="off"/>
             </q-card>
@@ -259,9 +259,12 @@ export default {
   },
   methods: {
     all_set_call() {
+
       for (const [key, value] of Object.entries(this.selectedSets)) {
         this.selectedSets[key] = this.all_sets
       }
+      this.$store.dispatch('change_selected_sets',{selectedSets:this.selectedSets,currentSet:this.set} )
+
     },
     reverse_number(n) {
       if (n >= 1 && n <= 9) {
@@ -310,7 +313,6 @@ export default {
       var revB = this.reverse_number(b)
       var revC = this.reverse_number(c)
       var revD = this.reverse_number(d)
-
       document.getElementById(this.set + c).value = document.getElementById(this.set + a).value
       document.getElementById(this.set + b).value = document.getElementById(this.set + a).value
       document.getElementById(this.set + d).value = document.getElementById(this.set + a).value
@@ -383,7 +385,7 @@ export default {
 
     },
     changeMainSelectedStates: function (link) {
-      this.$store.dispatch('change_selected_sets', this.selectedSets)
+      this.$store.dispatch('change_selected_sets',{selectedSets:this.selectedSets,currentSet:this.set} )
       this.$router.push({
         path: 'SelectionTable/' + link.alias,
         name: 'SelectionTable',
@@ -401,11 +403,12 @@ export default {
     getStyleForInput(input) {
       // background-color:#882ce2;
       if (input && input != 0 && input != null)
-        return "color:#c50a46; font-weight:bold ;border:1px solid black"
+        return "color:#c50a46; font-weight:bold ;border:1px solid black;"
       else
         return "border:1px solid black; background-color:white;"
     },
     pushToPage: function (link) {
+      this.selectedSets[link.alias] = true
       this.$router.push({
         path: 'SelectionTable/' + link.alias,
         name: 'SelectionTable',

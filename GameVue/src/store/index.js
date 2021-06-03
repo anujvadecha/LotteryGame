@@ -1136,16 +1136,28 @@ export default function (/* { ssrContext } */) {
         }
       },
       change_selected_sets(state, selectionState) {
-        state.selectedSets.A = selectionState.A;
-        state.selectedSets.B = selectionState.B;
-        state.selectedSets.C = selectionState.C;
-        state.selectedSets.D = selectionState.D;
-        state.selectedSets.E = selectionState.E;
-        state.selectedSets.F = selectionState.F;
-        state.selectedSets.G = selectionState.G;
-        state.selectedSets.H = selectionState.H;
-        state.selectedSets.I = selectionState.I;
-        state.selectedSets.J = selectionState.J;
+        state.selectedSets.A = selectionState.selectedSets.A;
+        state.selectedSets.B = selectionState.selectedSets.B;
+        state.selectedSets.C = selectionState.selectedSets.C;
+        state.selectedSets.D = selectionState.selectedSets.D;
+        state.selectedSets.E = selectionState.selectedSets.E;
+        state.selectedSets.F = selectionState.selectedSets.F;
+        state.selectedSets.G = selectionState.selectedSets.G;
+        state.selectedSets.H = selectionState.selectedSets.H;
+        state.selectedSets.I = selectionState.selectedSets.I;
+        state.selectedSets.J = selectionState.selectedSets.J;
+        const store = this;
+        var selected = state.inputs[selectionState.currentSet]
+        for (const [key, value] of Object.entries(selected)) {
+          if(value != null && parseInt(value) > 0) {
+            for (const [set, selected] of Object.entries(state.selectedSets)) {
+              if(selected===true) {
+                store.dispatch("add_input",{set: set, number: key, quantity: value})
+              }
+            }
+          }
+        }
+        console.log(selected);
       },
       change_selection_option(state, group) {
         state.selection_group = group;
