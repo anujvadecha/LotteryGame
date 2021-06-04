@@ -69,7 +69,7 @@
             </q-card>
           </div>
         </div>
-        <div class="row " v-for="i in 10" style="" :key="i">
+        <div class="row " v-for="i in 10" style="height: 9.09%" :key="i">
           <!--     ROW CARDS -->
           <div class="" style="width: 9.09%;">
             <q-card class=" text-center q-pl-xs q-pr-xs " style="background-color: #eef8ff;" flat>
@@ -80,7 +80,7 @@
             </q-card>
           </div>
           <!--          NUMBER CARDS     -->
-          <div class="" v-for="n in 10" style="width: 9.09%;" :key="n">
+          <div class="" v-for="n in 10" style="width: 9.09%" :key="n">
 
             <q-card class=" text-center q-pl-xs q-pr-xs" style="background-color: #eef8ff;" flat>
               <div style="font-size: large"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
