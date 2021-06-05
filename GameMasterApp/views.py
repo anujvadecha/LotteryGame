@@ -83,7 +83,6 @@ class BuyTicketsAPI(APIView):
             print(response)
             return Response(data=response)
         except Exception as e:
-            raise e
             return Response(data=response, status=status.HTTP_200_OK)
 
 
