@@ -19,7 +19,7 @@
   </div>
   <div class="col" style="background-color: #eef8ff" >
     <div class="row"></div>
-    <div class="row" style="background-color: #eef8ff">
+    <div v-if="!$q.platform.is.mobile" class="row" style="background-color: #eef8ff">
     <div class="col-8">
       <q-option-group
         @input="change_selection_option()"
