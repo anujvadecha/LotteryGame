@@ -408,7 +408,7 @@ export default {
         return "border:1px solid black; background-color:white;"
     },
     pushToPage: function (link) {
-      this.selectedSets[link.alias] = true
+      // this.selectedSets[link.alias] = true
       this.$router.push({
         path: 'SelectionTable/' + link.alias,
         name: 'SelectionTable',

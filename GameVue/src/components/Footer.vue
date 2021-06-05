@@ -107,7 +107,7 @@ name: "Footer",
   place_ticket_order:function (){
     var selected_lotteries =this.$store.state.selected_lotteries.map(lottery=>{ return lottery.id});
     if(selected_lotteries.length===0) {
-      selected_lotteries = [this.$store.state.nextLottery]
+      selected_lotteries = [this.$store.state.nextLottery.id]
     }
     var order={
       selected_lotteries: selected_lotteries,
