@@ -1,8 +1,8 @@
 <template>
 <div class="row" style="background-color: white">
     <div style="border: 1px solid black" class="col-3">
-      <div class="row">
-      <div class="col" v-if="!$q.platform.is.mobile">
+      <div class="row" v-if="!$q.platform.is.mobile">
+      <div class="col" >
         <q-input dense outlined v-model="barCodeNumber" style="" class="col-8 q-ma-sm" id="final_barcode"></q-input></div>
         <q-btn unelevated style="" class="col-4 q-ma-sm bg-purple col" @click="claim_result()">Claim</q-btn>
       </div>

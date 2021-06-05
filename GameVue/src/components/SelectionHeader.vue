@@ -1,6 +1,6 @@
 <template>
 <div class="row" style="background-color:#ffff00;color: black">
-  <div class="col-5">
+  <div class="col-5" v-if="!$q.platform.is.mobile">
     <div class="row">
     <q-btn class="col" @click="coming_soon()" color="" unelevated outline>2D Coupon</q-btn>
     <q-btn class="col" @click="coming_soon()" color="" unelevated outline >JD</q-btn>
