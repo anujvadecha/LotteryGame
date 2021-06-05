@@ -1,5 +1,5 @@
 <template>
-<div class="row" style="background-color: #13fba5;color: black">
+<div v-if="!$q.platform.is.mobile" class="row" style="background-color: #13fba5;color: black">
   <div class="col q-ma-sm">
     Terminal Id: {{user_id}} &nbsp;&nbsp;{{first_name}}
   </div>
