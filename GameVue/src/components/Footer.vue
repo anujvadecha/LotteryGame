@@ -2,22 +2,22 @@
 <div class="row" style="background-color: white">
     <div style="border: 1px solid black" class="col-3">
       <div class="row">
-      <div class="col">
+      <div class="col" v-if="!$q.platform.is.mobile">
         <q-input dense outlined v-model="barCodeNumber" style="" class="col-8 q-ma-sm" id="final_barcode"></q-input></div>
         <q-btn unelevated style="" class="col-4 q-ma-sm bg-purple col" @click="claim_result()">Claim</q-btn>
       </div>
       </div>
 <!--   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="update_results()">Update Results</q-btn>-->
-   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="$router.push({path:'/TxnDetails'})">Txn Details</q-btn>
-   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="reset_all()">Reset all</q-btn>
-   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()" id="buy_button">Buy</q-btn>
-    <div class="col text-center q-pa-sm text-black" style="font-weight: bold;font-size: large">Total</div>
-    <div class="col-2">
-      <div class="row"  style="background-color: white;height: 100%" >
-          <div class="col text-center text-black" style="border: 1px solid black; background-color: white;font-size: large;font-weight: bold"> {{quantitySet}}</div>
-          <div class="col text-center text-black" style="border: 1px solid black; background-color: white;font-size: large;font-weight: bold"> {{priceSet}}</div>
-      </div>
-    </div>
+       <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="$router.push({path:'/TxnDetails'})">Txn Details</q-btn>
+       <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="reset_all()">Reset all</q-btn>
+       <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()" id="buy_button">Buy</q-btn>
+        <div v-if="!$q.platform.is.mobile" class="col text-center q-pa-sm text-black" style="font-weight: bold;font-size: large">Total</div>
+        <div v-if="!$q.platform.is.mobile" class="col-2">
+          <div class="row"  style="background-color: white;height: 100%" >
+              <div class="col text-center text-black" style="border: 1px solid black; background-color: white;font-size: large;font-weight: bold"> {{quantitySet}}</div>
+              <div class="col text-center text-black" style="border: 1px solid black; background-color: white;font-size: large;font-weight: bold"> {{priceSet}}</div>
+          </div>
+        </div>
 </div>
 </template>
 
