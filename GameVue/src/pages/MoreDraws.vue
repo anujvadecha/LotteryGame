@@ -9,7 +9,7 @@
     <q-btn class="col-2 q-ma-md" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
   </q-card>
   <div class="row">
-  <q-card @click="select_lottery(option)" class="col-2 q-pa-lg q-ma-sm" v-for="option in options" :key="option.value.id">
+  <q-card @click="select_lottery(option)" class="col-xs-4 col-sm-2 col-md-2 q-pa-lg q-ma-sm" v-for="option in options" :key="option.value.id">
     <q-checkbox :disable="option.disabled"  @input="add_selected()" dense v-model="option.selected" val="teal" :label="option.label" color="teal" />
   </q-card>
   </div>
@@ -48,6 +48,9 @@ name: "MoreDraws",
       selected_lotteries: [],
       select_all_button:false
     }
+  },
+  computed:{
+
   },
   created() {
     var selected_ids = this.$store.state.selected_lotteries.map(lottery=>{return lottery.id});

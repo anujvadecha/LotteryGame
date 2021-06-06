@@ -1,6 +1,6 @@
 <template>
  <div>
-  <ResultHeader></ResultHeader>
+  <ResultHeader v-if="!$q.platform.is.mobile"></ResultHeader>
     <q-card bordered flat class="row justify-end">
  <q-input dense class="q-pa-md " filled v-model="start_date">
    <template v-slot:prepend>

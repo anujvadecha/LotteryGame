@@ -2,6 +2,50 @@
   <q-layout view="hHh lpR fFf">
 <!--    <q-drawer show-if-above v-model="right" side="right" bordered>-->
 <!--    </q-drawer>-->
+<!--    <q-header >-->
+<!--        <q-toolbar style="" class="shadow-2">-->
+<!--          <ResultHeader></ResultHeader>-->
+<!--        </q-toolbar>-->
+<!--    </q-header>-->
+
+    <q-header v-if="$q.platform.is.mobile">
+      <q-toolbar style="" class="shadow-2 bg-purple"><q-toolbar-title>
+        <q-btn flat @click="leftDrawerOpen = !leftDrawerOpen" round dense icon="menu"/>
+        Star skill game</q-toolbar-title></q-toolbar>
+      <q-expansion-item header-style="background-color:white; color:black;"
+                            class="text-dark col-12 bg-white justify-evenly" style="font-weight: bold">
+            <template v-slot:header>
+              Total
+               <div class="col text-center text-black" style=" background-color: white;font-weight: bold"> Quantity {{quantitySet}}</div>
+              <div class="col text-center text-black" style=" background-color: white;font-weight: bold">  Price {{priceSet}}</div>
+
+            </template>
+            <ResultHeader ></ResultHeader>
+      <TimeHeader ></TimeHeader>
+      <OptionsHeader></OptionsHeader>
+      <SelectionHeader></SelectionHeader>
+      </q-expansion-item>
+    </q-header>
+    <q-drawer v-if="$q.platform.is.mobile"  v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
+      <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
+
+        <EssentialLink title="Results" link="/Results" ></EssentialLink>
+        <EssentialLink title="My accounts" link="/MyAccounts" ></EssentialLink>
+        <EssentialLink title="More Draws" link="/MoreDraws" ></EssentialLink>
+        <EssentialLink title="Logout" link="/Login" ></EssentialLink>
+
+      </q-scroll-area>
+      <q-img class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
+          <div class="absolute-bottom bg-transparent">
+            <q-avatar size="56px" class="q-mb-sm">
+            </q-avatar>
+            <div class="text-weight-bold">  Terminal Id: {{user_id}} &nbsp;&nbsp;{{first_name}}</div>
+            <div>Available points :<span style="font-weight: bold;font-size: medium;color: darkred">{{$store.state.balance_points}}</span></div>
+
+          </div>
+      </q-img>
+    </q-drawer>
+
     <q-page-container>
       <router-view/>
     </q-page-container>
@@ -103,9 +147,10 @@ import SelectionHeader from "components/SelectionHeader";
 import Footer from "components/Footer";
 import {getTimeZoneDate} from "src/common/utils";
 import {get_lottery_timings, get_user_details} from "src/common/api_calls";
+import EssentialLink from "components/EssentialLink";
 export default {
   name: 'MainLayout',
-  components: {Footer},
+  components: {EssentialLink, SelectionHeader, OptionsHeader, TimeHeader, ResultHeader, Footer},
   methods:{
     changeMainSelectedStates:function () {
       console.log("changing state")
@@ -113,6 +158,55 @@ export default {
     }
   },
   computed: {
+    quantitySet:function () {
+      var quantity=0
+      var setDict=this.$store.state.inputs;
+      for (var key in setDict){
+        for(var number in setDict[key]) {
+          if(setDict[key][number] !== null && setDict[key][number])
+            for(var i=0;i<this.$store.state.selected_lotteries.length;i++) {
+              quantity= parseInt(quantity) + parseInt(setDict[key][number])
+          }
+        }
+      }
+      return quantity;
+    },
+    priceSet:function(){
+      var price = {A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0,I:0,J:0}
+      var setDict=this.$store.state.inputs;
+      for (var key in setDict){
+        for(var number in setDict[key]) {
+          if(setDict[key][number] !== null && setDict[key][number])
+            for(var i=0;i<this.$store.state.selected_lotteries.length;i++) {
+              price[key] = (parseInt(price[key]) + parseInt(setDict[key][number]))
+            }
+        }
+        price[key]=price[key]*this.$store.state.setPoints[key]
+      }
+      var totalPrice = 0;
+      // for (const [key, value] of Object.entries(totalPrice)) {
+        // console.log(key)
+        // console.log(value)
+        totalPrice += key
+      // }
+      return price.A+price.B+price.C+price.D+price.E+price.F+price.G+price.H+price.I+price.J;
+    },
+  first_name(){
+    if(this.$store.state.user!=null) {
+      return this.$store.state.user.first_name
+    }
+    else{
+      return ''
+    }
+  },
+    user_id(){
+    if(this.$store.state.user!=null) {
+      return this.$store.state.user.id
+    }
+    else{
+      return ''
+    }
+    },
     logged_in: function () {
       const token = this.$q.sessionStorage.getItem('token')
       if (token === '' || token === null || token === 'null') {
@@ -130,6 +224,8 @@ export default {
       essentialLinks: linksData,
       left: true,
       right: false,
+      leftDrawerOpen: false,
+      rightDrawerOpen: false,
       selectedSets:{A:false,B:false,C:false,D:false,E:false,F:false,G:false,H:false,I:false,J:false}
    }
   },

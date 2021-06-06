@@ -89,7 +89,10 @@ export default {
           })
         })
     }
-  }
+  },
+  created() {
+     this.$q.localStorage.set('token', '')
+    }
 }
 </script>
 

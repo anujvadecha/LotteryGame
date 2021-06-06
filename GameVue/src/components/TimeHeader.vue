@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <div v-else class="col">
+  <div v-else class="row">
     <div class="row q-pa-sm" style="background-color: #a4ff01 ;font-weight: bold;color: black;font-size: large">
       Next Draw time : {{nextLotteryFormatted}}
     </div>

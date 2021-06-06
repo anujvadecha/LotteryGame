@@ -1,20 +1,15 @@
 <template>
   <div>
-    <q-header bordered class="bg-primary text-white" height-hint="98">
-
-      <ResultHeader></ResultHeader>
-      <TimeHeader></TimeHeader>
+    <q-header v-if="!$q.platform.is.mobile" bordered class="bg-primary text-white" >
+      <ResultHeader ></ResultHeader>
+      <TimeHeader ></TimeHeader>
       <div style="background-color: black; color: red">
         <marquee style="font-size: medium">{{ marquee }}</marquee>
       </div>
       <OptionsHeader></OptionsHeader>
       <SelectionHeader></SelectionHeader>
-      <!--      <q-toolbar style="background-color: black">-->
-      <!--        <q-btn dense flat round icon="menu" @click="left = !left"/>-->
-      <!--        <q-btn color="orange">Results</q-btn>-->
-      <!--        <q-btn dense flat round icon="menu" @click="right = !right"/>-->
-      <!--      </q-toolbar>-->
     </q-header>
+
     <q-page class="row" style="">
       <div class="col-2" style="background-color: lightpink">
         <div class="row" style="background-color: white;height: 9.09%">
