@@ -78,7 +78,6 @@ class Ticket(BaseModel):
         try:
             return self.price * self.quantity
         except Exception as e:
-            print(e)
             return 0
 
     def save(self, *args, **kwargs):

@@ -41,20 +41,34 @@ function getTimeZoneDate(date) {
       var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
       return ISTTime
 }
+
+function convert_to_twelve_hour_clock(timestring){
+    var H = +timestring.substr(0, 2);
+    var h = H % 12 || 12;
+    var ampm = (H < 12 || H === 24) ? "AM" : "PM";
+    timestring = h + timestring.substr(2, 3) + ampm;
+    return timestring
+}
+
+
 function getFormattedDateHHMMSS(date) {
       var ISTTime = date;
       var hoursIST = ISTTime.getHours()
-      var minutesIST = ISTTime.getMinutes()
+      var minutesIST = (ISTTime.getMinutes()<10)? "0"+ISTTime.getMinutes() : ISTTime.getMinutes()
       var secondsIST = ISTTime.getSeconds()
-      return "" + hoursIST + ":" + minutesIST + " " + secondsIST
+      var timestring = hoursIST + ":" + minutesIST + ":" + secondsIST
+      timestring = convert_to_twelve_hour_clock(timestring)
+      return timestring
 }
 
 function getFormattedDateHHMM(date) {
       var ISTTime = date;
       var hoursIST = ISTTime.getHours()
-      var minutesIST = ISTTime.getMinutes()
+      var minutesIST = (ISTTime.getMinutes()<10)? "0"+ISTTime.getMinutes() : ISTTime.getMinutes()
       var secondsIST = ISTTime.getSeconds()
-      return "" + hoursIST + ":" + minutesIST
+      var timestring = hoursIST + ":" + minutesIST + ":" + secondsIST
+      timestring = convert_to_twelve_hour_clock(timestring)
+      return timestring
 }
 
 function get_current_date(){
