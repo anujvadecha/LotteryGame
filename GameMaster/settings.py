@@ -161,3 +161,41 @@ REST_AUTH_SERIALIZERS = {
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = False
+
+APP_LOG_FILENAME = os.path.join(BASE_DIR, 'log/app.log')
+
+ERROR_LOG_FILENAME = os.path.join(BASE_DIR, 'log/error.log')
+
+
+if not os.path.exists(os.path.join(BASE_DIR, 'log')):
+    os.makedirs(os.path.join(BASE_DIR, 'log'))
+
+
+
+
+GameMasterApp = 'GameMasterApp'
+import logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'info_log': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': APP_LOG_FILENAME,
+        },
+        'error_log':{
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': ERROR_LOG_FILENAME,
+        },
+    },
+    'loggers': {
+        GameMasterApp : {
+            'handlers': ['info_log', 'error_log'],
+            'level': 'INFO',
+            'propagate': True,
+        }
+    },
+}
+

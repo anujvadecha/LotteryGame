@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.utils.timezone import get_current_timezone
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-import json
+
 from rest_framework.views import APIView
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication  # noqa F401
 from django.views.decorators.csrf import csrf_exempt
@@ -15,12 +15,61 @@ from GameMasterApp.handlers.UserHandlerProxy import UserHandlerProxy
 from GameMasterApp.models import *
 from datetime import datetime, date, time, timedelta, timezone
 from GameMasterApp.serializers import LotterySerializer, TicketIDSerializer, UserSerializer
+import logging
+import linecache
+import json
+import inspect
+import os
+import sys
 
+
+logger = logging.getLogger(__name__)
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
 
     def enforce_csrf(self, request):
         return
+
+def return_lineno_filename_file_called_exception():
+    exc_type, exc_obj, tb = sys.exc_info()
+    frame = tb.tb_frame
+    lineno = tb.tb_lineno
+    filename = frame.f_code.co_filename
+    linecache.checkcache(filename)
+    line = linecache.getline(filename, lineno, frame.f_globals)
+
+    return exc_obj, lineno, filename, line
+
+
+def raise_exception(message=''):
+    callerframerecord = inspect.stack()[1]
+    frame = callerframerecord[0]
+    info = inspect.getframeinfo(frame)
+    function_name = info.function
+    line_no = info.lineno
+    try:
+        exc_obj, lineno, filename, line = return_lineno_filename_file_called_exception()
+        logger.error(message + " [ERROR] %s at %s in function %s",
+                     exc_obj, lineno, function_name)
+    except:
+        logger.error(message + " [ERROR] of function %s at %s",
+                     function_name, line_no)
+
+
+def raise_info(message=''):
+    try:
+        exc_obj, lineno, filename, line = return_lineno_filename_file_called_exception()
+        logger.info(message + " [INFO] %s at %s in function %s",exc_obj, lineno, function_name)
+    except:
+        callerframerecord = inspect.stack()[1]
+        frame = callerframerecord[0]
+        info = inspect.getframeinfo(frame)
+        function_name = info.function
+        line_no = info.lineno
+        logger.info(message + " [INFO] of function %s at %s",
+                    function_name, line_no)
+
+
 
 
 class BuyTicketsAPI(APIView):
@@ -29,12 +78,12 @@ class BuyTicketsAPI(APIView):
     def post(self, request, *args, **kwargs):
         response = {}
         try:
+            raise_info("Start of BuyTicketsAPI")
             data = request.data
             lotteries = Lottery.objects.filter(id__in=data["selected_lotteries"], completed=False)
             data = data["selection"]
             tickets_created = []
             user = request.user
-            # Validation for balance points
             points = 0
             for key, value in data.items():
                 if (value['quantity'] != None):
@@ -43,16 +92,19 @@ class BuyTicketsAPI(APIView):
             if (points > user.balance_points):
                 response['status_code'] = 500
                 response['message'] = "Not enough points"
+                raise_exception("Not enough points")
                 raise Exception("Not enough points")
 
             if (points <= 0):
                 response['status_code'] = 500
                 response['message'] = "Please select tickets before buying"
+                raise_exception("Please select tickets before buying")
                 raise Exception("Please select tickets before buying")
 
             if(points < 10):
                 response['status_code'] = 500
                 response['message'] = "Minimum total should be 10 points"
+                raise_exception("Minimum total should be 10 points")
                 raise Exception("Minimum total should be 10 points")
 
             if (len(data) > 0):
@@ -75,14 +127,16 @@ class BuyTicketsAPI(APIView):
             else:
                 response['status_code'] = 500
                 response['message'] = "Please select tickets before buying"
+                raise_exception("Please select tickets before buying")
                 raise Exception("Please select tickets before buying")
             response['status_code'] = 200
             response['tickets'] = tickets_created
             response['balance_points'] = user.balance_points
 
-            print(response)
+            raise_info("End of BuyTicketsAPI")
             return Response(data=response)
-        except Exception as e:
+        except:
+            raise_exception("BuyTicketsAPI")
             return Response(data=response, status=status.HTTP_200_OK)
 
 
@@ -96,11 +150,7 @@ class LotteryTimingsAPI(APIView):
         response = {}
         response['status_code'] = 500
         try:
-            print(request.query_params)
-            try:
-                print(request.query_params)
-            except Exception as e:
-                print(str(e))
+            raise_info("Enter Lotter Timing APIS")
             if "start_date" in request.query_params and "end_date" in request.query_params:
                 today_min = datetime.strptime(request.query_params["start_date"] + " 00:00:00", '%Y-%m-%d %H:%M:%S')
                 today_max = datetime.strptime(request.query_params["end_date"] + " 23:59:00", '%Y-%m-%d %H:%M:%S')
@@ -116,9 +166,10 @@ class LotteryTimingsAPI(APIView):
             timings_of_lottery = LotterySerializer(timings_of_lottery, many=True).data
             response["lottery_objects"] = timings_of_lottery
             response['status_code'] = 200
-        except Exception as e:
-            print(e)
+        except:
+            raise_exception("LotteryTimingsAPI")
             response = json.dumps(response)
+        raise_info("Leaves Lotter Timing APIS")
         return Response(data=response)
 
 
@@ -129,20 +180,25 @@ class LotteryWinnersAPI(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        response = {}
-        response['status_code'] = 500
-        # try:
-        data = request.data
-        lottery_id = data["lottery_id"]
-        lottery_obj = Lottery.objects.get(pk=lottery_id)
-        if lottery_obj:
-            print(f"current api time is{lottery_obj.time}")
-            lottery_winners_ticket = LotterySerializer(lottery_obj).data["winners"]
-        else:
-            lottery_winners_ticket = []
-        response['announcements'] = Announcement.objects.all().values_list('message')
-        response['lottery_winners_ticket'] = lottery_winners_ticket
-        response['status_code'] = 200
+        try:
+            response = {}
+            response['status_code'] = 500
+            raise_info("Enter Lottery Winners APIS")
+            data = request.data
+            lottery_id = data["lottery_id"]
+            lottery_obj = Lottery.objects.get(pk=lottery_id)
+            if lottery_obj:
+                raise_info(f"current api time is{lottery_obj.time}")
+                lottery_winners_ticket = LotterySerializer(lottery_obj).data["winners"]
+            else:
+                lottery_winners_ticket = []
+            response['announcements'] = Announcement.objects.all().values_list('message')
+            response['lottery_winners_ticket'] = lottery_winners_ticket
+            response['status_code'] = 200
+        except:
+            raise_exception("LotteryWinnersAPI")
+            response = json.dumps(response)
+        raise_info("End of Lottery winners api")
         return Response(data=response)
 
 
@@ -156,22 +212,24 @@ class LotteryWinnersPreviousAPI(APIView):
         response = {}
         response['status_code'] = 500
         try:
+            raise_info("Start of LotteryWinnersPreviousAPI")
             data = request.data
             lottery_time = data["lottery_time"]
             date_object = datetime.fromtimestamp(int(lottery_time) / 1000)
             lottery_obj = Lottery.objects.filter(time__lte=date_object)
-            print(f"lottery previous is {lottery_obj}")
+            raise_info(f"lottery previous is {lottery_obj}")
             if lottery_obj:
-                print(lottery_obj.last().time)
+                raise_info(lottery_obj.last().time)
                 lottery_winners_ticket = json.loads(lottery_obj.last().winners)
-                print(lottery_winners_ticket)
+                raise_info(lottery_winners_ticket)
             else:
                 lottery_winners_ticket = []
             response['lottery_winners_ticket'] = lottery_winners_ticket
             response['status_code'] = 200
-        except Exception as e:
-            print(e)
+        except:
+            raise_exception("LotteryWinnersPreviousAPI")
             response = json.dumps(response)
+        raise_info("End of LotteryWinnersPreviousAPI")
         return Response(data=response)
 
 
@@ -181,27 +239,32 @@ LotteryWinnersPrevious = LotteryWinnersPreviousAPI.as_view()
 class TotalDebitCreditView(APIView):
 
     def post(self, request):
-        data = request.data
-        response = {}
-        response_objects = TicketID.objects.filter(user=request.user,cancelled=False)
-        print(request.data)
-        if (data.get("start_date", None) and data.get("end_date", None)):
-            response_objects = response_objects.filter(created_at__date__gte=data.get("start_date"),
-                                                       created_at__date__lte=data.get("end_date"))
-        else:
-            response_objects = response_objects.filter(created_at__date=datetime.now().date())
-        response_debit = response_objects.aggregate(Sum('inflow'))["inflow__sum"]
-        response_credit = response_objects.aggregate(Sum('outflow'))["outflow__sum"]
-        if response_debit == None:
-            response_debit = 0
-        if response_credit == None:
-            response_credit = 0
-        response["inflow"] = response_debit
-        response["outflow"] = response_credit
-        response["balance_points"] = request.user.balance_points
-        if (Agent.objects.filter(user=request.user).count() != 0):
-            response["commission"] = Agent.objects.filter(user=request.user).first().commission_percent
-        response["user"] = UserSerializer(request.user).data
+        try:
+            raise_info("Start of TotalDebitCreditView")
+            data = request.data
+            response = {}
+            response_objects = TicketID.objects.filter(user=request.user,cancelled=False)
+            if (data.get("start_date", None) and data.get("end_date", None)):
+                response_objects = response_objects.filter(created_at__date__gte=data.get("start_date"),
+                                                           created_at__date__lte=data.get("end_date"))
+            else:
+                response_objects = response_objects.filter(created_at__date=datetime.now().date())
+            response_debit = response_objects.aggregate(Sum('inflow'))["inflow__sum"]
+            response_credit = response_objects.aggregate(Sum('outflow'))["outflow__sum"]
+            if response_debit == None:
+                response_debit = 0
+            if response_credit == None:
+                response_credit = 0
+            response["inflow"] = response_debit
+            response["outflow"] = response_credit
+            response["balance_points"] = request.user.balance_points
+            if (Agent.objects.filter(user=request.user).count() != 0):
+                response["commission"] = Agent.objects.filter(user=request.user).first().commission_percent
+            response["user"] = UserSerializer(request.user).data
+        except:
+            raise_exception("TotalDebitCreditView")
+            response = json.dumps(response)
+        raise_info("End of TotalDebitCreditView")
         return Response(data=response)
 
 
@@ -222,6 +285,7 @@ class CancelTicketAPI(APIView):
     def post(self, request):
         response = {}
         try:
+            raise_info("Start of CancelTicketAPI")
             data = request.data
             cancelled_ticket_id = data['cancelled_ticket_id']
             todays_date= date.today()
@@ -240,9 +304,10 @@ class CancelTicketAPI(APIView):
             else:
                 response['status_code'] = 300
         except Exception as e:
-            print(e)
+            raise_exception("CancelTicketAPI")
             response['status_code'] = 500
             response['message'] = str(e)
+        raise_info("End of CancelTicketAPI")
         return Response(data=response)
 
 CancelTicketView = CancelTicketAPI.as_view()
@@ -252,6 +317,7 @@ class ClaimTicketAPI(APIView):
         response = {}
         response['status_code'] = 500
         try:
+            raise_info("Start of ClaimTicketAPI")
             data = request.data
             ticket_id = data['ticket_id']
             ticket_obj = TicketID.objects.filter(ticket_id=ticket_id,cancelled=False,is_completed=False)
@@ -273,8 +339,9 @@ class ClaimTicketAPI(APIView):
             else:
                 response['status_code'] = 300
                 response['status_message'] = "Ticket has already been claimed or does not exists."
-        except Exception as e:
-            print(e)
+        except:
+            raise_exception("ClaimTicketAPI")
+        raise_info("End of ClaimTicketAPI")
         return Response(response)
 
 ClaimTicketView = ClaimTicketAPI.as_view()

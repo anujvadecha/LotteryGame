@@ -153,11 +153,8 @@ export default {
   },
   methods:{
     fetch_winners_according_to_date(){
-      console.log(this.start_date)
-      console.log(this.end_date)
       var date_dict = {"start_date":this.start_date,"end_date":this.end_date}
       get_lottery_timings(date_dict).then(res=>{
-        console.log(res.lottery_objects)
         this.results_data = res.lottery_objects
       })
     }
@@ -166,7 +163,6 @@ export default {
     get_lottery_timings().then(
       res => {
           this.results_data = res.lottery_objects
-          console.log(this.results_data)
       }
     )
   }

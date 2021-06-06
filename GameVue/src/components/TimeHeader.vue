@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import {getTimeZoneDate} from "src/common/utils";
+import {getTimeZoneDate,convert_to_twelve_hour_clock} from "src/common/utils";
 
 export default {
   name: "TimeHeader",
@@ -46,8 +46,14 @@ export default {
       var ISTOffset = 330;   // IST offset UTC +5:30
       var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
       var hoursIST = ISTTime.getHours()
-      var minutesIST = ISTTime.getMinutes()
-      this.currentTime = "" + hoursIST + ":" + minutesIST + " " + ""
+      var minutesIST = (ISTTime.getMinutes()<10)? "0"+ISTTime.getMinutes() : ISTTime.getMinutes()
+      var secondsIST = ISTTime.getSeconds()
+      var timestring = hoursIST + ":" + minutesIST + ":" + secondsIST
+      var H = +timestring.substr(0, 2);
+      var h = H % 12 || 12;
+      var ampm = (H < 12 || H === 24) ? "AM" : "PM";
+      timestring = h + timestring.substr(2, 3) + ampm;
+      this.currentTime = timestring
     },
     calculateLefttime(){
       try {
@@ -61,7 +67,10 @@ export default {
         msec -= mm * 1000 * 60;
         var ss = Math.floor(msec / 1000);
         msec -= ss * 1000;
-        this.leftTime = hh + ":" + mm + ":" + ss
+
+        mm = (mm<10)?"0"+mm : mm
+        msec = (msec<10)?"0"+msec : msec
+        this.leftTime = "0"+hh + ":" + mm + ":" + ss
 
         // left time in red
         if(parseInt(mm) == 0 && parseInt(ss)<=30){
@@ -84,9 +93,14 @@ export default {
           return ''
         var ISTTime = getTimeZoneDate(currentTime);
         var hoursIST = ISTTime.getHours()
-        var minutesIST = ISTTime.getMinutes()
+        var minutesIST = (ISTTime.getMinutes()<10)? "0"+ISTTime.getMinutes() : ISTTime.getMinutes()
         var secondsIST = ISTTime.getSeconds()
-        return "" + hoursIST + ":" + minutesIST + " " + secondsIST
+        var timestring = hoursIST + ":" + minutesIST + ":" + secondsIST
+        var H = +timestring.substr(0, 2);
+        var h = H % 12 || 12;
+        var ampm = (H < 12 || H === 24) ? "AM" : "PM";
+        timestring = h + timestring.substr(2, 3) + ampm;
+        return timestring
       }
       catch (e) {
         return ''
