@@ -1,6 +1,6 @@
 <template>
  <div>
-  <ResultHeader v-if="!$q.platform.is.mobile"></ResultHeader>
+<!--  <ResultHeader v-if="!$q.platform.is.mobile"></ResultHeader>-->
     <q-card bordered flat class="row justify-end">
  <q-input dense class="q-pa-md " filled v-model="start_date">
    <template v-slot:prepend>
@@ -64,7 +64,7 @@
       </div>
       </q-card-section>
   </div>
-  <q-card bordered flat class="row absolute-bottom">
+  <q-card bordered flat class="row ">
   <q-btn class="col-2 q-ma-md" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
   <q-btn class="col-2 q-ma-md" color="orange" unelevated @click="print_account()">Print</q-btn>
   <q-btn class="col-2 q-ma-md" color="black" unelevated @click="refresh()">Refresh</q-btn>
@@ -80,7 +80,7 @@ import {get_current_date} from "src/common/utils";
 
 export default {
   name: "MyAccounts",
-  components: {ResultHeader},
+  components: {},
   data () {
   return {
       start_date: get_current_date(),

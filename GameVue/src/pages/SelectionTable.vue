@@ -1,16 +1,15 @@
 <template>
   <div>
-    <q-header v-if="!$q.platform.is.mobile" bordered class="bg-primary text-white" >
-      <ResultHeader ></ResultHeader>
-      <TimeHeader ></TimeHeader>
-      <div style="background-color: black; color: red">
-        <marquee style="font-size: medium">{{ marquee }}</marquee>
-      </div>
-      <OptionsHeader></OptionsHeader>
-      <SelectionHeader></SelectionHeader>
-    </q-header>
-
-    <q-page class="row" style="">
+    <q-page class="row" style="width: 100%;margin: 0">
+<!--      <q-header v-if="!$q.platform.is.mobile">-->
+<!--        <ResultHeader></ResultHeader>-->
+<!--      <TimeHeader ></TimeHeader>-->
+<!--        <div style="background-color: black; color: red">-->
+<!--          <marquee style="font-size: medium">{{ marquee }}</marquee>-->
+<!--        </div>-->
+<!--        <OptionsHeader></OptionsHeader>-->
+<!--      <SelectionHeader></SelectionHeader>-->
+<!--        </q-header>-->
       <div class="col-2" style="background-color: lightpink">
         <div class="row" style="background-color: white;height: 9.09%">
           <div @click=";all_sets=!all_sets;all_set_call()" class="q-ma-sm" style='background-color: #ba56d4; color: white;width: 100%;'>
@@ -104,9 +103,9 @@
           </div>
         </div>
       </div>
-
     </q-page>
-  </div>
+    </div>
+
   <!--    </q-page>-->
 </template>
 
@@ -191,7 +190,7 @@ const linksData = [
 ]
 export default {
   name: "SelectionTable",
-  components: {SelectionHeader, OptionsHeader, TimeHeader, ResultHeader},
+  components: { },
   props: ['set'],
   computed: {
     marquee: function () {

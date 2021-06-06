@@ -25,6 +25,15 @@
       <OptionsHeader></OptionsHeader>
       </q-expansion-item>
     </q-header>
+    <q-header v-if="!$q.platform.is.mobile">
+      <ResultHeader ></ResultHeader>
+      <TimeHeader v-if="currentRouteName==='SelectionTable'" ></TimeHeader>
+        <div v-if="currentRouteName==='SelectionTable'" style="background-color: black; color: red">
+          <marquee style="font-size: medium">{{ marquee }}</marquee>
+        </div>
+      <OptionsHeader v-if="currentRouteName==='SelectionTable'"></OptionsHeader>
+      <SelectionHeader v-if="currentRouteName==='SelectionTable'"></SelectionHeader>
+    </q-header>
     <q-drawer v-if="$q.platform.is.mobile"  v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
 
@@ -34,7 +43,7 @@
         <EssentialLink title="Logout" link="/Login" ></EssentialLink>
 
       </q-scroll-area>
-      <q-img class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
+        <q-img class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
           <div class="absolute-bottom bg-transparent">
             <q-avatar size="56px" class="q-mb-sm">
             </q-avatar>
@@ -42,7 +51,7 @@
             <div>Available points :<span style="font-weight: bold;font-size: medium;color: darkred">{{$store.state.balance_points}}</span></div>
 
           </div>
-      </q-img>
+        </q-img>
     </q-drawer>
 
     <q-page-container>
@@ -149,7 +158,7 @@ import {get_lottery_timings, get_user_details} from "src/common/api_calls";
 import EssentialLink from "components/EssentialLink";
 export default {
   name: 'MainLayout',
-  components: {EssentialLink,  OptionsHeader, TimeHeader, ResultHeader, Footer},
+  components: {SelectionHeader, EssentialLink,  OptionsHeader, TimeHeader, ResultHeader, Footer},
   methods:{
     changeMainSelectedStates:function () {
       console.log("changing state")
@@ -157,6 +166,14 @@ export default {
     }
   },
   computed: {
+    marquee: function () {
+      var text = '';
+      this.$store.state.announcements.map(message => {
+        text += message + ', '
+      })
+      text = text.slice(0, -2)
+      return text
+    },
     quantitySet:function () {
       var quantity=0
       var setDict=this.$store.state.inputs;

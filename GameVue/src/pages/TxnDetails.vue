@@ -1,7 +1,7 @@
 <template>
   <div>
-     <ResultHeader></ResultHeader>
-  <div>
+<!--     <ResultHeader></ResultHeader>-->
+<!--  <div>-->
     <q-table
       title="Transaction Details"
       :data="tickets"
@@ -21,7 +21,7 @@
          <q-btn class="col q-ma-md" color="orange"  unelevated @click="print_ticket()">Print</q-btn>
          <q-btn class="col q-ma-md" color="red"  unelevated @click="bet_details()">Bet Details</q-btn>
       </q-card>
-  </div>
+<!--  </div>-->
 
   </div>
 </template>
@@ -32,7 +32,7 @@ import {get_tickets} from "src/common/api_calls";
 import {getTimeZoneDate, print_div} from "src/common/utils";
 export default {
 name: "TxnDetails",
-components: {ResultHeader},
+components: {},
   data(){
     return {
       tickets:[],

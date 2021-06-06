@@ -1,6 +1,6 @@
 <template>
 <div>
-  <ResultHeader></ResultHeader>
+<!--  <ResultHeader></ResultHeader>-->
     <div class="row">
     <div class="q-pa-md" style="">
     <q-input filled v-model="start_date">
@@ -73,7 +73,7 @@ import {get_current_date} from "src/common/utils";
 
 export default {
   name: "Results",
-  components: {ResultHeader},
+  components: {},
   data() {
     return{
       start_date: get_current_date(),

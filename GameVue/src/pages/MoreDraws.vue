@@ -1,7 +1,7 @@
 <template>
 <div class="">
-  <ResultHeader></ResultHeader>
-  <TimeHeader></TimeHeader>
+<!--  <ResultHeader></ResultHeader>-->
+  <TimeHeader v-if="!$q.platform.is.mobile"></TimeHeader>
   <q-card bordered flat class="row">
       <div class="q-ma-lg font-bold"  style="font-size:large">More draws</div>
     <q-space></q-space>
@@ -21,7 +21,7 @@ import {compareDate, getFormattedDateHHMM, isToday} from "src/common/utils";
 import TimeHeader from "components/TimeHeader";
 export default {
 name: "MoreDraws",
-  components: {TimeHeader, ResultHeader},
+  components: {TimeHeader},
   methods:{
     add_selected:function (){
       this.$store.dispatch('set_selected_lotteries',this.options.filter(option=>{return option.selected}).map(value=>value.value))
