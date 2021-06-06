@@ -32,7 +32,7 @@
           </div>
         </div>
       </div>
-      <div class="col-1 bg-light-green " style="">
+      <div v-if="!$q.platform.is.mobile" class="col-1 bg-light-green " style="">
         <div class="row" style="background-color: white;height: 9.09%">
           <div class="col text-center font-bold q-pa-sm"
                style="border: 1px solid black;;font-size: large;font-weight: bold">Pts
