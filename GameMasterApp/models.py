@@ -80,7 +80,6 @@ class Ticket(BaseModel):
         try:
             return self.price * self.quantity
         except Exception as e:
-            print(e)
             return 0
     def __str__(self):
         return self.set_ticket
