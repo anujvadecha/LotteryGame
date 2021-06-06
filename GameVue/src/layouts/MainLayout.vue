@@ -23,7 +23,6 @@
             <ResultHeader ></ResultHeader>
       <TimeHeader ></TimeHeader>
       <OptionsHeader></OptionsHeader>
-      <SelectionHeader></SelectionHeader>
       </q-expansion-item>
     </q-header>
     <q-drawer v-if="$q.platform.is.mobile"  v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
@@ -150,7 +149,7 @@ import {get_lottery_timings, get_user_details} from "src/common/api_calls";
 import EssentialLink from "components/EssentialLink";
 export default {
   name: 'MainLayout',
-  components: {EssentialLink, SelectionHeader, OptionsHeader, TimeHeader, ResultHeader, Footer},
+  components: {EssentialLink,  OptionsHeader, TimeHeader, ResultHeader, Footer},
   methods:{
     changeMainSelectedStates:function () {
       console.log("changing state")
