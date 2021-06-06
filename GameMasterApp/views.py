@@ -50,6 +50,11 @@ class BuyTicketsAPI(APIView):
                 response['message'] = "Please select tickets before buying"
                 raise Exception("Please select tickets before buying")
 
+            if(points < 10):
+                response['status_code'] = 500
+                response['message'] = "Minimum total should be 10 points"
+                raise Exception("Minimum total should be 10 points")
+
             if (len(data) > 0):
                 for lottery in lotteries:
                     ticket_id = TicketID.objects.create(user=user, lottery=lottery)
@@ -57,7 +62,7 @@ class BuyTicketsAPI(APIView):
                     for key, value in data.items():
                         if (value['quantity'] != None):
                             ticket = Ticket(user=user, set_ticket=key, quantity=value["quantity"],
-                                                           price=value["price"], lottery=lottery)
+                                                           price=value["price"], lottery=lottery,number=key[1:] ,total=value['quantity']*value['price'] )
                             ticket_id.increase_outflow(value["price"]*value['quantity'])
                             tickets_to_create.append(ticket)
                     bulk_created = Ticket.objects.bulk_create(tickets_to_create)
@@ -77,8 +82,7 @@ class BuyTicketsAPI(APIView):
 
             print(response)
             return Response(data=response)
-        except:
-
+        except Exception as e:
             return Response(data=response, status=status.HTTP_200_OK)
 
 

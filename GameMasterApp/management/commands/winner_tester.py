@@ -10,7 +10,7 @@ class Command(BaseCommand):
     def winner_tester(self):
         TicketID.objects.all().delete()
         Ticket.objects.all().delete()
-        # TotalDebitCredit.objects.all().delete()
+        Lottery.objects.all().update(winners={},active=False,completed=False)
 
     def handle(self, *args, **options):
         self.winner_tester()

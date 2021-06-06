@@ -24,14 +24,13 @@ class LotterySerializer(serializers.ModelSerializer):
         fields = ["id","winners","active","completed","time"]
 
 class TicketSerializer(serializers.ModelSerializer):
-
     class Meta:
         model=Ticket
         fields=["price","quantity","set_ticket"]
 
 class TicketIDSerializer(serializers.ModelSerializer):
     ticket_set =TicketSerializer(many=True,read_only=True)
-    lottery=serializers.SerializerMethodField()
+    lottery = serializers.SerializerMethodField()
 
     def get_lottery(self,obj):
         return LotterySerializer(obj.lottery).data

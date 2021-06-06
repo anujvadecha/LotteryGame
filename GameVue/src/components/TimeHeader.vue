@@ -1,13 +1,22 @@
 <template>
 <div class="row">
-  <div class="col">
+  <div class="col" v-if="!$q.platform.is.mobile">
   <div class=" q-pa-sm" style="background-color: #a4ff01; font-weight: bold;color: black;font-size: large">Current Date : {{get_current_date}} </div>
   <div class=" q-pa-sm" style="background-color: #ffa400 ;font-weight: bold;color: black;font-size: large">Current Time : {{currentTime}}</div>
   </div>
-  <div class="col text-center" style="background-color: #ee82ef">
+  <div v-if="!$q.platform.is.mobile" class="col text-center" style="background-color: #ee82ef">
      <div style="color: black;font-size: xx-large" class="text-center font-bold q-ma-md">STAR SKILL GAME</div>
   </div>
-  <div class="col">
+  <div v-if="!$q.platform.is.mobile" class="col">
+    <div class="row q-pa-sm" style="background-color: #a4ff01 ;font-weight: bold;color: black;font-size: large">
+      Next Draw time : {{nextLotteryFormatted}}
+    </div>
+    <div style="background-color: #ffa400; font-weight: bold;color: black;font-size: large" class="row q-pa-sm" id="left-time">
+      Left time : {{leftTime}}
+    </div>
+  </div>
+
+  <div v-else class="col">
     <div class="row q-pa-sm" style="background-color: #a4ff01 ;font-weight: bold;color: black;font-size: large">
       Next Draw time : {{nextLotteryFormatted}}
     </div>
@@ -53,7 +62,7 @@ export default {
         var ss = Math.floor(msec / 1000);
         msec -= ss * 1000;
         this.leftTime = hh + ":" + mm + ":" + ss
-        
+
         // left time in red
         if(parseInt(mm) == 0 && parseInt(ss)<=30){
           document.getElementById("left-time").style.color = "red";

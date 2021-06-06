@@ -1,6 +1,6 @@
 <template>
 <div class="row" style="background-color:#ffff00;color: black">
-  <div class="col-5">
+  <div class="col-5" v-if="!$q.platform.is.mobile">
     <div class="row">
     <q-btn class="col" @click="coming_soon()" color="" unelevated outline>2D Coupon</q-btn>
     <q-btn class="col" @click="coming_soon()" color="" unelevated outline >JD</q-btn>
@@ -19,7 +19,7 @@
   </div>
   <div class="col" style="background-color: #eef8ff" >
     <div class="row"></div>
-    <div class="row" style="background-color: #eef8ff">
+    <div v-if="!$q.platform.is.mobile" class="row" style="background-color: #eef8ff">
     <div class="col-8">
       <q-option-group
         @input="change_selection_option()"
