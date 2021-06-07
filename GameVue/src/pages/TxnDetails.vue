@@ -2,7 +2,8 @@
   <div>
 <!--     <ResultHeader></ResultHeader>-->
 <!--  <div>-->
-    <q-table
+
+    <q-table v-if="!$q.platform.is.mobile"
       title="Transaction Details"
       :data="tickets"
       style="height:800px"
@@ -15,10 +16,29 @@
       :selected.sync="selected"
       @row-click="click_row"
     />
+    <q-table v-if="$q.platform.is.mobile"
+      style="height:70vh"
+      title="Transaction Details"
+      :data="tickets"
+      virtual-scroll
+      :pagination="pagination"
+      :columns="columns"
+      row-key="ticket_id"
+      class = "q-ma-md row"
+      selection="multiple"
+      :selected.sync="selected"
+      @row-click="click_row"
+    />
+
     <router-view></router-view>
-      <q-card class="row " flat bordered>
+      <q-card class="row" flat bordered v-if="!$q.platform.is.mobile">
          <q-btn class="col q-ma-md" color="blue"  unelevated @click="$router.push({path:'/'})">Back</q-btn>
-         <q-btn class="col q-ma-md" color="orange"  unelevated @click="print_ticket()">Print</q-btn>
+  <q-btn class="col q-ma-md" color="orange" unelevated @click="print_ticket()">Print</q-btn>
+         <q-btn class="col q-ma-md" color="red"  unelevated @click="bet_details()">Bet Details</q-btn>
+      </q-card>
+
+      <q-card class="row" flat bordered v-else>
+         <q-btn class="col q-ma-md" color="blue"  unelevated @click="$router.push({path:'/'})">Back</q-btn>
          <q-btn class="col q-ma-md" color="red"  unelevated @click="bet_details()">Bet Details</q-btn>
       </q-card>
 <!--  </div>-->
@@ -30,6 +50,8 @@
 import ResultHeader from "components/ResultHeader";
 import {get_tickets} from "src/common/api_calls";
 import {getTimeZoneDate, print_div} from "src/common/utils";
+import { Platform } from 'quasar'
+
 export default {
 name: "TxnDetails",
 components: {},
@@ -88,10 +110,8 @@ components: {},
       this.bet_details()
     },
     print_ticket() {
-      console.log(this.selected)
       this.selected.map(ticket => {
           try{
-            console.log(ticket)
             print_div(ticket)
           }catch (e){console.log(e)}
 

@@ -155,6 +155,7 @@ import SelectionHeader from "components/SelectionHeader";
 import Footer from "components/Footer";
 import {getTimeZoneDate} from "src/common/utils";
 import {get_lottery_timings, get_user_details} from "src/common/api_calls";
+
 import EssentialLink from "components/EssentialLink";
 export default {
   name: 'MainLayout',

@@ -275,6 +275,7 @@ class TicketIdView(APIView):
 
     def get(self, request):
         response_objects = TicketID.objects.filter(user=request.user,cancelled=False).order_by('-created_at')
+        print(response_objects)
         return Response(data=TicketIDSerializer(response_objects, many=True).data)
 
 

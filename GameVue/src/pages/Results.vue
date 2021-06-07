@@ -1,7 +1,7 @@
 <template>
 <div>
 <!--  <ResultHeader></ResultHeader>-->
-    <div class="row">
+    <div class="row" v-if="!$q.platform.is.mobile">
     <div class="q-pa-md" style="">
     <q-input filled v-model="start_date">
     <template v-slot:prepend>
@@ -34,6 +34,42 @@
     </div>
 
     <q-btn  unelevated style="" color="primary" class="q-ma-md" @click="fetch_winners_according_to_date()">Go</q-btn>
+
+  </div>
+
+  <div class="row" v-if="$q.platform.is.mobile">
+    <div class="q-pa-md col-5" style="">
+    <q-input filled v-model="start_date">
+    <template v-slot:prepend>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy transition-show="scale" transition-hide="scale">
+            <q-date v-model="start_date" mask="YYYY-MM-DD">
+              <div class="row items-center justify-end">
+                <q-btn v-close-popup label="Close" color="primary" flat />
+              </div>
+            </q-date>
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
+    </div>
+    <div class="q-pa-md col-5" style="">
+    <q-input filled v-model="end_date">
+    <template v-slot:prepend>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy transition-show="scale" transition-hide="scale">
+            <q-date v-model="end_date" mask="YYYY-MM-DD">
+              <div class="row items-center justify-end">
+                <q-btn v-close-popup label="Close" color="primary" flat />
+              </div>
+            </q-date>
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
+    </div>
+
+    <q-btn  unelevated style="" color="primary" class="col-2" @click="fetch_winners_according_to_date()">Go</q-btn>
 
   </div>
 

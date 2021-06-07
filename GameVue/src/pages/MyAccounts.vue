@@ -1,7 +1,7 @@
 <template>
  <div>
 <!--  <ResultHeader v-if="!$q.platform.is.mobile"></ResultHeader>-->
-    <q-card bordered flat class="row justify-end">
+    <q-card v-if="!$q.platform.is.mobile" bordered flat class="row justify-end">
  <q-input dense class="q-pa-md " filled v-model="start_date">
    <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
@@ -31,6 +31,39 @@
     </q-input>
     <q-btn color="primary"   unelevated style="" class="q-ma-md" @click="fetch_transaction_according_to_date()"> Go </q-btn>
     </q-card>
+
+    <q-card v-if="$q.platform.is.mobile" bordered flat class="row">
+ <q-input dense class="q-pa-md col-5" filled v-model="start_date">
+   <template v-slot:prepend>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy transition-show="scale" transition-hide="scale">
+            <q-date v-model="start_date" mask="YYYY-MM-DD">
+              <div class="row items-center justify-end">
+                <q-btn v-close-popup label="Close" color="primary" flat />
+              </div>
+            </q-date>
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+ </q-input>
+
+ <q-input dense class="q-pa-md col-5" filled v-model="end_date">
+   <template v-slot:prepend>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy transition-show="scale" transition-hide="scale">
+            <q-date v-model="end_date" mask="YYYY-MM-DD">
+              <div class="row items-center justify-end">
+                <q-btn v-close-popup label="Close" color="primary" flat />
+              </div>
+            </q-date>
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
+    <q-btn color="primary"   unelevated style="" class="col-2" @click="fetch_transaction_according_to_date()"> Go </q-btn>
+    </q-card>
+
+
 
     <div id="account_details" >
       <q-card-section class="row" style="font-size: x-large;">
@@ -64,10 +97,19 @@
       </div>
       </q-card-section>
   </div>
-  <q-card bordered flat class="row ">
+  <q-card bordered flat class="row" v-if="!$q.platform.is.mobile">
   <q-btn class="col-2 q-ma-md" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
   <q-btn class="col-2 q-ma-md" color="orange" unelevated @click="print_account()">Print</q-btn>
   <q-btn class="col-2 q-ma-md" color="black" unelevated @click="refresh()">Refresh</q-btn>
+    </q-card>
+
+
+  <q-card bordered flat class="row" v-if="$q.platform.is.mobile">
+  <q-btn class="col-4 q-ma-lg" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
+<!--   <q-btn class="col-2 q-ma-md" color="orange" unelevated @click="print_account()">Print</q-btn>
+
+ --> 
+  <q-btn class="col-4 q-ma-lg" color="black" unelevated @click="refresh()">Refresh</q-btn>
     </q-card>
 
    </div>
