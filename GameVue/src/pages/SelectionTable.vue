@@ -78,7 +78,7 @@
 
 
             <q-card class=" text-center " style="background-color: #eef8ff;margin-left: 2px;margin-right: 2px" flat>
-              <div style="font-size: medium"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
+              <div style="font-size: small"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
               <input onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  type="text" :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
                      v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;margin-bottom:1px')"
                      :value="inputs[set][i*10+n-10-1]"
@@ -397,7 +397,7 @@ export default {
     },
     getStyleForInput(input) {
       // background-color:#882ce2;
-        return "color:#c50a46;border:1px solid black; background-color:white;"
+        return "color:#c50a46;border:1px solid black; background-color:white;height:25px"
     },
     pushToPage: function (link) {
       // this.selectedSets[link.alias] = true
