@@ -23,16 +23,22 @@ this.$q.notify({
           { label: 'Go', color: 'white', handler: () => {
             console.log(document.body.style.zoom);
 
-            this.$q.fullscreen.toggle() ;
-            setTimeout(()=>{
-              console.log(!(($(window).scrollTop() + $(window).innerHeight()) >= $(document).height()))
-              var zoom = 100;
-              while(!(($(window).scrollTop() + $(window).innerHeight()) >= $(document).height())) {
-                console.log("zoom required")
-                zoom = zoom - 5;
-                document.body.style.zoom = zoom+'%'
-            }
-            },4000);
+            this.$q.fullscreen.toggle().then(result => {
+              if(window.screen.availHeight <= 800){
+                document.body.style.zoom = "90%"
+              }
+            }) ;
+            // setTimeout(()=>{
+            //   console.log(!(($(window).scrollTop() + $(window).innerHeight()) >= $(document).height()))
+            //   var zoom = 100;
+            //   while(!(($(window).scrollTop() + $(window).innerHeight()) >= $(document).height())) {
+            //     console.log("zoom required")
+            //     zoom = zoom - 5;
+            //     document.body.style.zoom = zoom+'%'
+            // }
+            // },4000);
+
+
 
           } },
           { label: 'Dismiss', color: 'white', handler: () => {  } },
