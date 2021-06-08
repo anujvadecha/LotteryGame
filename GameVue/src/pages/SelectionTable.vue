@@ -27,20 +27,20 @@
         </div>
       </div>
       <div v-if="!$q.platform.is.mobile" class="col-1 bg-light-green " style="">
-        <div class="row" style="background-color: white;height: 9.09%">
+        <div class="row" style="background-color: white;">
           <div class="col text-center font-bold "
-               style="border: 1px solid black;;font-size: large;font-weight: bold">Pts
+               style="border: 1px solid black;;font-weight: bold">Pts
           </div>
           <div class="col text-center font-bold "
-               style="border: 1px solid black;;font-size: large;font-weight: bold"> SR
+               style="border: 1px solid black;;font-weight: bold"> SR
           </div>
         </div>
-        <div class="row" style="background-color: white;height: 9.09% " v-for="link in essentialLinks"
+        <div class="row" style="background-color: white;" v-for="link in essentialLinks"
              :key="link.title">
-          <div class="col text-center" style="border: 1px solid black;;font-size: large;font-weight: bold">
+          <div class="col text-center" style="border: 1px solid black;font-weight: bold">
             {{ parseInt($store.state.setPoints[link.alias]) * 10 }}
           </div>
-          <div class="col text-center " style="border: 1px solid black;;font-size: large;font-weight: bold">
+          <div class="col text-center " style="border: 1px solid black;font-weight: bold">
             {{ link.alias }}
           </div>
         </div>
@@ -55,20 +55,23 @@
           </div>
 <!--               COLUMN CARDS   -->
           <div v-for="i in 10" :key="i" class="" style="width: 9.09%;">
-            <q-card class=" text-center" style="background-color: #eef8ff;margin-right: 2px;margin-left: 2px " flat>
-              <input  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  type="text" :id="'col'+set+i" class="text-center text-red col_cards"
-                     v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')"
+            <q-card class=" text-center" style="background-color: #eef8ff;margin-right: 2px;margin-left: 2px;margin-top: 2px " flat>
+              <input  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                      type="text"
+                      :id="'col'+set+i"
+                      class="text-center text-red col_cards"
+                     v-bind:style="'background-color:#882ce2;width:100%;height:100%'"
                      @input="add_input_col(i)"/>
             </q-card>
           </div>
         </div>
-        <div class="row " v-for="i in 10" style="height: 9%" :key="i">
+        <div class="row " v-for="i in 10" style="" :key="i">
 <!--               ROW CARDS -->
           <div class="" style="width: 9.09%;">
             <div class=" text-center q-pl-xs q-pr-xs " style="background-color: #eef8ff;" flat>
               <div style="font-size: small"> &nbsp;</div>
               <input  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" type="text" :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs row_cards"
-                     v-bind:style="'height:30%;background-color:#882ce2;'.concat(';width:100%;height:100%')"
+                     v-bind:style="'height:30%;background-color:#882ce2;width:100%;height:100%'"
                      @input="add_input_row(i)"/>
             </div>
           </div>
@@ -89,7 +92,7 @@
           <div class="col text-center font-bold" style="border: 1px solid black;"> Qty</div>
           <div class="col text-center font-bold" style="border: 1px solid black;"> Pts</div>
         </div>
-        <div class="row" style="background-color: white;height: 9.09% " v-for="link in essentialLinks"
+        <div class="row" style="background-color: white; " v-for="link in essentialLinks"
              :key="link.title">
           <div class="col text-right q-pr-sm"
                style="border: 1px solid black; background-color: #7ffffe;font-weight: bold">
