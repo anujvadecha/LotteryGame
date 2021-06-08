@@ -60,7 +60,7 @@
                       type="text"
                       :id="'col'+set+i"
                       class="text-center text-red col_cards"
-                     v-bind:style="'background-color:#882ce2;width:100%;height:100%'"
+                     v-bind:style="'background-color:#882ce2;width:100%;height:20%'"
                      @input="add_input_col(i)"/>
             </q-card>
           </div>
@@ -71,7 +71,7 @@
             <div class=" text-center q-pl-xs q-pr-xs " style="background-color: #eef8ff;" flat>
               <div style="font-size: small"> &nbsp;</div>
               <input  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" type="text" :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs row_cards"
-                     v-bind:style="'height:30%;background-color:#882ce2;width:100%;height:100%'"
+                     v-bind:style="'height:20%;background-color:#882ce2;width:100%;height:100%'"
                      @input="add_input_row(i)"/>
             </div>
           </div>
@@ -397,7 +397,7 @@ export default {
     },
     getStyleForInput(input) {
       // background-color:#882ce2;
-      return 'height:30%'
+      return 'height:20%'
         // return " background-color:white;font-size:small"
     },
     pushToPage: function (link) {
