@@ -2,14 +2,14 @@
 <div class="row" style="background-color: white">
   <div class="col-2" style="background-color: red">
     <div class=" text-center text-white" style="font-size:x-large;border: solid 2px black;">2-D</div>
-    <div class="text-center text-white" style="font-size: large;border: solid 2px black;">
+    <div class="text-center text-white" style="font-size: x-large;border: solid 2px black;">
       {{ previousLotteryFormatted }}
     </div>
   </div>
   <div v-if="results" class="row" style="width: 83%" >
     <div v-for="(key,value) in results" :key="value" class="col bg-white">
-        <div class="text-black text-bold q-ma-xs text-center" style="background-color:#ffb6c1;font-size: large ">{{value}}</div>
-        <div class="text-black text-bold  q-ma-xs text-center" style="background-color:#ffb6c1; font-size: large ">{{ ("0"+key).slice(-2)}}</div>
+        <div class="text-black text-bold text-center" style="background-color:#ffb6c1;font-size:x-large;margin: 5px ">{{value}}</div>
+        <div class="text-black text-bold text-center" style="background-color:#ffb6c1; font-size:x-large ;margin: 5px;">{{ ("0"+key).slice(-2)}}</div>
     </div>
   </div>
   <div class="col-10 text-center flex flex-center" style="color: black;font-size: large" v-else>
@@ -44,7 +44,7 @@ name: "ResultHeader",
         var ampm = (H < 12 || H === 24) ? "AM" : "PM";
         timestring = h + timestring.substr(2, 3) + ampm;
         return timestring
-        
+
     }
   },
   methods:{

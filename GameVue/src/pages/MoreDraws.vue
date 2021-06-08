@@ -5,11 +5,11 @@
   <q-card bordered flat class="row">
       <div class="q-ma-lg font-bold"  style="font-size:large">More draws</div>
     <q-space></q-space>
-    <q-checkbox class="col-2 q-ma-md" v-model="select_all_button" color="blue" unelevated @input="select_all()">Select all</q-checkbox>
+    <q-checkbox class="col-2 q-ma-md" style="font-size: large" v-model="select_all_button" color="blue" unelevated @input="select_all()">Select all</q-checkbox>
     <q-btn class="col-2 q-ma-md" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
   </q-card>
   <div class="row">
-  <q-card @click="select_lottery(option)" class="col-xs-4 col-sm-2 col-md-2 q-pa-lg q-ma-sm" v-for="option in options" :key="option.value.id">
+  <q-card @click="select_lottery(option)" style="background-color: #fbb000;font-size: large" class="col-xs-4 col-sm-2 col-md-2 q-pa-lg q-ma-sm" v-for="option in options" :key="option.value.id">
     <q-checkbox :disable="option.disabled"  @input="add_selected()" dense v-model="option.selected" val="teal" :label="option.label" color="teal" />
   </q-card>
   </div>
@@ -66,13 +66,13 @@ name: "MoreDraws",
     map(
       lottery=>{
         var selected = false;
-        selected_ids.map(id=> {
-            if(lottery.id===id) {
-              this.selected_lotteries.push(lottery)
-              selected = true;
-            }
-          }
-        )
+        // selected_ids.map(id=> {
+        //     if(lottery.id===id) {
+        //       this.selected_lotteries.push(lottery)
+        //       selected = true;
+        //     }
+        //   }
+        // )
         return {label:getFormattedDateHHMM(lottery.time),value:lottery,selected:selected}
       }
     )

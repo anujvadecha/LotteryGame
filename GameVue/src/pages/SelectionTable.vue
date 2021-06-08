@@ -76,10 +76,11 @@
           <!--          NUMBER CARDS     -->
           <div class="" v-for="n in 10" style="width: 9.09%" :key="n">
 
+
             <q-card class=" text-center " style="background-color: #eef8ff;margin-left: 2px;margin-right: 2px" flat>
               <div style="font-size: medium"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
               <input onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  type="text" :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
-                     v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;')"
+                     v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;margin-bottom:1px')"
                      :value="inputs[set][i*10+n-10-1]"
                      @input="add_input(i*10+n-10-1,true)" autocomplete="off"/>
             </q-card>
@@ -93,12 +94,12 @@
         </div>
         <div class="row" style="background-color: white;height: 9.09% " v-for="link in essentialLinks"
              :key="link.title">
-          <div class="col text-center q-pa-sm"
-               style="border: 1px solid black; background-color: #7ffffe;font-size: large;font-weight: bold">
+          <div class="col text-right q-pr-sm"
+               style="border: 1px solid black; background-color: #7ffffe;font-size:large;font-weight: bold">
             {{ quantitySet[link.alias] }}
           </div>
-          <div class="col text-center q-pa-sm"
-               style="border: 1px solid black; background-color: #fec0ff;font-size: large;font-weight: bold">
+          <div class="col text-right q-pr-sm"
+               style="border: 1px solid black; background-color: #fec0ff;font-size:large;font-weight: bold">
             {{ priceSet[link.alias] }}
           </div>
         </div>
@@ -396,7 +397,7 @@ export default {
     },
     getStyleForInput(input) {
       // background-color:#882ce2;
-        return "color:#c50a46;border:1px solid black; background-color:white;font-size:medium"
+        return "color:#c50a46;border:1px solid black; background-color:white;"
     },
     pushToPage: function (link) {
       // this.selectedSets[link.alias] = true

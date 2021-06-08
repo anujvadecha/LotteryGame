@@ -1,18 +1,18 @@
 <template>
-<div class="row">
+<div class="row" style="font-family: 'Times New Roman'">
   <div v-if="!$q.platform.is.mobile" class="col" >
-  <div class=" q-pa-sm" style="background-color: #a4ff01; font-weight: bold;color: black;font-size: large">Current Date : {{get_current_date}} </div>
-  <div class=" q-pa-sm" style="background-color: #ffa400 ;font-weight: bold;color: black;font-size: large">Current Time : {{currentTime}}</div>
+  <div class="q-pl-md" style="background-color: #a4ff01; font-weight: bold;color: black;font-size: xx-large">Current Date : {{get_current_date}} </div>
+  <div class="q-pl-md " style="background-color: #ffa400 ;font-weight: bold;color: black;font-size: xx-large">Current Time : {{currentTime}}</div>
   </div>
   <div v-if="!$q.platform.is.mobile" class="col text-center" style="background-color: #ed92f1">
-     <div style="color: black;font-size: xx-large;" class="text-center font-bold q-ma-md">STAR SKILL GAME</div>
+     <div style="color: black;font-size: xx-large;" class="text-center font-bold q-pa-md">STAR SKILL GAME</div>
   </div>
   <div v-if="!$q.platform.is.mobile"  class="col">
-    <div class="row q-pa-sm" style="background-color: #a4ff01 ;font-weight: bold;color: black;font-size: large">
+    <div class="row q-pl-md" style="background-color: #a4ff01 ;font-weight: bold;color: black;font-size: xx-large">
       Next Draw time : {{nextLotteryFormatted}}
     </div>
-    <div style="background-color: #ffa400; font-weight: bold;color: black;font-size: large" class="row q-pa-sm" id="left-time">
-      Left time : {{leftTime}}
+    <div style="background-color: #ffa400; font-weight: bold;color: black;font-size: xx-large" class="row q-pl-md" id="left-time">
+      Left time :<span style=""> {{leftTime}}</span>
     </div>
   </div>
   <div v-else class="col">

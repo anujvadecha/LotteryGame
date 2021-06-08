@@ -29,7 +29,7 @@
       <ResultHeader ></ResultHeader>
       <TimeHeader v-if="currentRouteName==='SelectionTable'" ></TimeHeader>
         <div v-if="currentRouteName==='SelectionTable'" style="background-color: black; color: red">
-          <marquee style="font-size: large">{{ marquee }}</marquee>
+          <marquee style="font-size: large;color: #41c32c;font-weight: bolder">{{ marquee }}</marquee>
         </div>
       <OptionsHeader v-if="currentRouteName==='SelectionTable'"></OptionsHeader>
       <SelectionHeader v-if="currentRouteName==='SelectionTable'"></SelectionHeader>
