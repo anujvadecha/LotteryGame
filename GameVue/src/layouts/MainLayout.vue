@@ -18,7 +18,6 @@
               Total
              <div class="col text-center text-black" style=" background-color: white;font-weight: bold"> Quantity {{quantitySet}}</div>
              <div class="col text-center text-black" style=" background-color: white;font-weight: bold">  Price {{priceSet}}</div>
-
             </template>
             <ResultHeader ></ResultHeader>
       <TimeHeader ></TimeHeader>

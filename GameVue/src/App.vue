@@ -20,7 +20,12 @@ this.$q.notify({
         timeout: 200000,
         html:true,
         actions: [
-          { label: 'Go', color: 'white', handler: () => { this.$q.fullscreen.toggle() } },
+          { label: 'Go', color: 'white', handler: () => {
+            this.$q.fullscreen.toggle() ;
+            while(!(($(window).scrollTop() + $(window).innerHeight()) >= $(document).height())) {
+                document.body.style.zoom=document.body.style.zoom-0.1
+            }
+          } },
           { label: 'Dismiss', color: 'white', handler: () => {  } },
         ]
       })
