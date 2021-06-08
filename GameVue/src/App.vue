@@ -24,16 +24,12 @@ this.$q.notify({
             console.log(document.body.style.zoom);
 
             this.$q.fullscreen.toggle() ;
-            setTimeout(()=>{
-              console.log(!(($(window).scrollTop() + $(window).innerHeight()) >= $(document).height()))
-              var zoom = 100;
-              while(!(($(window).scrollTop() + $(window).innerHeight()) >= $(document).height())) {
+            var zoom = 1
+            while((($(window).scrollTop() + $(window).innerHeight()) >= $(document).height())) {
                 console.log("zoom required")
-                zoom = zoom - 5;
-                document.body.style.zoom = zoom+'%'
+                zoom=zoom-0.1;
+                document.body.style.zoom = zoom
             }
-            },4000);
-
           } },
           { label: 'Dismiss', color: 'white', handler: () => {  } },
         ]
