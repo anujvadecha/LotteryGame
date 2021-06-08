@@ -12,14 +12,14 @@
 <!--        </q-header>-->
       <div class="col-2" style="background-color: lightpink">
         <div class="row" style="background-color: white;height: 9.09%">
-          <div @click=";all_sets=!all_sets;all_set_call()" class="q-ma-sm" style='background-color: #ba56d4; color: white;width: 100%;'>
+          <div @click=";all_sets=!all_sets;all_set_call()" class="q-ma-xs" style='background-color: #ba56d4; color: white;width: 100%;'>
             <q-checkbox dense @input="all_set_call()" v-model="all_sets"></q-checkbox>
             Name
           </div>
         </div>
         <div class="row" style="background-color: white;height: 9.09%;cursor: default;"
              v-for="link in essentialLinks" :key="link.title">
-          <div class="q-ma-sm" v-bind:style="getStyleForButton(link)" @click="pushToPage(link)">
+          <div class="q-ma-xs" v-bind:style="getStyleForButton(link)" @click="pushToPage(link)">
             <q-checkbox dense @click="pushToPage(link)" @input="changeMainSelectedStates(link)"
                         v-model="selectedSets[link.alias]" :value="true"></q-checkbox>
             {{ link.title }}
@@ -64,25 +64,24 @@
           </div>
         </div>
         <div class="row " v-for="i in 10" style="" :key="i">
-          <!--     ROW CARDS -->
+<!--               ROW CARDS -->
           <div class="" style="width: 9.09%;">
-            <q-card class=" text-center q-pl-xs q-pr-xs " style="background-color: #eef8ff;" flat>
+            <div class=" text-center q-pl-xs q-pr-xs " style="background-color: #eef8ff;" flat>
               <div style=""> &nbsp;</div>
               <input  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" type="text" :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs row_cards"
                      v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')"
                      @input="add_input_row(i)"/>
-            </q-card>
+            </div>
           </div>
-          <!--          NUMBER CARDS     -->
+<!--                    NUMBER CARDS     -->
           <div class="" v-for="n in 10" style="width: 9.09%" :key="n">
-
-            <q-card class=" text-center " style="background-color: #eef8ff;margin-left: 2px;margin-right: 2px" flat>
-              <div style=""> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
+            <div class="text-center " style="background-color: #eef8ff;margin-left: 2px;margin-right: 2px" flat>
+              <div style="font-size: small"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
               <input onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  type="text" :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
                      v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;')"
                      :value="inputs[set][i*10+n-10-1]"
                      @input="add_input(i*10+n-10-1,true)" autocomplete="off"/>
-            </q-card>
+            </div>
           </div>
         </div>
       </div>
@@ -396,7 +395,8 @@ export default {
     },
     getStyleForInput(input) {
       // background-color:#882ce2;
-        return "color:#c50a46;border:1px solid black; background-color:white;height:25px"
+      return 'font-size:small'
+        // return "color:#c50a46; background-color:white;font-size:small"
     },
     pushToPage: function (link) {
       // this.selectedSets[link.alias] = true
