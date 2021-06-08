@@ -17,7 +17,7 @@
             Name
           </div>
         </div>
-        <div class="row" style="background-color: white;height: 9.09%;cursor: default;font-size: large"
+        <div class="row" style="background-color: white;height: 9.09%;cursor: default;"
              v-for="link in essentialLinks" :key="link.title">
           <div class="q-ma-sm" v-bind:style="getStyleForButton(link)" @click="pushToPage(link)">
             <q-checkbox dense @click="pushToPage(link)" @input="changeMainSelectedStates(link)"
@@ -28,19 +28,19 @@
       </div>
       <div v-if="!$q.platform.is.mobile" class="col-1 bg-light-green " style="">
         <div class="row" style="background-color: white;height: 9.09%">
-          <div class="col text-center font-bold q-pa-sm"
+          <div class="col text-center font-bold "
                style="border: 1px solid black;;font-size: large;font-weight: bold">Pts
           </div>
-          <div class="col text-center font-bold q-pa-sm"
+          <div class="col text-center font-bold "
                style="border: 1px solid black;;font-size: large;font-weight: bold"> SR
           </div>
         </div>
         <div class="row" style="background-color: white;height: 9.09% " v-for="link in essentialLinks"
              :key="link.title">
-          <div class="col text-center q-pa-sm" style="border: 1px solid black;;font-size: large;font-weight: bold">
+          <div class="col text-center" style="border: 1px solid black;;font-size: large;font-weight: bold">
             {{ parseInt($store.state.setPoints[link.alias]) * 10 }}
           </div>
-          <div class="col text-center q-pa-sm" style="border: 1px solid black;;font-size: large;font-weight: bold">
+          <div class="col text-center " style="border: 1px solid black;;font-size: large;font-weight: bold">
             {{ link.alias }}
           </div>
         </div>
@@ -50,7 +50,7 @@
           <!--     ALL POINTS CARD   -->
           <div class="" style="width: 9.09%;">
             <q-card class=" text-center q-pl-sm q-pr-sm" style="background-color: #eef8ff;" flat>
-              <div style="font-size: medium"> SET {{ this.set }}</div>
+              <div style=""> SET {{ this.set }}</div>
             </q-card>
           </div>
           <!--     COLUMN CARDS   -->
@@ -94,11 +94,11 @@
         <div class="row" style="background-color: white;height: 9.09% " v-for="link in essentialLinks"
              :key="link.title">
           <div class="col text-right q-pr-sm"
-               style="border: 1px solid black; background-color: #7ffffe;font-size:large;font-weight: bold">
+               style="border: 1px solid black; background-color: #7ffffe;font-weight: bold">
             {{ quantitySet[link.alias] }}
           </div>
           <div class="col text-right q-pr-sm"
-               style="border: 1px solid black; background-color: #fec0ff;font-size:large;font-weight: bold">
+               style="border: 1px solid black; background-color: #fec0ff;font-weight: bold">
             {{ priceSet[link.alias] }}
           </div>
         </div>
