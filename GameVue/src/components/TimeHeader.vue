@@ -5,7 +5,7 @@
   <div class="q-pl-md " style="background-color: #ffa400 ;font-weight: bold;color: black;font-size: x-large">Current Time : {{currentTime}}</div>
   </div>
   <div v-if="!$q.platform.is.mobile" class="col text-center" style="background-color: #ed92f1">
-     <div style="color: black;font-size: xx-large;" class="text-center font-bold q-pa-md">STAR SKILL GAME</div>
+     <div style="color: black;font-size: xx-large;" class="text-center font-bold">STAR SKILL GAME</div>
   </div>
   <div v-if="!$q.platform.is.mobile"  class="col">
     <div class="row q-pl-md" style="background-color: #a4ff01 ;font-weight: bold;color: black;font-size: x-large">
