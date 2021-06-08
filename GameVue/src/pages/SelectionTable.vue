@@ -27,20 +27,20 @@
         </div>
       </div>
       <div v-if="!$q.platform.is.mobile" class="col-1 bg-light-green " style="">
-        <div class="row" style="background-color: white;">
+        <div class="row" style="background-color: white;height: 9.09%">
           <div class="col text-center font-bold "
-               style="border: 1px solid black;;font-weight: bold">Pts
+               style="border: 1px solid black;;font-size: large;font-weight: bold">Pts
           </div>
           <div class="col text-center font-bold "
-               style="border: 1px solid black;;font-weight: bold"> SR
+               style="border: 1px solid black;;font-size: large;font-weight: bold"> SR
           </div>
         </div>
-        <div class="row" style="background-color: white;" v-for="link in essentialLinks"
+        <div class="row" style="background-color: white;height: 9.09% " v-for="link in essentialLinks"
              :key="link.title">
-          <div class="col text-center" style="border: 1px solid black;font-weight: bold">
+          <div class="col text-center" style="border: 1px solid black;;font-size: large;font-weight: bold">
             {{ parseInt($store.state.setPoints[link.alias]) * 10 }}
           </div>
-          <div class="col text-center " style="border: 1px solid black;font-weight: bold">
+          <div class="col text-center " style="border: 1px solid black;;font-size: large;font-weight: bold">
             {{ link.alias }}
           </div>
         </div>
@@ -65,7 +65,7 @@
             </q-card>
           </div>
         </div>
-        <div class="row " v-for="i in 10" style="" :key="i">
+        <div class="row" v-for="i in 10" style="" :key="i">
 <!--               ROW CARDS -->
           <div class="" style="width: 9.09%;">
             <div class=" text-center q-pl-xs q-pr-xs " style="background-color: #eef8ff;" flat>
@@ -92,7 +92,7 @@
           <div class="col text-center font-bold" style="border: 1px solid black;"> Qty</div>
           <div class="col text-center font-bold" style="border: 1px solid black;"> Pts</div>
         </div>
-        <div class="row" style="background-color: white; " v-for="link in essentialLinks"
+        <div class="row" style="background-color: white;height: 9.09% " v-for="link in essentialLinks"
              :key="link.title">
           <div class="col text-right q-pr-sm"
                style="border: 1px solid black; background-color: #7ffffe;font-weight: bold">
