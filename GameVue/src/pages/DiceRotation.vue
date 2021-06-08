@@ -34,9 +34,19 @@ name: "DiceRotation",
           this_pointer.results = this_pointer.$store.state.results
           },2000);
         const router = this.$router;
+        const store=this.$store;
         setTimeout(function(){
-          window.location.href='http://'+window.location.host
+        store.dispatch('set_selected_lotteries',[])
+        store.state.previousLottery=store.state.nextLottery;
+        router.push({
+        path: '/SelectionTable',
+        name:'SelectionTable',
+        params: {
+          set: 'A'
+        }
+      })
           }, 5000);
+        // this.$store.state.selectedSets={};
   }
 }
 </script>

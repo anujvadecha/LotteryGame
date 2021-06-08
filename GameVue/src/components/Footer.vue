@@ -26,7 +26,7 @@
 // import {JsBarcode} from 'https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js';
 import {claim_ticket_api, get_winners, place_order} from "src/common/api_calls";
 import {Notify} from "quasar";
-import {print_div} from "src/common/utils";
+import {ClickHereToPrint, print_div, PrintDiv} from "src/common/utils";
 
 export default {
 name: "Footer",
@@ -116,6 +116,7 @@ name: "Footer",
     }
     console.log(order)
     const  store=this.$store;
+    const q=this.$q;
     place_order(order).then(res=>{
       if(res.status_code===200)
       {
@@ -136,10 +137,39 @@ name: "Footer",
 
         return ticket.ticket_id})
         res.tickets.map(ticket => {
-          if(!this.$q.platform.is.mobile)
-          {print_div(ticket,false,store.state.user.first_name)}
+          if(!this.$q.platform.is.mobile) {
+            print_div(ticket,false,store.state.user.first_name)
+            // ClickHereToPrint()
+            // PrintDiv()
+          }
         });
         this.$store.dispatch('reset_all')
+        q.fullscreen.request().then(() => { // v1.5.0+
+    console.log("Success")
+  })
+          this.$q.notify({
+        message: " Go fullscreen",
+        color: 'primary',
+        position:"center",
+        timeout: 20000,
+        html:true,
+        actions: [
+          { label: 'Go', color: 'white', handler: () => {
+            console.log(document.body.style.zoom);
+
+            this.$q.fullscreen.toggle().then(result => {
+              if(window.screen.availHeight <= 800){
+                document.body.style.zoom = "88%"
+              }
+            }) ;
+
+          } },
+          { label: 'Dismiss', color: 'white', handler: () => {  } },
+        ]
+      })
+  .catch(err => { // v1.5.0+
+    console.log(err)
+  });
         }
       else{
         Notify.create({

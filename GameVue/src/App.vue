@@ -1,6 +1,7 @@
 <template>
   <div id="q-app" style="font-weight: bold">
     <div id="printdivcontent" style="border: 1px dotted black; text-align: center; padding: 5px;display: none;width:100%;height: fit-content;">  </div>
+
     <router-view />
   </div>
 </template>
@@ -13,6 +14,11 @@ export default {
   name: 'App',
 
   created() {
+    this.$q.fullscreen.toggle().then(result => {
+              if(window.screen.availHeight <= 800){
+                document.body.style.zoom = "88%"
+              }
+            }) ;
 this.$q.notify({
         message: " Go fullscreen",
         color: 'primary',
@@ -28,6 +34,7 @@ this.$q.notify({
                 document.body.style.zoom = "88%"
               }
             }) ;
+
             // setTimeout(()=>{
             //   console.log(!(($(window).scrollTop() + $(window).innerHeight()) >= $(document).height()))
             //   var zoom = 100;

@@ -25,7 +25,7 @@
       </q-expansion-item>
     </q-header>
     <q-header v-if="!$q.platform.is.mobile">
-      <ResultHeader ></ResultHeader>
+      <ResultHeader v-if="currentRouteName!=='DiceRotation'"></ResultHeader>
       <TimeHeader v-if="currentRouteName==='SelectionTable'" ></TimeHeader>
         <div v-if="currentRouteName==='SelectionTable'" style="background-color: black; color: red">
           <marquee style="font-size: large;color: #41c32c;font-weight: bolder">{{ marquee }}</marquee>
