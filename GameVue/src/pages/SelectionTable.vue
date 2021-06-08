@@ -10,16 +10,16 @@
 <!--        <OptionsHeader></OptionsHeader>-->
 <!--      <SelectionHeader></SelectionHeader>-->
 <!--        </q-header>-->
-      <div class="col-2" style="background-color: lightpink">
-        <div class="row" style="background-color: white;height: 9.09%">
+      <div class="col-2 flex" style="background-color: lightpink">
+        <div class="row" style="background-color: white;width: 100%">
           <div @click=";all_sets=!all_sets;all_set_call()" class="q-ma-xs" style='background-color: #ba56d4; color: white;width: 100%;'>
             <q-checkbox dense @input="all_set_call()" v-model="all_sets"></q-checkbox>
             Name
           </div>
         </div>
-        <div class="row" style="background-color: white;height: 9.09%;cursor: default;"
+        <div class="row" style="background-color: white;cursor: default;width: 100%"
              v-for="link in essentialLinks" :key="link.title">
-          <div class="q-ma-xs" v-bind:style="getStyleForButton(link)" @click="pushToPage(link)">
+          <div class="q-ma-xs"  v-bind:style="getStyleForButton(link)" @click="pushToPage(link)">
             <q-checkbox dense @click="pushToPage(link)" @input="changeMainSelectedStates(link)"
                         v-model="selectedSets[link.alias]" :value="true"></q-checkbox>
             {{ link.title }}
@@ -87,12 +87,12 @@
           </div>
         </div>
       </div>
-      <div v-if="!$q.platform.is.mobile" class="col-2 bg-light-green " style="">
-        <div class="row" style="background-color: white;height: 9.09%">
+      <div v-if="!$q.platform.is.mobile" class="col-2 bg-light-green flex" style="">
+        <div class="row" style="background-color: white;width: 100%">
           <div class="col text-center font-bold" style="border: 1px solid black;"> Qty</div>
           <div class="col text-center font-bold" style="border: 1px solid black;"> Pts</div>
         </div>
-        <div class="row" style="background-color: white;height: 9.09% " v-for="link in essentialLinks"
+        <div class="row" style="background-color: white; width: 100%" v-for="link in essentialLinks"
              :key="link.title">
           <div class="col text-right q-pr-sm"
                style="border: 1px solid black; background-color: #7ffffe;font-weight: bold">
@@ -391,9 +391,9 @@ export default {
     },
     getStyleForButton: function (link) {
       if (link.alias === this.set || this.selectedSets[link.alias] === true)
-        return 'background-color: red; color: white;width: 100%;font-size:medium'
+        return 'background-color: red; color: white;width: 100%;'
       else
-        return 'background-color: #ba56d4; color: white;width: 100%;font-size:medium'
+        return 'background-color: #ba56d4; color: white;width: 100%'
     },
     getStyleForInput(input) {
       // background-color:#882ce2;
