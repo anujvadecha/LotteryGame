@@ -25,7 +25,7 @@ this.$q.notify({
 
             this.$q.fullscreen.toggle().then(result => {
               if(window.screen.availHeight <= 800){
-                document.body.style.zoom = "90%"
+                document.body.style.zoom = "88%"
               }
             }) ;
             // setTimeout(()=>{
