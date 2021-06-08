@@ -50,7 +50,7 @@
 <!--               ALL POINTS CARD   -->
           <div class="" style="width: 9.09%;">
             <q-card class=" text-center q-pl-sm q-pr-sm" style="background-color: #eef8ff;" flat>
-              <div style=""> SET {{ this.set }}</div>
+              <div style="">{{ this.set }}</div>
             </q-card>
           </div>
 <!--               COLUMN CARDS   -->
@@ -68,17 +68,17 @@
         <div class="row" v-for="i in 10" style="" :key="i">
 <!--               ROW CARDS -->
           <div class="" style="width: 9.09%;">
-            <div class=" text-center q-pl-xs q-pr-xs " style="background-color: #eef8ff;" flat>
+            <div class=" text-center " style="background-color: #eef8ff;" flat>
               <div style="font-size: small"> &nbsp;</div>
               <input  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" type="text" :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs row_cards"
-                     v-bind:style="'height:20%;background-color:#882ce2;width:100%;height:100%'"
+                     v-bind:style="'background-color:#882ce2;width:100%;height:100%'"
                      @input="add_input_row(i)"/>
             </div>
           </div>
 <!--                    NUMBER CARDS     -->
           <div class="" v-for="n in 10" style="width: 9.09%" :key="n">
             <div class="text-center " style="background-color: #eef8ff;margin-left: 2px;margin-right: 2px;" flat>
-              <div style="font-size: small"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
+              <div style="font-size: small;font-family: Sans-Serif"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
               <input onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  type="text" :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
                      v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;')"
                      :value="inputs[set][i*10+n-10-1]"
@@ -92,7 +92,7 @@
           <div class="col text-center font-bold" style="border: 1px solid black;"> Qty</div>
           <div class="col text-center font-bold" style="border: 1px solid black;"> Pts</div>
         </div>
-        <div class="row" style="background-color: white; width: 100%" v-for="link in essentialLinks"
+        <div class="row" style="background-color: white; width: 100%;font-size: 1.5vw;" v-for="link in essentialLinks"
              :key="link.title">
           <div class="col text-right q-pr-sm"
                style="border: 1px solid black; background-color: #7ffffe;font-weight: bold">
@@ -397,7 +397,7 @@ export default {
     },
     getStyleForInput(input) {
       // background-color:#882ce2;
-      return 'height:20%'
+      return 'background-color:white;border 1px solid black;font-size: small'
         // return " background-color:white;font-size:small"
     },
     pushToPage: function (link) {

@@ -9,19 +9,19 @@
   </div>
   <div v-if="!$q.platform.is.mobile"  class="col">
     <div class="row q-pl-md" style="background-color: #a4ff01 ;font-weight: bold;color: black;font-size: x-large">
-      Next Draw time : {{nextLotteryFormatted}}
+      Next Draw Time : {{nextLotteryFormatted}}
     </div>
     <div style="background-color: #ffa400; font-weight: bold;color: black;font-size: x-large" class="row q-pl-md" id="left-time">
-      Left time :<span style=""> {{leftTime}}</span>
+      Left Time :<span style=""> {{leftTime}}</span>
     </div>
   </div>
   <div v-else class="col">
     <div class="row">
     <div class="col q-pa-sm" style="background-color: #a4ff01 ;font-weight: bold;color: black;font-size: medium">
-      Next Draw time : {{nextLotteryFormatted}}
+      Next Draw Time : {{nextLotteryFormatted}}
     </div>
     <div style="background-color: #ffa400; font-weight: bold;color: black;font-size: medium" class="col q-pa-sm" id="left-time">
-      Left time : {{leftTime}}
+      Left Time : {{leftTime}}
     </div>
       </div>
   </div>

@@ -1,9 +1,9 @@
 <template>
 <div v-if="!$q.platform.is.mobile" class="row" style="background-color: #13fba5;color: black">
-  <div class="col" style="padding: 5px">
+  <div class="col" style="padding: 5px;font-family: 'Times New Roman'">
     Terminal Id: {{user_id}} &nbsp;&nbsp;{{first_name}}
   </div>
-  <div class="col " style="padding: 5px">
+  <div class="col " style="padding: 5px;font-weight: bolder;">
     Available points :<span style="font-weight: bold;color: darkred">{{$store.state.balance_points}}</span>
   </div>
   <q-space></q-space>
