@@ -1,20 +1,20 @@
 <template>
 <div v-if="!$q.platform.is.mobile" class="row" style="background-color: #13fba5;color: black">
-  <div class="col q-ma-sm">
+  <div class="col" style="padding: 5px">
     Terminal Id: {{user_id}} &nbsp;&nbsp;{{first_name}}
   </div>
-  <div class="col q-ma-sm" style="">
-    Available points :<span style="font-weight: bold;font-size: medium;color: darkred">{{$store.state.balance_points}}</span>
+  <div class="col " style="padding: 5px">
+    Available points :<span style="font-weight: bold;color: darkred">{{$store.state.balance_points}}</span>
   </div>
   <q-space></q-space>
-  <div class="">
-    <q-btn flat style="color: #033aca" @click="$router.push({path:'/MyAccounts'})">My accounts</q-btn>
+  <div class="q-ml-md" style="">
+    <q-btn dense flat style="color: #033aca;background-color: greenyellow" @click="$router.push({path:'/MyAccounts'})">My accounts</q-btn>
   </div>
-  <div class="">
-    <q-btn flat  style="color: #033aca">Password </q-btn>
+  <div class="q-ml-md">
+    <q-btn dense  style="color: #033aca;background-color: greenyellow">Password </q-btn>
   </div>
-  <div class="">
-    <q-btn @click="logout()" flat  style="color: #033aca">Logout</q-btn>
+  <div class="q-ml-md">
+    <q-btn  dense @click="logout()" flat  style="color: #033aca;background-color: greenyellow">Logout</q-btn>
   </div>
 </div>
 </template>
