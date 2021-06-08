@@ -21,9 +21,14 @@ this.$q.notify({
         html:true,
         actions: [
           { label: 'Go', color: 'white', handler: () => {
+            console.log(document.body.style.zoom);
+
             this.$q.fullscreen.toggle() ;
-            while(!(($(window).scrollTop() + $(window).innerHeight()) >= $(document).height())) {
-                document.body.style.zoom=document.body.style.zoom-0.1
+            var zoom = 1
+            while((($(window).scrollTop() + $(window).innerHeight()) >= $(document).height())) {
+                console.log("zoom required")
+                zoom=zoom-0.1;
+                document.body.style.zoom = zoom
             }
           } },
           { label: 'Dismiss', color: 'white', handler: () => {  } },
