@@ -45,7 +45,7 @@
           </div>
         </div>
       </div>
-      <div class="col" style="background-color: #eef8ff">
+      <div class="col flex flex-shrink" style="background-color: #eef8ff;">
         <div class="row">
 <!--               ALL POINTS CARD   -->
           <div class="" style="width: 9.09%;">
