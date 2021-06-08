@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout style="" view="hHh lpR fFf">
 <!--    <q-drawer show-if-above v-model="right" side="right" bordered>-->
 <!--    </q-drawer>-->
 <!--    <q-header >-->
@@ -8,7 +8,7 @@
 <!--        </q-toolbar>-->
 <!--    </q-header>-->
 
-    <q-header v-if="$q.platform.is.mobile">
+    <q-header style="font-family:Times New Roman" v-if="$q.platform.is.mobile">
       <q-toolbar style="" class="shadow-2 bg-purple"><q-toolbar-title>
         <q-btn flat @click="leftDrawerOpen = !leftDrawerOpen" round dense icon="menu"/>
         Star skill game</q-toolbar-title></q-toolbar>
@@ -29,7 +29,7 @@
       <ResultHeader ></ResultHeader>
       <TimeHeader v-if="currentRouteName==='SelectionTable'" ></TimeHeader>
         <div v-if="currentRouteName==='SelectionTable'" style="background-color: black; color: red">
-          <marquee style="font-size: medium">{{ marquee }}</marquee>
+          <marquee style="font-size: large">{{ marquee }}</marquee>
         </div>
       <OptionsHeader v-if="currentRouteName==='SelectionTable'"></OptionsHeader>
       <SelectionHeader v-if="currentRouteName==='SelectionTable'"></SelectionHeader>
