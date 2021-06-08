@@ -47,35 +47,34 @@
       </div>
       <div class="col" style="background-color: #eef8ff">
         <div class="row">
-          <!--     ALL POINTS CARD   -->
+<!--               ALL POINTS CARD   -->
           <div class="" style="width: 9.09%;">
             <q-card class=" text-center q-pl-sm q-pr-sm" style="background-color: #eef8ff;" flat>
               <div style=""> SET {{ this.set }}</div>
             </q-card>
           </div>
-          <!--     COLUMN CARDS   -->
+<!--               COLUMN CARDS   -->
           <div v-for="i in 10" :key="i" class="" style="width: 9.09%;">
-
-            <q-card class=" text-center q-pa-xs q-pr-xs " style="background-color: #eef8ff; " flat>
+            <q-card class=" text-center" style="background-color: #eef8ff;margin-right: 2px;margin-left: 2px " flat>
               <input  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  type="text" :id="'col'+set+i" class="text-center text-red col_cards"
                      v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')"
                      @input="add_input_col(i)"/>
             </q-card>
           </div>
         </div>
-        <div class="row " v-for="i in 10" style="" :key="i">
+        <div class="row " v-for="i in 10" style="height: 9%" :key="i">
 <!--               ROW CARDS -->
           <div class="" style="width: 9.09%;">
             <div class=" text-center q-pl-xs q-pr-xs " style="background-color: #eef8ff;" flat>
-              <div style=""> &nbsp;</div>
+              <div style="font-size: small"> &nbsp;</div>
               <input  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" type="text" :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs row_cards"
-                     v-bind:style="'background-color:#882ce2;'.concat(';width:100%;height:100%')"
+                     v-bind:style="'height:30%;background-color:#882ce2;'.concat(';width:100%;height:100%')"
                      @input="add_input_row(i)"/>
             </div>
           </div>
 <!--                    NUMBER CARDS     -->
           <div class="" v-for="n in 10" style="width: 9.09%" :key="n">
-            <div class="text-center " style="background-color: #eef8ff;margin-left: 2px;margin-right: 2px" flat>
+            <div class="text-center " style="background-color: #eef8ff;margin-left: 2px;margin-right: 2px;" flat>
               <div style="font-size: small"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
               <input onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  type="text" :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
                      v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;')"
@@ -395,8 +394,8 @@ export default {
     },
     getStyleForInput(input) {
       // background-color:#882ce2;
-      return 'font-size:small'
-        // return "color:#c50a46; background-color:white;font-size:small"
+      return 'height:30%'
+        // return " background-color:white;font-size:small"
     },
     pushToPage: function (link) {
       // this.selectedSets[link.alias] = true

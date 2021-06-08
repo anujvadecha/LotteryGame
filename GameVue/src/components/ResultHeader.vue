@@ -2,7 +2,7 @@
 <div class="row" style="background-color: white">
   <div class="col-2" style="background-color: red">
     <div class=" text-center text-white" style="font-size:x-large;border: solid 2px black;">2-D</div>
-    <div class="text-center text-white" style="font-size: x-large;border: solid 2px black;">
+    <div class="text-center text-white"  style= "font-size: x-large;border: solid 2px black;">
       {{ previousLotteryFormatted }}
     </div>
   </div>
