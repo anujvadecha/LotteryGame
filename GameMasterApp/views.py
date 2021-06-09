@@ -158,11 +158,11 @@ class LotteryTimingsAPI(APIView):
                 print(today_min)
             else:
                 today_min = datetime.combine(date.today(), time.min)
-                today_max = datetime.combine(date.today()+timedelta(1), time.min)
+                today_max = datetime.combine(date.today() + timedelta(days=1), time.max)
             current_time = get_current_timezone().localize(datetime.now())
             closest_time = Lottery.objects.filter(time__gte=current_time).first()
             response['closest_lottery'] = LotterySerializer(closest_time).data
-            timings_of_lottery = Lottery.objects.filter(time__gte = today_min, time__lt = today_max).order_by('time')
+            timings_of_lottery = Lottery.objects.filter(time__range=(today_min, today_max)).order_by('time')
             timings_of_lottery = LotterySerializer(timings_of_lottery, many=True).data
             response["lottery_objects"] = timings_of_lottery
             response['status_code'] = 200
