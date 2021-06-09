@@ -90,6 +90,13 @@ components: {},
         align: 'left',
         field: row => row.inflow,
       },
+      {
+        name:'Cancelled',
+        required: true,
+        label: 'Is Cancelled',
+        align: 'left',
+        field: row => row.cancelled,
+      }
       ],
       selected:[]
     }
