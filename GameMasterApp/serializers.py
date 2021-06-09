@@ -24,6 +24,7 @@ class LotterySerializer(serializers.ModelSerializer):
         fields = ["id","winners","active","completed","time"]
 
 class TicketSerializer(serializers.ModelSerializer):
+
     class Meta:
         model=Ticket
         fields=["price","quantity","set_ticket"]
@@ -37,7 +38,7 @@ class TicketIDSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=TicketID
-        fields= ["ticket_set","ticket_id","total_price","total_quantity","created_at","lottery","inflow","outflow"]
+        fields= ["ticket_set","ticket_id","total_price","total_quantity","created_at","lottery","inflow","outflow","cancelled"]
 
 
 class UserSerializer(serializers.ModelSerializer):
