@@ -120,6 +120,13 @@ class BuyTicketsAPI(APIView):
                     bulk_created = Ticket.objects.bulk_create(tickets_to_create)
                     ticket_id.ticket_set.add(*bulk_created)
                     user.balance_points -= points
+
+                    if user.user_type == "AGENT":
+                        agent_obj = Agent.objects.filter(user=user)
+                        if agent_obj :
+                            commission_percent = agent_obj[0].commission_percent
+                            user.balance_points += (commission_percent/100)*points
+
                     user.save()
                     ticket_id.save()
                     tickets_created.append(ticket_id)
