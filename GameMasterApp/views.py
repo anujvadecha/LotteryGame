@@ -281,11 +281,14 @@ TotalPointsView = TotalDebitCreditView.as_view()
 class TicketIdView(APIView):
 
     def get(self, request):
-        today_min = datetime.combine(date.today(), time.min)
-        today_max = datetime.combine(date.today()+timedelta(1), time.min)
-
-        response_objects = TicketID.objects.filter(user=request.user,cancelled=False,created_at__gte=today_min,created_at__lt=today_max).order_by('-created_at')
-        # print(response_objects)
+        if "start_date" in request.query_params and "end_date" in request.query_params:
+             today_min = datetime.strptime(request.query_params["start_date"] + " 00:00:00", '%Y-%m-%d %H:%M:%S')
+             today_max = datetime.strptime(request.query_params["end_date"] + " 23:59:00", '%Y-%m-%d %H:%M:%S')
+             response_objects = TicketID.objects.filter(user=request.user,cancelled=False,created_at__gte=today_min,created_at__lte=today_max).order_by('-created_at')
+        else:
+            today_min = datetime.combine(date.today(), time.min)
+            today_max = datetime.combine(date.today() + timedelta(days=1), time.max)
+            response_objects = TicketID.objects.filter(user=request.user,cancelled=False,created_at__gte=today_min,created_at__lt=today_max).order_by('-created_at')
         return Response(data=TicketIDSerializer(response_objects, many=True).data)
 
 
