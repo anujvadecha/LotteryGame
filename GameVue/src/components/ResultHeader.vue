@@ -18,7 +18,7 @@
 </div>
 </template>
 <script>
-import {getTimeZoneDate} from "src/common/utils";
+import {getTimeZoneDate,getFormattedDateHHMM} from "src/common/utils";
 
 export default {
 name: "ResultHeader",
@@ -34,16 +34,8 @@ name: "ResultHeader",
         var currentTime = this.$store.state.previousLottery.time;
         if (currentTime == null)
           return ''
-        var ISTTime = getTimeZoneDate(currentTime);
-        var hoursIST = ISTTime.getHours()
-        var minutesIST = (ISTTime.getMinutes()<10)? "0"+ISTTime.getMinutes() : ISTTime.getMinutes()
-        var secondsIST = ISTTime.getSeconds()
-        var timestring =  hoursIST + ":" + minutesIST + ":" + secondsIST
-        var H = +timestring.substr(0, 2);
-        var h = H % 12 || 12;
-        var ampm = (H < 12 || H === 24) ? "AM" : "PM";
-        timestring = h + timestring.substr(2, 3) + ampm;
-        return timestring
+        
+        return getFormattedDateHHMM(currentTime)
 
     }
   },
