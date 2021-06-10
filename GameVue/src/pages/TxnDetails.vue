@@ -48,12 +48,15 @@ import ResultHeader from "components/ResultHeader";
 import {get_tickets} from "src/common/api_calls";
 import {getFormattedDateHHMM, getTimeZoneDate, print_div} from "src/common/utils";
 import { Platform } from 'quasar'
+import {get_current_date} from "src/common/utils";
 
 export default {
 name: "TxnDetails",
 components: {},
   data(){
     return {
+      start_date: get_current_date(),
+      end_date: get_current_date(),
       tickets:[],
       pagination: {
         rowsPerPage: 0
@@ -87,6 +90,13 @@ components: {},
         align: 'left',
         field: row => row.inflow,
       },
+      {
+        name:'Cancelled',
+        required: true,
+        label: 'Is Cancelled',
+        align: 'left',
+        field: row => row.cancelled,
+      }
       ],
       selected:[]
     }
@@ -94,15 +104,18 @@ components: {},
   created() {
     get_tickets(null).then(
       res=>{
-        console.log(res);
         this.tickets=res
       }
     )
   },
   methods:{
+    fetch_transactions_according_to_date(){
+      var date_dict = {"start_date":this.start_date,"end_date":this.end_date}
+      get_tickets(date_dict).then(res=>{
+        this.tickets = res
+      })
+    },
     click_row(event,row){
-      console.log(row)
-      console.log("row clicked"+row+event)
       this.selected.push(row)
       this.bet_details()
     },

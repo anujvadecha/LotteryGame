@@ -120,12 +120,13 @@ class BuyTicketsAPI(APIView):
                     bulk_created = Ticket.objects.bulk_create(tickets_to_create)
                     ticket_id.ticket_set.add(*bulk_created)
                     user.balance_points -= points
-                    #user.save()
-                    if user.user_type == "Agent":
+
+                    if user.user_type == "AGENT":
                         agent_obj = Agent.objects.filter(user=user)
-                        if agent_obj:
+                        if agent_obj :
                             commission_percent = agent_obj[0].commission_percent
-                            user.balance_points += points*(commission_percent/100)
+                            user.balance_points += (commission_percent/100)*points
+
                     user.save()
                     ticket_id.save()
                     tickets_created.append(ticket_id)
@@ -277,11 +278,24 @@ class TotalDebitCreditView(APIView):
 TotalPointsView = TotalDebitCreditView.as_view()
 
 
+#class TicketIdView(APIView):
+
+#    def get(self, request):
+#        response_objects = TicketID.objects.filter(user=request.user).order_by('-created_at')
+        #print(response_objects)
+#        return Response(data=TicketIDSerializer(response_objects, many=True).data)
+
 class TicketIdView(APIView):
 
     def get(self, request):
-        response_objects = TicketID.objects.filter(user=request.user,cancelled=False).order_by('-created_at')
-        print(response_objects)
+        if "start_date" in request.query_params and "end_date" in request.query_params:
+             today_min = datetime.strptime(request.query_params["start_date"] + " 00:00:00", '%Y-%m-%d %H:%M:%S')
+             today_max = datetime.strptime(request.query_params["end_date"] + " 23:59:00", '%Y-%m-%d %H:%M:%S')
+             response_objects = TicketID.objects.filter(user=request.user,cancelled=False,created_at__gte=today_min,created_at__lte=today_max).order_by('-created_at')
+        else:
+            today_min = datetime.combine(date.today(), time.min)
+            today_max = datetime.combine(date.today() + timedelta(days=1), time.max)
+            response_objects = TicketID.objects.filter(user=request.user,cancelled=False,created_at__gte=today_min,created_at__lt=today_max).order_by('-created_at')
         return Response(data=TicketIDSerializer(response_objects, many=True).data)
 
 
