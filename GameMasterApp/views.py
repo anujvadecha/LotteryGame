@@ -165,7 +165,7 @@ class LotteryTimingsAPI(APIView):
                 print(today_min)
             else:
                 today_min = datetime.combine(date.today(), time.min)
-                today_max = datetime.combine(date.today() + timedelta(days=1), time.min)
+                today_max = datetime.combine(date.today() + timedelta(days=1), time.max)
             current_time = get_current_timezone().localize(datetime.now())
             closest_time = Lottery.objects.filter(time__gte=current_time).first()
             response['closest_lottery'] = LotterySerializer(closest_time).data
