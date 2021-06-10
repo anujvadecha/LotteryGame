@@ -121,7 +121,7 @@ class TicketID(BaseModel):
     def increase_on_win(self,value):
         tickets_won = self.ticket_set.filter(number=value)
         total_inflow_quantity = tickets_won.aggregate(Sum('total'))["total__sum"]
-        self.inflow = total_inflow_quantity * 9
+        self.inflow += total_inflow_quantity * 9
 
     def save(self, *args, **kwargs):
         try:
