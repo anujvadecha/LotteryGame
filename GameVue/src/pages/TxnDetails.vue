@@ -1,22 +1,85 @@
 <template>
   <div>
-    <q-table v-if="!$q.platform.is.mobile"
+<!--     <ResultHeader></ResultHeader>-->
+<!--  <div>-->
+  <div class="row" v-if="!$q.platform.is.mobile">
+    <div class="q-pa-md" style="">
+    <q-input filled v-model="start_date">
+    <template v-slot:prepend>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy transition-show="scale" transition-hide="scale">
+            <q-date v-model="start_date" mask="YYYY-MM-DD">
+              <div class="row items-center justify-end">
+                <q-btn v-close-popup label="Close" color="primary" flat />
+              </div>
+            </q-date>
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
+    </div>
+    <div class="q-pa-md" style="">
+    <q-input filled v-model="end_date">
+    <template v-slot:prepend>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy transition-show="scale" transition-hide="scale">
+            <q-date v-model="end_date" mask="YYYY-MM-DD">
+              <div class="row items-center justify-end">
+                <q-btn v-close-popup label="Close" color="primary" flat />
+              </div>
+            </q-date>
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
+    </div>
+
+    <q-btn  unelevated style="" color="primary" class="q-ma-md" @click="fetch_transactions_according_to_date()">Go</q-btn>
+
+  </div>
+
+  <div class="row" v-if="$q.platform.is.mobile">
+    <div class="q-pa-md col-5" style="">
+    <q-input filled v-model="start_date">
+    <template v-slot:prepend>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy transition-show="scale" transition-hide="scale">
+            <q-date v-model="start_date" mask="YYYY-MM-DD">
+              <div class="row items-center justify-end">
+                <q-btn v-close-popup label="Close" color="primary" flat />
+              </div>
+            </q-date>
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
+    </div>
+    <div class="q-pa-md col-5" style="">
+    <q-input filled v-model="end_date">
+    <template v-slot:prepend>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy transition-show="scale" transition-hide="scale">
+            <q-date v-model="end_date" mask="YYYY-MM-DD">
+              <div class="row items-center justify-end">
+                <q-btn v-close-popup label="Close" color="primary" flat />
+              </div>
+            </q-date>
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
+    </div>
+
+    <q-btn  unelevated style="" color="primary" class="col-2" @click="fetch_transactions_according_to_date()">Go</q-btn>
+
+  </div>
+
+
+
+    <q-table
       title="Transaction Details"
       :data="tickets"
-      style="height:75vh"
-      virtual-scroll
-      :pagination="pagination"
-      :columns="columns"
-      row-key="ticket_id"
-      class = "q-ma-md row"
-      selection="multiple"
-      :selected.sync="selected"
-      @row-click="click_row"
-    />
-    <q-table v-else
       style="height:70vh"
-      title="Transaction Details"
-      :data="tickets"
       virtual-scroll
       :pagination="pagination"
       :columns="columns"
@@ -46,7 +109,7 @@
 <script>
 import ResultHeader from "components/ResultHeader";
 import {get_tickets} from "src/common/api_calls";
-import {getFormattedDateHHMM, getTimeZoneDate, print_div} from "src/common/utils";
+import {getTimeZoneDate, print_div} from "src/common/utils";
 import { Platform } from 'quasar'
 import {get_current_date} from "src/common/utils";
 
@@ -74,7 +137,7 @@ components: {},
         label: 'Time',
         align: 'left',
         field: row => row.created_at,
-        format: val => getTimeZoneDate(new Date(val)).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getFormattedDateHHMM(new Date(val)),
+        format: val => getTimeZoneDate(new Date(val)).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getTimeZoneDate(new Date(val)).getHours()+":"+getTimeZoneDate(new Date(val)).getMinutes(),
       },
       {
         name:'Total Price',
