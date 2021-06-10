@@ -30,7 +30,7 @@
     <router-view></router-view>
       <q-card class="row" flat bordered v-if="!$q.platform.is.mobile">
          <q-btn class="col q-ma-md" color="blue"  unelevated @click="$router.push({path:'/'})">Back</q-btn>
-  <q-btn class="col q-ma-md" color="orange" unelevated @click="print_ticket()">Print</q-btn>
+          <q-btn class="col q-ma-md" color="orange" unelevated @click="print_ticket()">Print</q-btn>
          <q-btn class="col q-ma-md" color="red"  unelevated @click="bet_details()">Bet Details</q-btn>
       </q-card>
 

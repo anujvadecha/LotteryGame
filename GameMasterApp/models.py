@@ -141,28 +141,6 @@ class TicketID(BaseModel):
             super(TicketID, self).save(*args, **kwargs)
 
 
-#
-# class UserLedgerHistory(BaseModel):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     inflow = models.IntegerField(default=0)
-#     outflow = models.IntegerField(default=0)
-#     ticket_individual = models.ForeignKey(Ticket, null=True, blank=True, on_delete=models.SET_NULL)
-#
-#     def save(self, *args, **kwargs):
-#         try:
-#             super(UserLedgerHistory, self).save(*args, **kwargs)
-#             print(self.created_at.date())
-#             totaldebitcreditobj = TotalDebitCredit.objects.filter(created_at__date=self.created_at.date() , user=self.user)
-#             if totaldebitcreditobj:
-#                 totaldebitcreditobj[0].outflow = totaldebitcreditobj[0].outflow + self.outflow
-#                 totaldebitcreditobj[0].inflow = totaldebitcreditobj[0].inflow + self.inflow
-#                 totaldebitcreditobj[0].save()
-#             else:
-#                 TotalDebitCredit.objects.create(outflow=self.outflow, inflow=self.inflow, user=self.user)
-#         except Exception as e:
-#             print(e)
-#             super(UserLedgerHistory, self).save(*args, **kwargs)
-#
 class Announcement(BaseModel):
     message=models.CharField(max_length=1000,blank=False,null=False)
     def __str__(self):

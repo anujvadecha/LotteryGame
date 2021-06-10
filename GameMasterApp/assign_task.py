@@ -28,7 +28,7 @@ def assign_lottery_timings():
                 for key, value in winner_dict.items():
                     for items in Ticket.objects.filter(lottery = lottery_obj, set_ticket=str(key) + str(value)):
                         #total_winning = items.total_price() * 9
-                        ticket_id = TicketID.objects.filter(ticket_set__in = [items],cancelled=False)
+                        ticket_id = TicketID.objects.filter(ticket_set__in = [items],cancelled=False,is_completed=False,lottery=lottery_obj)
                         if ticket_id:
                             ticket_id = ticket_id.first()
                             ticket_id.increase_on_win(value)
