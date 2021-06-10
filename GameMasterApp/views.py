@@ -59,7 +59,7 @@ def raise_exception(message=''):
 def raise_info(message=''):
     try:
         exc_obj, lineno, filename, line = return_lineno_filename_file_called_exception()
-        logger.info(message + " [INFO] %s at %s in function %s",exc_obj, lineno, function_name)
+        logger.info(message + " [INFO] %s at %s ",exc_obj, lineno)
     except:
         callerframerecord = inspect.stack()[1]
         frame = callerframerecord[0]
@@ -120,6 +120,12 @@ class BuyTicketsAPI(APIView):
                     bulk_created = Ticket.objects.bulk_create(tickets_to_create)
                     ticket_id.ticket_set.add(*bulk_created)
                     user.balance_points -= points
+                    #user.save()
+                    if user.user_type == "Agent":
+                        agent_obj = Agent.objects.filter(user=user)
+                        if agent_obj:
+                            commission_percent = agent_obj[0].commission_percent
+                            user.balance_points += points*(commission_percent/100)
                     user.save()
                     ticket_id.save()
                     tickets_created.append(ticket_id)
@@ -158,11 +164,11 @@ class LotteryTimingsAPI(APIView):
                 print(today_min)
             else:
                 today_min = datetime.combine(date.today(), time.min)
-                today_max = datetime.combine(date.today() + timedelta(days=1), time.max)
+                today_max = datetime.combine(date.today() + timedelta(days=1), time.min)
             current_time = get_current_timezone().localize(datetime.now())
             closest_time = Lottery.objects.filter(time__gte=current_time).first()
             response['closest_lottery'] = LotterySerializer(closest_time).data
-            timings_of_lottery = Lottery.objects.filter(time__range=(today_min, today_max)).order_by('time')
+            timings_of_lottery = Lottery.objects.filter(time__gte=today_min,time__lt = today_min).order_by('time')
             timings_of_lottery = LotterySerializer(timings_of_lottery, many=True).data
             response["lottery_objects"] = timings_of_lottery
             response['status_code'] = 200
