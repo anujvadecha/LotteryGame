@@ -26,8 +26,6 @@ name: "ResultHeader",
     results:function(){
       if(this.$store.state.results===null||this.$store.state.results===undefined||this.$store.state.results==={}||!this.$store.state.results.A)
         return null
-      console.log("calculating results")
-      console.log(this.$store.state.results)
       return this.$store.state.results
     },
     previousLotteryFormatted:function () {

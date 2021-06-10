@@ -76,23 +76,10 @@
 
 
 
-    <q-table v-if="!$q.platform.is.mobile"
+    <q-table
       title="Transaction Details"
       :data="tickets"
-      style="height:800px"
-      virtual-scroll
-      :pagination="pagination"
-      :columns="columns"
-      row-key="ticket_id"
-      class = "q-ma-md row"
-      selection="multiple"
-      :selected.sync="selected"
-      @row-click="click_row"
-    />
-    <q-table v-if="$q.platform.is.mobile"
       style="height:70vh"
-      title="Transaction Details"
-      :data="tickets"
       virtual-scroll
       :pagination="pagination"
       :columns="columns"
