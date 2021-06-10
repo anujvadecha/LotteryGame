@@ -140,6 +140,10 @@ class TicketID(BaseModel):
             self.total_creditquantity = 0
             super(TicketID, self).save(*args, **kwargs)
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['created_at','user'])
+        ]
 
 class Announcement(BaseModel):
     message=models.CharField(max_length=1000,blank=False,null=False)
