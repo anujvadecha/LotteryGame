@@ -30,8 +30,10 @@ this.$q.notify({
             console.log(document.body.style.zoom);
 
             this.$q.fullscreen.toggle().then(result => {
+              if(!this.$q.platform.is.mobile){
               if(window.screen.availHeight <= 800){
                 document.body.style.zoom = "88%"
+              }
               }
             }) ;
 
@@ -64,7 +66,6 @@ let code = "";
       elements = document.getElementsByClassName("lottery_input");
       currentIndex = 0
       },1000)
-
 
   document.addEventListener('keydown', function (e){
    if (e.keyCode===13){
@@ -172,6 +173,9 @@ let code = "";
     if (e.keyCode === 117) {
       console.log("here")
         document.getElementById("buy_button").click();
+    }
+    if(e.keyCode === 116) {
+        document.getElementById("reset_all_btn").click();
     }
   }catch(err){}
 }

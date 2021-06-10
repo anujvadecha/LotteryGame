@@ -72,22 +72,38 @@
     <q-btn  unelevated style="" color="primary" class="col-2" @click="fetch_winners_according_to_date()">Go</q-btn>
 
   </div>
-
-
      <q-table
       title="Results"
       :data="results_data"
       :columns="columns"
-      row-key="result_time"
-      class = "q-ma-md"
-    />
+      row-key="name"
+      virtual-scroll
+      :pagination="pagination"
+      style="height: 70vh"
+      class = "q-ma-md" card-container-style="border: 1px solid black">
+        <template v-slot:header="props">
+        <q-tr class="text-left" :props="props">
+          <q-th style="font-size: large" v-for="col in props.cols" :key="col.label">
+            {{col.label}}
+          </q-th>
+<!--          <q-td style="font-size: x-large" v-for="[key,value] of Object.entries(props.row.winners)" :key="key+'_set'" :props="props">-->
+<!--              {{value}}-->
+<!--            </q-td>-->
+         </q-tr>
+      </template>
 
+<template v-slot:body="props">
 
-
-
-
-
-
+  <q-tr :props="props">
+    <q-td style="font-size: x-large" class=""  key="Time" :props="props">
+      {{getFormattedResultDate(new Date(props.row.time))}}
+    </q-td>
+    <q-td style="font-size: x-large" v-for="[key,value] of Object.entries(props.row.winners)" :key="key+'_set'" :props="props">
+      {{value}}
+    </q-td>
+  </q-tr>
+</template>
+     </q-table>
   <q-card bordered flat class="row">
   <q-btn class="col-2 q-ma-md" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
   </q-card>
@@ -103,15 +119,22 @@
 <script>
 import ResultHeader from "components/ResultHeader";
 import {get_lottery_timings} from "src/common/api_calls";
-import {getTimeZoneDate} from "src/common/utils";
+import {getFormattedDateHHMM, getTimeZoneDate} from "src/common/utils";
 import {get_current_date} from "src/common/utils";
+import {convert_to_twelve_hour_clock} from "src/common/utils";
 
 
 export default {
   name: "Results",
   components: {},
+  computed:{
+
+  },
   data() {
     return{
+      pagination: {
+        rowsPerPage: 0
+      },
       start_date: get_current_date(),
       end_date: get_current_date(),
       results_data:[],
@@ -193,6 +216,10 @@ export default {
       get_lottery_timings(date_dict).then(res=>{
         this.results_data = res.lottery_objects
       })
+    },
+    getFormattedResultDate:function (date){
+      console.log(date)
+      return getTimeZoneDate(new Date(date)).toLocaleDateString("en-IN").replaceAll("/","-")+"  "+getFormattedDateHHMM(date)
     }
   },
   created() {
@@ -205,6 +232,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

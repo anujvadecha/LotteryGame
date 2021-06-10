@@ -43,33 +43,37 @@ function getTimeZoneDate(date) {
       return ISTTime
 }
 
-function convert_to_twelve_hour_clock(timestring){
-    var H = +timestring.substr(0, 2);
-    var h = H % 12 || 12;
-    var ampm = (H < 12 || H === 24) ? "AM" : "PM";
-    timestring = h + timestring.substr(2, 3) + ampm;
-    return timestring
+function convert_to_twelve_hour_clock(date){
+    var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
 }
 
 
 function getFormattedDateHHMMSS(date) {
+
       var ISTTime = date;
       var hoursIST = ISTTime.getHours()
-      var minutesIST = (ISTTime.getMinutes()<10)? "0"+ISTTime.getMinutes() : ISTTime.getMinutes()
+      var minutesIST =  ISTTime.getMinutes()
       var secondsIST = ISTTime.getSeconds()
       var timestring = hoursIST + ":" + minutesIST + ":" + secondsIST
-      timestring = convert_to_twelve_hour_clock(timestring)
+      timestring = convert_to_twelve_hour_clock(date)
       return timestring
 }
 
 function getFormattedDateHHMM(date) {
       var ISTTime = date;
-      var hoursIST = ISTTime.getHours()
-      var minutesIST = (ISTTime.getMinutes()<10)? "0"+ISTTime.getMinutes() : ISTTime.getMinutes()
-      var secondsIST = ISTTime.getSeconds()
-      var timestring = hoursIST + ":" + minutesIST + ":" + secondsIST
-      timestring = convert_to_twelve_hour_clock(timestring)
-      return timestring
+      var hoursIST = ISTTime.getHours();
+      var minutesIST = (ISTTime.getMinutes()<10) ? "0"+ISTTime.getMinutes() : ISTTime.getMinutes();
+      var secondsIST = ISTTime.getSeconds();
+      var timestring = hoursIST + ":" + minutesIST + ":" + secondsIST;
+      timestring = convert_to_twelve_hour_clock(date);
+      return timestring;
 }
 
 function get_current_date(){
@@ -189,5 +193,6 @@ export {
   isToday,
   print_div,
   ClickHereToPrint,
-  PrintDiv
+  PrintDiv,
+  convert_to_twelve_hour_clock
 }

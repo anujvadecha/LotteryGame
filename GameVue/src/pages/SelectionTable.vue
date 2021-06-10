@@ -13,7 +13,7 @@
       <div class="col-2 flex" style="background-color: lightpink">
         <div class="row" style="background-color: white;width: 100%">
           <div @click=";all_sets=!all_sets;all_set_call()" class="q-ma-xs" style='background-color: #ba56d4; color: white;width: 100%;'>
-            <q-checkbox dense @input="all_set_call()" v-model="all_sets"></q-checkbox>
+            <input style="width: 25px;height: 25px;" type="checkbox"  id="all_set_checkbox" dense @input="all_set_call()" v-model="all_sets"/>
             Name
           </div>
         </div>
@@ -254,12 +254,10 @@ export default {
   },
   methods: {
     all_set_call() {
-
       for (const [key, value] of Object.entries(this.selectedSets)) {
         this.selectedSets[key] = this.all_sets
       }
       this.$store.dispatch('change_selected_sets',{selectedSets:this.selectedSets,currentSet:this.set} )
-
     },
     reverse_number(n) {
       if (n >= 1 && n <= 9) {

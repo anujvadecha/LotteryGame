@@ -1,7 +1,5 @@
 <template onunload="myFunction()">
 <div>
-  <ResultHeader>
-  </ResultHeader>
   <div class="row" style="">
     <q-card class="col-5" style="" >
         <q-card-section>
@@ -16,7 +14,7 @@
     <div class="col-7" style="background-color: grey">
       <q-table
         class="row"
-        style="height: 600px"
+        style="height:80vh"
         virtual-scroll
         title="Transaction Details"
         :data="this.ticket.ticket_set"
@@ -36,7 +34,7 @@
 
 <script>
 import ResultHeader from "components/ResultHeader";
-import {getTimeZoneDate, print_div} from "src/common/utils";
+import {getFormattedDateHHMM, getTimeZoneDate, print_div} from "src/common/utils";
 import {delete_ticket_api} from "src/common/api_calls";
 import {Notify} from "quasar";
 
@@ -58,7 +56,7 @@ export default {
     },
     get_ticket_time:function (date_string) {
       var val=date_string
-      return getTimeZoneDate(new Date(val)).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getTimeZoneDate(new Date(val)).getHours()+":"+getTimeZoneDate(new Date(val)).getMinutes()
+      return getTimeZoneDate(new Date(val)).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getFormattedDateHHMM(new Date(val))
     },
     delete_ticket:function(){
       var ticket_id = this.ticket.ticket_id
@@ -127,7 +125,7 @@ export default {
 
   },
   name: "TicketDetails",
-  components: {ResultHeader},
+  components: {},
   props:["ticket"]
 }
 </script>

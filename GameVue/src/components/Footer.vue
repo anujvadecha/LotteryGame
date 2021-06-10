@@ -10,7 +10,7 @@
       </div>
 <!--   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="update_results()">Update Results</q-btn>-->
        <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="$router.push({path:'/TxnDetails'})">Txn Details</q-btn>
-       <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="reset_all()">Reset all</q-btn>
+       <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " id="reset_all_btn" @click="reset_all()">Reset all</q-btn>
        <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="place_ticket_order()" id="buy_button">Buy</q-btn>
         <div v-if="!$q.platform.is.mobile" class="col text-center q-pa-sm text-black" style="font-weight: bold;font-size: large">Total</div>
         <div v-if="!$q.platform.is.mobile"  class="col-2">
@@ -134,6 +134,10 @@ name: "Footer",
             { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
           ]
         })
+        if(document.getElementById("all_set_checkbox").checked){
+          document.getElementById("all_set_checkbox").click()
+        }
+
 
         return ticket.ticket_id})
         res.tickets.map(ticket => {

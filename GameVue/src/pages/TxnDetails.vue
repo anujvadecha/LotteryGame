@@ -1,12 +1,9 @@
 <template>
   <div>
-<!--     <ResultHeader></ResultHeader>-->
-<!--  <div>-->
-
     <q-table v-if="!$q.platform.is.mobile"
       title="Transaction Details"
       :data="tickets"
-      style="height:800px"
+      style="height:75vh"
       virtual-scroll
       :pagination="pagination"
       :columns="columns"
@@ -16,7 +13,7 @@
       :selected.sync="selected"
       @row-click="click_row"
     />
-    <q-table v-if="$q.platform.is.mobile"
+    <q-table v-else
       style="height:70vh"
       title="Transaction Details"
       :data="tickets"
@@ -49,7 +46,7 @@
 <script>
 import ResultHeader from "components/ResultHeader";
 import {get_tickets} from "src/common/api_calls";
-import {getTimeZoneDate, print_div} from "src/common/utils";
+import {getFormattedDateHHMM, getTimeZoneDate, print_div} from "src/common/utils";
 import { Platform } from 'quasar'
 
 export default {
@@ -74,7 +71,7 @@ components: {},
         label: 'Time',
         align: 'left',
         field: row => row.created_at,
-        format: val => getTimeZoneDate(new Date(val)).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getTimeZoneDate(new Date(val)).getHours()+":"+getTimeZoneDate(new Date(val)).getMinutes(),
+        format: val => getTimeZoneDate(new Date(val)).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getFormattedDateHHMM(new Date(val)),
       },
       {
         name:'Total Price',
