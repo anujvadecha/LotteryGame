@@ -14,11 +14,6 @@ export default {
   name: 'App',
 
   created() {
-    this.$q.fullscreen.toggle().then(result => {
-              if(window.screen.availHeight <= 800){
-                document.body.style.zoom = "88%"
-              }
-            }) ;
 this.$q.notify({
         message: " Go fullscreen",
         color: 'primary',

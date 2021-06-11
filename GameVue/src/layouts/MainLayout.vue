@@ -264,7 +264,7 @@ export default {
     setInterval(function (){
     //   var current_next_lottery =  store.state.nextLottery;
         store.dispatch('set_next_lottery')
-    },500)
+    },1000)
     get_user_details().then(
       res=>{
         store.dispatch('update_user_details',res)

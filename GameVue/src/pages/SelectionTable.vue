@@ -13,7 +13,7 @@
       <div class="col-2 flex" style="background-color: lightpink">
         <div class="row" style="background-color: white;width: 100%">
           <div @click=";all_sets=!all_sets;all_set_call()" class="q-ma-xs" style='background-color: #ba56d4; color: white;width: 100%;'>
-            <input style="width: 25px;height: 25px;" type="checkbox"  id="all_set_checkbox" dense @input="all_set_call()" v-model="all_sets"/>
+            <input style="width: 25px;height: 25px;background: transparent" type="checkbox"  id="all_set_checkbox" dense @input="all_set_call()" v-model="all_sets"/>
             Name
           </div>
         </div>
@@ -313,6 +313,8 @@ export default {
       this.add_input(b, false)
       this.add_input(c, false)
       this.add_input(d, false)
+      console.log("Setting classlist")
+      console.log(document.getElementById(this.set + revA))
       document.getElementById(this.set + revA).value = document.getElementById(this.set + a).value
       document.getElementById(this.set + revB).value = document.getElementById(this.set + a).value
       document.getElementById(this.set + revC).value = document.getElementById(this.set + a).value
@@ -395,7 +397,7 @@ export default {
     },
     getStyleForInput(input) {
       // background-color:#882ce2;
-      return 'background-color:white;border 1px solid black;font-size: small'
+      return 'font-size: small'
         // return " background-color:white;font-size:small"
     },
     pushToPage: function (link) {

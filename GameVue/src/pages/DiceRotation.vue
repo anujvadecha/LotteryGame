@@ -36,15 +36,15 @@ name: "DiceRotation",
         const router = this.$router;
         const store=this.$store;
         setTimeout(function(){
-        store.dispatch('set_selected_lotteries',[])
-        store.state.previousLottery=store.state.nextLottery;
-        router.push({
-        path: '/SelectionTable',
-        name:'SelectionTable',
-        params: {
-          set: 'A'
-        }
-      })
+              store.dispatch('set_selected_lotteries',[])
+              store.state.previousLottery=store.state.nextLottery;
+              router.push({
+              path: '/SelectionTable',
+              name:'SelectionTable',
+              params: {
+                set: 'A'
+              }
+            })
           }, 5000);
         // this.$store.state.selectedSets={};
   }

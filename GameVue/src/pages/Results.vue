@@ -218,7 +218,6 @@ export default {
       })
     },
     getFormattedResultDate:function (date){
-      console.log(date)
       return getTimeZoneDate(new Date(date)).toLocaleDateString("en-IN").replaceAll("/","-")+"  "+getFormattedDateHHMM(date)
     }
   },

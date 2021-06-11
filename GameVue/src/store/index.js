@@ -1127,12 +1127,12 @@ export default function (/* { ssrContext } */) {
           }
         }
         if(state.results===null||state.results===undefined||state.results==={}||!state.results.A) {
-              // get_winners({"lottery_id":state.previousLottery.id}).then(
-              //  res=> {
-              //       store.dispatch("set_results",res.lottery_winners_ticket)
-              //       store.dispatch('set_announcements',res.announcements)
-              //   }
-              //  )
+              get_winners({"lottery_id":state.previousLottery.id}).then(
+               res=> {
+                    store.dispatch("set_results",res.lottery_winners_ticket)
+                    store.dispatch('set_announcements',res.announcements)
+                }
+               )
         }
       },
       change_selected_sets(state, selectionState) {
