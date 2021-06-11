@@ -5,7 +5,7 @@
       <q-card-section style="">
             <div class="row">
             <q-img
-              :src="imageSrc"
+              src="icons/favicon-128x128.png"
               transition="scale-transition"
               width="50px"
             />

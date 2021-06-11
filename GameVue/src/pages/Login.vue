@@ -4,10 +4,10 @@
     <div class="column q-pa-lg">
       <q-card-section style="">
             <div class="row">
-            <q-img
-            :src="imageSrc"
-            transition="scale-transition"
-            width="50px"
+               <q-img
+              src="icons/favicon-128x128.png"
+              transition="scale-transition"
+              width="50px"
             />
              <strong class="text-h6 q-ml-md q-my-md">Star skill game</strong>
             </div>
