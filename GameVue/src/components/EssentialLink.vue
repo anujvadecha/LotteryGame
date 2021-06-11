@@ -4,11 +4,12 @@
     clickable
     tag="a"
     target="_blank"
+    :style="this.$route.path===this.link ? {backgroundColor:'#9c27b0',color:'white'}:{backgroundColor:'white',color:'black'}"
   >
     <q-item-section v-if="icon" avatar>
-    <q-icon class="text-primary" :name="icon" />
+    <q-icon class="" :name="icon" />
     </q-item-section>
-    <q-item-section class="text-primary" >
+    <q-item-section class="" >
       {{ title }}
     </q-item-section>
   </q-item>
@@ -39,7 +40,8 @@ export default {
   methods:{
     open_set: function (link) {
 
-    }
+    },
+
   }
 }
 </script>

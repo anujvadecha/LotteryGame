@@ -36,6 +36,7 @@
     <q-drawer v-if="$q.platform.is.mobile"  v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
 
+        <EssentialLink title="Buy" link="/SelectionTable/A" ></EssentialLink>
         <EssentialLink title="Results" link="/Results" ></EssentialLink>
         <EssentialLink title="My accounts" link="/MyAccounts" ></EssentialLink>
         <EssentialLink title="More Draws" link="/MoreDraws" ></EssentialLink>
