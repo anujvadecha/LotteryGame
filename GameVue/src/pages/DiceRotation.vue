@@ -29,7 +29,7 @@ name: "DiceRotation",
         const router = this.$router;
         const store = this.$store;
         setTimeout(function(){
-              // store.dispatch('reset_all')
+              store.dispatch('reset_all')
           store.dispatch('set_selected_lotteries',[store.state.nextLottery])
          router.push({
             path: '/SelectionTable',
@@ -38,7 +38,6 @@ name: "DiceRotation",
               set: 'A'
             }
           })
-
           }, 5000);
 
   }
