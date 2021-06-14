@@ -35,7 +35,7 @@ computed:{
   },
   user_id(){
     if(this.$store.state.user!=null) {
-      return this.$store.state.user.id
+      return this.$store.state.user.terminal_id
     }
     else{
       return ''

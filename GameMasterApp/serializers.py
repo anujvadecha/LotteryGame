@@ -38,7 +38,7 @@ class TicketIDSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=TicketID
-        fields= ["ticket_set","ticket_id","total_price","total_quantity","created_at","lottery","inflow","outflow","cancelled"]
+        fields= ["ticket_set","ticket_id","total_price","total_quantity","created_at","lottery","inflow","outflow","cancelled","terminal_id"]
 
 
 class UserSerializer(serializers.ModelSerializer):
