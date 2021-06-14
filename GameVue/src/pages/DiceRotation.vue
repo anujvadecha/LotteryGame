@@ -31,7 +31,7 @@ name: "DiceRotation",
         setTimeout(function(){
               store.dispatch('reset_all')
           store.dispatch('set_selected_lotteries',[store.state.nextLottery])
-         router.push({
+          router.push({
             path: '/SelectionTable',
             name:'SelectionTable',
             params: {
