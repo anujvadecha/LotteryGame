@@ -14,12 +14,12 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'SelectionTable/:set',name:'SelectionTable', component: () => import('pages/SelectionTable.vue') ,props: true },
-    {path: '/MoreDraws', name: 'MoreDraws', component: () => import('pages/MoreDraws.vue'),},
+      { path: '/MoreDraws', name: 'MoreDraws', component: () => import('pages/MoreDraws.vue'),},
       {
-    path: '/Results',
-    name: 'Results',
-    component: () => import('pages/Results.vue'),
-  },
+        path: '/Results',
+        name: 'Results',
+        component: () => import('pages/Results.vue'),
+      },
       {
     path: '/TxnDetails',
     name: 'TxnDetails',

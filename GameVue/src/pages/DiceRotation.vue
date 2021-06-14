@@ -22,31 +22,25 @@ name: "DiceRotation",
   }
   },
   created() {
-        // get_winners({"lottery_id":this.$store.state.nextLottery.id}).then(
-        //    res=> {
-        //       this.$store.dispatch("set_results",res.lottery_winners_ticket)
-        //       this.$store.dispatch('set_announcements',res.announcements)
-        //       this.results = res.lottery_winners_ticket
-        //     }
-        // )
-          const this_pointer = this;
+        const this_pointer = this;
         setInterval(function (){
           this_pointer.results = this_pointer.$store.state.results
           },2000);
         const router = this.$router;
-        const store=this.$store;
+        const store = this.$store;
         setTimeout(function(){
-              store.dispatch('set_selected_lotteries',[])
-              store.state.previousLottery=store.state.nextLottery;
-              router.push({
-              path: '/SelectionTable',
-              name:'SelectionTable',
-              params: {
-                set: 'A'
-              }
-            })
+              // store.dispatch('reset_all')
+          store.dispatch('set_selected_lotteries',[store.state.nextLottery])
+         router.push({
+            path: '/SelectionTable',
+            name:'SelectionTable',
+            params: {
+              set: 'A'
+            }
+          })
+
           }, 5000);
-        // this.$store.state.selectedSets={};
+
   }
 }
 </script>

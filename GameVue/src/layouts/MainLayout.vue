@@ -162,7 +162,6 @@ export default {
   components: {SelectionHeader, EssentialLink,  OptionsHeader, TimeHeader, ResultHeader, Footer},
   methods:{
     changeMainSelectedStates:function () {
-      console.log("changing state")
       this.$store.dispatch('change_selected_sets',this.selectedSets)
     }
   },
@@ -202,8 +201,6 @@ export default {
       }
       var totalPrice = 0;
       // for (const [key, value] of Object.entries(totalPrice)) {
-        // console.log(key)
-        // console.log(value)
         totalPrice += key
       // }
       return price.A+price.B+price.C+price.D+price.E+price.F+price.G+price.H+price.I+price.J;
@@ -247,11 +244,9 @@ export default {
    }
   },
   created() {
-
     if (this.logged_in) {
     const store = this.$store;
     get_lottery_timings().then(lottery_timings => {
-      console.log(lottery_timings)
       var timings = lottery_timings.lottery_objects.map(object => {
               object.time=new Date(object.time)
               return object
@@ -263,7 +258,7 @@ export default {
     const nextLottery = this.$store.getters.get_next_lottery;
     this.$store.dispatch('set_selected_lotteries',[nextLottery])
     setInterval(function (){
-    //   var current_next_lottery =  store.state.nextLottery;
+        // var current_next_lottery =  store.state.nextLottery;
         store.dispatch('set_next_lottery')
     },1000)
     get_user_details().then(
@@ -272,6 +267,7 @@ export default {
       }
     )
     });
+
     } else {
       this.$router.push({name:'Login'})
     }
