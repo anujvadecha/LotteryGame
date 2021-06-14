@@ -108,7 +108,7 @@
   <q-btn class="col-4 q-ma-lg" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
 <!--   <q-btn class="col-2 q-ma-md" color="orange" unelevated @click="print_account()">Print</q-btn>
 
- --> 
+ -->
   <q-btn class="col-4 q-ma-lg" color="black" unelevated @click="refresh()">Refresh</q-btn>
     </q-card>
 
@@ -136,11 +136,16 @@ export default {
   },
   methods:{
     print_account(){
-     var printContents = document.getElementById('account_details').innerHTML;
-     var originalContents = document.body.innerHTML;
-     document.body.innerHTML = printContents;
-     window.print();
-     document.body.innerHTML = originalContents;
+      var printContents = document.getElementById('account_details').innerHTML;
+      var printWindow = window.open('');
+      printWindow.document.write();
+      printWindow.document.write('</head><body style="font-size: medium;font-weight:bold">');
+      printWindow.document.write(printContents);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.print();
+      printWindow.document.close();
+      printWindow.close();
     },
     refresh() {
       console.log(this.start_date)

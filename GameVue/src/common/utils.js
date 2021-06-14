@@ -127,7 +127,7 @@ function print_div(res,claim=false,user=null) {
   if (claim == false) {
     document.getElementById("printdivcontent").innerHTML += `<svg id="barcode" style=""></svg>`
 
-    JsBarcode('#barcode', res["ticket_id"])
+    JsBarcode('#barcode', res["ticket_id"],{ height: 50,})
   }
   var divContents = document.getElementById("printdivcontent").innerHTML;
   // var printWindow = window.open('', '', 'height=200,width=400');
@@ -170,7 +170,7 @@ function PrintDiv() {
     document.body.appendChild(frame1);
     var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1.contentDocument.document ? frame1.contentDocument.document : frame1.contentDocument;
     frameDoc.document.open();
-     frameDoc.document.write(`<html><head><title>Star skill game</title>`);
+    frameDoc.document.write(`<html><head><title>Star skill game</title>`);
     frameDoc.document.write('</head><body>');
     frameDoc.document.write(contents);
     frameDoc.document.write('</body></html>');
