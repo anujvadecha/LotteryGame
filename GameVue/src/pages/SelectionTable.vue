@@ -398,9 +398,9 @@ export default {
     getStyleForInput(input) {
       // background-color:#882ce2;
         if (input && input !== 0 && input != null)
-        return "color:#c50a46; font-size:small"
+        return "background-color:white;color:#c50a46; font-size:small;border: 0.1px solid black"
       else
-        return "background-color:white"
+        return "background-color:white;border: 0.1px solid black"
 
         // return " background-color:white;font-size:small"
     },
