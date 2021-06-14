@@ -397,7 +397,11 @@ export default {
     },
     getStyleForInput(input) {
       // background-color:#882ce2;
-      return 'font-size: small'
+        if (input && input !== 0 && input != null)
+        return "color:#c50a46; font-size:small"
+      else
+        return "background-color:white"
+
         // return " background-color:white;font-size:small"
     },
     pushToPage: function (link) {
