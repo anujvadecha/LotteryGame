@@ -17,7 +17,7 @@ class User(AbstractUser):
     total_inflow = models.IntegerField(default=0)
     total_outflow = models.IntegerField(default=0)
     user_type = models.CharField(choices=USER_TYPE_CHOICES,default = "PLAYER",max_length=255)
-    terminal_id = models.CharField(primary_key=True, default=random_string_generator(size=5), max_length=50)
+    terminal_id = models.CharField(unique=True, default=random_string_generator(size=5), max_length=50)
 
     def name(self):
         return self.first_name + ' ' + self.last_name
