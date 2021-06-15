@@ -71,6 +71,7 @@ let code = "";
     if(code.length == 33){
             final_barcode = code
             document.getElementById("final_barcode").value = final_barcode
+            document.getElementById('claim_button').click()
             code = ""
           }
           if(code.length>10){
