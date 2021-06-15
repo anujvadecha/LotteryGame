@@ -114,13 +114,10 @@ name: "Footer",
       selected_lotteries: selected_lotteries,
       selection:this.$store.state.selectionState
     }
-    console.log(order)
     const  store=this.$store;
     const q=this.$q;
     place_order(order).then(res=>{
-      if(res.status_code===200)
-      {
-        console.log(res)
+      if(res.status_code===200) {
         store.dispatch('update_balance_points',res.balance_points)
         var tickets_booked = res.tickets.map(ticket=>{
         Notify.create({

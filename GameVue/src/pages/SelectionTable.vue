@@ -418,7 +418,6 @@ export default {
   mounted() {
   },
   created() {
-    this.$store.dispatch('reset_all')
   },
   updated() {
   },
