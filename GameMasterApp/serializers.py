@@ -27,7 +27,7 @@ class TicketSerializer(serializers.ModelSerializer):
     set_ticket=serializers.SerializerMethodField()
 
     def get_set_ticket(self,obj):
-        return obj.set_ticket[:1] + obj.number
+        return obj.set_ticket[:1] + "{0:0=2d}".format(obj.number)
 
     class Meta:
         model=Ticket
