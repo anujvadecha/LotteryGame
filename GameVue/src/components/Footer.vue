@@ -151,8 +151,8 @@ name: "Footer",
         });
         this.$store.dispatch('reset_all')
         q.fullscreen.request().then(() => { // v1.5.0+
-    console.log("Success")
-  })
+          console.log("Success")
+        })
         //   this.$q.notify({
         // message: " Go fullscreen",
         // color: 'primary',

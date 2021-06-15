@@ -56,7 +56,7 @@
 <!--               COLUMN CARDS   -->
           <div v-for="i in 10" :key="i" class="" style="width: 9.09%;">
             <q-card class=" text-center" style="background-color: #eef8ff;margin-right: 2px;margin-left: 2px;margin-top: 2px " flat>
-              <input  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+              <input autocomplete="off"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
                       type="text"
                       :id="'col'+set+i"
                       class="text-center text-red col_cards"
@@ -70,7 +70,7 @@
           <div class="" style="width: 9.09%;">
             <div class=" text-center " style="background-color: #eef8ff;" flat>
               <div style="font-size: small"> &nbsp;</div>
-              <input  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" type="text" :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs row_cards"
+              <input autocomplete="off"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" type="text" :id="'row'+set+i" class="text-center text-red q-pl-xs q-pr-xs row_cards"
                      v-bind:style="'background-color:#882ce2;width:100%;height:100%'"
                      @input="add_input_row(i)"/>
             </div>
@@ -79,7 +79,7 @@
           <div class="" v-for="n in 10" style="width: 9.09%" :key="n">
             <div class="text-center " style="background-color: #eef8ff;margin-left: 2px;margin-right: 2px;" flat>
               <div style="font-size: small;font-family: Sans-Serif"> {{ ("0" + (i * 10 + n - 10 - 1)).slice(-2) }}</div>
-              <input onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  type="text" :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
+              <input  onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"  type="text" :id="set+(i*10+n-10-1)" class="text-center text-red lottery_input"
                      v-bind:style="getStyleForInput(inputs[set][i*10+n-10-1]).concat(';width:100%;')"
                      :value="inputs[set][i*10+n-10-1]"
                      @input="add_input(i*10+n-10-1,true)" autocomplete="off"/>
