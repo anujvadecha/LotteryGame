@@ -97,12 +97,10 @@ let code = "";
         currentIndex = parseInt(document.activeElement.id.substring(4)) - 1
         switch (e.keyCode) {
         case 37: //left
-          console.log(currentIndex)
           currentIndex = (currentIndex == 0) ? currentIndex : currentIndex-1;
           elements[currentIndex].focus();
           break;
         case 39:  //right
-        console.log(currentIndex)
           currentIndex = (currentIndex == 9) ? currentIndex : currentIndex+1;
           elements[currentIndex].focus();
 
@@ -117,43 +115,120 @@ let code = "";
           var element_to_focus = document.activeElement.id.substring(3)
           element_to_focus = element_to_focus[0] + (parseInt(document.activeElement.id.substring(4)) + 90)
           document.getElementById(element_to_focus).focus()
-
+          break;
+      }
+      }
+      else if(document.activeElement.id.includes("row")){
+        elements = document.getElementsByClassName("row_cards")
+        currentIndex = parseInt(document.activeElement.id.substring(4)) - 1
+        switch (e.keyCode) {
+        case 37: //left
+          
+          currentIndex = (currentIndex == 0) ? currentIndex : currentIndex-1;
+          elements[currentIndex].focus();
           break;
 
+        case 39:  //right
+          var element_to_focus = document.activeElement.id.substring(3)
+          element_to_focus = element_to_focus[0] + 10*(parseInt(document.activeElement.id.substring(4))-1)
+          document.getElementById(element_to_focus).focus()
+          break;
+        case 40: //down
+          currentIndex = (currentIndex == 9) ? "col" : currentIndex+1;
+          if(currentIndex != "col"){
+            elements[currentIndex].focus();
+          }else{
+            document.getElementById("col"+document.activeElement.id.charAt(3)+"1").focus()
+          }
+          
+          break;
+        case 38: //up
+          currentIndex = (currentIndex == 0) ? currentIndex : currentIndex-1;
+          elements[currentIndex].focus();
+          break;
+      }
       }
 
-
-
-
-
-
-
-
-      }else{
+      else{
          elements = document.getElementsByClassName("lottery_input")
-        currentIndex = parseInt(document.activeElement.id.substring(1))
+         currentIndex = parseInt(document.activeElement.id.substring(1))
 
       switch (e.keyCode) {
         case 37: //left
+          currentIndex = (currentIndex == 0 || currentIndex%10 == 0) ? (parseInt(currentIndex)/10 + 1) +"col_" : currentIndex-1;
+          try{
 
-          currentIndex = (currentIndex == 0 || currentIndex%10 == 0) ? currentIndex -1 : currentIndex-1;
-          elements[currentIndex].focus();
-
+            if(Number.isInteger(currentIndex) == false){
+              if(currentIndex.includes("col_")){
+                currentIndex = currentIndex.split("col_")[0]
+                console.log(document.activeElement.id.charAt(0))
+              document.getElementById("row"+document.activeElement.id.charAt(0)+currentIndex).focus()
+              
+              }
+              
+            }else{
+              elements[currentIndex].focus();
+            }
+          }catch(e){}
+          
           break;
         case 39:  //right
-          currentIndex = (currentIndex == 9 || currentIndex%10 == 9) ? currentIndex + 1 : currentIndex+1;
-          elements[currentIndex].focus();
+          currentIndex = (currentIndex == 9 || currentIndex%10 == 9) ? (parseInt(currentIndex + 1)/10 +1)+"col_" : currentIndex+1;
+          try{
 
+            if(Number.isInteger(currentIndex) == false){
+              if(currentIndex.includes("col_")){
+                currentIndex = currentIndex.split("col_")[0]
+              document.getElementById("row"+document.activeElement.id.charAt(0)+currentIndex).focus()
+              }
+            }else{
+              elements[currentIndex].focus();
+            }
+          }catch(e){}
+         
           break;
         case 40: //down
-          currentIndex = (parseInt(currentIndex/10) >= 9) ? currentIndex - 90 : currentIndex+10;
-          elements[currentIndex].focus();
+          
+          currentIndex = (parseInt(currentIndex/10) >= 9) ? currentIndex - 90 + 2 + "col_" : currentIndex+10;
+
+          try{
+
+            if(Number.isInteger(currentIndex) == false){
+              if(currentIndex.includes("col_")){
+                currentIndex = currentIndex.split("col_")[0]
+                console.log(document.activeElement.id.charAt(0))
+              document.getElementById("col"+document.activeElement.id.charAt(0)+currentIndex).focus()
+              
+              }
+              
+            }else{
+              elements[currentIndex].focus();
+            }
+          }catch(e){}
+
+          
+          
 
           break;
         case 38: //up
 
-          currentIndex = (parseInt(currentIndex/10) == 0) ? currentIndex + 90 : currentIndex-10;
-          elements[currentIndex].focus();
+          currentIndex = (parseInt(currentIndex/10) == 0) ? currentIndex + 1 + "col_2" : currentIndex-10;
+          try{
+
+            if(Number.isInteger(currentIndex) == false){
+              if(currentIndex.includes("col_")){
+                currentIndex = currentIndex.split("col_")[0]
+                console.log("col"+document.activeElement.id.charAt(0)+currentIndex)
+              document.getElementById("col"+document.activeElement.id.charAt(0)+currentIndex).focus()
+              
+              }
+              
+            }else{
+              elements[currentIndex].focus();
+            }
+          }catch(e){}
+
+          // elements[currentIndex].focus();
 
           break;
 
