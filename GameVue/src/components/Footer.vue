@@ -107,6 +107,7 @@ name: "Footer",
   },
   place_ticket_order:function (){
     var selected_lotteries =this.$store.state.selected_lotteries.map(lottery=>{ return lottery.id});
+    console.log(selected_lotteries)
     if(selected_lotteries.length===0) {
       selected_lotteries = [this.$store.state.nextLottery.id]
     }
@@ -131,8 +132,12 @@ name: "Footer",
             { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
           ]
         })
+        try{
         if(document.getElementById("all_set_checkbox").checked){
           document.getElementById("all_set_checkbox").click()
+        }}
+        catch (e){
+
         }
 
 
@@ -146,28 +151,28 @@ name: "Footer",
         });
         this.$store.dispatch('reset_all')
         q.fullscreen.request().then(() => { // v1.5.0+
-    console.log("Success")
-  })
-          this.$q.notify({
-        message: " Go fullscreen",
-        color: 'primary',
-        position:"center",
-        timeout: 20000,
-        html:true,
-        actions: [
-          { label: 'Go', color: 'white', handler: () => {
-            console.log(document.body.style.zoom);
+          console.log("Success")
+        })
+        //   this.$q.notify({
+        // message: " Go fullscreen",
+        // color: 'primary',
+        // position:"center",
+        // timeout: 20000,
+        // html:true,
+        // actions: [
+        //   { label: 'Go', color: 'white', handler: () => {
+        //     console.log(document.body.style.zoom);
+        //
+        //     this.$q.fullscreen.toggle().then(result => {
+        //       if(window.screen.availHeight <= 800){
+        //         document.body.style.zoom = "88%"
+        //       }
+        //     }) ;
 
-            this.$q.fullscreen.toggle().then(result => {
-              if(window.screen.availHeight <= 800){
-                document.body.style.zoom = "88%"
-              }
-            }) ;
-
-          } },
-          { label: 'Dismiss', color: 'white', handler: () => {  } },
-        ]
-      })
+          // } },
+          // { label: 'Dismiss', color: 'white', handler: () => {  } },
+        // ]
+      // })
   .catch(err => { // v1.5.0+
     console.log(err)
   });

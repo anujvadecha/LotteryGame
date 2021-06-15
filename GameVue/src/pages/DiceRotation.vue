@@ -1,7 +1,7 @@
 <template>
   <div style="font-size: x-large" class="flex flex-center">
   <img src="dicerotation.gif" height="30%" width="30%"/>
-    <div id="lottery_results">Skill game results for {{$store.state.nextLottery.time}}</div>
+    <div id="lottery_results">Skill game results for {{formattedNextLottery}}</div>
       <div v-if="results" class="row" style="width: 83%" >
         <div v-for="(key,value) in results" :key="value" class="col bg-white">
             <div class="text-black text-bold q-ma-xs text-center" style="background-color:#00ffff;font-size: large ">{{value}}</div>
@@ -12,13 +12,18 @@
 </template>
 
 <script>
-import {get_winners} from "src/common/api_calls";
+import {getFormattedDateHHMM, getTimeZoneDate} from "src/common/utils";
 
 export default {
 name: "DiceRotation",
   data(){
   return{
     results:null
+  }
+  },
+  computed:{
+  formattedNextLottery:function (){
+    return getTimeZoneDate(new Date(this.$store.state.nextLottery.time)).toLocaleDateString("en-IN").replaceAll("/","-")+"  "+getFormattedDateHHMM(this.$store.state.nextLottery.time)
   }
   },
   created() {
