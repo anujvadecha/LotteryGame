@@ -322,6 +322,7 @@ class CancelTicketAPI(APIView):
                 user_obj.balance_points = user_obj.balance_points + ticket_obj.total_price
                 user_obj.save()
                 response['status_code'] = 200
+                response["balance_points"] = request.user.balance_points
             else:
                 response['status_code'] = 300
         except Exception as e:

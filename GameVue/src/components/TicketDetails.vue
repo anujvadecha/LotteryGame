@@ -61,9 +61,11 @@ export default {
     delete_ticket:function(){
       var ticket_id = this.ticket.ticket_id
       var data_to_send = {'cancelled_ticket_id':ticket_id}
+      const store=this.$store;
       delete_ticket_api(data_to_send).then(res => {
           console.log(res)
           if(res.status_code == 200){
+            store.dispatch('update_balance_points',res.balance_points)
             Notify.create({
               type: 'positive',
               progress: false,
