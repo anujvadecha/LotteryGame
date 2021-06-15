@@ -1094,6 +1094,7 @@ export default function (/* { ssrContext } */) {
         state.lotteries = timings
       },
       set_selected_lotteries(state, timings) {
+        console.log("Setting selected queries");
         state.selected_lotteries = timings
       },
       set_next_lottery(state) {

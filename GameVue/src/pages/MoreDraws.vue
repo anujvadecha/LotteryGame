@@ -55,8 +55,6 @@ name: "MoreDraws",
   created() {
     var selected_ids = this.$store.state.selected_lotteries.map(lottery=>{return lottery.id});
     var filtered_ids = [];
-
-    console.log(selected_ids)
     this.options = this.$store.state.lotteries.
     filter(
       lottery=> {
@@ -66,13 +64,6 @@ name: "MoreDraws",
     map(
       lottery=>{
         var selected = false;
-        // selected_ids.map(id=> {
-        //     if(lottery.id===id) {
-        //       this.selected_lotteries.push(lottery)
-        //       selected = true;
-        //     }
-        //   }
-        // )
         return {label:getFormattedDateHHMM(lottery.time),value:lottery,selected:selected}
       }
     )
