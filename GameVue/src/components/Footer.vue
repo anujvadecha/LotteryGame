@@ -153,26 +153,26 @@ name: "Footer",
         q.fullscreen.request().then(() => { // v1.5.0+
     console.log("Success")
   })
-          this.$q.notify({
-        message: " Go fullscreen",
-        color: 'primary',
-        position:"center",
-        timeout: 20000,
-        html:true,
-        actions: [
-          { label: 'Go', color: 'white', handler: () => {
-            console.log(document.body.style.zoom);
+        //   this.$q.notify({
+        // message: " Go fullscreen",
+        // color: 'primary',
+        // position:"center",
+        // timeout: 20000,
+        // html:true,
+        // actions: [
+        //   { label: 'Go', color: 'white', handler: () => {
+        //     console.log(document.body.style.zoom);
+        //
+        //     this.$q.fullscreen.toggle().then(result => {
+        //       if(window.screen.availHeight <= 800){
+        //         document.body.style.zoom = "88%"
+        //       }
+        //     }) ;
 
-            this.$q.fullscreen.toggle().then(result => {
-              if(window.screen.availHeight <= 800){
-                document.body.style.zoom = "88%"
-              }
-            }) ;
-
-          } },
-          { label: 'Dismiss', color: 'white', handler: () => {  } },
-        ]
-      })
+          // } },
+          // { label: 'Dismiss', color: 'white', handler: () => {  } },
+        // ]
+      // })
   .catch(err => { // v1.5.0+
     console.log(err)
   });

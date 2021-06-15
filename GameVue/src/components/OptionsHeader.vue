@@ -16,6 +16,15 @@
   <div class="q-ml-md">
     <q-btn  dense @click="logout()" flat  style="color: #033aca;background-color: greenyellow">Logout</q-btn>
   </div>
+  <div class="q-ml-md">
+    <q-btn
+      dense
+      style="color: #033aca;background-color: greenyellow"
+      @click="$q.fullscreen.toggle()"
+      :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
+      :label="$q.fullscreen.isActive ? 'Exit Fullscreen' : 'Go Fullscreen'"
+    />
+  </div>
 </div>
 </template>
 
