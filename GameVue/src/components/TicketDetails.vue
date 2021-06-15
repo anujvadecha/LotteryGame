@@ -3,12 +3,14 @@
   <div class="row" style="">
     <q-card class="col-5" style="" >
         <q-card-section>
+<!--          {{this.ticket}}-->
           <div class="row">TXN: {{this.ticket.ticket_id}}</div>
           <div class="row">Ticket Date: {{get_ticket_time(ticket.created_at)}}</div>
           <div class="row">Lottery time: {{get_ticket_time(this.ticket.lottery.time)}}</div>
           <div class="row">Total points: {{this.ticket.total_price}}</div>
           <div class="row">Total quantity: {{this.ticket.total_quantity}}</div>
           <div class="row">Total winning: {{this.ticket.inflow}}</div>
+<!--          <div class="row">Lottery winners: {{this.ticket.lottery.winners}}</div>-->
         </q-card-section>
     </q-card>
     <div class="col-7" style="background-color: grey">

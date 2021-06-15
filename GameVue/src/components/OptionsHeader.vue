@@ -8,13 +8,10 @@
   </div>
   <q-space></q-space>
   <div class="q-ml-md" style="">
-    <q-btn dense flat style="color: #033aca;background-color: greenyellow" @click="$router.push({path:'/MyAccounts'})">My accounts</q-btn>
+    <q-btn dense  style="color: #033aca;background-color: greenyellow" @click="$router.push({path:'/MyAccounts'})">My accounts</q-btn>
   </div>
   <div class="q-ml-md">
     <q-btn dense  style="color: #033aca;background-color: greenyellow">Password </q-btn>
-  </div>
-  <div class="q-ml-md">
-    <q-btn  dense @click="logout()" flat  style="color: #033aca;background-color: greenyellow">Logout</q-btn>
   </div>
   <div class="q-ml-md">
     <q-btn
@@ -24,6 +21,9 @@
       :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
       :label="$q.fullscreen.isActive ? 'Exit Fullscreen' : 'Go Fullscreen'"
     />
+  </div>
+  <div class="q-ml-md">
+    <q-btn  dense @click="logout()"   style="color: #033aca;background-color: greenyellow">Logout</q-btn>
   </div>
 </div>
 </template>
