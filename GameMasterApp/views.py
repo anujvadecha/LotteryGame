@@ -311,9 +311,11 @@ class CancelTicketAPI(APIView):
             cancelled_ticket_id = data['cancelled_ticket_id']
             todays_date= date.today()
             cancelled_count = TicketID.objects.filter(user=request.user,modified_at__date = todays_date,cancelled=True).count()
-            if(cancelled_count >= 10):
-                raise Exception("Cancelled limit reached")
+            # TODO BRING THIS BACK LATER
+            # if(cancelled_count >= 10):
+            #     raise Exception("Cancelled limit reached")
             ticket_obj = TicketID.objects.filter(pk=cancelled_ticket_id , lottery__completed=False)
+
             if ticket_obj:
                 ticket_obj = ticket_obj.first()
                 ticket_obj.cancelled = True

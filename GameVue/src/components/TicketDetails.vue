@@ -20,7 +20,7 @@
         :data="this.ticket.ticket_set"
         :virtual-scroll-item-size="10"
         :pagination="pagination"
-        :rows-per-page-options="[0]">
+        :rows-per-page-options="[0]" >
       </q-table>
     </div>
   </div>
