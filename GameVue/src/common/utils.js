@@ -110,7 +110,7 @@ function print_div(res,claim=false,user=null) {
 
     var ticket_details = ""
     res["ticket_set"].map(res => {
-      ticket_details += `${res["set_ticket"]} - ${res["price"]*res["quantity"]},`
+      ticket_details += `${res["set_ticket"]}-${res["price"]*res["quantity"]},`
     })
 
     document.getElementById("printdivcontent").innerHTML += ticket_details.slice(0, -1)
