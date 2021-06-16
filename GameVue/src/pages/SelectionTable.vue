@@ -400,7 +400,7 @@ export default {
         if (input && input !== 0 && input != null)
         return "background-color:white;color:#c50a46; font-size:small;border: 0.1px solid black"
       else
-        return "background-color:white;border: 0.1px solid black;font-size:small;"
+        return "border: 0.1px solid black;font-size:small;"
 
         // return " background-color:white;font-size:small"
     },
