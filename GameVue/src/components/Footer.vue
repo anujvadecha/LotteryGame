@@ -116,6 +116,7 @@ name: "Footer",
       selection:this.$store.state.selectionState
     }
     const  store=this.$store;
+    const router = this.$router
     const q=this.$q;
     place_order(order).then(res=>{
       if(res.status_code===200) {
@@ -139,7 +140,13 @@ name: "Footer",
         catch (e){
 
         }
-
+      router.push({
+        path: '/SelectionTable',
+        name:'SelectionTable',
+        params: {
+          set: 'A'
+        }
+      })
 
         return ticket.ticket_id})
         res.tickets.map(ticket => {
