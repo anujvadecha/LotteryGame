@@ -116,9 +116,10 @@ name: "Footer",
       selection:this.$store.state.selectionState
     }
     const  store=this.$store;
-    const router = this.$router
+    // const router = this.$router
     const q=this.$q;
     place_order(order).then(res=>{
+      console.log(res)
       if(res.status_code===200) {
         store.dispatch('update_balance_points',res.balance_points)
         var tickets_booked = res.tickets.map(ticket=>{
@@ -137,16 +138,14 @@ name: "Footer",
         if(document.getElementById("all_set_checkbox").checked){
           document.getElementById("all_set_checkbox").click()
         }}
-        catch (e){
-
-        }
-      router.push({
-        path: '/SelectionTable',
-        name:'SelectionTable',
-        params: {
-          set: 'A'
-        }
-      })
+        catch (e){}
+      // router.push({
+      //   path: '/SelectionTable',
+      //   name:'SelectionTable',
+      //   params: {
+      //     set: 'A'
+      //   }
+      // })
 
         return ticket.ticket_id})
         res.tickets.map(ticket => {
