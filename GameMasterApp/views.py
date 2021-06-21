@@ -22,13 +22,16 @@ import inspect
 import os
 import sys
 
+from base.constants import WINNING
 
 logger = logging.getLogger(__name__)
+
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
 
     def enforce_csrf(self, request):
         return
+
 
 def return_lineno_filename_file_called_exception():
     exc_type, exc_obj, tb = sys.exc_info()
@@ -59,7 +62,7 @@ def raise_exception(message=''):
 def raise_info(message=''):
     try:
         exc_obj, lineno, filename, line = return_lineno_filename_file_called_exception()
-        logger.info(message + " [INFO] %s at %s ",exc_obj, lineno)
+        logger.info(message + " [INFO] %s at %s ", exc_obj, lineno)
     except:
         callerframerecord = inspect.stack()[1]
         frame = callerframerecord[0]
@@ -68,8 +71,6 @@ def raise_info(message=''):
         line_no = info.lineno
         logger.info(message + " [INFO] of function %s at %s",
                     function_name, line_no)
-
-
 
 
 class BuyTicketsAPI(APIView):
@@ -101,7 +102,7 @@ class BuyTicketsAPI(APIView):
                 raise_exception("Please select tickets before buying")
                 raise Exception("Please select tickets before buying")
 
-            if(points < 10):
+            if (points < 10):
                 response['status_code'] = 500
                 response['message'] = "Minimum total should be 10 points"
                 raise_exception("Minimum total should be 10 points")
@@ -110,27 +111,29 @@ class BuyTicketsAPI(APIView):
             if (len(data) > 0):
                 for lottery in lotteries:
                     ticket_id = TicketID.objects.create(user=user, lottery=lottery)
-                    tickets_to_create=[]
+                    tickets_to_create = []
                     for key, value in data.items():
                         if (value['quantity'] != None):
                             ticket = Ticket(user=user, set_ticket=key, quantity=value["quantity"],
-                                                           price=value["price"], lottery=lottery,number=key[1:] ,total=value['quantity']*value['price'] )
-                            ticket_id.increase_outflow(value["price"]*value['quantity'])
+                                            price=value["price"], lottery=lottery, number=key[1:],
+                                            total=value['quantity'] * value['price'])
+                            ticket_id.increase_outflow(value["price"] * value['quantity'])
                             tickets_to_create.append(ticket)
+                            lottery.add_to_winning_set(key[:1], key[1:], value["price"] * value['quantity'] * WINNING)
                     bulk_created = Ticket.objects.bulk_create(tickets_to_create)
                     ticket_id.ticket_set.add(*bulk_created)
                     user.balance_points -= points
-
                     if user.user_type == "AGENT":
                         agent_obj = Agent.objects.filter(user=user)
-                        if agent_obj :
+                        if agent_obj:
                             commission_percent = agent_obj[0].commission_percent
-                            user.balance_points += (commission_percent/100)*points
+                            user.balance_points += (commission_percent / 100) * points
 
                     user.save()
                     ticket_id.save()
                     tickets_created.append(ticket_id)
-                tickets_created = TicketIDSerializer(tickets_created,many=True).data
+                    lottery.save()
+                tickets_created = TicketIDSerializer(tickets_created, many=True).data
             else:
                 response['status_code'] = 500
                 response['message'] = "Please select tickets before buying"
@@ -142,7 +145,8 @@ class BuyTicketsAPI(APIView):
 
             raise_info("End of BuyTicketsAPI")
             return Response(data=response)
-        except:
+        except Exception as e:
+            raise e
             raise_exception("BuyTicketsAPI")
             return Response(data=response, status=status.HTTP_200_OK)
 
@@ -169,7 +173,7 @@ class LotteryTimingsAPI(APIView):
             current_time = get_current_timezone().localize(datetime.now())
             closest_time = Lottery.objects.filter(time__gte=current_time).first()
             response['closest_lottery'] = LotterySerializer(closest_time).data
-            timings_of_lottery = Lottery.objects.filter(time__gte=today_min , time__lte = today_max).order_by('time')
+            timings_of_lottery = Lottery.objects.filter(time__gte=today_min, time__lte=today_max).order_by('time')
             timings_of_lottery = LotterySerializer(timings_of_lottery, many=True).data
             response["lottery_objects"] = timings_of_lottery
             response['status_code'] = 200
@@ -250,7 +254,7 @@ class TotalDebitCreditView(APIView):
             raise_info("Start of TotalDebitCreditView")
             data = request.data
             response = {}
-            response_objects = TicketID.objects.filter(user=request.user,cancelled=False)
+            response_objects = TicketID.objects.filter(user=request.user, cancelled=False)
             if (data.get("start_date", None) and data.get("end_date", None)):
                 response_objects = response_objects.filter(created_at__date__gte=data.get("start_date"),
                                                            created_at__date__lte=data.get("end_date"))
@@ -278,24 +282,26 @@ class TotalDebitCreditView(APIView):
 TotalPointsView = TotalDebitCreditView.as_view()
 
 
-#class TicketIdView(APIView):
+# class TicketIdView(APIView):
 
 #    def get(self, request):
 #        response_objects = TicketID.objects.filter(user=request.user).order_by('-created_at')
-        #print(response_objects)
+# print(response_objects)
 #        return Response(data=TicketIDSerializer(response_objects, many=True).data)
 
 class TicketIdView(APIView):
 
     def get(self, request):
         if "start_date" in request.query_params and "end_date" in request.query_params:
-             today_min = datetime.strptime(request.query_params["start_date"] + " 00:00:00", '%Y-%m-%d %H:%M:%S')
-             today_max = datetime.strptime(request.query_params["end_date"] + " 23:59:00", '%Y-%m-%d %H:%M:%S')
-             response_objects = TicketID.objects.filter(user=request.user,created_at__gte=today_min,created_at__lte=today_max).order_by('-created_at')
+            today_min = datetime.strptime(request.query_params["start_date"] + " 00:00:00", '%Y-%m-%d %H:%M:%S')
+            today_max = datetime.strptime(request.query_params["end_date"] + " 23:59:00", '%Y-%m-%d %H:%M:%S')
+            response_objects = TicketID.objects.filter(user=request.user, created_at__gte=today_min,
+                                                       created_at__lte=today_max).order_by('-created_at')
         else:
             today_min = datetime.combine(date.today(), time.min)
             today_max = datetime.combine(date.today() + timedelta(days=1), time.max)
-            response_objects = TicketID.objects.filter(user=request.user,created_at__gte=today_min,created_at__lt=today_max).order_by('-created_at')
+            response_objects = TicketID.objects.filter(user=request.user, created_at__gte=today_min,
+                                                       created_at__lt=today_max).order_by('-created_at')
         return Response(data=TicketIDSerializer(response_objects, many=True).data)
 
 
@@ -309,12 +315,13 @@ class CancelTicketAPI(APIView):
             raise_info("Start of CancelTicketAPI")
             data = request.data
             cancelled_ticket_id = data['cancelled_ticket_id']
-            todays_date= date.today()
-            cancelled_count = TicketID.objects.filter(user=request.user,modified_at__date = todays_date,cancelled=True).count()
+            todays_date = date.today()
+            cancelled_count = TicketID.objects.filter(user=request.user, modified_at__date=todays_date,
+                                                      cancelled=True).count()
             # TODO BRING THIS BACK LATER
             # if(cancelled_count >= 10):
             #     raise Exception("Cancelled limit reached")
-            ticket_obj = TicketID.objects.filter(pk=cancelled_ticket_id , lottery__completed=False)
+            ticket_obj = TicketID.objects.filter(pk=cancelled_ticket_id, lottery__completed=False)
 
             if ticket_obj:
                 ticket_obj = ticket_obj.first()
@@ -334,7 +341,9 @@ class CancelTicketAPI(APIView):
         raise_info("End of CancelTicketAPI")
         return Response(data=response)
 
+
 CancelTicketView = CancelTicketAPI.as_view()
+
 
 class ClaimTicketAPI(APIView):
     def post(self, request):
@@ -344,7 +353,7 @@ class ClaimTicketAPI(APIView):
             raise_info("Start of ClaimTicketAPI")
             data = request.data
             ticket_id = data['ticket_id']
-            ticket_obj = TicketID.objects.filter(ticket_id=ticket_id,cancelled=False,is_completed=False)
+            ticket_obj = TicketID.objects.filter(ticket_id=ticket_id, cancelled=False, is_completed=False)
             if ticket_obj:
                 if ticket_obj.filter(user=request.user):
                     ticket_obj = ticket_obj[0]
@@ -353,10 +362,6 @@ class ClaimTicketAPI(APIView):
                         ticket_obj.save()
                         response["ticket"] = TicketIDSerializer(ticket_obj).data
                         response['status_code'] = 200
-                        if request.user.user_type == "AGENT":
-                            request.user.balance_points +=  ticket_obj.inflow
-                            request.user.save()
-
                     else:
                         response['status_code'] = 305
                         response['status_message'] = "No wins."
@@ -367,22 +372,21 @@ class ClaimTicketAPI(APIView):
             else:
                 response['status_code'] = 300
                 response['status_message'] = "Ticket has already been claimed or does not exists."
-            response['balance_points'] = request.user.balance_points
         except:
             raise_exception("ClaimTicketAPI")
         raise_info("End of ClaimTicketAPI")
         return Response(response)
 
-ClaimTicketView = ClaimTicketAPI.as_view()
 
+ClaimTicketView = ClaimTicketAPI.as_view()
 
 
 class UserAuthentication(APIView):
 
-    def post(self,request):
+    def post(self, request):
         user = User.objects.filter(mobile=request.data['mobile']).first()
-        authentication = authenticate(username=user.username,password=request.data['password'])
+        authentication = authenticate(username=user.username, password=request.data['password'])
         if authentication is not None:
-            return Response(data={"token": ""},status=status.HTTP_200_OK)
+            return Response(data={"token": ""}, status=status.HTTP_200_OK)
         else:
-            return Response(data="failed",status=status.HTTP_400_BAD_REQUEST)
+            return Response(data="failed", status=status.HTTP_400_BAD_REQUEST)

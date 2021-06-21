@@ -251,4 +251,3 @@ class Admin(BaseModel):
     players = models.ManyToManyField(Players, blank=True)
 
 
-

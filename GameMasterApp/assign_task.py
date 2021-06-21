@@ -9,28 +9,25 @@ import sys
 from GameMasterApp.views import raise_info, raise_exception
 from base.constants import WINNING, PEOPLES_WINNING_PERCENT
 
-"""
-def calculate_for_set(lottery_winning_set,winners):
-    sum = 0
-    for i in lottery_winning_set:
-        sum += i
-    amount_to_win = sum * (PEOPLES_WINNING_PERCENT / 100)
-    amount_to_win = amount_to_win/90
-    max = -1
-    max_index = 0
-    # Available randoms is just to normalize the system when nobody wins instead of returning 0 it will return a random value
-    available_randoms = []
-    for index in range(0, len(lottery_winning_set)):
-        if lottery_winning_set[index] < amount_to_win and lottery_winning_set[index] >= max and (index not in winners):
-            max = lottery_winning_set[index]
-            max_index = index
-            available_randoms.append(index)
-    if max_index == 0 and lottery_winning_set[max_index] != max:
-        return available_randoms[random.randint(0, len(available_randoms))]
-    return max_index
-"""
 
-
+# def calculate_for_set(lottery_winning_set,winners):
+#     sum = 0
+#     for i in lottery_winning_set:
+#         sum += i
+#     amount_to_win = sum * (PEOPLES_WINNING_PERCENT / 100)
+#     amount_to_win = amount_to_win/90
+#     max = -1
+#     max_index = 0
+#     # Available randoms is just to normalize the system when nobody wins instead of returning 0 it will return a random value
+#     available_randoms = []
+#     for index in range(0, len(lottery_winning_set)):
+#         if lottery_winning_set[index] < amount_to_win and lottery_winning_set[index] >= max and (index not in winners):
+#             max = lottery_winning_set[index]
+#             max_index = index
+#             available_randoms.append(index)
+#     if max_index == 0 and lottery_winning_set[max_index] != max:
+#         return available_randoms[random.randint(0, len(available_randoms))]
+#     return max_index
 
 def calculate_for_set(lottery_winning_set, winners):
     sum = 0
@@ -48,16 +45,9 @@ def calculate_for_set(lottery_winning_set, winners):
             available_randoms.append(index)
     #if max_index == 0 and lottery_winning_set[max_index] != max:
     #    return available_randoms[random.randint(0, len(available_randoms))]
-
     if len(available_randoms) == 0:
        return random.randint(0, 100)
-
     return available_randoms[random.randint(0, len(available_randoms))]
-
-
-    #return max_index
-
-
 
 def get_winners_for_lottery(lottery):
     winners=[]
@@ -100,13 +90,13 @@ def assign_lottery_timings():
                 # and lottery_obj.winners == "{}":
                 print(" running lottery ")
                 lottery_obj.initiate_winning_sets()
-                #try:
-                winner_dict = get_winners_for_lottery(lottery=lottery_obj)
-                #except Exception as e:
-                #    raise_exception(str(e))
-                #    for key, value in winner_dict.items():
-                #        print("assigning winner")
-                #        winner_dict[key] = random.randint(0, 99)
+                try:
+                    winner_dict = get_winners_for_lottery(lottery=lottery_obj)
+                except Exception as e:
+                    raise_exception(str(e))
+                    for key, value in winner_dict.items():
+                        print("assigning winner")
+                        winner_dict[key] = random.randint(0, 99)
                 lottery_obj.winners = json.dumps(winner_dict)
                 lottery_obj.completed = True
                 lottery_obj.save()

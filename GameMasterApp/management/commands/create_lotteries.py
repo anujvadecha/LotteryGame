@@ -13,6 +13,7 @@ class Command(BaseCommand):
 
     def create_lotteries(self, count):
         # Lottery.objects.all().delete()
+
         IST=get_current_timezone()
         for iterator in range(1, count):
             print(iterator)
