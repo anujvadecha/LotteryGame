@@ -362,6 +362,9 @@ class ClaimTicketAPI(APIView):
                         ticket_obj.save()
                         response["ticket"] = TicketIDSerializer(ticket_obj).data
                         response['status_code'] = 200
+                        if request.user.user_type == "AGENT":
+                            request.user.balance_points += ticket_obj.inflow
+                            request.user.save()
                     else:
                         response['status_code'] = 305
                         response['status_message'] = "No wins."
@@ -372,6 +375,7 @@ class ClaimTicketAPI(APIView):
             else:
                 response['status_code'] = 300
                 response['status_message'] = "Ticket has already been claimed or does not exists."
+            response['balance_points'] = request.user.balance_points
         except:
             raise_exception("ClaimTicketAPI")
         raise_info("End of ClaimTicketAPI")

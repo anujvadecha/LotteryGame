@@ -76,6 +76,7 @@ name: "Footer",
            res=> {
               console.log(res)
               if(res.status_code == 200){
+                store.dispatch('update_balance_points',res.balance_points)
                 Notify.create({
                     type: 'positive',
                     progress: true,
