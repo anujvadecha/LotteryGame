@@ -67,7 +67,7 @@
 
     <div id="account_details" >
       <q-card-section class="row" style="font-size: x-large;">
-      SHREE ONLINE VIDEO GAME
+        STAR SKILL GAME
       </q-card-section>
       <q-card-section style="font-size: large">
       <div class= "row">
