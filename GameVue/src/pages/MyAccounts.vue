@@ -119,6 +119,8 @@
 import ResultHeader from "components/ResultHeader";
 import {get_total_points} from "src/common/api_calls";
 import {get_current_date} from "src/common/utils";
+import {getFormattedDateHHMM, getTimeZoneDate} from "src/common/utils";
+
 
 export default {
   name: "MyAccounts",
@@ -140,6 +142,7 @@ export default {
       var printWindow = window.open('');
       printWindow.document.write();
       printWindow.document.write('</head><body style="font-size: medium;font-weight:bold">');
+      printWindow.document.write('<br>Time:'+getTimeZoneDate(new Date()).toLocaleDateString("en-IN").replaceAll("/","-")+"  "+getFormattedDateHHMM(new Date())+'<br>')
       printWindow.document.write(printContents);
       printWindow.document.write('</body></html>');
       printWindow.document.close();
