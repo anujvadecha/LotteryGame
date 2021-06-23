@@ -6,7 +6,7 @@
 <!--          {{this.ticket}}-->
           <div class="row">TXN: {{this.ticket.ticket_id}}</div>
           <div class="row">Ticket Date: {{get_ticket_time(ticket.created_at)}}</div>
-          <div class="row">Lottery time: {{get_ticket_time(this.ticket.lottery.time)}}</div>
+          <div class="row">Skill game time: {{get_ticket_time(this.ticket.lottery.time)}}</div>
           <div class="row">Total points: {{this.ticket.total_price}}</div>
           <div class="row">Total quantity: {{this.ticket.total_quantity}}</div>
           <div class="row">Total winning: {{this.ticket.inflow}}</div>
