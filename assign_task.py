@@ -98,11 +98,15 @@ def assign_lottery_timings():
                 print(" running lottery ")
                 lottery_obj.initiate_winning_sets()
                 try:
-                    #random_number = random.randint(0, 99)%2
-                    random_number = 1
+                    random_number = random.randint(0, 99)%2
+                    # random_number = 1
                     if random_number == 0:
+                        print(f"0 for lotter {lottery_obj.id} getting stat winners ")
+                        raise_info(f"0 for lotter {lottery_obj.id} getting stat winners ")
                         winner_dict = get_winners_for_lottery(lottery=lottery_obj)
                     else:
+                        raise_info(f"1 for lotter {lottery_obj.id} getting random winners ")
+                        print(f"1 for lotter {lottery_obj.id} getting random winners ")
                         winner_dict = declare_winner_random(winner_dict)
                 except Exception as e:
                     raise_exception(str(e))
