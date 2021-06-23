@@ -119,9 +119,11 @@ name: "Footer",
     const  store=this.$store;
     // const router = this.$router
     const q=this.$q;
+    const router = this.$router;
     place_order(order).then(res=>{
-      console.log(res)
       if(res.status_code===200) {
+        console.log(res["tickets"][0]["ticket_set"]);
+
         store.dispatch('update_balance_points',res.balance_points)
         var tickets_booked = res.tickets.map(ticket=>{
         Notify.create({
@@ -140,17 +142,25 @@ name: "Footer",
           document.getElementById("all_set_checkbox").click()
         }}
         catch (e){}
-      // router.push({
-      //   path: '/SelectionTable',
-      //   name:'SelectionTable',
-      //   params: {
-      //     set: 'A'
-      //   }
-      // })
+        router.push({
+          path: '/SelectionTable',
+          name:'SelectionTable',
+          params: {
+            set: 'A'
+          }
+        })
 
         return ticket.ticket_id})
         res.tickets.map(ticket => {
           if(!this.$q.platform.is.mobile) {
+            ticket.ticket_set=ticket.ticket_set.sort(function(a, b) {
+            var keyA = a.set_ticket,
+              keyB = b.set_ticket;
+            // Compare the 2 dates
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+          });
             print_div(ticket,false,store.state.user.first_name)
             // ClickHereToPrint()
             // PrintDiv()
