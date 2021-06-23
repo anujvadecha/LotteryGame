@@ -22,9 +22,12 @@ import {getTimeZoneDate,getFormattedDateHHMM} from "src/common/utils";
 
 export default {
 name: "ResultHeader",
+  created() {
+    console.log("")
+  },
   computed:{
     results:function(){
-      if(this.$store.state.results===null||this.$store.state.results===undefined||this.$store.state.results==={}||!this.$store.state.results.A)
+      if(this.$store.state.results===null||this.$store.state.results===undefined||this.$store.state.results==={})
         return null
       return this.$store.state.results
     },
@@ -32,9 +35,7 @@ name: "ResultHeader",
         var currentTime = this.$store.state.previousLottery.time;
         if (currentTime == null)
           return ''
-        
         return getFormattedDateHHMM(currentTime)
-
     }
   },
   methods:{
