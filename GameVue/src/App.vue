@@ -68,26 +68,27 @@ let code = "";
     for(i=0;i<elements.length;i++){
       elements[i].value = ""
     }
-    if(code.length == 33){
-            final_barcode = code
-            document.getElementById("final_barcode").value = final_barcode
-            document.getElementById('claim_button').click()
-            code = ""
-          }
-          if(code.length>10){
-            code="";
-         }
-
-    }else{
-         code+=e.key;
-    }
-
-    if(!reading){
-         reading=true;
-         setTimeout(function(e){
-          code="";
-          reading=false;
-      }, 200);}
+    // if(code.length == 33){
+    //         final_barcode = code
+    //         document.getElementById("final_barcode").value = final_barcode
+    //         document.getElementById('claim_button').click()
+    //         code = ""
+    //       }
+    //       if(code.length>10){
+    //         code="";
+    //      }
+    //
+    // }else{
+    //      code+=e.key;
+    // }
+    //
+    // if(!reading){
+    //      reading=true;
+    //      setTimeout(function(e){
+    //       code="";
+    //       reading=false;
+    //   }, 200);
+  }
 
 
   if(e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40 || e.keyCode == 117){
@@ -123,7 +124,7 @@ let code = "";
         currentIndex = parseInt(document.activeElement.id.substring(4)) - 1
         switch (e.keyCode) {
         case 37: //left
-          
+
           currentIndex = (currentIndex == 0) ? currentIndex : currentIndex-1;
           elements[currentIndex].focus();
           break;
@@ -140,7 +141,7 @@ let code = "";
           }else{
             document.getElementById("col"+document.activeElement.id.charAt(3)+"1").focus()
           }
-          
+
           break;
         case 38: //up
           currentIndex = (currentIndex == 0) ? currentIndex : currentIndex-1;
@@ -163,14 +164,14 @@ let code = "";
                 currentIndex = currentIndex.split("col_")[0]
                 console.log(document.activeElement.id.charAt(0))
               document.getElementById("row"+document.activeElement.id.charAt(0)+currentIndex).focus()
-              
+
               }
-              
+
             }else{
               elements[currentIndex].focus();
             }
           }catch(e){}
-          
+
           break;
         case 39:  //right
           currentIndex = (currentIndex == 9 || currentIndex%10 == 9) ? (parseInt(currentIndex + 1)/10 +1)+"col_" : currentIndex+1;
@@ -185,10 +186,10 @@ let code = "";
               elements[currentIndex].focus();
             }
           }catch(e){}
-         
+
           break;
         case 40: //down
-          
+
           currentIndex = (parseInt(currentIndex/10) >= 9) ? currentIndex - 90 + 2 + "col_" : currentIndex+10;
 
           try{
@@ -198,16 +199,16 @@ let code = "";
                 currentIndex = currentIndex.split("col_")[0]
                 console.log(document.activeElement.id.charAt(0))
               document.getElementById("col"+document.activeElement.id.charAt(0)+currentIndex).focus()
-              
+
               }
-              
+
             }else{
               elements[currentIndex].focus();
             }
           }catch(e){}
 
-          
-          
+
+
 
           break;
         case 38: //up
@@ -220,9 +221,9 @@ let code = "";
                 currentIndex = currentIndex.split("col_")[0]
                 console.log("col"+document.activeElement.id.charAt(0)+currentIndex)
               document.getElementById("col"+document.activeElement.id.charAt(0)+currentIndex).focus()
-              
+
               }
-              
+
             }else{
               elements[currentIndex].focus();
             }
