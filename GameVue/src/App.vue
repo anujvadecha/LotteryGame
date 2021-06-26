@@ -14,6 +14,10 @@ export default {
   name: 'App',
 
   created() {
+
+$(window).bind('scannerDetectionComplete',function(e,data){
+        $("#final_barcode").val(data.string);
+});
 this.$q.notify({
         message: " Go fullscreen",
         color: 'primary',
@@ -65,7 +69,8 @@ let code = "";
   document.addEventListener('keydown', function (e){
    if (e.keyCode===13){
     elements  = document.getElementsByClassName('lottery_input')
-    for(i=0;i<elements.length;i++){
+    var i=0;
+     for(i=0;i<elements.length;i++){
       elements[i].value = ""
     }
     // if(code.length == 33){
