@@ -16,6 +16,7 @@
     "core-js": "^3.6.5",
     "jquery": "^3.6.0",
     "quasar": "^1.0.0",
+    "vue-barcode-scanner": "^0.8.1",
     "vue-marquee-text-component": "^1.2.0"
   },
   "devDependencies": {

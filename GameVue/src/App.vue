@@ -9,12 +9,18 @@
 
 import {get_lottery_timings, get_user_details, get_winners} from "src/common/api_calls";
 import {AppFullscreen} from "quasar";
-
+import VueBarcodeScanner from 'vue-barcode-scanner'
+import Vue from 'vue'
+Vue.use(VueBarcodeScanner,null)
 export default {
   name: 'App',
-
   created() {
+this.$barcodeScanner.init(scan=>{
+  console.log(scan)
+  document.getElementById("final_barcode").value = final_barcode
+  document.getElementById('claim_button').click()
 
+})
 $(window).bind('scannerDetectionComplete',function(e,data){
         $("#final_barcode").val(data.string);
 });
@@ -68,11 +74,11 @@ let code = "";
 
   document.addEventListener('keydown', function (e){
    if (e.keyCode===13){
-    elements  = document.getElementsByClassName('lottery_input')
-    var i=0;
-     for(i=0;i<elements.length;i++){
-      elements[i].value = ""
-    }
+    // elements  = document.getElementsByClassName('lottery_input')
+    // var i=0;
+    //  for(i=0;i<elements.length;i++){
+    //   elements[i].value = ""
+    // }
     // if(code.length == 33){
     //         final_barcode = code
     //         document.getElementById("final_barcode").value = final_barcode
