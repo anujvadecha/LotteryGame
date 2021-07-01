@@ -16,7 +16,7 @@ export default {
   name: 'App',
   created() {
 this.$barcodeScanner.init(scan=>{
-  console.log(scan)
+
   document.getElementById("final_barcode").value = final_barcode
   document.getElementById('claim_button').click()
 
@@ -41,7 +41,7 @@ this.$q.notify({
               }
               }
             }) ;
-
+            //TEST CHANGE
             // setTimeout(()=>{
             //   console.log(!(($(window).scrollTop() + $(window).innerHeight()) >= $(document).height()))
             //   var zoom = 100;
@@ -73,7 +73,7 @@ let code = "";
       },1000)
 
   document.addEventListener('keydown', function (e){
-   if (e.keyCode===13){
+   if (e.keyCode === 13){
     // elements  = document.getElementsByClassName('lottery_input')
     // var i=0;
     //  for(i=0;i<elements.length;i++){
