@@ -88,7 +88,7 @@ def assign_lottery_timings():
     try:
         IST = timezone('Asia/Kolkata')
         current_time = IST.localize(datetime.now())
-        lottery_obj = Lottery.objects.filter(pk=7672).first()
+        lottery_obj = Lottery.objects.filter(pk=8019).first()
         if lottery_obj:
             # validate_lottery_conditions(lottery=lottery_obj)
             closest_time = lottery_obj.time
