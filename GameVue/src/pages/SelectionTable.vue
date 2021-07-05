@@ -254,10 +254,13 @@ export default {
   },
   methods: {
     all_set_call() {
+      if(this.all_sets===false) {
+        this.$store.dispatch('reset_all')
+      }
       for (const [key, value] of Object.entries(this.selectedSets)) {
         this.selectedSets[key] = this.all_sets
       }
-      this.$store.dispatch('change_selected_sets',{selectedSets:this.selectedSets,currentSet:this.set} )
+      this.$store.dispatch('change_selected_sets',{selectedSets:this.selectedSets,currentSet:this.set,previousSet:this.set} )
     },
     reverse_number(n) {
       if (n >= 1 && n <= 9) {

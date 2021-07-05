@@ -1253,13 +1253,12 @@ export default function (/* { ssrContext } */) {
           this.dispatch('reset_all')
           for (const [key, value] of Object.entries(selectionState.selectedSets)) {
             if(value===true) {
-              console.log(state.inputs[key])
-              console.log(old_inputs[key])
               state.inputs[key] = old_inputs[key]
             }
           }
           // state.inputs[selectedLatest] = old_inputs
         }
+        console.log("A0"+state.inputs["A"]["0"])
         if(selectionState.selectedSets[selectionState.currentSet] === false && selectedLatest!=null) {
           this.$router.push({
             path: 'SelectionTable/' + selectedLatest,
@@ -1271,10 +1270,14 @@ export default function (/* { ssrContext } */) {
         }
         const store = this;
         var selected = state.inputs[selectionState.previousSet]
+        console.log("Selected inputs")
+        console.log(selected)
+        console.log("Selected sets")
         for (const [key, value] of Object.entries(selected)) {
           if(value != null && parseInt(value) > 0) {
-            for (const [set, selected] of Object.entries(state.selectedSets)) {
+            for (const [set, selected] of Object.entries(selectionState.selectedSets)) {
               if(selected===true) {
+                console.log("Adding input for " + set)
                 store.dispatch("add_input",{set: set, number: key, quantity: value})
               }
             }
