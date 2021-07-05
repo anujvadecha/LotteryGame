@@ -1137,7 +1137,7 @@ export default function (/* { ssrContext } */) {
         }
       },
       change_selected_sets(state, selectionState) {
-        var selectedLatest=null;
+        var selectedLatest = null;
         var default_inputs = {
           "0": null,
           "1": null,
@@ -1241,73 +1241,25 @@ export default function (/* { ssrContext } */) {
           "99": null,
           "100": null
         }
-        console.log("Current set"+selectionState.currentSet)
-        if(!selectionState.selectedSets.A) {
-          state.inputs.A=default_inputs
-        } else{
-          selectedLatest = "A";
+        var num_selected=0;
+        for (const [key, value] of Object.entries(selectionState.selectedSets)) {
+          if(value===true) {
+            num_selected+=1
+            selectedLatest=key
+          }
         }
-        if(!selectionState.selectedSets.B) {
-          state.inputs.B=default_inputs
-        }else {
-          selectedLatest = "B";
+        if(num_selected===1) {
+          var old_inputs = state.inputs
+          this.dispatch('reset_all')
+          for (const [key, value] of Object.entries(selectionState.selectedSets)) {
+            if(value===true) {
+              console.log(state.inputs[key])
+              console.log(old_inputs[key])
+              state.inputs[key] = old_inputs[key]
+            }
+          }
+          // state.inputs[selectedLatest] = old_inputs
         }
-        if(!selectionState.selectedSets.C) {
-          state.inputs.C= default_inputs
-        }
-        else {
-          selectedLatest = "C";
-        }
-        if(!selectionState.selectedSets.D) {
-          state.inputs.D=default_inputs
-        }
-        else{
-          selectedLatest = "D";
-        }
-        if(!selectionState.selectedSets.E) {
-          state.inputs.E=default_inputs
-        }else{
-          selectedLatest = "E";
-        }
-        if(!selectionState.selectedSets.F) {
-          state.inputs.F=default_inputs
-        }
-        else{
-          selectedLatest = "F";
-        }
-        if(!selectionState.selectedSets.G) {
-          state.inputs.G=default_inputs
-        }
-        else{
-          selectedLatest = "G";
-        }
-        //
-        if(!selectionState.selectedSets.H) {
-          state.inputs.H = default_inputs
-        }
-        else{
-          selectedLatest = "H";
-        }
-        if(!selectionState.selectedSets.I) {
-          state.inputs.I=default_inputs
-        }
-        else{
-          selectedLatest = "I";
-        }
-        if(!selectionState.selectedSets.J) {
-          state.inputs.J=default_inputs
-        }else{
-          selectedLatest = "J";
-        }
-        console.log("condition"+selectionState.selectedSets[selectionState.currentSet])
-        console.log("selectedLatest"+selectedLatest)
-        // if(
-        //   selectedLatest != null
-        //   && selectionState.selectedSets[selectionState.currentSet] === false
-        //   && state.selectedSets[selectionState.currentSet]===false
-        // ) {
-        //   state.selectedSets[selectionState.currentSet] = true
-        // }
         if(selectionState.selectedSets[selectionState.currentSet] === false && selectedLatest!=null) {
           this.$router.push({
             path: 'SelectionTable/' + selectedLatest,
@@ -1317,7 +1269,6 @@ export default function (/* { ssrContext } */) {
             }
           })
         }
-        console.log(selectedLatest)
         const store = this;
         var selected = state.inputs[selectionState.previousSet]
         for (const [key, value] of Object.entries(selected)) {
@@ -1339,7 +1290,6 @@ export default function (/* { ssrContext } */) {
         state.selectedSets.H = selectionState.selectedSets.H;
         state.selectedSets.I = selectionState.selectedSets.I;
         state.selectedSets.J = selectionState.selectedSets.J;
-        console.log(selectionState)
       },
       change_selection_option(state, group) {
         state.selection_group = group;

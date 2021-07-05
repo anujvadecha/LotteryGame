@@ -242,7 +242,7 @@ export default {
         return this.$store.state.selectedSets
       },
       set(value) {
-        this.$store.commit('update_inputs', {set: this.set, value: value})
+        // this.$store.commit('update_inputs', {set: this.set, value: value})
       }
     }
   },
@@ -341,6 +341,7 @@ export default {
       }
       for (const [key, value] of Object.entries(this.selectedSets)) {
         if (value === true) {
+          console.log("adding input for "+ key)
           this.$store.dispatch('add_input', {
             set: key,
             number: n,
