@@ -1248,7 +1248,7 @@ export default function (/* { ssrContext } */) {
             selectedLatest=key
           }
         }
-        if(num_selected===1) {
+        if(num_selected>0) {
           var old_inputs = state.inputs
           this.dispatch('reset_all')
           for (const [key, value] of Object.entries(selectionState.selectedSets)) {
