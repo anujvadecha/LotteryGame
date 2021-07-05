@@ -380,7 +380,6 @@ export default {
 
     },
     changeMainSelectedStates: function (link) {
-      this.$store.dispatch('change_selected_sets',{selectedSets:this.selectedSets,currentSet:this.set} )
       this.$router.push({
         path: 'SelectionTable/' + link.alias,
         name: 'SelectionTable',
@@ -388,6 +387,8 @@ export default {
           set: link.alias
         }
       })
+      this.$store.dispatch('change_selected_sets',{selectedSets:this.selectedSets,currentSet:link.alias,previousSet:this.set} )
+
     },
     getStyleForButton: function (link) {
       if (link.alias === this.set || this.selectedSets[link.alias] === true)
@@ -405,6 +406,7 @@ export default {
         // return " background-color:white;font-size:small"
     },
     pushToPage: function (link) {
+
       // this.selectedSets[link.alias] = true
       this.$router.push({
         path: 'SelectionTable/' + link.alias,
@@ -413,6 +415,8 @@ export default {
           set: link.alias
         }
       })
+      this.$store.dispatch('change_selected_sets',{selectedSets:this.selectedSets,currentSet:link.alias,previousSet:this.set} )
+
     }
   },
   mounted() {
