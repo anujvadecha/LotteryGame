@@ -86,7 +86,7 @@ export default {
     },
     get_current_date:function (){
       var ISTTime = getTimeZoneDate(new Date())
-      return ISTTime.toLocaleDateString("en-US")
+      return ISTTime.toLocaleDateString("en-IN")
     }
   },
   created() {
