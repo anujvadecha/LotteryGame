@@ -1293,6 +1293,29 @@ export default function (/* { ssrContext } */) {
         state.selectedSets.H = selectionState.selectedSets.H;
         state.selectedSets.I = selectionState.selectedSets.I;
         state.selectedSets.J = selectionState.selectedSets.J;
+        for(var i=1;i<=10;i++) {
+            try { document.getElementById('rowA' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowB' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowC' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowD' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowE' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowF' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowG' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowH' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowI' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowJ' + i).value = null  } catch(err) {}
+            try { document.getElementById('colA' + i).value = null  } catch(err) {}
+            try { document.getElementById('colB' + i).value = null  } catch(err) {}
+            try { document.getElementById('colC' + i).value = null  } catch(err) {}
+            try { document.getElementById('colD' + i).value = null  } catch(err) {}
+            try { document.getElementById('colE' + i).value = null  } catch(err) {}
+            try { document.getElementById('colF' + i).value = null  } catch(err) {}
+            try { document.getElementById('colG' + i).value = null  } catch(err) {}
+            try { document.getElementById('colH' + i).value = null  } catch(err) {}
+            try { document.getElementById('colI' + i).value = null  } catch(err) {}
+            try { document.getElementById('colJ' + i).value = null  } catch(err) {}
+
+        }
       },
       change_selection_option(state, group) {
         state.selection_group = group;
