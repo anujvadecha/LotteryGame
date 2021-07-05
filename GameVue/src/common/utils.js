@@ -109,6 +109,7 @@ function print_div(res,claim=false,user=null) {
     document.getElementById("printdivcontent").innerHTML += `Ticket set: <br/>`
 
     var ticket_details = ""
+    // res["ticket_set"] = res["ticket_set"].map(ele=>{return ele.set_ticket}).sort()
     res["ticket_set"].map(res => {
       ticket_details += `${res["set_ticket"]}-${res["price"]*res["quantity"]},`
     })

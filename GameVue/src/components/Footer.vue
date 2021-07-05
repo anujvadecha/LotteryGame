@@ -3,7 +3,7 @@
     <div v-if="!$q.platform.is.mobile" style="border: 1px solid black" class="col-3">
       <div class="row" >
       <div class="col" >
-        <q-input label="Please enter barcode here" dense outlined v-model="barCodeNumber" style="border: 1px solid black" class="col-8" id="final_barcode"></q-input>
+        <input @keydown.enter="claim_result()" placeholder="Please enter barcode here" dense outlined v-model="barCodeNumber" style="border: 1px solid black;height: 100%;width:100%" class="col-8" id="final_barcode">
       </div>
         <q-btn id="claim_button" dense unelevated style="padding: 2px" class="col-4 bg-purple col" @click="claim_result()">Claim</q-btn>
       </div>
@@ -119,9 +119,11 @@ name: "Footer",
     const  store=this.$store;
     // const router = this.$router
     const q=this.$q;
+    const router = this.$router;
     place_order(order).then(res=>{
-      console.log(res)
       if(res.status_code===200) {
+        console.log(res["tickets"][0]["ticket_set"]);
+
         store.dispatch('update_balance_points',res.balance_points)
         var tickets_booked = res.tickets.map(ticket=>{
         Notify.create({
@@ -140,17 +142,25 @@ name: "Footer",
           document.getElementById("all_set_checkbox").click()
         }}
         catch (e){}
-      // router.push({
-      //   path: '/SelectionTable',
-      //   name:'SelectionTable',
-      //   params: {
-      //     set: 'A'
-      //   }
-      // })
+        router.push({
+          path: '/SelectionTable',
+          name:'SelectionTable',
+          params: {
+            set: 'A'
+          }
+        })
 
         return ticket.ticket_id})
         res.tickets.map(ticket => {
           if(!this.$q.platform.is.mobile) {
+            ticket.ticket_set=ticket.ticket_set.sort(function(a, b) {
+            var keyA = a.set_ticket,
+              keyB = b.set_ticket;
+            // Compare the 2 dates
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+          });
             print_div(ticket,false,store.state.user.first_name)
             // ClickHereToPrint()
             // PrintDiv()
