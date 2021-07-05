@@ -56,7 +56,7 @@ export default {
     },
     get_ticket_time:function (date_string) {
       var val=date_string
-      return getTimeZoneDate(new Date(val)).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getFormattedDateHHMM(new Date(val))
+      return getTimeZoneDate(new Date(val)).toLocaleDateString("en-IN")+" "+getFormattedDateHHMM(new Date(val))
     },
     delete_ticket:function(){
       var ticket_id = this.ticket.ticket_id

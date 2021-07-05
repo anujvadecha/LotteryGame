@@ -112,14 +112,25 @@ name: "Footer",
     if(selected_lotteries.length===0) {
       selected_lotteries = [this.$store.state.nextLottery.id]
     }
+    var selection = {}
+    var inputs=this.$store.state.inputs
+    for (const [set, set_inputs] of Object.entries(inputs)) {
+      for (const [num, value] of Object.entries(set_inputs)) {
+        if(value!=null) {
+          var ticket = set + num
+          selection[ticket] = {quantity: parseInt(value), price: this.$store.state.setPoints[set]}
+        }
+        }
+    }
     var order={
       selected_lotteries: selected_lotteries,
-      selection:this.$store.state.selectionState
+      selection:selection
     }
     const  store=this.$store;
     // const router = this.$router
     const q=this.$q;
     const router = this.$router;
+    console.log(order)
     place_order(order).then(res=>{
       if(res.status_code===200) {
         console.log(res["tickets"][0]["ticket_set"]);

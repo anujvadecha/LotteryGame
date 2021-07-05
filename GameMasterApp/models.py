@@ -204,6 +204,8 @@ class TicketID(BaseModel):
         self.inflow += amount
         user_obj=self.user
         user_obj.total_inflow += self.inflow
+        if user_obj.user_type == "PLAYER":
+            user_obj.balance_points += amount
         user_obj.save()
 
     def increase_outflow(self,amount):

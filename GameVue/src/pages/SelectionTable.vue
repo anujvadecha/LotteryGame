@@ -242,7 +242,7 @@ export default {
         return this.$store.state.selectedSets
       },
       set(value) {
-        this.$store.commit('update_inputs', {set: this.set, value: value})
+        // this.$store.commit('update_inputs', {set: this.set, value: value})
       }
     }
   },
@@ -254,10 +254,13 @@ export default {
   },
   methods: {
     all_set_call() {
+      if(this.all_sets===false) {
+        this.$store.dispatch('reset_all')
+      }
       for (const [key, value] of Object.entries(this.selectedSets)) {
         this.selectedSets[key] = this.all_sets
       }
-      this.$store.dispatch('change_selected_sets',{selectedSets:this.selectedSets,currentSet:this.set} )
+      this.$store.dispatch('change_selected_sets',{selectedSets:this.selectedSets,currentSet:this.set,previousSet:this.set} )
     },
     reverse_number(n) {
       if (n >= 1 && n <= 9) {
@@ -341,6 +344,7 @@ export default {
       }
       for (const [key, value] of Object.entries(this.selectedSets)) {
         if (value === true) {
+          console.log("adding input for "+ key)
           this.$store.dispatch('add_input', {
             set: key,
             number: n,
@@ -380,7 +384,6 @@ export default {
 
     },
     changeMainSelectedStates: function (link) {
-      this.$store.dispatch('change_selected_sets',{selectedSets:this.selectedSets,currentSet:this.set} )
       this.$router.push({
         path: 'SelectionTable/' + link.alias,
         name: 'SelectionTable',
@@ -388,6 +391,8 @@ export default {
           set: link.alias
         }
       })
+      this.$store.dispatch('change_selected_sets',{selectedSets:this.selectedSets,currentSet:link.alias,previousSet:this.set} )
+
     },
     getStyleForButton: function (link) {
       if (link.alias === this.set || this.selectedSets[link.alias] === true)
@@ -405,6 +410,7 @@ export default {
         // return " background-color:white;font-size:small"
     },
     pushToPage: function (link) {
+
       // this.selectedSets[link.alias] = true
       this.$router.push({
         path: 'SelectionTable/' + link.alias,
@@ -413,6 +419,8 @@ export default {
           set: link.alias
         }
       })
+      this.$store.dispatch('change_selected_sets',{selectedSets:this.selectedSets,currentSet:link.alias,previousSet:this.set} )
+
     }
   },
   mounted() {
