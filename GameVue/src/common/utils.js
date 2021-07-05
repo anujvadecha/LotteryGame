@@ -83,7 +83,8 @@ function get_current_date(){
       var Day = ISTTime.getDay()
       var month = ISTTime.getMonth()
       var minutesIST = ISTTime.getMinutes()
-      return ISTTime.toLocaleDateString("zh-Hans-CN").replaceAll("/","-")
+      // return ISTTime.toLocaleDateString("zh-Hans-CN").replaceAll("/","-")
+      return ISTTime.toLocaleDateString("en-IN")
     }
 
 function isToday(someDate) {
@@ -184,6 +185,13 @@ function PrintDiv() {
     return false;
 }
 
+function convert_to_yyyy_mm_dd(date){
+    date = date.split("/")
+    date = date[2]+"-"+date[1]+"-"+date[0]
+    return date
+  }
+
+
 export {
   compareDate,
   getTimeZoneDate,
@@ -194,5 +202,6 @@ export {
   print_div,
   ClickHereToPrint,
   PrintDiv,
-  convert_to_twelve_hour_clock
+  convert_to_twelve_hour_clock,
+  convert_to_yyyy_mm_dd
 }
