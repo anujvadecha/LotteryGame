@@ -48,7 +48,7 @@
             <q-avatar size="56px" class="q-mb-sm">
             </q-avatar>
             <div class="text-weight-bold">  Terminal Id: {{user_id}} &nbsp;&nbsp;{{first_name}}</div>
-            <div>Available points :<span style="font-weight: bold;font-size: medium;color: darkred">{{$store.state.balance_points}}</span></div>
+            <div>Available points :&nbsp;&nbsp;<span style="font-weight: bold;font-size: medium;color: darkred">{{$store.state.balance_points}}</span></div>
 
           </div>
         </q-img>
