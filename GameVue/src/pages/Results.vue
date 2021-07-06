@@ -7,7 +7,7 @@
     <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="start_date" mask="YYYY-MM-DD">
+            <q-date v-model="start_date" mask="DD/MM/YYYY">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="Close" color="primary" flat />
               </div>
@@ -22,7 +22,7 @@
     <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="end_date" mask="YYYY-MM-DD">
+            <q-date v-model="end_date" mask="DD/MM/YYYY">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="Close" color="primary" flat />
               </div>
@@ -43,7 +43,7 @@
     <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="start_date" mask="YYYY-MM-DD">
+            <q-date v-model="start_date" mask="DD/MM/YYYY">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="Close" color="primary" flat />
               </div>
@@ -58,7 +58,7 @@
     <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="end_date" mask="YYYY-MM-DD">
+            <q-date v-model="end_date" mask="DD/MM/YYYY">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="Close" color="primary" flat />
               </div>
@@ -121,7 +121,7 @@ import ResultHeader from "components/ResultHeader";
 import {get_lottery_timings} from "src/common/api_calls";
 import {getFormattedDateHHMM, getTimeZoneDate} from "src/common/utils";
 import {get_current_date} from "src/common/utils";
-import {convert_to_twelve_hour_clock} from "src/common/utils";
+import {convert_to_twelve_hour_clock, convert_to_yyyy_mm_dd} from "src/common/utils";
 
 
 export default {
@@ -145,7 +145,7 @@ export default {
         label: 'Time',
         align: 'left',
         field: row => row.time,
-        format: val =>  getTimeZoneDate(new Date(val)).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getTimeZoneDate(new Date(val)).getHours()+":"+getTimeZoneDate(new Date(val)).getMinutes(),
+        format: val =>  getTimeZoneDate(new Date(val)).toLocaleDateString("en-IN")+"  "+getFormattedDateHHMM(val),
       },
       {
         name:'A_set',
@@ -212,13 +212,17 @@ export default {
   },
   methods:{
     fetch_winners_according_to_date(){
-      var date_dict = {"start_date":this.start_date,"end_date":this.end_date}
+      var start_date = this.start_date
+      var end_date =  this.end_date
+      start_date =  convert_to_yyyy_mm_dd(start_date)
+      end_date = convert_to_yyyy_mm_dd(end_date)
+      var date_dict = {"start_date":start_date,"end_date":end_date}
       get_lottery_timings(date_dict).then(res=>{
         this.results_data = res.lottery_objects
       })
     },
     getFormattedResultDate:function (date){
-      return getTimeZoneDate(new Date(date)).toLocaleDateString("en-IN").replaceAll("/","-")+"  "+getFormattedDateHHMM(date)
+      return getTimeZoneDate(new Date(date)).toLocaleDateString("en-IN")+"  "+getFormattedDateHHMM(date)
     }
   },
   created() {
