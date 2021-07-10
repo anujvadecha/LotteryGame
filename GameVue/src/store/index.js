@@ -2391,6 +2391,8 @@ export default function (/* { ssrContext } */) {
             try { document.getElementById('colJ' + i).value = null  } catch(err) {}
 
         }
+        this.dispatch('set_selected_lotteries',[store.state.nextLottery])
+
 
       },
       set_results(state, results) {

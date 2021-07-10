@@ -134,7 +134,6 @@ name: "Footer",
     place_order(order).then(res=>{
       if(res.status_code===200) {
         console.log(res["tickets"][0]["ticket_set"]);
-
         store.dispatch('update_balance_points',res.balance_points)
         var tickets_booked = res.tickets.map(ticket=>{
         Notify.create({
@@ -204,6 +203,8 @@ name: "Footer",
   .catch(err => { // v1.5.0+
     console.log(err)
   });
+        store.dispatch('reset_all')
+
         }
       else{
         Notify.create({
