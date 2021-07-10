@@ -23,7 +23,9 @@ name: "DiceRotation",
   },
   computed:{
   formattedNextLottery:function (){
-    return getTimeZoneDate(new Date(this.$store.state.nextLottery.time)).toLocaleDateString("en-IN").replaceAll("/","-")+"  "+getFormattedDateHHMM(this.$store.state.nextLottery.time)
+    return getTimeZoneDate(new Date(this.$store.state.previousLottery.time)).toLocaleDateString("en-IN")
+      .replaceAll("/","-")+"  "
+      +getFormattedDateHHMM(this.$store.state.previousLottery.time)
   }
   },
   created() {
