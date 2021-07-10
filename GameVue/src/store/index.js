@@ -1137,6 +1137,152 @@ export default function (/* { ssrContext } */) {
         }
       },
       change_selected_sets(state, selectionState) {
+        var selectedLatest = null;
+        var default_inputs = {
+          "0": null,
+          "1": null,
+          "2": null,
+          "3": null,
+          "4": null,
+          "5": null,
+          "6": null,
+          "7": null,
+          "8": null,
+          "9": null,
+          "10": null,
+          "11": null,
+          "12": null,
+          "13": null,
+          "14": null,
+          "15": null,
+          "16": null,
+          "17": null,
+          "18": null,
+          "19": null,
+          "20": null,
+          "21": null,
+          "22": null,
+          "23": null,
+          "24": null,
+          "25": null,
+          "26": null,
+          "27": null,
+          "28": null,
+          "29": null,
+          "30": null,
+          "31": null,
+          "32": null,
+          "33": null,
+          "34": null,
+          "35": null,
+          "36": null,
+          "37": null,
+          "38": null,
+          "39": null,
+          "40": null,
+          "41": null,
+          "42": null,
+          "43": null,
+          "44": null,
+          "45": null,
+          "46": null,
+          "47": null,
+          "48": null,
+          "49": null,
+          "50": null,
+          "51": null,
+          "52": null,
+          "53": null,
+          "54": null,
+          "55": null,
+          "56": null,
+          "57": null,
+          "58": null,
+          "59": null,
+          "60": null,
+          "61": null,
+          "62": null,
+          "63": null,
+          "64": null,
+          "65": null,
+          "66": null,
+          "67": null,
+          "68": null,
+          "69": null,
+          "70": null,
+          "71": null,
+          "72": null,
+          "73": null,
+          "74": null,
+          "75": null,
+          "76": null,
+          "77": null,
+          "78": null,
+          "79": null,
+          "80": null,
+          "81": null,
+          "82": null,
+          "83": null,
+          "84": null,
+          "85": null,
+          "86": null,
+          "87": null,
+          "88": null,
+          "89": null,
+          "90": null,
+          "91": null,
+          "92": null,
+          "93": null,
+          "94": null,
+          "95": null,
+          "96": null,
+          "97": null,
+          "98": null,
+          "99": null,
+          "100": null
+        }
+        var num_selected=0;
+        for (const [key, value] of Object.entries(selectionState.selectedSets)) {
+          if(value===true) {
+            num_selected+=1
+            selectedLatest=key
+          }
+        }
+        if(num_selected>0) {
+          var old_inputs = state.inputs
+          this.dispatch('reset_all')
+          for (const [key, value] of Object.entries(selectionState.selectedSets)) {
+            if(value===true) {
+              state.inputs[key] = old_inputs[key]
+            }
+          }
+          // state.inputs[selectedLatest] = old_inputs
+        }
+        console.log("A0"+state.inputs["A"]["0"])
+        if(selectionState.selectedSets[selectionState.currentSet] === false && selectedLatest!=null) {
+          this.$router.push({
+            path: 'SelectionTable/' + selectedLatest,
+            name: 'SelectionTable',
+            params: {
+              set: selectedLatest
+            }
+          })
+        }
+        const store = this;
+        var selected = state.inputs[selectionState.previousSet]
+        console.log("Selected inputs")
+        console.log(selected)
+        console.log("Selected sets")
+        for (const [key, value] of Object.entries(selected)) {
+          if(value != null && parseInt(value) > 0) {
+            for (const [set, selected] of Object.entries(selectionState.selectedSets)) {
+              if(selected===true) {
+                console.log("Adding input for " + set)
+                store.dispatch("add_input",{set: set, number: key, quantity: value})
+              }
+            }
+          }
+        }
         state.selectedSets.A = selectionState.selectedSets.A;
         state.selectedSets.B = selectionState.selectedSets.B;
         state.selectedSets.C = selectionState.selectedSets.C;
@@ -1147,18 +1293,29 @@ export default function (/* { ssrContext } */) {
         state.selectedSets.H = selectionState.selectedSets.H;
         state.selectedSets.I = selectionState.selectedSets.I;
         state.selectedSets.J = selectionState.selectedSets.J;
-        const store = this;
-        var selected = state.inputs[selectionState.currentSet]
-        for (const [key, value] of Object.entries(selected)) {
-          if(value != null && parseInt(value) > 0) {
-            for (const [set, selected] of Object.entries(state.selectedSets)) {
-              if(selected===true) {
-                store.dispatch("add_input",{set: set, number: key, quantity: value})
-              }
-            }
-          }
+        for(var i=1;i<=10;i++) {
+            try { document.getElementById('rowA' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowB' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowC' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowD' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowE' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowF' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowG' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowH' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowI' + i).value = null  } catch(err) {}
+            try { document.getElementById('rowJ' + i).value = null  } catch(err) {}
+            try { document.getElementById('colA' + i).value = null  } catch(err) {}
+            try { document.getElementById('colB' + i).value = null  } catch(err) {}
+            try { document.getElementById('colC' + i).value = null  } catch(err) {}
+            try { document.getElementById('colD' + i).value = null  } catch(err) {}
+            try { document.getElementById('colE' + i).value = null  } catch(err) {}
+            try { document.getElementById('colF' + i).value = null  } catch(err) {}
+            try { document.getElementById('colG' + i).value = null  } catch(err) {}
+            try { document.getElementById('colH' + i).value = null  } catch(err) {}
+            try { document.getElementById('colI' + i).value = null  } catch(err) {}
+            try { document.getElementById('colJ' + i).value = null  } catch(err) {}
+
         }
-        console.log(selected);
       },
       change_selection_option(state, group) {
         state.selection_group = group;

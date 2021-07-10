@@ -8,7 +8,7 @@
     <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="start_date" mask="YYYY-MM-DD">
+            <q-date v-model="start_date" mask="DD/MM/YYYY">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="Close" color="primary" flat />
               </div>
@@ -23,7 +23,7 @@
     <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="end_date" mask="YYYY-MM-DD">
+            <q-date v-model="end_date" mask="DD/MM/YYYY">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="Close" color="primary" flat />
               </div>
@@ -44,7 +44,7 @@
     <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="start_date" mask="YYYY-MM-DD">
+            <q-date v-model="start_date" mask="DD/MM/YYYY">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="Close" color="primary" flat />
               </div>
@@ -59,7 +59,7 @@
     <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="end_date" mask="YYYY-MM-DD">
+            <q-date v-model="end_date" mask="DD/MM/YYYY">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="Close" color="primary" flat />
               </div>
@@ -111,8 +111,7 @@ import ResultHeader from "components/ResultHeader";
 import {get_tickets} from "src/common/api_calls";
 import {getTimeZoneDate, print_div} from "src/common/utils";
 import { Platform } from 'quasar'
-import {get_current_date} from "src/common/utils";
-
+import {get_current_date, convert_to_yyyy_mm_dd, getFormattedDateHHMM} from "src/common/utils";
 export default {
 name: "TxnDetails",
 components: {},
@@ -137,7 +136,7 @@ components: {},
         label: 'Time',
         align: 'left',
         field: row => row.created_at,
-        format: val => getTimeZoneDate(new Date(val)).toLocaleDateString("en-IN").replaceAll("/","-")+" "+getTimeZoneDate(new Date(val)).getHours()+":"+getTimeZoneDate(new Date(val)).getMinutes(),
+        format: val => getTimeZoneDate(new Date(val)).toLocaleDateString("en-IN")+" "+getFormattedDateHHMM(new Date(val)),
       },
       {
         name:'Total Price',
@@ -173,7 +172,11 @@ components: {},
   },
   methods:{
     fetch_transactions_according_to_date(){
-      var date_dict = {"start_date":this.start_date,"end_date":this.end_date}
+      var start_date = this.start_date
+      var end_date = this.end_date
+      start_date = convert_to_yyyy_mm_dd(this.start_date)
+      end_date = convert_to_yyyy_mm_dd(this.end_date)
+      var date_dict = {"start_date":start_date,"end_date":end_date}
       get_tickets(date_dict).then(res=>{
         this.tickets = res
       })

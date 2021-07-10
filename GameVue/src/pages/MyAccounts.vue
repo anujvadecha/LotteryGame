@@ -6,7 +6,7 @@
    <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="start_date" mask="YYYY-MM-DD">
+            <q-date v-model="start_date" mask="DD/MM/YYYY">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="Close" color="primary" flat />
               </div>
@@ -20,7 +20,7 @@
    <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="end_date" mask="YYYY-MM-DD">
+            <q-date v-model="end_date" mask="DD/MM/YYYY">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="Close" color="primary" flat />
               </div>
@@ -37,7 +37,7 @@
    <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="start_date" mask="YYYY-MM-DD">
+            <q-date v-model="start_date" mask="DD/MM/YYYY">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="Close" color="primary" flat />
               </div>
@@ -51,7 +51,7 @@
    <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-date v-model="end_date" mask="YYYY-MM-DD">
+            <q-date v-model="end_date" mask="DD/MM/YYYY">
               <div class="row items-center justify-end">
                 <q-btn v-close-popup label="Close" color="primary" flat />
               </div>
@@ -119,7 +119,7 @@
 import ResultHeader from "components/ResultHeader";
 import {get_total_points} from "src/common/api_calls";
 import {get_current_date} from "src/common/utils";
-import {getFormattedDateHHMM, getTimeZoneDate} from "src/common/utils";
+import {getFormattedDateHHMM, getTimeZoneDate, convert_to_yyyy_mm_dd} from "src/common/utils";
 
 
 export default {
@@ -151,11 +151,13 @@ export default {
       printWindow.close();
     },
     refresh() {
-      console.log(this.start_date)
-      console.log(this.end_date)
-      var date_dict = {"start_date":this.start_date,"end_date":this.end_date}
+      var start_date = this.start_date
+      var end_date  = this.end_date
+      start_date = convert_to_yyyy_mm_dd(start_date) 
+      end_date = convert_to_yyyy_mm_dd(end_date)     
+
+      var date_dict = {"start_date":start_date,"end_date":end_date}
       get_total_points(date_dict).then(res=>{
-        console.log(res)
         this.user_type = res.user.user_type
         this.total_inflow = res.outflow;
         this.total_outflow = res.inflow;
@@ -163,22 +165,23 @@ export default {
       })
     },
     fetch_transaction_according_to_date(){
-      console.log(this.start_date)
-      console.log(this.end_date)
-      var date_dict = {"start_date":this.start_date,"end_date":this.end_date}
+
+      var start_date = this.start_date
+      var end_date  = this.end_date
+      start_date = convert_to_yyyy_mm_dd(start_date) 
+      end_date = convert_to_yyyy_mm_dd(end_date)     
+
+      var date_dict = {"start_date":start_date,"end_date":end_date}
       get_total_points(date_dict).then(res=>{
-        console.log(res)
 
         this.user_type = res.user.user_type
         this.total_inflow = res.outflow;
         this.total_outflow = res.inflow;
         this.total_pending = res.balance_points
       })
-      console.log(this.total_inflow)
     }
   },
   created() {
-    console.log("created my accounts")
     get_total_points(null).then(res=>{
       this.user_type = res.user.user_type
       this.total_inflow = res.outflow;
