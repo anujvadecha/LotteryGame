@@ -92,6 +92,9 @@ def assign_lottery_timings():
                 lottery_obj.initiate_winning_sets()
                 try:
                     winner_dict = get_winners_for_lottery(lottery=lottery_obj)
+                    for key, value in winner_dict.items():
+                        print("assigning winner")
+                        winner_dict[key] = random.randint(0, 99)
                 except Exception as e:
                     raise_exception(str(e))
                     for key, value in winner_dict.items():
