@@ -2392,8 +2392,7 @@ export default function (/* { ssrContext } */) {
 
         }
         this.dispatch('set_selected_lotteries',[state.nextLottery])
-        document.getElementById('all_set_checkbox').checked = false;
-
+        try{document.getElementById('all_set_checkbox').checked = false;}catch (e){}
       },
       set_results(state, results) {
         state.results = results;
