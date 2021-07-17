@@ -52,10 +52,10 @@ class AdminAdmin(admin.ModelAdmin):
 
 class LotteryAdmin(admin.ModelAdmin):
     list_display = ('time', 'winners', 'active')
-    list_filter = (('time', DateRangeFilter))
+    list_filter = ('time')
 
-    def get_rangefilter_time_default(self, request):
-        return (datetime.date.today, datetime.date.today)
+    # def get_rangefilter_time_default(self, request):
+    #     return (datetime.date.today, datetime.date.today)
 
 admin.site.register(Lottery, LotteryAdmin)
 
