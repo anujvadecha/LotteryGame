@@ -15,7 +15,7 @@ class TicketAdmin(admin.ModelAdmin):
 @admin.register(TicketID)
 class TicketIDAdmin(admin.ModelAdmin):
     list_display = ('lottery','ticket_id','outflow','inflow',)
-    search_fields = ('ticket_id','lottery')
+    search_fields = ('ticket_id',)
     list_filter = ('lottery',)
 
 
