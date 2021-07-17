@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from django.contrib import admin
 from django.contrib.admin import DateFieldListFilter
+from rangefilter.filters import DateRangeFilter
 
 from GameMasterApp.models import *
 
@@ -21,7 +22,7 @@ class TicketIDAdmin(admin.ModelAdmin):
     list_display = ('lottery','ticket_id','outflow','inflow','get_ist')
 
     search_fields = ('ticket_id',)
-    list_filter = ('lottery',DateFieldListFilter)
+    list_filter = ('lottery',)
     ordering = ['-lottery__time']
 
     def get_ist(self, obj):
@@ -50,7 +51,7 @@ class AdminAdmin(admin.ModelAdmin):
 
 class LotteryAdmin(admin.ModelAdmin):
     list_display = ('time', 'winners', 'active')
-
+    list_filter = (('time', DateRangeFilter))
 
 admin.site.register(Lottery, LotteryAdmin)
 
