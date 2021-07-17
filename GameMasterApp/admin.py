@@ -1,3 +1,4 @@
+import datetime
 from datetime import timedelta
 
 from django.contrib import admin
@@ -52,6 +53,9 @@ class AdminAdmin(admin.ModelAdmin):
 class LotteryAdmin(admin.ModelAdmin):
     list_display = ('time', 'winners', 'active')
     list_filter = (('time', DateRangeFilter))
+
+    def get_rangefilter_time_default(self, request):
+        return (datetime.date.today, datetime.date.today)
 
 admin.site.register(Lottery, LotteryAdmin)
 
