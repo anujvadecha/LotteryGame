@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.contrib import admin
 from GameMasterApp.models import *
 
@@ -14,10 +16,14 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(TicketID)
 class TicketIDAdmin(admin.ModelAdmin):
-    list_display = ('lottery','ticket_id','outflow','inflow',)
+    list_display = ('lottery','ticket_id','outflow','inflow','get_ist')
+
     search_fields = ('ticket_id',)
     list_filter = ('lottery',)
     ordering = ['-lottery__time']
+
+    def get_ist(self, obj):
+        return obj.time + timedelta(minutes=330)
 
 
 @admin.register(Agent)
