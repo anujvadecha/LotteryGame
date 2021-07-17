@@ -23,7 +23,7 @@ class TicketIDAdmin(admin.ModelAdmin):
     ordering = ['-lottery__time']
 
     def get_ist(self, obj):
-        return obj.lottery.time + timedelta(minutes=330)
+        return obj.lottery.time
 
 
 @admin.register(Agent)
