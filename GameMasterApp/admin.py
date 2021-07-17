@@ -20,7 +20,7 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(TicketID)
 class TicketIDAdmin(admin.ModelAdmin):
-    list_display = ('lottery','ticket_id','outflow','inflow','get_ist')
+    list_display = ('lottery','ticket_id','outflow','inflow','get_ist','user')
 
     search_fields = ('ticket_id',)
     list_filter = ('lottery',)
