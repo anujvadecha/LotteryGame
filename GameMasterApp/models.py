@@ -54,6 +54,7 @@ class Agent(BaseModel):
 class RegionalManager(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     agents = models.ManyToManyField(Agent, blank=True)
+    commission = models.FloatField(default=2.0)
 
 
 class Lottery(BaseModel):
