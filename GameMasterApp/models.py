@@ -57,7 +57,8 @@ class RegionalManager(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     agents = models.ManyToManyField(Agent, blank=True)
     commission = models.FloatField(default=2.0)
-
+    def __str__(self):
+        return self.user.first_name
 
 class Lottery(BaseModel):
     time = models.DateTimeField(null=True, blank=True)
