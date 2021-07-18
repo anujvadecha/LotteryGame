@@ -17,7 +17,7 @@ export default {
   created() {
 this.$barcodeScanner.init(scan=>{
   document.getElementById("final_barcode").value = scan
-  setTimeout(()=>{document.getElementById('claim_button').click()},1000)
+  document.getElementById('claim_button').click()
 
 
 })
