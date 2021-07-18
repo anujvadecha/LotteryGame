@@ -3,11 +3,7 @@
     <div v-if="!$q.platform.is.mobile" style="border: 1px solid black" class="col-3">
       <div class="row" >
       <div class="col" >
-<<<<<<< HEAD
-        <input @keydown.enter="claim_result()" placeholder="Please enter barcode here" dense outlined v-model="barCodeNumber" style="border: 1px solid black;height: 100%;width:100%" class="col-8" id="final_barcode" value="">
-=======
         <input @keydown.enter="claim_result()" placeholder="Please enter barcode here" dense outlined style="border: 1px solid black;height: 100%;width:100%" class="col-8" id="final_barcode">
->>>>>>> 0461356d04ed825622c51134277eaf6919126ab2
       </div>
         <q-btn id="claim_button" dense unelevated style="padding: 2px" class="col-4 bg-purple col" @click="claim_result()">Claim</q-btn>
       </div>
