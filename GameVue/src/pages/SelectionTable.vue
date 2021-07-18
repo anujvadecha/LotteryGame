@@ -13,7 +13,7 @@
       <div class="col-2 flex" style="background-color: lightpink">
         <div class="row" style="background-color: white;width: 100%">
           <div @click=";all_sets=!all_sets;all_set_call()" class="q-ma-xs" style='background-color: #ba56d4; color: white;width: 100%;'>
-            <input style="width: 25px;height: 25px;background: transparent" type="checkbox"  id="all_set_checkbox" dense @input="all_set_call()" v-model="all_sets"/>
+            <input style="width: 25px;height: 25px;background: transparent" type="checkbox"  id="all_set_checkbox" dense  v-model="all_sets"/>
             Name
           </div>
         </div>
