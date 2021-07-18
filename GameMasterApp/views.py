@@ -349,11 +349,12 @@ class ClaimTicketAPI(APIView):
     def post(self, request):
         response = {}
         response['status_code'] = 500
+        response['status_message'] = "Lottery still pending"
         try:
             raise_info("Start of ClaimTicketAPI")
             data = request.data
             ticket_id = data['ticket_id']
-            ticket_obj = TicketID.objects.filter(ticket_id=ticket_id, cancelled=False, is_completed=False)
+            ticket_obj = TicketID.objects.filter(ticket_id=ticket_id, cancelled=False, is_completed=False,lottery__completed = True)
             if ticket_obj:
                 if ticket_obj.filter(user=request.user):
                     ticket_obj = ticket_obj[0]
@@ -365,6 +366,7 @@ class ClaimTicketAPI(APIView):
                         if request.user.user_type == "AGENT":
                             request.user.balance_points += ticket_obj.inflow
                             request.user.save()
+
                     else:
                         response['status_code'] = 305
                         response['status_message'] = "No wins."
