@@ -2393,6 +2393,7 @@ export default function (/* { ssrContext } */) {
         }
         this.dispatch('set_selected_lotteries',[state.nextLottery])
         try{document.getElementById('all_set_checkbox').checked = false;}catch (e){}
+
         document.getElementById('final_barcode').value=''
         },
       set_results(state, results) {

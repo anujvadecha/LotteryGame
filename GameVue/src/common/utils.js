@@ -102,9 +102,9 @@ function print_div(res,claim=false,user=null) {
 
     // document.getElementById("printdivcontent").innerHTML += store.user.first_name + "<br/>"
 
-    document.getElementById("printdivcontent").innerHTML += `Created date: ${getTimeZoneDate(new Date(res["created_at"])).toLocaleDateString("en-IN").replaceAll("/", "-") + " " + getTimeZoneDate(new Date(res["created_at"])).getHours() + ":" + getTimeZoneDate(new Date(res["created_at"])).getMinutes()} <br/>`
+    document.getElementById("printdivcontent").innerHTML += `Created date: ${convert_to_twelve_hour_clock(new Date(res["created_at"]))} <br/>`
   }
-  document.getElementById("printdivcontent").innerHTML += `Draw date: ${getTimeZoneDate(new Date(res["lottery"]["time"])).toLocaleDateString("en-IN").replaceAll("/", "-") + " " + getTimeZoneDate(new Date(res["lottery"]["time"])).getHours() + ":" + getTimeZoneDate(new Date(res["lottery"]["time"])).getMinutes()} <br/>`
+  document.getElementById("printdivcontent").innerHTML += `Draw date: ${convert_to_twelve_hour_clock(new Date(res["lottery"]["time"]))} <br/>`
 
   if (claim === false) {
     document.getElementById("printdivcontent").innerHTML += `Ticket set: <br/>`
