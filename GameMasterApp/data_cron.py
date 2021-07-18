@@ -3,7 +3,8 @@ from datetime import timedelta, datetime
 import csv
 import os
 
-user_obj = User.objects.filter(pk="AGENT")
+
+user_obj = User.objects.filter(user_type="AGENT")
 print(user_obj)
 start_date = datetime.today() - timedelta(7)
 print(start_date)
@@ -17,6 +18,4 @@ for user in user_obj:
 	total_outflow = tickets.aggregate(Sum('outflow'))["outflow__sum"]
 	print(total_inflow)
 	print(total_outflow)
-
-
 

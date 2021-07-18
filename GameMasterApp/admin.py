@@ -10,13 +10,7 @@ from GameMasterApp.models import *
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    pass
-
-
-# @admin.register(Ticket)
-# class TicketAdmin(admin.ModelAdmin):
-#     pass
-
+    search_fields = ('first_name',)
 
 @admin.register(TicketID)
 class TicketIDAdmin(admin.ModelAdmin):

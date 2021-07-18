@@ -16,14 +16,14 @@ export default {
   name: 'App',
   created() {
 this.$barcodeScanner.init(scan=>{
-
-  document.getElementById("final_barcode").value = final_barcode
+  document.getElementById("final_barcode").value = scan
   document.getElementById('claim_button').click()
 
+
 })
-$(window).bind('scannerDetectionComplete',function(e,data){
-        $("#final_barcode").val(data.string);
-});
+// $(window).bind('scannerDetectionComplete',function(e,data){
+//         $("#final_barcode").val(data.string);
+// });
 this.$q.notify({
         message: " Go fullscreen",
         color: 'primary',
@@ -32,8 +32,8 @@ this.$q.notify({
         html:true,
         actions: [
           { label: 'Go', color: 'white', handler: () => {
-            console.log(document.body.style.zoom);
 
+            console.log(document.body.style.zoom);
             this.$q.fullscreen.toggle().then(result => {
               if(!this.$q.platform.is.mobile){
               if(window.screen.availHeight <= 800){
@@ -41,19 +41,6 @@ this.$q.notify({
               }
               }
             }) ;
-            //TEST CHANGE
-            // setTimeout(()=>{
-            //   console.log(!(($(window).scrollTop() + $(window).innerHeight()) >= $(document).height()))
-            //   var zoom = 100;
-            //   while(!(($(window).scrollTop() + $(window).innerHeight()) >= $(document).height())) {
-            //     console.log("zoom required")
-            //     zoom = zoom - 5;
-            //     document.body.style.zoom = zoom+'%'
-            // }
-            // },4000);
-
-
-
           } },
           { label: 'Dismiss', color: 'white', handler: () => {  } },
         ]
