@@ -49,7 +49,8 @@ class Agent(BaseModel):
     agent_created_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True,
                                          related_name="agent_created_by")
     region = models.ForeignKey(Region, null=True, blank=True, on_delete=models.SET_NULL)
-
+    def __str__(self):
+        return self.user.first_name
 
 class RegionalManager(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
