@@ -103,9 +103,8 @@ name: "Footer",
                       { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
                     ]
                   })
-
               }
-            document.getElementById("final_barcode").value='';
+            // document.getElementById("final_barcode").value='';
             }
           )
   },

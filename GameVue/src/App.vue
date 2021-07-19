@@ -15,12 +15,10 @@ Vue.use(VueBarcodeScanner,null)
 export default {
   name: 'App',
   created() {
-this.$barcodeScanner.init(scan=>{
-  document.getElementById("final_barcode").value = scan
-  document.getElementById('claim_button').click()
-
-
-})
+  this.$barcodeScanner.init(scan=>{
+    document.getElementById("final_barcode").value = scan
+    document.getElementById('claim_button').click()
+  })
 // $(window).bind('scannerDetectionComplete',function(e,data){
 //         $("#final_barcode").val(data.string);
 // });
