@@ -72,8 +72,8 @@ name: "Footer",
     var ticket_id_input = document.getElementById('final_barcode').value
     console.log(ticket_id_input)
     var data = {'ticket_id': ticket_id_input}
-      const store = this.$store;
-      claim_ticket_api(data).then(
+    const store = this.$store;
+    claim_ticket_api(data).then(
            res=> {
               console.log(res)
               if(res.status_code == 200){
@@ -90,7 +90,7 @@ name: "Footer",
                       { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
                     ]
                   })
-
+               try{document.getElementById("final_barcode").value='';}catch (e){}
               }else{
                 Notify.create({
                     type: 'negative',
@@ -103,8 +103,9 @@ name: "Footer",
                       { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
                     ]
                   })
+                  try{document.getElementById("final_barcode").value='';}catch (e){}
               }
-            // document.getElementById("final_barcode").value='';
+
             }
           )
   },
