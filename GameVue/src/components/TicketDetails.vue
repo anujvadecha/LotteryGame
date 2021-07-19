@@ -82,7 +82,7 @@ export default {
             Notify.create({
               type: 'info',
               progress: false,
-              message: "<h6>Completed lottery ticket cannot be cancelled.</h6>",
+              message: "<h6>Completed skill game ticket cannot be cancelled.</h6>",
               html:true,
               position: 'center',
               timeout: 5000,
