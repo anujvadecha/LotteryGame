@@ -90,7 +90,7 @@ name: "Footer",
                       { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
                     ]
                   })
-               try{document.getElementById("final_barcode").value='';}catch (e){}
+               // try{document.getElementById("final_barcode").value='';}catch (e){}
               }else{
                 Notify.create({
                     type: 'negative',
@@ -103,7 +103,7 @@ name: "Footer",
                       { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
                     ]
                   })
-                  try{document.getElementById("final_barcode").value='';}catch (e){}
+                  // try{document.getElementById("final_barcode").value='';}catch (e){}
               }
 
             }
