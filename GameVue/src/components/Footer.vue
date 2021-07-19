@@ -77,6 +77,7 @@ name: "Footer",
            res=> {
               console.log(res)
               if(res.status_code == 200){
+                print_div(res["ticket"],true,store.state.user.first_name)
                 store.dispatch('update_balance_points',res.balance_points)
                 Notify.create({
                     type: 'positive',
@@ -89,7 +90,7 @@ name: "Footer",
                       { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
                     ]
                   })
-                print_div(res["ticket"],true,store.state.user.first_name)
+
               }else{
                 Notify.create({
                     type: 'negative',
