@@ -19,9 +19,7 @@ export default {
     document.getElementById("final_barcode").value = scan
     document.getElementById('claim_button').click()
   })
-// $(window).bind('scannerDetectionComplete',function(e,data){
-//         $("#final_barcode").val(data.string);
-// });
+
 this.$q.notify({
         message: " Go fullscreen",
         color: 'primary',
