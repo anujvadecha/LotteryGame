@@ -364,10 +364,9 @@ class ClaimTicketAPI(APIView):
                           ticket_obj.save()
                           response["ticket"] = TicketIDSerializer(ticket_obj).data
                           response['status_code'] = 200
-                          if request.user.user_type == "AGENT":
-                             request.user.balance_points += ticket_obj.inflow
-                             request.user.save()
-
+                          # if request.user.user_type == "AGENT":
+                          #    request.user.balance_points += ticket_obj.inflow
+                          #    request.user.save()
                        else:
                           response['status_code'] = 305
                           response['status_message'] = "No wins."

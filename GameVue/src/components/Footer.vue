@@ -5,7 +5,7 @@
       <div class="col" >
         <input @keydown.enter="claim_result()" placeholder="Please enter barcode here" dense outlined style="border: 1px solid black;height: 100%;width:100%" class="col-8" id="final_barcode">
       </div>
-        <q-btn id="claim_button" dense unelevated style="padding: 2px" class="col-4 bg-purple col" @click="claim_result()">Claim</q-btn>
+      <q-btn id="claim_button" dense unelevated style="padding: 2px" class="col-4 bg-purple col" @click="claim_result()">Claim</q-btn>
       </div>
       </div>
 <!--   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="update_results()">Update Results</q-btn>-->
