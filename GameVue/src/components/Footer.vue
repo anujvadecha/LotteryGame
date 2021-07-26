@@ -180,9 +180,9 @@ name: "Footer",
           }
         });
         this.$store.dispatch('reset_all')
-        q.fullscreen.request().then(() => { // v1.5.0+
-          console.log("Success")
-        })
+        // q.fullscreen.request().then(() => { // v1.5.0+
+        //   console.log("Success")
+        // })
         //   this.$q.notify({
         // message: " Go fullscreen",
         // color: 'primary',
@@ -207,8 +207,7 @@ name: "Footer",
     console.log(err)
   });
         store.dispatch('reset_all')
-
-        }
+      }
       else{
         Notify.create({
           type: 'negative',

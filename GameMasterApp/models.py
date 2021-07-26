@@ -195,7 +195,7 @@ class TicketID(BaseModel):
     ticket_id = models.CharField(primary_key=True, default=unique_transaction_id_generator, max_length=50)
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE,db_index=True)
     ticket_set = models.ManyToManyField(Ticket, blank=True)
-    total_price = models.IntegerField(default=0, blank=False, null=False)
+    totals_price = models.IntegerField(default=0, blank=False, null=False)
     total_quantity = models.IntegerField(default=0, blank=False, null=False)
     is_completed = models.BooleanField(default=False)
     lottery = models.ForeignKey(Lottery, on_delete=models.SET_NULL, null=True, blank=True)
