@@ -79,7 +79,7 @@
     <q-table
       title="Transaction Details"
       :data="tickets"
-      style="height:70vh"
+      style="height:60vh"
       virtual-scroll
       :pagination="pagination"
       :columns="columns"
