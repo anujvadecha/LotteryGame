@@ -316,7 +316,6 @@ export default {
       this.add_input(b, false)
       this.add_input(c, false)
       this.add_input(d, false)
-      console.log("Setting classlist")
       console.log(document.getElementById(this.set + revA))
       document.getElementById(this.set + revA).value = document.getElementById(this.set + a).value
       document.getElementById(this.set + revB).value = document.getElementById(this.set + a).value
@@ -344,7 +343,6 @@ export default {
       }
       for (const [key, value] of Object.entries(this.selectedSets)) {
         if (value === true) {
-          console.log("adding input for "+ key)
           this.$store.dispatch('add_input', {
             set: key,
             number: n,
@@ -403,9 +401,9 @@ export default {
     getStyleForInput(input) {
       // background-color:#882ce2;
         if (input && input !== 0 && input != null)
-        return "background-color:white;color:#c50a46; font-size:small;border: 0.1px solid black"
+        return "color:#c50a46; font-size:small;border: 0.1px solid black"
       else
-        return "border: 0.1px solid black;font-size:small;"
+        return "background-color:white;border: 0.1px solid black;font-size:small;"
 
         // return " background-color:white;font-size:small"
     },
