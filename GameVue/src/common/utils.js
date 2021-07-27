@@ -132,15 +132,16 @@ function print_div(res,claim=false,user=null) {
     JsBarcode('#barcode', res["ticket_id"],{ height: 50,})
   }
   var divContents = document.getElementById("printdivcontent").innerHTML;
+  PrintDiv('printdivcontent','frame1')
   // var printWindow = window.open('', '', 'height=200,width=400');
-  var printWindow = window.open('');
-  printWindow.document.write();
-  printWindow.document.write('</head><body style="font-size: medium;font-weight:bold">');
-  printWindow.document.write(divContents);
-  printWindow.document.write('</body></html>');
-  printWindow.document.close();
-  printWindow.print();
-  printWindow.close();
+  // var printWindow = window.open('');
+  // printWindow.document.write();
+  // printWindow.document.write('</head><body style="font-size: medium;font-weight:bold">');
+  // printWindow.document.write(divContents);
+  // printWindow.document.write('</body></html>');
+  // printWindow.document.close();
+  // printWindow.print();
+  // printWindow.close();
   document.getElementById("printdivcontent").innerHTML = ""
 }
 
@@ -177,11 +178,9 @@ function PrintDiv() {
     frameDoc.document.write(contents);
     frameDoc.document.write('</body></html>');
     frameDoc.document.close();
-    setTimeout(function () {
-        window.frames["frame1"].focus();
-        window.frames["frame1"].print();
-        document.body.removeChild(frame1);
-    }, 500);
+    window.frames["frame1"].focus();
+    window.frames["frame1"].print();
+    document.body.removeChild(frame1);
     return false;
 }
 
