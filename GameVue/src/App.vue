@@ -229,11 +229,16 @@ let code = "";
 
       }
     }
+
+
 }catch(err){console.log(err)}
+
+
+
   try{
     if (e.keyCode === 117) {
       console.log("here")
-      document.getElementById("buy_button").click();
+        document.getElementById("buy_button").click();
     }
     if(e.keyCode === 116) {
         document.getElementById("reset_all_btn").click();

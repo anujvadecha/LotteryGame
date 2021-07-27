@@ -2,7 +2,7 @@
 <div>
 <!--  <ResultHeader></ResultHeader>-->
     <div class="row" v-if="!$q.platform.is.mobile">
-    <div class="q-pa-sm" style="">
+    <div class="q-pa-md" style="">
     <q-input filled v-model="start_date">
     <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
@@ -17,7 +17,7 @@
       </template>
     </q-input>
     </div>
-    <div class="q-pa-sm" style="">
+    <div class="q-pa-md" style="">
     <q-input filled v-model="end_date">
     <template v-slot:prepend>
         <q-icon name="event" class="cursor-pointer">
@@ -33,8 +33,7 @@
     </q-input>
     </div>
 
-    <q-btn  unelevated style="" color="primary" class="col-2 q-ma-md" @click="fetch_winners_according_to_date()">Go</q-btn>
-    <q-btn class="col-2 q-ma-md" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
+    <q-btn  unelevated style="" color="primary" class="q-ma-md" @click="fetch_winners_according_to_date()">Go</q-btn>
 
   </div>
 
@@ -105,6 +104,10 @@
   </q-tr>
 </template>
      </q-table>
+  <q-card bordered flat class="row">
+  <q-btn class="col-2 q-ma-md" color="blue" unelevated @click="$router.push({path:'/'})">Back</q-btn>
+  </q-card>
+
 
 
 

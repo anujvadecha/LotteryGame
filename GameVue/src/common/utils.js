@@ -128,43 +128,60 @@ function print_div(res,claim=false,user=null) {
   }
   if (claim == false) {
     document.getElementById("printdivcontent").innerHTML += `<svg id="barcode" style=""></svg>`
+
     JsBarcode('#barcode', res["ticket_id"],{ height: 50,})
   }
   var divContents = document.getElementById("printdivcontent").innerHTML;
   // var printWindow = window.open('', '', 'height=200,width=400');
-  // var printWindow = window.open('');
-  PrintDiv('printdivcontent','frame');
-  // document.body.removeChild(frame1);
-  // printWindow.document.write();
-  // printWindow.document.write('</head><body style="font-size: medium;font-weight:bold">');
-  // printWindow.document.write(divContents);
-  // printWindow.document.write('</body></html>');
-  // printWindow.document.close();
-  // printWindow.print();
-  // printWindow.close();
+  var printWindow = window.open('');
+  printWindow.document.write();
+  printWindow.document.write('</head><body style="font-size: medium;font-weight:bold">');
+  printWindow.document.write(divContents);
+  printWindow.document.write('</body></html>');
+  printWindow.document.close();
+  printWindow.print();
+  printWindow.close();
   document.getElementById("printdivcontent").innerHTML = ""
 }
 
+  function ClickHereToPrint(){
+    try{
+      var oIframe = document.createElement('iframe');
+      var oContent = document.getElementById('printdivcontent');
+      console.log(oContent);
+      var oDoc = (oIframe.contentWindow || oIframe.contentDocument);
+      console.log(oDoc)
+      if (oDoc.document) oDoc = oDoc.document;
+      oDoc.write('<head><title>title</title>');
+      oDoc.write('</head><body onload="this.focus(); this.print();">');
+      oDoc.write(oContent + '</body>');
+      oDoc.close();
+    } catch(e){
+      console.log(e)
+      self.print();
+    }
+  }
 
-function PrintDiv(divid,title) {
-    var contents = document.getElementById(divid).innerHTML;
+
+function PrintDiv() {
+    var contents = document.getElementById('printdivcontent').innerHTML;
     var frame1 = document.createElement('iframe');
-    frame1.name = "TicketPrint";
+    frame1.name = "frame1";
     frame1.style.position = "absolute";
     frame1.style.top = "-1000000px";
     document.body.appendChild(frame1);
     var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1.contentDocument.document ? frame1.contentDocument.document : frame1.contentDocument;
     frameDoc.document.open();
-     frameDoc.document.write(`<html><head><title>${title}</title>`);
+    frameDoc.document.write(`<html><head><title>Star skill game</title>`);
     frameDoc.document.write('</head><body>');
     frameDoc.document.write(contents);
     frameDoc.document.write('</body></html>');
     frameDoc.document.close();
-    // setTimeout(function () {
-    window.frames["TicketPrint"].focus();
-    window.frames["TicketPrint"].print();
-    document.body.removeChild(frame1);
-    // }, 500);
+    setTimeout(function () {
+        window.frames["frame1"].focus();
+        window.frames["frame1"].print();
+        document.body.removeChild(frame1);
+    }, 500);
     return false;
 }
 
@@ -183,6 +200,7 @@ export {
   get_current_date,
   isToday,
   print_div,
+  ClickHereToPrint,
   PrintDiv,
   convert_to_twelve_hour_clock,
   convert_to_yyyy_mm_dd

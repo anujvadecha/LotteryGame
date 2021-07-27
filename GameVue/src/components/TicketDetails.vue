@@ -14,7 +14,7 @@
     <div class="col-7" style="background-color: grey">
       <q-table
         class="row"
-        style="height:70vh"
+        style="height:80vh"
         virtual-scroll
         title="Transaction Details"
         :data="this.ticket.ticket_set"
