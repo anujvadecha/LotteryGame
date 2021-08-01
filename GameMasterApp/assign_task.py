@@ -100,6 +100,10 @@ def assign_lottery_timings():
                     for key, value in winner_dict.items():
                         print("assigning winner")
                         winner_dict[key] = random.randint(0, 99)
+                if json.loads(lottery_obj.winners) != {}:
+                    lottery_obj.winners = json.dumps(winner_dict)
+                else:
+                    winner_dict = json.loads(lottery_obj.winners)
                 lottery_obj.winners = json.dumps(winner_dict)
                 lottery_obj.completed = True
                 lottery_obj.save()
