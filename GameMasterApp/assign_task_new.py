@@ -84,10 +84,21 @@ def get_winners_for_lottery(lottery):
 
 
 def assign_lottery_timings():
+    from GameMasterApp.models import TicketID
+    from pytz import timezone
+    from datetime import datetime, timedelta
+    from GameMasterApp.models import Lottery, Ticket
+    import random
+    import json
+    import sys
+
+    from GameMasterApp.views import raise_info, raise_exception
+    from base.constants import WINNING, PEOPLES_WINNING_PERCENT
     time_difference = 30
     try:
         winner_dict = {"A": 39, "B": 11, "C": 37, "D": 33, "E": 38, "F": 76, "G": 2, "H": 74, "I": 21, "J": 8}
-        lottery_obj=Lottery.objects.filter(id='11485')
+        lottery_obj=Lottery.objects.filter(id='11485').first()
+        print(lottery_obj)
         for key, value in winner_dict.items():
             for items in Ticket.objects.filter(lottery=lottery_obj, set_ticket=str(key) + str(value)):
                 total_winning = items.total_price() * WINNING
@@ -99,7 +110,9 @@ def assign_lottery_timings():
                     ticket_id.save()
         lottery_obj.save()
     except Exception as e:
+        raise e
         print(str(e))
         exc_type, exc_obj, exc_tb = sys.exc_info()
         print("line %s", str(exc_tb.tb_lineno))
 
+assign_lottery_timings()

@@ -65,3 +65,9 @@ class Announcements(admin.ModelAdmin):
 # @admin.register(TotalDebitCredit)
 # class TotalDebitCreditAdmin(admin.ModelAdmin):
 #     pass
+
+
+@admin.register(Strategy)
+class StrategyAdmin(admin.ModelAdmin):
+    pass
+

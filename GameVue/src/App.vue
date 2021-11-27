@@ -16,8 +16,9 @@ export default {
   name: 'App',
   created() {
   this.$barcodeScanner.init(scan=>{
-    document.getElementById("final_barcode").value = scan
+    document.getElementById("final_barcode").value = scan.toUpperCase();
     document.getElementById('claim_button').click()
+    
   })
 
 this.$q.notify({

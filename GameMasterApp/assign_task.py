@@ -1,4 +1,4 @@
-from GameMasterApp.models import TicketID
+from GameMasterApp.models import TicketID,Strategy
 from pytz import timezone
 from datetime import datetime, timedelta
 from GameMasterApp.models import Lottery, Ticket
@@ -91,20 +91,22 @@ def assign_lottery_timings():
                 print(" running lottery ")
                 lottery_obj.initiate_winning_sets()
                 try:
-                    winner_dict = get_winners_for_lottery(lottery=lottery_obj)
-                    for key, value in winner_dict.items():
-                        print("assigning winner")
-                        winner_dict[key] = random.randint(0, 99)
+                    if Strategy.objects.all()[0].strategy == True:
+                       raise_info("Strategy is true")
+                       winner_dict = get_winners_for_lottery(lottery=lottery_obj)
+                    else:
+                       for key, value in winner_dict.items():
+                           raise_info("Assigning winner")
+                           winner_dict[key] = random.randint(0, 99)
                 except Exception as e:
                     raise_exception(str(e))
                     for key, value in winner_dict.items():
                         print("assigning winner")
                         winner_dict[key] = random.randint(0, 99)
-                if json.loads(lottery_obj.winners) != {}:
+                if json.loads(lottery_obj.winners) == {}:
                     lottery_obj.winners = json.dumps(winner_dict)
                 else:
                     winner_dict = json.loads(lottery_obj.winners)
-                lottery_obj.winners = json.dumps(winner_dict)
                 lottery_obj.completed = True
                 lottery_obj.save()
                 for key, value in winner_dict.items():

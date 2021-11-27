@@ -111,6 +111,7 @@ def assign_lottery_timings():
                 except Exception as e:
                     raise_exception(str(e))
                     winner_dict = declare_winner_random(winner_dict)
+                print(json.loads(lottery_obj.winners))
                 if json.loads(lottery_obj.winners) != {}:
                     lottery_obj.winners = json.dumps(winner_dict)
                 else:
