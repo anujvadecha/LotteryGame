@@ -3,9 +3,9 @@
     <div v-if="!$q.platform.is.mobile" style="border: 1px solid black" class="col-3">
       <div class="row" >
       <div class="col" >
-        <input @keydown.enter="claim_result()" placeholder="Please enter barcode here" dense outlined v-model="barCodeNumber" style="border: 1px solid black;height: 100%;width:100%" class="col-8" id="final_barcode">
+        <input @keydown.enter="claim_result()" placeholder="Please enter barcode here" dense outlined style="border: 1px solid black;height: 100%;width:100%" class="col-8" id="final_barcode">
       </div>
-        <q-btn id="claim_button" dense unelevated style="padding: 2px" class="col-4 bg-purple col" @click="claim_result()">Claim</q-btn>
+      <q-btn id="claim_button" dense unelevated style="padding: 2px" class="col-4 bg-purple col" @click="claim_result()">Claim</q-btn>
       </div>
       </div>
 <!--   <q-btn dense unelevated style="border: 1px solid black" class="bg-purple col " @click="update_results()">Update Results</q-btn>-->
@@ -69,13 +69,15 @@ name: "Footer",
 
   methods:{
   claim_result: function(){
-      var ticket_id_input = this.barCodeNumber
-      var data = {'ticket_id': ticket_id_input}
-      const store=this.$store;
-      claim_ticket_api(data).then(
+    var ticket_id_input = document.getElementById('final_barcode').value
+    console.log(ticket_id_input)
+    var data = {'ticket_id': ticket_id_input}
+    const store = this.$store;
+    claim_ticket_api(data).then(
            res=> {
               console.log(res)
               if(res.status_code == 200){
+                print_div(res["ticket"],true,store.state.user.first_name)
                 store.dispatch('update_balance_points',res.balance_points)
                 Notify.create({
                     type: 'positive',
@@ -88,7 +90,7 @@ name: "Footer",
                       { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
                     ]
                   })
-                print_div(res["ticket"],true,store.state.user.first_name)
+               // try{document.getElementById("final_barcode").value='';}catch (e){}
               }else{
                 Notify.create({
                     type: 'negative',
@@ -101,6 +103,7 @@ name: "Footer",
                       { label: 'Dismiss', color: 'white', handler: () => { /* ... */ } }
                     ]
                   })
+                  // try{document.getElementById("final_barcode").value='';}catch (e){}
               }
 
             }
@@ -134,7 +137,6 @@ name: "Footer",
     place_order(order).then(res=>{
       if(res.status_code===200) {
         console.log(res["tickets"][0]["ticket_set"]);
-
         store.dispatch('update_balance_points',res.balance_points)
         var tickets_booked = res.tickets.map(ticket=>{
         Notify.create({
@@ -178,9 +180,9 @@ name: "Footer",
           }
         });
         this.$store.dispatch('reset_all')
-        q.fullscreen.request().then(() => { // v1.5.0+
-          console.log("Success")
-        })
+        // q.fullscreen.request().then(() => { // v1.5.0+
+        //   console.log("Success")
+        // })
         //   this.$q.notify({
         // message: " Go fullscreen",
         // color: 'primary',
@@ -204,6 +206,8 @@ name: "Footer",
   .catch(err => { // v1.5.0+
     console.log(err)
   });
+        store.dispatch('reset_all')
+
         }
       else{
         Notify.create({

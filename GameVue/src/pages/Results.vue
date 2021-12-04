@@ -99,7 +99,7 @@
       {{getFormattedResultDate(new Date(props.row.time))}}
     </q-td>
     <q-td style="font-size: x-large" v-for="[key,value] of Object.entries(props.row.winners)" :key="key+'_set'" :props="props">
-      {{value}}
+      {{("0"+value).slice(-2)}}
     </q-td>
   </q-tr>
 </template>

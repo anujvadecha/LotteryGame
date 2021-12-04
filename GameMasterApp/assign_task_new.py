@@ -84,43 +84,35 @@ def get_winners_for_lottery(lottery):
 
 
 def assign_lottery_timings():
+    from GameMasterApp.models import TicketID
+    from pytz import timezone
+    from datetime import datetime, timedelta
+    from GameMasterApp.models import Lottery, Ticket
+    import random
+    import json
+    import sys
+
+    from GameMasterApp.views import raise_info, raise_exception
+    from base.constants import WINNING, PEOPLES_WINNING_PERCENT
     time_difference = 30
     try:
-        IST = timezone('Asia/Kolkata')
-        current_time = IST.localize(datetime.now())
-        lottery_obj = Lottery.objects.filter(pk=7672).first()
-        if lottery_obj:
-            # validate_lottery_conditions(lottery=lottery_obj)
-            closest_time = lottery_obj.time
-            print(f"closest_time {closest_time} ")
-            difference_for_next_lottery = (closest_time - current_time).total_seconds()
-            winner_dict = {"A": "", "B": "", "C": "", "D": "", "E": "", "F": "", "G": "", "H": "", "I": "", "J": ""}
-            print(difference_for_next_lottery)
-            a = True
-            if a == True :
-                # and lottery_obj.winners == "{}":
-                print(" running lottery ")
-                lottery_obj.initiate_winning_sets()
-                #try:
-                winner_dict = get_winners_for_lottery(lottery=lottery_obj)
-                #except Exception as e:
-                #    raise_exception(str(e))
-                #    for key, value in winner_dict.items():
-                #        print("assigning winner")
-                #        winner_dict[key] = random.randint(0, 99)
-                lottery_obj.winners = json.dumps(winner_dict)
-                lottery_obj.completed = True
-                lottery_obj.save()
-                for key, value in winner_dict.items():
-                    for items in Ticket.objects.filter(lottery=lottery_obj, set_ticket=str(key) + str(value)):
-                        total_winning = items.total_price() * WINNING
-                        ticket_id = TicketID.objects.filter(ticket_set__in=[items], cancelled=False)
-                        if ticket_id:
-                            ticket_id = ticket_id.first()
-                            ticket_id.increase_inflow(total_winning)
-                            ticket_id.save()
-                lottery_obj.save()
+        winner_dict = {"A": 39, "B": 11, "C": 37, "D": 33, "E": 38, "F": 76, "G": 2, "H": 74, "I": 21, "J": 8}
+        lottery_obj=Lottery.objects.filter(id='11485').first()
+        print(lottery_obj)
+        for key, value in winner_dict.items():
+            for items in Ticket.objects.filter(lottery=lottery_obj, set_ticket=str(key) + str(value)):
+                total_winning = items.total_price() * WINNING
+                ticket_id = TicketID.objects.filter(ticket_set__in=[items], cancelled=False)
+                if ticket_id:
+                    print(ticket_id)
+                    ticket_id = ticket_id.first()
+                    ticket_id.increase_inflow(total_winning)
+                    ticket_id.save()
+        lottery_obj.save()
     except Exception as e:
+        raise e
         print(str(e))
         exc_type, exc_obj, exc_tb = sys.exc_info()
         print("line %s", str(exc_tb.tb_lineno))
+
+assign_lottery_timings()

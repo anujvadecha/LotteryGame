@@ -1,20 +1,28 @@
+import datetime
+from datetime import timedelta
+
 from django.contrib import admin
+from django.contrib.admin import DateFieldListFilter
+from rangefilter.filters import DateRangeFilter
+
 from GameMasterApp.models import *
 
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Ticket)
-class TicketAdmin(admin.ModelAdmin):
-    pass
-
+    search_fields = ('first_name',)
 
 @admin.register(TicketID)
 class TicketIDAdmin(admin.ModelAdmin):
-	list_display = ('lottery','ticket_id','outflow','inflow',)
+    list_display = ('lottery','ticket_id','outflow','inflow','get_ist','user')
+
+    search_fields = ('ticket_id','user__username')
+    list_filter = ('lottery',)
+    ordering = ['-lottery__time']
+
+    def get_ist(self, obj):
+        return obj.lottery.time
+
 
 @admin.register(Agent)
 class AgentAdmin(admin.ModelAdmin):
@@ -38,7 +46,10 @@ class AdminAdmin(admin.ModelAdmin):
 
 class LotteryAdmin(admin.ModelAdmin):
     list_display = ('time', 'winners', 'active')
+    list_filter = ('time',)
 
+    # def get_rangefilter_time_default(self, request):
+    #     return (datetime.date.today, datetime.date.today)
 
 admin.site.register(Lottery, LotteryAdmin)
 
@@ -54,3 +65,9 @@ class Announcements(admin.ModelAdmin):
 # @admin.register(TotalDebitCredit)
 # class TotalDebitCreditAdmin(admin.ModelAdmin):
 #     pass
+
+
+@admin.register(Strategy)
+class StrategyAdmin(admin.ModelAdmin):
+    pass
+

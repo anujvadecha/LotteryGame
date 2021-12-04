@@ -4,7 +4,7 @@
     Terminal Id: {{user_id}} &nbsp;&nbsp;{{first_name}}
   </div>
   <div class="col " style="padding: 5px;font-weight: bolder;">
-    Available points :<span style="font-weight: bold;color: darkred">{{$store.state.balance_points}}</span>
+    Available points :<span style="font-weight: bold;color: darkred">{{Math.round($store.state.balance_points * 100)/100}}</span>
   </div>
   <q-space></q-space>
   <div class="q-ml-md" style="">

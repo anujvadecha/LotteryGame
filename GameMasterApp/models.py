@@ -14,7 +14,7 @@ from base.utils import random_string_generator, unique_transaction_id_generator
 class User(AbstractUser):
     phone_number = models.CharField(default="", max_length=256, blank=True, null=True)
     address = models.TextField(default="", blank=True, null=True)
-    balance_points = models.IntegerField(default=1000, null=True,blank=True)
+    balance_points = models.IntegerField(default=0, null=True,blank=True)
     total_inflow = models.IntegerField(default=0)
     total_outflow = models.IntegerField(default=0)
     user_type = models.CharField(choices=USER_TYPE_CHOICES,default = "PLAYER",max_length=255)
@@ -50,11 +50,15 @@ class Agent(BaseModel):
                                          related_name="agent_created_by")
     region = models.ForeignKey(Region, null=True, blank=True, on_delete=models.SET_NULL)
 
+    def __str__(self):
+        return self.company_name
 
 class RegionalManager(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     agents = models.ManyToManyField(Agent, blank=True)
-
+    commission = models.FloatField(default=2.0)
+    def __str__(self):
+        return self.user.first_name
 
 class Lottery(BaseModel):
     time = models.DateTimeField(null=True, blank=True)
@@ -253,3 +257,8 @@ class Admin(BaseModel):
     players = models.ManyToManyField(Players, blank=True)
 
 
+class Strategy(BaseModel):
+   strategy = models.BooleanField(default=True)
+
+   def __str__(self):
+       return "Strategy"

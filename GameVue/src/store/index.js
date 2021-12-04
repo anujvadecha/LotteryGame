@@ -2391,8 +2391,10 @@ export default function (/* { ssrContext } */) {
             try { document.getElementById('colJ' + i).value = null  } catch(err) {}
 
         }
-
-      },
+        this.dispatch('set_selected_lotteries',[state.nextLottery])
+        try{document.getElementById('all_set_checkbox').checked = false;}catch (e){}
+        try{document.getElementById('final_barcode').value=''}catch (e){}
+        },
       set_results(state, results) {
         state.results = results;
 
