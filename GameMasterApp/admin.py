@@ -16,7 +16,7 @@ class UserAdmin(admin.ModelAdmin):
 class TicketIDAdmin(admin.ModelAdmin):
     list_display = ('lottery','ticket_id','outflow','inflow','get_ist','user')
 
-    search_fields = ('ticket_id',)
+    search_fields = ('ticket_id','user__username')
     list_filter = ('lottery',)
     ordering = ['-lottery__time']
 
