@@ -23,14 +23,12 @@
                   <q-icon name="email"/>
                 </template>
               </q-input>
-              <q-input square clearable v-model="email" type="email" label="Email"
-               lazy-rules
-               :rules="[val => !!val || 'Email is missing!', isValidEmail]"
-              >
-                <template v-slot:prepend>
-                  <q-icon name="email" />
-                </template>
-              </q-input>
+<!--              <q-input square clearable v-model="email" type="email" label="Email"-->
+<!--              >-->
+<!--                <template v-slot:prepend>-->
+<!--                  <q-icon name="email" />-->
+<!--                </template>-->
+<!--              </q-input>-->
               <q-input square clearable v-model="password1" type="password" label="Password"
                lazy-rules
                :rules="[val => val.length >= 8 || 'Please enter a minimum of 8 characters']"
@@ -82,7 +80,7 @@ export default {
       }
       const axios = require('axios')
       const router = this.$router
-      const data = { username: this.username, email: this.email, password1: this.password1, password2: this.password2, imageSrc: 'logo.png' }
+      const data = { username: this.username, email: "email@email.com", password1: this.password1, password2: this.password2, imageSrc: 'logo.png' }
       const quasar_q = this.$q
       const config = {
         method: 'post',
@@ -106,7 +104,7 @@ export default {
            }
           console.log(err)
           Notify.create({
-            message: '<h6>'+message+'</h6>',
+            message: '<h6>'+err.response.data+'</h6>',
             position: 'center',
             html:true,
             timeout: 1000
