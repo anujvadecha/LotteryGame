@@ -98,9 +98,8 @@ export default {
         })
         .catch(function (err) {
           var message='';
-          console.log(err.response)
           for (const [key, value] of Object.entries(err.response.data)) {
-             message+=key +' : ' + value.join();
+             message+=key + ' : ' + value.join();
            }
           console.log(err)
           Notify.create({
