@@ -104,7 +104,7 @@ export default {
            }
           console.log(err)
           Notify.create({
-            message: '<h6>'+err.response.data+'</h6>',
+            message: '<h6>'+message+'</h6>',
             position: 'center',
             html:true,
             timeout: 1000
