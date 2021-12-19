@@ -80,7 +80,7 @@ export default {
       }
       const axios = require('axios')
       const router = this.$router
-      const data = { username: this.username, email: "email@email.com", password1: this.password1, password2: this.password2, imageSrc: 'logo.png' }
+      const data = { username: this.username, email: this.username+"email@email.com", password1: this.password1, password2: this.password2, imageSrc: 'logo.png' }
       const quasar_q = this.$q
       const config = {
         method: 'post',
