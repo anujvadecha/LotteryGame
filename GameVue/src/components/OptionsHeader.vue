@@ -56,7 +56,7 @@ computed:{
 data(){
   return {
     points_available:12,
-    show_points:true
+    show_points:false
   }
 },
   methods:{
