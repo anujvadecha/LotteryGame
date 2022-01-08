@@ -4,7 +4,9 @@
     Terminal Id: {{user_id}} &nbsp;&nbsp;{{first_name}}
   </div>
   <div class="col " style="padding: 5px;font-weight: bolder;">
-    Available points :<span style="font-weight: bold;color: darkred">{{Math.round($store.state.balance_points * 100)/100}}</span>
+    Available points :<span style="font-weight: bold;color: darkred">{{ show_points ? Math.round($store.state.balance_points * 100)/100 : "****"}}</span>
+      <q-btn dense class="q-ml-sm" size="small"   style="color: #033aca;background-color: greenyellow" @click="invert_show_points()"> {{show_points ? "Hide" : "Show"}} </q-btn>
+
   </div>
   <q-space></q-space>
   <div class="q-ml-md" style="">
@@ -53,7 +55,8 @@ computed:{
 },
 data(){
   return {
-    points_available:12
+    points_available:12,
+    show_points:true
   }
 },
   methods:{
@@ -65,8 +68,11 @@ data(){
         position: 'center'
       })
       return this.$router.push({path:'/Login'})
-    }
-  }
+    },
+  invert_show_points(){
+  this.show_points = !this.show_points
+  },
+  },
 }
 </script>
 
