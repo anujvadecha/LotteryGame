@@ -71,3 +71,7 @@ class Announcements(admin.ModelAdmin):
 class StrategyAdmin(admin.ModelAdmin):
     pass
 
+@admin.register(SuperVisorAgent)
+class SuperVisorAgent(admin.ModelAdmin):
+    readonly_fields=('supervisor_agent','total_inflow','total_outflow',)
+    list_display = ('agent_name','balance_points','supervisor_agent','total_inflow','total_outflow',)

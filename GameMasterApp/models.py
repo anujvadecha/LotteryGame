@@ -8,7 +8,14 @@ from django.db.models import Sum
 from base.constants import USER_TYPE_CHOICES
 from base.models import *
 from base.utils import random_string_generator, unique_transaction_id_generator
+import logging
+from django_currentuser.middleware import (get_current_user, get_current_authenticated_user)
+from django_currentuser.db.models import CurrentUserField
+from django.http import HttpResponse
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
+logger = logging.getLogger(__name__)
 
 
 class User(AbstractUser):
@@ -18,6 +25,7 @@ class User(AbstractUser):
     total_inflow = models.IntegerField(default=0)
     total_outflow = models.IntegerField(default=0)
     user_type = models.CharField(choices=USER_TYPE_CHOICES,default = "PLAYER",max_length=255)
+    supervisor = models.BooleanField(default=False)
 
     def name(self):
         return self.first_name + ' ' + self.last_name
@@ -27,8 +35,11 @@ class User(AbstractUser):
             if(self.user_type == "AGENT" and Agent.objects.filter(user=self).count()==0):
                 Agent(user=self, commission_percent=6, company_name=self.first_name,
                       agent_created_by=self).save()
+
+
         except Exception as e:
-            print(e)
+            logger.error(e)
+            raise e
         super(User, self).save(*args, **kwargs)
 
 
@@ -43,7 +54,7 @@ class Region(BaseModel):
 
 class Agent(BaseModel):
     user = models.ForeignKey(User, blank=False, null=False, on_delete=models.CASCADE, related_name="agent_user")
-    company_name = models.CharField(max_length=255, default="")
+    company_name = models.CharField(max_length=255, default="", blank=True, null=True)
     # Enabled flag no need since this will be controled by
     commission_percent = models.FloatField(default=0)
     agent_created_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True,
@@ -262,3 +273,53 @@ class Strategy(BaseModel):
 
    def __str__(self):
        return "Strategy"
+
+
+class SuperVisorAgent(BaseModel):
+   agent_name = models.TextField(default="",blank=True,null=True,unique=True)
+   balance_points = models.IntegerField(default=0,blank=True,null=True)
+   supervisor_agent = models.ForeignKey(User,null=True,blank=True,on_delete=models.SET_NULL,editable=False)
+   total_inflow = models.IntegerField(default=0,blank=True,null=True,editable=False)
+   total_outflow = models.IntegerField(default=0,blank=True,null=True,editable=False)
+   def __str__(self):
+       return self.agent_name
+
+   def __init__(self, *args, **kwargs):
+        try:
+           super(SuperVisorAgent, self).__init__(*args, **kwargs)
+           self.balance_points = User.objects.get(username = self.agent_name.strip()).balance_points
+           self.total_inflow = User.objects.get(username = self.agent_name.strip()).total_inflow
+           self.total_outflow = User.objects.get(username = self.agent_name.strip()).total_outflow
+        except Exception as e:
+           self.balance_points = 0
+           self.total_inflow = 0
+           self.total_outflow = 0
+
+   def clean(self):
+       current_user = get_current_user()
+       if current_user.balance_points <= self.balance_points:
+          raise ValidationError(_('You do not have sufficient funds'))
+   
+
+   def save(self, *args, **kwargs):
+       try:
+           current_user = get_current_user()
+           agent_name = self.agent_name.strip()
+
+           if current_user.balance_points >= self.balance_points:
+              try:
+                 user_agent = User.objects.get(username = self.agent_name.strip())
+                 user_agent.balance_points = self.balance_points
+                 user_agent.save()
+                 current_user.balance_points = current_user.balance_points - self.balance_points
+                 current_user.save()
+              except Exception as e:
+                 logger.error(e)
+                 pass
+           else:
+              logger.error("Insufficient funds")
+
+           self.supervisor_agent=current_user
+       except Exception as e:
+           raise e
+       super(SuperVisorAgent, self).save(*args, **kwargs)

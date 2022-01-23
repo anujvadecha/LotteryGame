@@ -74,15 +74,17 @@ def get_winners_for_lottery(lottery):
 
 
 def assign_lottery_timings():
-    time_difference = 30
+    time_difference = 8000
     try:
         IST = timezone('Asia/Kolkata')
-        current_time = IST.localize(datetime.now())
-        lottery_obj = Lottery.objects.filter(time__gte=current_time, completed=False).order_by('time').first()
-        if lottery_obj:
+        current_time = IST.localize(datetime.now()) - timedelta(hours=2)
+        last_time = IST.localize(datetime.now()) + timedelta(minutes=2)
+        lotteries = Lottery.objects.filter(time__gte=current_time, completed=False, time__lte=last_time).order_by('time')
+        for lottery_obj in lotteries:
+         if lottery_obj and not lottery_obj.completed:
             # validate_lottery_conditions(lottery=lottery_obj)
             closest_time = lottery_obj.time
-            print(f"closest_time {closest_time} ")
+            print(f"closest_time {closest_time} lottery id {lottery_obj.pk}")
             difference_for_next_lottery = (closest_time - current_time).total_seconds()
             winner_dict = {"A": "", "B": "", "C": "", "D": "", "E": "", "F": "", "G": "", "H": "", "I": "", "J": ""}
             print(difference_for_next_lottery)
