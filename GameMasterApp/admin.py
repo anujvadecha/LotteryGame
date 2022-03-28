@@ -26,6 +26,7 @@ class TicketIDAdmin(admin.ModelAdmin):
 
 @admin.register(Agent)
 class AgentAdmin(admin.ModelAdmin):
+    list_display = ('user__first_name', 'commission_percent')
     pass
 
 
