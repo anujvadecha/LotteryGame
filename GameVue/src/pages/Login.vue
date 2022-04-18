@@ -34,6 +34,10 @@
             <p class="text-grey-6"> Forgot your password? </p>
             <p>Not a registered user ? Register <router-link to="/register">here</router-link></p>
           </q-card-section>
+
+          <q-card-section class="text-center q-pa-sm">
+            <p>For help please contact +37259347003</p>
+          </q-card-section>
     </div>
 </div>
 </div>
