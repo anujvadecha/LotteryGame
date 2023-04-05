@@ -20,7 +20,7 @@ import ResultHeader from "components/ResultHeader";
 import {compareDate, getFormattedDateHHMM, isToday} from "src/common/utils";
 import TimeHeader from "components/TimeHeader";
 export default {
-name: "MoreDraws",
+  name: "MoreDraws",
   components: {TimeHeader},
   methods:{
     add_selected:function (){

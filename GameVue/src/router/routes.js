@@ -4,9 +4,6 @@ import Register from "pages/Register";
 
 
 const routes = [
-
-
-
   {
     path: '/',
     name: 'Home',
